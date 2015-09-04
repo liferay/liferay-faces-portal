@@ -3,18 +3,17 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces.test</groupId>
-		<artifactId>liferay-faces-test-integration-demos</artifactId>
-		<version>4.2.6-ga7-SNAPSHOT</version>
+		<groupId>com.liferay.faces.portal.test</groupId>
+		<artifactId>liferay-faces-portal-test-integration-demos</artifactId>
+		<version>70.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>liferay-faces-test-integration-demos-portal</artifactId>
+	<artifactId>liferay-faces-portal-test-integration-demos-portal</artifactId>
 	<name>Liferay Faces Test Demos Portal</name>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>primefaces4-users-portlet</module>
 		<module>primefaces5-users-portlet</module>
 	</modules>
 

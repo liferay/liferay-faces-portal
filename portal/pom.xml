@@ -3,9 +3,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces</groupId>
-		<artifactId>liferay-faces</artifactId>
-		<version>4.2.6-ga7-SNAPSHOT</version>
+		<groupId>com.liferay.faces.portal</groupId>
+		<artifactId>liferay-faces-portal-parent</artifactId>
+		<version>70.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>liferay-faces-portal</artifactId>
@@ -25,6 +25,30 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<outputDirectory>src/main/java/com/liferay/faces/portal/render/internal</outputDirectory>
+							<resources>
+								<resource>
+									<directory>../bridge-impl/src/main/java/com/liferay/faces/bridge/context/internal</directory>
+									<includes>
+										<include>ScriptTagUtil.java</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>com.google.code.maven-replacer-plugin</groupId>
 				<artifactId>replacer</artifactId>
 				<version>1.5.1</version>
@@ -37,49 +61,16 @@
 					</execution>
 				</executions>
 				<configuration>
-					<file>../bridge-impl/src/main/java/com/liferay/faces/bridge/context/internal/ScriptTagUtil.java</file>
-					<outputFile>src/main/java/com/liferay/faces/portal/render/internal/ScriptTagUtil.java</outputFile>
-					<regex>false</regex>
-					<token>com.liferay.faces.bridge.context.internal</token>
-					<value>com.liferay.faces.portal.render.internal</value>
+					<file>src/main/java/com/liferay/faces/portal/render/internal/ScriptTagUtil.java</file>
+					<replacements>
+						<replacement>
+							<token>com[.]liferay[.]faces[.]bridge[.]context[.]internal</token>
+							<value>com.liferay.faces.portal.render.internal</value>
+						</replacement>
+					</replacements>
 				</configuration>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											com.google.code.maven-replacer-plugin
-										</groupId>
-										<artifactId>
-											replacer
-										</artifactId>
-										<versionRange>
-											[1.5.1,)
-										</versionRange>
-										<goals>
-											<goal>replace</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 	<dependencies>
@@ -106,12 +97,6 @@
 			<artifactId>javax.servlet.jsp-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces</groupId>
-			<artifactId>liferay-faces-bridge-impl</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>portal-service</artifactId>
 		</dependency>
@@ -120,9 +105,8 @@
 			<artifactId>util-taglib</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
+			<groupId>com.liferay.faces.util</groupId>
 			<artifactId>liferay-faces-util</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 

@@ -3,14 +3,14 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces.issues</groupId>
-		<artifactId>liferay-faces-issues</artifactId>
-		<version>4.2.6-ga7-SNAPSHOT</version>
+		<groupId>com.liferay.faces.portal.issues</groupId>
+		<artifactId>liferay-faces-portal-issues</artifactId>
+		<version>70.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>liferay-faces-portal-issues</artifactId>
+	<artifactId>liferay-faces-portal-portlet-issues</artifactId>
 	<packaging>pom</packaging>
-	<name>Liferay Faces Portal Issues</name>
+	<name>Liferay Faces Portal Portlet Issues</name>
 
 	<modules>
 		<module>FACES-257-portlet</module>
