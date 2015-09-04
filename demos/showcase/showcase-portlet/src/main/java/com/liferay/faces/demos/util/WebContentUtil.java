@@ -24,9 +24,11 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.service.ServiceContext;
 
+/* TODO
 import com.liferay.portlet.journal.NoSuchArticleException;
 import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
+*/
 
 
 /**
@@ -37,9 +39,13 @@ public class WebContentUtil {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(WebContentUtil.class);
 
-	public static JournalArticle getArticle(long companyId, long userId, long groupId, long folderId, Locale locale,
+// TODO	public static JournalArticle getArticle(long companyId, long userId, long groupId, long folderId, Locale locale,
+
+	public static Object getArticle(long companyId, long userId, long groupId, long folderId, Locale locale,
 		String title, String content) {
 
+		Object journalArticle = null;
+		/* TODO
 		JournalArticle journalArticle = null;
 
 		try {
@@ -75,6 +81,7 @@ public class WebContentUtil {
 		catch (Exception e) {
 			logger.error(e);
 		}
+		*/
 
 		return journalArticle;
 	}

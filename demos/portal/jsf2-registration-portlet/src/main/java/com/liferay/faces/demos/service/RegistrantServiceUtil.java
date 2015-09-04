@@ -190,8 +190,8 @@ public class RegistrantServiceUtil {
 		return administratorPermissionChecker;
 	}
 
-	private static int getMobilePhoneTypeId() throws SystemException {
-		int phoneTypeId = 0;
+	private static long getMobilePhoneTypeId() throws SystemException {
+		long phoneTypeId = 0;
 		List<ListType> phoneTypes = ListTypeServiceUtil.getListTypes(PHONE_CLASS_NAME);
 
 		for (ListType phoneType : phoneTypes) {
