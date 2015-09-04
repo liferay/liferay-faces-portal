@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
+	xmlns:portal="http://liferay.com/faces/portal" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:showcase="http://xmlns.jcp.org/jsf/composite/showcase">
+
+	<alloy:form>
+		<showcase:example description="#{i18n['portal-captcha-general-example-1']} #{captchaBacking.captchaImpl}">
+			<alloy:messages layout="table" />
+			<alloy:field label="#{i18n['text-verification-code']}">
+				<portal:captcha required="true" value="#{captchaBacking.captchaText}" />
+			</alloy:field>
+			<alloy:commandButton action="#{captchaBacking.submit}" ajax="true" render="@form"
+				value="#{i18n['submit']}" />
+		</showcase:example>
+	</alloy:form>
+	<showcase:outputModel id="outputModel">
+		<alloy:outputText id="modelValue" value="#{captchaBacking.captchaText}" />
+	</showcase:outputModel>
+
+</ui:composition>
