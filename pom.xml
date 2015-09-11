@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.liferay.faces.portal</groupId>
 	<artifactId>liferay-faces-portal-parent</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Portal Parent</name>
 	<description>Parent POM for all Liferay Faces Potal modules</description>
@@ -103,17 +103,17 @@
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.portal}-jsf-${faces.spec.version}</liferay.home>
-		<liferay.faces.alloy.version>3.0.0-SNAPSHOT</liferay.faces.alloy.version>
-		<liferay.faces.bridge.ext.version>2.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
+		<liferay.faces.alloy.version>2.0.0-SNAPSHOT</liferay.faces.alloy.version>
+		<liferay.faces.bridge.ext.version>1.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
 		<liferay.portal>liferay-portal-${liferay.deploy.version}</liferay.portal>
 		<liferay.resin.version>4.0.33</liferay.resin.version>
-		<liferay.tomcat.version>7.0.62</liferay.tomcat.version>
+		<liferay.tomcat.version>7.0.42</liferay.tomcat.version>
 		<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
-		<liferay.version>7.0.0-m7</liferay.version>
+		<liferay.version>6.2.3</liferay.version>
 		<liferay.portal>liferay-portal-${liferay.deploy.version}</liferay.portal>
 		<mojarra.version>2.2.12</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>

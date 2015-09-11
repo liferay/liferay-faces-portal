@@ -29,7 +29,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
 
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
-// TODO import com.liferay.portlet.journal.model.JournalArticle;
+import com.liferay.portlet.journal.model.JournalArticle;
 
 
 /**
@@ -61,7 +61,6 @@ public class RuntimeBacking {
 			long folderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
 			Locale locale = themeDisplay.getLocale();
 
-			/* TODO
 			JournalArticle article1 = WebContentUtil.getArticle(companyId, userId, groupId, folderId, locale,
 					"Liferay Portal",
 					"Liferay Portal is an enterprise web platform for building business solutions that deliver " +
@@ -73,7 +72,6 @@ public class RuntimeBacking {
 					"Liferay Faces is an umbrella project that provides support for the JavaServer™ Faces (JSF) " +
 					"standard within Liferay Portal.");
 			this.preferencesArticle2 = getPreferences(article2.getGroupId(), article2.getArticleId());
-			*/
 		}
 		catch (Exception e) {
 			logger.error(e);
