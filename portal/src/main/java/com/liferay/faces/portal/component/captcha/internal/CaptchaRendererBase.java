@@ -14,7 +14,6 @@
 package com.liferay.faces.portal.component.captcha.internal;
 //J-
 
-
 import javax.annotation.Generated;
 
 import javax.faces.render.Renderer;
@@ -27,6 +26,7 @@ import javax.faces.render.Renderer;
 public abstract class CaptchaRendererBase extends Renderer {
 
 	// Protected Constants
+	protected static final String LABEL = "label";
 	protected static final String STYLE = "style";
 	protected static final String STYLE_CLASS = "styleClass";
 	protected static final String URL = "url";

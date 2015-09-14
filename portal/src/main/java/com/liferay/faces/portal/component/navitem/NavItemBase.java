@@ -19,6 +19,7 @@ import javax.faces.component.UIColumn;
 
 import com.liferay.faces.util.component.Styleable;
 
+
 /**
  * @author	Neil Griffin
  */
@@ -144,8 +145,9 @@ public abstract class NavItemBase extends UIColumn implements Styleable {
 
 	@Override
 	public String getStyleClass() {
-		// getStateHelper().eval(NavItemPropertyKeys.styleClass, null) is called because super.getStyleClass() may return the
-		// STYLE_CLASS_NAME of the super class.
+
+		// getStateHelper().eval(NavItemPropertyKeys.styleClass, null) is called because
+		// super.getStyleClass() may return the styleClass name of the super class.
 		String styleClass = (String) getStateHelper().eval(NavItemPropertyKeys.styleClass, null);
 
 		return com.liferay.faces.util.component.ComponentUtil.concatCssClasses(styleClass, "portal-nav-item");

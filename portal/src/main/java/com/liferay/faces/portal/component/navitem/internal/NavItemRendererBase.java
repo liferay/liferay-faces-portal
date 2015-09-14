@@ -14,7 +14,6 @@
 package com.liferay.faces.portal.component.navitem.internal;
 //J-
 
-
 import javax.annotation.Generated;
 
 import com.liferay.faces.portal.render.internal.PortalTagRenderer;
