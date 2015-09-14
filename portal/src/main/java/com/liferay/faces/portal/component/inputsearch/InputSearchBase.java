@@ -19,6 +19,7 @@ import javax.faces.component.UIInput;
 
 import com.liferay.faces.util.component.Styleable;
 
+
 /**
  * @author	Neil Griffin
  */
@@ -107,8 +108,9 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 
 	@Override
 	public String getStyleClass() {
-		// getStateHelper().eval(InputSearchPropertyKeys.styleClass, null) is called because super.getStyleClass() may return the
-		// STYLE_CLASS_NAME of the super class.
+
+		// getStateHelper().eval(InputSearchPropertyKeys.styleClass, null) is called because
+		// super.getStyleClass() may return the styleClass name of the super class.
 		String styleClass = (String) getStateHelper().eval(InputSearchPropertyKeys.styleClass, null);
 
 		return com.liferay.faces.util.component.ComponentUtil.concatCssClasses(styleClass, "portal-input-search");

@@ -19,6 +19,7 @@ import javax.faces.component.UIInput;
 
 import com.liferay.faces.util.component.Styleable;
 
+
 /**
  * @author	Neil Griffin
  */
@@ -175,8 +176,9 @@ public abstract class InputRichTextBase extends UIInput implements Styleable {
 
 	@Override
 	public String getStyleClass() {
-		// getStateHelper().eval(InputRichTextPropertyKeys.styleClass, null) is called because super.getStyleClass() may return the
-		// STYLE_CLASS_NAME of the super class.
+
+		// getStateHelper().eval(InputRichTextPropertyKeys.styleClass, null) is called because
+		// super.getStyleClass() may return the styleClass name of the super class.
 		String styleClass = (String) getStateHelper().eval(InputRichTextPropertyKeys.styleClass, null);
 
 		return com.liferay.faces.util.component.ComponentUtil.concatCssClasses(styleClass, "portal-input-rich-text");

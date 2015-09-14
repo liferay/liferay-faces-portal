@@ -61,7 +61,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -91,10 +91,10 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[Specifies a custom captcha image URL. If the value is empty (default), then the image will be obtained from Liferay Portal's built-in captcha feature.]]></description>
+			<description><![CDATA[Specifies a custom captcha image URL. If the value is empty (the default), then the image will be obtained from Liferay Portal's built-in captcha feature.]]></description>
 			<name>url</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[A method that is executed in the PROCESS_VALIDATIONS phase of the lifecycle. The method must be <code>public</code>, return <code>void</code>, and take three arguments of <code>FacesContext</code>, <code>UIComponent</code>, and <code>Object</code>.]]></description>
@@ -122,7 +122,8 @@ java.lang.Object)</method-signature>
 			<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/captcha/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -136,22 +137,22 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[This value will be used to populate the title attribute of the back icon.]]></description>
 			<name>backLabel</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The URL of the anchor tag rendered for the back icon.  The back icon is not rendered unless this is specified.]]></description>
 			<name>backURL</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When false, markup will not be escaped. This is true by default.]]></description>
+			<description><![CDATA[When false, markup will not be escaped. The default value is <code>true</code>.]]></description>
 			<name>escapeXml</name>
 			<required>false</required>
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When false, the back icon is not rendered. The default is true.]]></description>
+			<description><![CDATA[When false, the back icon is not rendered. The default value is <code>true</code>.]]></description>
 			<name>showBackURL</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -172,10 +173,11 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[This value will be used as the header text for the component.]]></description>
 			<name>title</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/header/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -201,7 +203,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The locale (language id) of the rich text content.]]></description>
 			<name>contentsLanguageId</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The class name of the converter instance that is to be used by this component.]]></description>
@@ -219,7 +221,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[Liferay Portal property key name (typically found in portal.properties or portal-ext.properties). Valid property key values are "ckeditor", "ckeditor_bbcode", and "ckeditor_creole". The default key name is "editor.wysiwyg.default" which has a value of "ckeditor".]]></description>
 			<name>editorKey</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[Optional map of file browser parameters. For example usage, see the Wiki portlet <a href="https://github.com/liferay/liferay-portal/blob/6.2.1-ga2/portal-web/docroot/html/portlet/wiki/edit/editor_config.jspf#L33" target="_blank">editor_config.jsp</a> source code.]]></description>
@@ -246,13 +248,13 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The maximum number of plain text characters, meaning characters that do not include HTML tags such as <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, and <code>&lt;a href="..."&gt;</code>.]]></description>
+			<description><![CDATA[The maximum number of plain text characters, meaning characters that do not include HTML tags such as <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, and <code>&lt;a href="..."&gt;</code>. The default value is <code>Integer.MAX_VALUE</code>.]]></description>
 			<name>maxPlainTextChars</name>
 			<required>false</required>
 			<type>int</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The minimum number of plain text characters, meaning characters that do not include HTML tags such as <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, and <code>&lt;a href="..."&gt;</code>.]]></description>
+			<description><![CDATA[The minimum number of plain text characters, meaning characters that do not include HTML tags such as <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, and <code>&lt;a href="..."&gt;</code>. The default value is <code>0</code>.]]></description>
 			<name>minPlainTextChars</name>
 			<required>false</required>
 			<type>int</type>
@@ -261,22 +263,22 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[Javascript to execute after this component loses focus.]]></description>
 			<name>onblur</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[Javascript to execute after this component's value has changed, and then it loses focus.]]></description>
 			<name>onchange</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[Javascript to execute when this component gets focus.]]></description>
 			<name>onfocus</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -294,13 +296,13 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When true, the will be resizable by the end-user when dragging on the bottom-right resize handle. The default value is true.]]></description>
+			<description><![CDATA[When true, the will be resizable by the end-user when dragging on the bottom-right resize handle. The default value is <code>true</code>.]]></description>
 			<name>resizable</name>
 			<required>false</required>
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When true, the resources necessary for loading the CKEditor will not be added to the <code>&lt;head&gt;...&lt;/head&gt;</code> section of the portal page. The default value is false.]]></description>
+			<description><![CDATA[When true, the resources necessary for loading the CKEditor will not be added to the <code>&lt;head&gt;...&lt;/head&gt;</code> section of the portal page. The default value is <code>false</code>.]]></description>
 			<name>skipEditorLoading</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -321,7 +323,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The name of the set of toolbars that are to be displayed above the rich text input area. Valid values are "bbcode", "creole", "editInPlace", "email", "liferay", "liferayArticle", "phone", "simple", and "tablet". The default value depends on the value of the editorKey attribute. If editorKey's property evaluates to "ckeditor" then the default value is "liferay". If editorKey's property evaluates to "ckeditor_bbcode" then the default value is "bbcode". If editorKey's property evaluates to "ckeditor_creole" then the default value is "creole".]]></description>
 			<name>toolbarSet</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[A method that is executed in the PROCESS_VALIDATIONS phase of the lifecycle. The method must be <code>public</code>, return <code>void</code>, and take three arguments of <code>FacesContext</code>, <code>UIComponent</code>, and <code>Object</code>.]]></description>
@@ -349,7 +351,8 @@ java.lang.Object)</method-signature>
 			<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/inputrichtext/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -403,7 +406,7 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -433,7 +436,8 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/inputsearch/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -447,13 +451,13 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The WAI-ARIA label which can help users with disabilities when a text label is not visible.]]></description>
 			<name>ariaLabel</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The WAI-ARIA role which can help users with disabilities understand the purpose of an element, such as whether it is a menu, progress indicator, or some other type of component.]]></description>
 			<name>ariaRole</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
@@ -468,13 +472,13 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu.]]></description>
+			<description><![CDATA[When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu. The default value is <code>true</code>.]]></description>
 			<name>responsive</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -504,7 +508,8 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/nav/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -527,7 +532,7 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -545,7 +550,8 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/navbar/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -568,7 +574,7 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -586,7 +592,8 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/navbarsearch/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -600,7 +607,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[If the href attribute has a value, then this is the value of the "class" attribute for the anchor tag rendered inside the list item element.]]></description>
 			<name>anchorCssClass</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[If the href attribute has a value, then this is the child text of the anchor tag rendered inside the list item element.]]></description>
@@ -612,19 +619,19 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[If the href attribute has a value, then this is the value of the "id" attribute for the anchor tag rendered inside the list item element.]]></description>
 			<name>anchorId</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The WAI-ARIA label which can help users with disabilities when a text label is not visible.]]></description>
 			<name>ariaLabel</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The WAI-ARIA role which can help users with disabilities understand the purpose of an element, such as whether it is a menu, progress indicator, or some other type of component.]]></description>
 			<name>ariaRole</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
@@ -642,13 +649,13 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The URL of the anchor tag rendered inside the list item element. If not specified, then an anchor tag is not rendered.]]></description>
 			<name>href</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The name of the CSS class of the icon that is to be rendered inside the list item element.]]></description>
 			<name>iconCssClass</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[A unique identifier for this component.]]></description>
@@ -660,16 +667,16 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The label of the anchor tag rendered inside the list item element.]]></description>
 			<name>label</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When true, the list item will be rendered with <code>class="active"</code>.]]></description>
+			<description><![CDATA[When true, the list item will be rendered with <code>class="active"</code>. The default value is <code>false</code>.]]></description>
 			<name>selected</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -690,16 +697,17 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The title of the anchor tag rendered inside the list item element.]]></description>
 			<name>title</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When true, clicking on the href hyperlink will cause the resulting URL to popup in a modal dialog that contains an <code>iframe</code>.]]></description>
+			<description><![CDATA[When true, clicking on the href hyperlink will cause the resulting URL to popup in a modal dialog that contains an <code>iframe</code>. The default value is <code>false</code>.]]></description>
 			<name>useDialog</name>
 			<required>false</required>
 			<type>boolean</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/navitem/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -710,34 +718,34 @@ java.lang.Object)</method-signature>
 			<renderer-type>com.liferay.faces.portal.component.permissionsurl.PermissionsURLRenderer</renderer-type>
 		</component>
 		<attribute>
-			<description><![CDATA[The Fully-Qualified Class Name (FQCN) of the ServiceBuilder model.]]></description>
+			<description><![CDATA[The Fully-Qualified Class Name (FQCN) of the ServiceBuilder model. The default value is <code>""</code>.]]></description>
 			<name>modelResource</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The description of the model resource that is to be displayed in the Liferay Portal Permissions UI.]]></description>
+			<description><![CDATA[The description of the model resource that is to be displayed in the Liferay Portal Permissions UI. The default value is <code>""</code>.]]></description>
 			<name>modelResourceDescription</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The URL that should be redirected-to when the user clicks on the "Return to Full Page" link in the Liferay Portal Permissions UI.]]></description>
 			<name>redirect</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The scope group id for the resource. The default value is LiferayFacesContext.getInstance().getScopeGroupId()]]></description>
+			<description><![CDATA[The scope group id for the resource. The default value is <code>LiferayFacesContext.getInstance().getScopeGroupId()</code>]]></description>
 			<name>resourceGroupId</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The primary key used to identify the resource.]]></description>
 			<name>resourcePrimKey</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[An array of type int that corresponds to the roles that are to be displayed in the Liferay Portal Permissions UI. For more info, see <a href="http://docs.liferay.com/portal/6.2/javadocs/com/liferay/portal/model/RoleConstants.html" target="_blank">com.liferay.portal.model.RoleConstants</a>.]]></description>
@@ -749,16 +757,17 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The name of the variable that is to be introduced into the EL that contains the value of the generated permissions URL. If not specified, then the generated permissions URL is written directly to the response.]]></description>
 			<name>var</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The portlet window state for which the Liferay Portal Permissions UI should be displayed. Valid values include: "maximized", "pop_up", and "exclusive". The default value is "maximized".]]></description>
+			<description><![CDATA[The portlet window state for which the Liferay Portal Permissions UI should be displayed. Valid values include: "maximized" (the default), "pop_up", and "exclusive".]]></description>
 			<name>windowState</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/permissionsurl/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -778,7 +787,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[XML markup in the form <preferences><preference><name></name><value></value></preference></preferences>. This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.]]></description>
 			<name>defaultPreferences</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[A unique identifier for this component.]]></description>
@@ -790,16 +799,16 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The name of the portlet. For out-of-the-box portlets, refer to the portlet-name element of the <a href="https://github.com/liferay/liferay-portal/blob/6.2.2-ga3/portal-web/docroot/WEB-INF/liferay-portlet.xml">liferay-portlet.xml</a> descriptor.]]></description>
 			<name>portletName</name>
 			<required>true</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[Optional query string parameters that will be added to the request dispatcher that invokes the portlet's RENDER_PHASE.]]></description>
 			<name>queryString</name>
 			<required>false</required>
-			<type>String</type>
+			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -817,7 +826,8 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/runtime/general</vdldoc:example-url>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 </facelet-taglib>
