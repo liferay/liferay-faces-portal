@@ -19,6 +19,7 @@ import javax.faces.component.UIData;
 
 import com.liferay.faces.util.component.Styleable;
 
+
 /**
  * @author	Neil Griffin
  */
@@ -79,8 +80,9 @@ public abstract class NavBase extends UIData implements Styleable {
 
 	@Override
 	public String getStyleClass() {
-		// getStateHelper().eval(NavPropertyKeys.styleClass, null) is called because super.getStyleClass() may return the
-		// STYLE_CLASS_NAME of the super class.
+
+		// getStateHelper().eval(NavPropertyKeys.styleClass, null) is called because
+		// super.getStyleClass() may return the styleClass name of the super class.
 		String styleClass = (String) getStateHelper().eval(NavPropertyKeys.styleClass, null);
 
 		return com.liferay.faces.util.component.ComponentUtil.concatCssClasses(styleClass, "portal-nav");

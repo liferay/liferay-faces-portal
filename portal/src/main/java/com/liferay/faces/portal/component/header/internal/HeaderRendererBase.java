@@ -14,7 +14,6 @@
 package com.liferay.faces.portal.component.header.internal;
 //J-
 
-
 import javax.annotation.Generated;
 
 import com.liferay.faces.portal.render.internal.PortalTagRenderer;
@@ -31,8 +30,6 @@ public abstract class HeaderRendererBase extends PortalTagRenderer<com.liferay.f
 	protected static final String BACK_URL = "backURL";
 	protected static final String ESCAPE_XML = "escapeXml";
 	protected static final String SHOW_BACK_URL = "showBackURL";
-	protected static final String STYLE = "style";
-	protected static final String STYLE_CLASS = "styleClass";
 	protected static final String TITLE = "title";
 }
 //J+
