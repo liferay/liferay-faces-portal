@@ -758,7 +758,7 @@ java.lang.Object)</method-signature>
 			<type>String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>2.0.0</vdldoc:since>
+			<vdldoc:since>1.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
