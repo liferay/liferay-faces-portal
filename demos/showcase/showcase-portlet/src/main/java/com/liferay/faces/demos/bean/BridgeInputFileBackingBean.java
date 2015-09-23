@@ -81,7 +81,7 @@ public class BridgeInputFileBackingBean {
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			FacesMessage facesMessage = new FacesMessage("Received fileUploadEvent for file named '" +
-					uploadedFile.getName() + "' in the " + fileUploadEvent.getPhaseId().getName() + " phase.");
+					uploadedFile.getName() + "' in the " + fileUploadEvent.getPhaseId().toString() + " phase.");
 			facesContext.addMessage(null, facesMessage);
 			uploadedFiles.add(uploadedFile);
 			logger.debug("Received fileName=[{0}] absolutePath=[{1}]", uploadedFile.getName(),
