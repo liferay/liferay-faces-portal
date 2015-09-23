@@ -44,6 +44,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces.bridge</groupId>
+			<artifactId>liferay-faces-bridge-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.bridge</groupId>
 			<artifactId>liferay-faces-bridge-impl</artifactId>
 		</dependency>
 		<dependency>
