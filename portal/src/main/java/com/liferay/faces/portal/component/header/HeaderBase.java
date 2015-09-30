@@ -19,6 +19,7 @@ import javax.faces.component.html.HtmlPanelGroup;
 
 import com.liferay.faces.util.component.Styleable;
 
+
 /**
  * @author	Neil Griffin
  */
@@ -35,8 +36,6 @@ public abstract class HeaderBase extends HtmlPanelGroup implements Styleable {
 		backURL,
 		escapeXml,
 		showBackURL,
-		style,
-		styleClass,
 		title
 	}
 
@@ -78,27 +77,13 @@ public abstract class HeaderBase extends HtmlPanelGroup implements Styleable {
 	}
 
 	@Override
-	public String getStyle() {
-		return (String) getStateHelper().eval(HeaderPropertyKeys.style, null);
-	}
-
-	@Override
-	public void setStyle(String style) {
-		getStateHelper().put(HeaderPropertyKeys.style, style);
-	}
-
-	@Override
 	public String getStyleClass() {
-		// getStateHelper().eval(HeaderPropertyKeys.styleClass, null) is called because super.getStyleClass() may return the
-		// STYLE_CLASS_NAME of the super class.
-		String styleClass = (String) getStateHelper().eval(HeaderPropertyKeys.styleClass, null);
+
+		// getStateHelper().eval(PropertyKeys.styleClass, null) is called because
+		// super.getStyleClass() may return the styleClass name of the super class.
+		String styleClass = (String) getStateHelper().eval(PropertyKeys.styleClass, null);
 
 		return com.liferay.faces.util.component.ComponentUtil.concatCssClasses(styleClass, "portal-header");
-	}
-
-	@Override
-	public void setStyleClass(String styleClass) {
-		getStateHelper().put(HeaderPropertyKeys.styleClass, styleClass);
 	}
 
 	public String getTitle() {
