@@ -15,10 +15,10 @@ package com.liferay.faces.demos.bean;
 
 import java.util.List;
 
+// JSF 2: import javax.faces.bean.ManagedBean;
+// JSF 2: import javax.faces.bean.ManagedProperty;
+// JSF 2: import javax.faces.bean.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.component.UICommand;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -32,14 +32,14 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-@RequestScoped
-@ManagedBean
+// JSF 2: @RequestScoped
+// JSF 2: @ManagedBean
 public class BridgeInputFileBackingBean {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeInputFileBackingBean.class);
 
-	@ManagedProperty(value = "#{bridgeInputFileModelBean}")
+	// JSF 2: @ManagedProperty(value = "#{bridgeInputFileModelBean}")
 	private BridgeInputFileModelBean bridgeInputFileModelBean;
 
 	public void deleteUploadedFile(ActionEvent actionEvent) {

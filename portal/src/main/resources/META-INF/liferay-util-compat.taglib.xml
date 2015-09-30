@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE facelet-taglib PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN" "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+<facelet-taglib>
+	<namespace>http://portletfaces.org/liferayfaces/liferay-util</namespace>
+	<function>
+		<function-name>findDataModel</function-name>
+		<function-class>com.liferay.faces.util.el.FaceletUtil</function-class>
+		<function-signature>javax.faces.model.DataModel findDataModel(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<function-name>escapeURL</function-name>
+		<function-class>com.liferay.portal.kernel.util.HttpUtil</function-class>
+		<function-signature>java.lang.String encodeURL(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<function-name>portalProperty</function-name>
+		<function-class>com.liferay.portal.kernel.util.PropsUtil</function-class>
+		<function-signature>java.lang.String get(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<function-name>stringReplace</function-name>
+		<function-class>com.liferay.portal.kernel.util.StringUtil</function-class>
+		<function-signature>java.lang.String replace(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+	</function>
+	<tag>
+		<tag-name>validateCaptcha</tag-name>
+		<validator>
+			<validator-id>com.liferay.faces.portal.CaptchaValidator</validator-id>
+		</validator>
+	</tag>
+	<tag>
+		<tag-name>validateRichTextLength</tag-name>
+		<validator>
+			<validator-id>com.liferay.faces.portal.RichTextLengthValidator</validator-id>
+		</validator>
+	</tag>
+</facelet-taglib>

@@ -33,38 +33,25 @@ public class TestPages {
 
 	static {
 		BRIDGE_DEMO_PAGES = new ArrayList<PortalPage>();
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2", "1_WAR_jsf2portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-CDI", "1_WAR_jsf2cdiportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-FLOWS", "1_WAR_jsf2flowsportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-HTML5", "1_WAR_jsf2html5portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-SPRING", "1_WAR_jsf2springportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-JSP", "1_WAR_jsf2jspportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-PDF", "1_WAR_jsf2exportpdfportlet"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-EVENTS",
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF1", "1_WAR_jsf1portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF1-JSP", "1_WAR_jsf1jspportlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF1-EVENTS",
 				new String[] {
-					"customers_WAR_jsf2ipceventscustomersportlet", "bookings_WAR_jsf2ipceventsbookingsportlet"
+					"customers_WAR_jsf1ipceventscustomersportlet", "bookings_WAR_jsf1ipceventsbookingsportlet"
 				}));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-PRP",
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF1-PRP",
 				new String[] {
-					"customersPortlet_WAR_jsf2ipcpubrenderparamsportlet",
-					"bookingsPortlet_WAR_jsf2ipcpubrenderparamsportlet"
+					"customersPortlet_WAR_jsf1ipcpubrenderparamsportlet",
+					"bookingsPortlet_WAR_jsf1ipcpubrenderparamsportlet"
 				}));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("ICE4", "1_WAR_icefaces4portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("LF4", "1_WAR_liferayfaces4portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("PRIME4", "1_WAR_primefaces4portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("PRIME5", "1_WAR_primefaces5portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("RICH4", "1_WAR_richfaces4portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("ICE1", "1_WAR_icefaces1portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("ICE1-IPC",
+				new String[] { "1_WAR_icefaces1ipcajaxpushportlet", "2_WAR_icefaces1ipcajaxpushportlet" }));
 	}
 
 	static {
 		BRIDGE_ISSUE_PAGES = new ArrayList<PortalPage>();
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-224", "1_WAR_FACES224portlet"));
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1470", "1_WAR_FACES1470portlet"));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1478", "1_WAR_FACES1478portlet"));
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1618", "1_WAR_FACES1618portlet"));
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1635",
-				new String[] { "1_WAR_jsf2portlet_INSTANCE_", "1_WAR_primefaces4portlet_INSTANCE_" }));
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1638", "1_WAR_FACES1638portlet"));
 	}
 
 	static {
@@ -72,7 +59,6 @@ public class TestPages {
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-5", "1_WAR_lsv5portlet"));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-71-Auto-Dispatch", "1_WAR_lsv71portlet"));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-71-Non-Dispatch", "2_WAR_lsv71portlet"));
-		LSV_ISSUE_PAGES.add(new PortalPage("LSV-71-Resource-Handler", "3_WAR_lsv71portlet"));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Auto-Dispatch", "1_WAR_lsv158portlet"));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Non-Dispatch", "2_WAR_lsv158portlet"));
 	}
@@ -83,14 +69,10 @@ public class TestPages {
 
 	static {
 		PORTAL_ISSUE_PAGES = new ArrayList<PortalPage>();
-		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-257", "1_WAR_FACES257portlet"));
-		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-1427", "1_WAR_FACES1427portlet"));
-		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-1439", "1_WAR_FACES1439portlet"));
 	}
 
 	static {
 		GUEST_PAGES = new ArrayList<PortalPage>();
-		GUEST_PAGES.add(new PortalPage("JSF2-SIGN-IN", "1_WAR_jsf2loginportlet"));
 		GUEST_PAGES.add(new PortalPage("SHOWCASE", "1_WAR_showcaseportlet", "2_columns_iii"));
 	}
 }

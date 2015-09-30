@@ -20,8 +20,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+// JSF2: import javax.faces.bean.ManagedBean;
+// JSF2: import javax.faces.bean.ViewScoped;
 
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
@@ -31,8 +31,8 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-@ViewScoped
-@ManagedBean
+// JSF2: @ViewScoped
+// JSF2: @ManagedBean
 public class BridgeInputFileModelBean implements Serializable {
 
 	// serialVersionUID

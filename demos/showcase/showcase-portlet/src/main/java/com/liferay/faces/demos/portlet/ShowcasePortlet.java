@@ -16,8 +16,11 @@ package com.liferay.faces.demos.portlet;
 import java.io.IOException;
 
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 
 
@@ -25,6 +28,28 @@ import javax.portlet.faces.Bridge;
  * @author  Neil Griffin
  */
 public class ShowcasePortlet extends ActionURLDemoPortlet {
+
+	@Override
+	public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws PortletException, IOException {
+
+		String libraryName = resourceRequest.getParameter("ln");
+		String resourceName = resourceRequest.getParameter("javax.faces.resource");
+
+		if ("images".equals(libraryName) && "liferay-faces-logo.png".equals(resourceName)) {
+
+			String resourcePath = "/resources/" + libraryName + "/" + resourceName;
+			PortletRequestDispatcher portletRequestDispatcher = this.getPortletConfig().getPortletContext()
+				.getRequestDispatcher(resourcePath);
+
+			if (portletRequestDispatcher != null) {
+				portletRequestDispatcher.forward(resourceRequest, resourceResponse);
+			}
+		}
+		else {
+			super.serveResource(resourceRequest, resourceResponse);
+		}
+	}
 
 	@Override
 	protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,

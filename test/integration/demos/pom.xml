@@ -15,7 +15,6 @@
 	<name>Liferay Faces Portal Test Demos</name>
 
 	<modules>
-		<module>portal</module>
 	</modules>
 
 	<dependencies>

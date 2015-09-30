@@ -76,11 +76,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
+			<artifactId>el-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.faces</groupId>
-			<artifactId>javax.faces-api</artifactId>
+			<artifactId>jsf-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>
@@ -89,12 +89,12 @@
 		<!-- Note that javax.servlet-api is only necessary to make Eclipse happy -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<artifactId>servlet-api</artifactId>
 		</dependency>
 		<!-- Note that jsp-api is only necessary to make Eclipse happy -->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
+			<artifactId>jsp-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
