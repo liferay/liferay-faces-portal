@@ -43,6 +43,11 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 		setRendererType(RENDERER_TYPE);
 	}
 
+	/**
+	 * <code>label</code> attribute description:
+	 * <br /><br />
+	 * A localized label for this component that is typically only rendered in a FacesMessage when validation fails.
+	 */
 	public String getLabel() {
 
 		String label = (String) getStateHelper().eval(CaptchaPropertyKeys.label, null);
@@ -59,20 +64,40 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 		return label;
 	}
 
+	/**
+	 * <code>label</code> attribute description:
+	 * <br /><br />
+	 * A localized label for this component that is typically only rendered in a FacesMessage when validation fails.
+	 */
 	public void setLabel(String label) {
 		getStateHelper().put(CaptchaPropertyKeys.label, label);
 	}
 
+	/**
+	 * <code>style</code> attribute description:
+	 * <br /><br />
+	 * HTML passthrough attribute specifying the css style of the element.
+	 */
 	@Override
 	public String getStyle() {
 		return (String) getStateHelper().eval(CaptchaPropertyKeys.style, null);
 	}
 
+	/**
+	 * <code>style</code> attribute description:
+	 * <br /><br />
+	 * HTML passthrough attribute specifying the css style of the element.
+	 */
 	@Override
 	public void setStyle(String style) {
 		getStateHelper().put(CaptchaPropertyKeys.style, style);
 	}
 
+	/**
+	 * <code>styleClass</code> attribute description:
+	 * <br /><br />
+	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 */
 	@Override
 	public String getStyleClass() {
 
@@ -83,15 +108,30 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 		return com.liferay.faces.util.component.ComponentUtil.concatCssClasses(styleClass, "portal-captcha");
 	}
 
+	/**
+	 * <code>styleClass</code> attribute description:
+	 * <br /><br />
+	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 */
 	@Override
 	public void setStyleClass(String styleClass) {
 		getStateHelper().put(CaptchaPropertyKeys.styleClass, styleClass);
 	}
 
+	/**
+	 * <code>url</code> attribute description:
+	 * <br /><br />
+	 * Specifies a custom captcha image URL. If the value is empty (the default), then the image will be obtained from Liferay Portal's built-in captcha feature.
+	 */
 	public String getUrl() {
 		return (String) getStateHelper().eval(CaptchaPropertyKeys.url, null);
 	}
 
+	/**
+	 * <code>url</code> attribute description:
+	 * <br /><br />
+	 * Specifies a custom captcha image URL. If the value is empty (the default), then the image will be obtained from Liferay Portal's built-in captcha feature.
+	 */
 	public void setUrl(String url) {
 		getStateHelper().put(CaptchaPropertyKeys.url, url);
 	}
