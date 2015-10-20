@@ -41,16 +41,31 @@ public abstract class NavBarBase extends UIPanel implements Styleable {
 		setRendererType(RENDERER_TYPE);
 	}
 
+	/**
+	 * <code>style</code> attribute description:
+	 * <br /><br />
+	 * HTML passthrough attribute specifying the css style of the element.
+	 */
 	@Override
 	public String getStyle() {
 		return (String) getStateHelper().eval(NavBarPropertyKeys.style, null);
 	}
 
+	/**
+	 * <code>style</code> attribute description:
+	 * <br /><br />
+	 * HTML passthrough attribute specifying the css style of the element.
+	 */
 	@Override
 	public void setStyle(String style) {
 		getStateHelper().put(NavBarPropertyKeys.style, style);
 	}
 
+	/**
+	 * <code>styleClass</code> attribute description:
+	 * <br /><br />
+	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 */
 	@Override
 	public String getStyleClass() {
 
@@ -61,6 +76,11 @@ public abstract class NavBarBase extends UIPanel implements Styleable {
 		return com.liferay.faces.util.component.ComponentUtil.concatCssClasses(styleClass, "portal-nav-bar");
 	}
 
+	/**
+	 * <code>styleClass</code> attribute description:
+	 * <br /><br />
+	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 */
 	@Override
 	public void setStyleClass(String styleClass) {
 		getStateHelper().put(NavBarPropertyKeys.styleClass, styleClass);
