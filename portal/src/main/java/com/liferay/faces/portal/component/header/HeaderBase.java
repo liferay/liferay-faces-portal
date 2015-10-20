@@ -44,38 +44,83 @@ public abstract class HeaderBase extends HtmlPanelGroup implements Styleable {
 		setRendererType(RENDERER_TYPE);
 	}
 
+	/**
+	 * <code>backLabel</code> attribute description:
+	 * <br /><br />
+	 * This value will be used to populate the title attribute of the back icon.
+	 */
 	public String getBackLabel() {
 		return (String) getStateHelper().eval(HeaderPropertyKeys.backLabel, null);
 	}
 
+	/**
+	 * <code>backLabel</code> attribute description:
+	 * <br /><br />
+	 * This value will be used to populate the title attribute of the back icon.
+	 */
 	public void setBackLabel(String backLabel) {
 		getStateHelper().put(HeaderPropertyKeys.backLabel, backLabel);
 	}
 
+	/**
+	 * <code>backURL</code> attribute description:
+	 * <br /><br />
+	 * The URL of the anchor tag rendered for the back icon.  The back icon is not rendered unless this is specified.
+	 */
 	public String getBackURL() {
 		return (String) getStateHelper().eval(HeaderPropertyKeys.backURL, null);
 	}
 
+	/**
+	 * <code>backURL</code> attribute description:
+	 * <br /><br />
+	 * The URL of the anchor tag rendered for the back icon.  The back icon is not rendered unless this is specified.
+	 */
 	public void setBackURL(String backURL) {
 		getStateHelper().put(HeaderPropertyKeys.backURL, backURL);
 	}
 
+	/**
+	 * <code>escapeXml</code> attribute description:
+	 * <br /><br />
+	 * When false, markup will not be escaped.
+	 */
 	public boolean isEscapeXml() {
 		return (Boolean) getStateHelper().eval(HeaderPropertyKeys.escapeXml, true);
 	}
 
+	/**
+	 * <code>escapeXml</code> attribute description:
+	 * <br /><br />
+	 * When false, markup will not be escaped.
+	 */
 	public void setEscapeXml(boolean escapeXml) {
 		getStateHelper().put(HeaderPropertyKeys.escapeXml, escapeXml);
 	}
 
+	/**
+	 * <code>showBackURL</code> attribute description:
+	 * <br /><br />
+	 * When false, the back icon is not rendered.
+	 */
 	public boolean isShowBackURL() {
 		return (Boolean) getStateHelper().eval(HeaderPropertyKeys.showBackURL, true);
 	}
 
+	/**
+	 * <code>showBackURL</code> attribute description:
+	 * <br /><br />
+	 * When false, the back icon is not rendered.
+	 */
 	public void setShowBackURL(boolean showBackURL) {
 		getStateHelper().put(HeaderPropertyKeys.showBackURL, showBackURL);
 	}
 
+	/**
+	 * <code>styleClass</code> attribute description:
+	 * <br /><br />
+	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 */
 	@Override
 	public String getStyleClass() {
 
@@ -86,10 +131,20 @@ public abstract class HeaderBase extends HtmlPanelGroup implements Styleable {
 		return com.liferay.faces.util.component.ComponentUtil.concatCssClasses(styleClass, "portal-header");
 	}
 
+	/**
+	 * <code>title</code> attribute description:
+	 * <br /><br />
+	 * This value will be used as the header text for the component.
+	 */
 	public String getTitle() {
 		return (String) getStateHelper().eval(HeaderPropertyKeys.title, null);
 	}
 
+	/**
+	 * <code>title</code> attribute description:
+	 * <br /><br />
+	 * This value will be used as the header text for the component.
+	 */
 	public void setTitle(String title) {
 		getStateHelper().put(HeaderPropertyKeys.title, title);
 	}
