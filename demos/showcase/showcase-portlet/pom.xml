@@ -70,7 +70,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces.alloy.demos</groupId>
-			<artifactId>showcase-webapp</artifactId>
+			<artifactId>alloy-showcase-webapp</artifactId>
 			<version>${liferay.faces.alloy.version}</version>
 			<type>war</type>
 			<exclusions>
@@ -82,7 +82,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces.alloy.demos</groupId>
-			<artifactId>showcase-webapp</artifactId>
+			<artifactId>alloy-showcase-webapp</artifactId>
 			<version>${liferay.faces.alloy.version}</version>
 			<type>warpath</type>
 		</dependency>
