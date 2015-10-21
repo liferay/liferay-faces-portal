@@ -64,9 +64,9 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.alloy.demos</groupId>
+			<groupId>com.liferay.faces.util</groupId>
 			<artifactId>showcase-common</artifactId>
-			<version>${liferay.faces.alloy.version}</version>
+			<version>${liferay.faces.util.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces.alloy.demos</groupId>
