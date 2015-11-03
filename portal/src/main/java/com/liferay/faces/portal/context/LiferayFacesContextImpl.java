@@ -460,10 +460,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 		return liferayPortletHelper.getImageGalleryURL();
 	}
 
-	public Map<String, String> getJavaScriptMap() {
-		return facesContextHelper.getJavaScriptMap();
-	}
-
 	/**
 	 * @see  PortletHelper#isWindowNormal()
 	 */
