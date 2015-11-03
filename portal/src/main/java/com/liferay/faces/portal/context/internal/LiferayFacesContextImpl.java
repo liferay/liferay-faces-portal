@@ -52,7 +52,6 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
-import com.liferay.faces.portal.context.FacesContextHelperPortletImpl;
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.portal.context.LiferayPortletHelper;
 import com.liferay.faces.portal.context.PortletHelper;
