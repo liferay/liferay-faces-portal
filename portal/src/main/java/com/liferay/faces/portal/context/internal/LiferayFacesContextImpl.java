@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.portal.context;
+package com.liferay.faces.portal.context.internal;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -52,6 +52,9 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
+import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelper;
+import com.liferay.faces.portal.context.PortletHelper;
 import com.liferay.faces.portal.security.AuthorizationException;
 import com.liferay.faces.util.context.FacesContextHelper;
 
