@@ -15,6 +15,7 @@ package com.liferay.faces.portal.context;
 
 import javax.faces.context.FacesContext;
 
+import com.liferay.faces.portal.context.internal.LiferayFacesContextImpl;
 import com.liferay.faces.util.context.FacesContextHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
