@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.portal.context;
+package com.liferay.faces.portal.context.internal;
 
 import java.io.Serializable;
 
@@ -32,6 +32,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
+import com.liferay.faces.portal.context.PortletHelper;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.helper.IntegerHelper;
 import com.liferay.faces.util.helper.ShortHelper;
