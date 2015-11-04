@@ -21,7 +21,7 @@ import java.util.Map;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
 
 /**
@@ -51,8 +51,8 @@ public class LiferayPortalResource extends Resource {
 
 	@Override
 	public String getRequestPath() {
-		LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-		String portalURL = liferayFacesContext.getPortalURL();
+
+		String portalURL = LiferayPortletHelperUtil.getPortalURL();
 
 		return portalURL + resourceName;
 	}
@@ -66,5 +66,4 @@ public class LiferayPortalResource extends Resource {
 	public URL getURL() {
 		return null;
 	}
-
 }

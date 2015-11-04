@@ -15,7 +15,7 @@ package com.liferay.faces.portal.component.permissionsurl;
 
 import javax.faces.component.FacesComponent;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
 
 /**
@@ -29,7 +29,7 @@ public class PermissionsURL extends PermissionsURLBase {
 		String resourceGroupId = super.getResourceGroupId();
 
 		if (resourceGroupId == null) {
-			resourceGroupId = String.valueOf(LiferayFacesContext.getInstance().getScopeGroupId());
+			resourceGroupId = String.valueOf(LiferayPortletHelperUtil.getScopeGroupId());
 		}
 
 		return resourceGroupId;

@@ -23,7 +23,8 @@ import javax.faces.event.ActionEvent;
 
 import com.liferay.faces.demos.model.Registrant;
 import com.liferay.faces.demos.service.RegistrantServiceUtil;
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -69,10 +70,9 @@ public class RegistrantBackingBean implements Serializable {
 				submittedRegistrant.getEmailAddress(), submittedRegistrant.getCaptchaText()
 			});
 
-		LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-		long creatorUserId = liferayFacesContext.getUser().getUserId();
-		long companyId = liferayFacesContext.getCompanyId();
-		Locale locale = liferayFacesContext.getLocale();
+		long creatorUserId = LiferayPortletHelperUtil.getUserId();
+		long companyId = LiferayPortletHelperUtil.getCompanyId();
+		Locale locale = FacesContextHelperUtil.getLocale();
 
 		try {
 			boolean active = true;
@@ -82,35 +82,35 @@ public class RegistrantBackingBean implements Serializable {
 				sendEmail);
 
 			String key = "thank-you-for-registering";
-			liferayFacesContext.addGlobalInfoMessage(key, submittedRegistrant.getEmailAddress());
+			FacesContextHelperUtil.addGlobalInfoMessage(key, submittedRegistrant.getEmailAddress());
 			submittedRegistrant.clearProperties();
 		}
 		catch (DuplicateUserScreenNameException e) {
-			liferayFacesContext.addGlobalErrorMessage("the-screen-name-you-requested-is-already-taken");
+			FacesContextHelperUtil.addGlobalErrorMessage("the-screen-name-you-requested-is-already-taken");
 		}
 		catch (DuplicateUserEmailAddressException e) {
-			liferayFacesContext.addGlobalErrorMessage("the-email-address-you-requested-is-already-taken");
+			FacesContextHelperUtil.addGlobalErrorMessage("the-email-address-you-requested-is-already-taken");
 		}
 		catch (UserPasswordException e) {
 
 			switch (e.getType()) {
 
 			case UserPasswordException.PASSWORD_ALREADY_USED: {
-				liferayFacesContext.addGlobalErrorMessage(
+				FacesContextHelperUtil.addGlobalErrorMessage(
 					"that-password-has-already-been-used-please-enter-in-a-different-password");
 
 				break;
 			}
 
 			case UserPasswordException.PASSWORD_CONTAINS_TRIVIAL_WORDS: {
-				liferayFacesContext.addGlobalErrorMessage(
+				FacesContextHelperUtil.addGlobalErrorMessage(
 					"that-password-uses-common-words-please-enter-in-a-password-that-is-harder-to-guess-i-e-contains-a-mix-of-numbers-and-letters");
 
 				break;
 			}
 
 			case UserPasswordException.PASSWORD_INVALID: {
-				liferayFacesContext.addGlobalErrorMessage(
+				FacesContextHelperUtil.addGlobalErrorMessage(
 					"that-password-is-invalid-please-enter-in-a-different-password");
 
 				break;
@@ -121,34 +121,34 @@ public class RegistrantBackingBean implements Serializable {
 				try {
 					Company company = CompanyLocalServiceUtil.getCompany(companyId);
 					PasswordPolicy passwordPolicy = company.getDefaultUser().getPasswordPolicy();
-					liferayFacesContext.addGlobalErrorMessage(
+					FacesContextHelperUtil.addGlobalErrorMessage(
 						"that-password-is-too-short-or-too-long-please-make-sure-your-password-is-between-x-and-512-characters",
 						new Object[] { String.valueOf(passwordPolicy.getMinLength()) });
 
 				}
 				catch (Exception e1) {
 					logger.error(e.getMessage(), e);
-					liferayFacesContext.addGlobalUnexpectedErrorMessage();
+					FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 				}
 
 				break;
 			}
 
 			case UserPasswordException.PASSWORD_NOT_CHANGEABLE: {
-				liferayFacesContext.addGlobalErrorMessage("your-password-cannot-be-changed");
+				FacesContextHelperUtil.addGlobalErrorMessage("your-password-cannot-be-changed");
 
 				break;
 			}
 
 			case UserPasswordException.PASSWORD_SAME_AS_CURRENT: {
-				liferayFacesContext.addGlobalErrorMessage(
+				FacesContextHelperUtil.addGlobalErrorMessage(
 					"your-new-password-cannot-be-the-same-as-your-old-password-please-enter-in-a-different-password");
 
 				break;
 			}
 
 			case UserPasswordException.PASSWORD_TOO_TRIVIAL: {
-				liferayFacesContext.addGlobalErrorMessage("that-password-is-too-trivial");
+				FacesContextHelperUtil.addGlobalErrorMessage("that-password-is-too-trivial");
 
 				break;
 			}
@@ -158,21 +158,21 @@ public class RegistrantBackingBean implements Serializable {
 				try {
 					Company company = CompanyLocalServiceUtil.getCompany(companyId);
 					PasswordPolicy passwordPolicy = company.getDefaultUser().getPasswordPolicy();
-					liferayFacesContext.addGlobalErrorMessage(
+					FacesContextHelperUtil.addGlobalErrorMessage(
 						"you-cannot-change-your-password-yet-please-wait-at-least-x-before-changing-your-password-again",
 						new Object[] { String.valueOf(passwordPolicy.getMinAge() * 1000) });
 
 				}
 				catch (Exception e1) {
 					logger.error(e.getMessage(), e);
-					liferayFacesContext.addGlobalUnexpectedErrorMessage();
+					FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 				}
 
 				break;
 			}
 
 			case UserPasswordException.PASSWORDS_DO_NOT_MATCH: {
-				liferayFacesContext.addGlobalErrorMessage(
+				FacesContextHelperUtil.addGlobalErrorMessage(
 					"the-passwords-you-entered-do-not-match-each-other-please-re-enter-your-password");
 
 				break;
@@ -185,7 +185,7 @@ public class RegistrantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			liferayFacesContext.addGlobalUnexpectedErrorMessage();
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 

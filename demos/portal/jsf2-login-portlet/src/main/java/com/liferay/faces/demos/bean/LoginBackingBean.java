@@ -19,13 +19,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
-import javax.portlet.ActionRequest;
+import javax.faces.context.FacesContext;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
+import com.liferay.faces.portal.context.PortletHelperUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -74,11 +77,10 @@ public class LoginBackingBean {
 
 	public void authenticate() {
 
-		LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-		ActionRequest actionRequest = (ActionRequest) liferayFacesContext.getPortletRequest();
-		ActionResponse actionResponse = (ActionResponse) liferayFacesContext.getPortletResponse();
-		ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
-		HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(actionRequest);
+		PortletRequest portletRequest = PortletHelperUtil.getPortletRequest();
+		ActionResponse actionResponse = PortletHelperUtil.getActionResponse();
+		ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay();
+		HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 
 		// If the request object is a wrapper that handles special namespacing considerations for portlet session
 		// attributes, then get the inner-most wrapped request. This will ensure that the following call to
@@ -141,13 +143,14 @@ public class LoginBackingBean {
 		if (authenticated) {
 
 			try {
-				ExternalContext externalContext = liferayFacesContext.getExternalContext();
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
 
 				if (PropsValuesCompat.PORTAL_JAAS_ENABLE) {
 					externalContext.redirect(themeDisplay.getPathMain() + "/portal/protected");
 				}
 				else {
-					String redirect = ParamUtil.getString(actionRequest, "redirect");
+					String redirect = ParamUtil.getString(portletRequest, "redirect");
 
 					if (Validator.isNotNull(redirect)) {
 						redirect = PortalUtilCompat.escapeRedirect(redirect);
@@ -159,7 +162,7 @@ public class LoginBackingBean {
 						externalContext.redirect(redirect);
 					}
 					else {
-						boolean doActionAfterLogin = ParamUtil.getBoolean(actionRequest, "doActionAfterLogin");
+						boolean doActionAfterLogin = ParamUtil.getBoolean(portletRequest, "doActionAfterLogin");
 
 						if (doActionAfterLogin) {
 							return;
@@ -174,13 +177,13 @@ public class LoginBackingBean {
 			}
 			catch (IOException e) {
 				logger.error(e);
-				liferayFacesContext.addGlobalUnexpectedErrorMessage();
+				FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 			}
 		}
 		else {
 
 			if (feedbackMessageId != null) {
-				liferayFacesContext.addGlobalErrorMessage(feedbackMessageId);
+				FacesContextHelperUtil.addGlobalErrorMessage(feedbackMessageId);
 			}
 		}
 	}
@@ -189,17 +192,15 @@ public class LoginBackingBean {
 
 		if (authType == null) {
 
-			LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-
 			try {
-				ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
+				ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay();
 				Company company = themeDisplay.getCompany();
 
 				authType = company.getAuthType();
 			}
 			catch (SystemException e) {
 				logger.error(e);
-				liferayFacesContext.addGlobalErrorMessage("Unable to determine authentication type");
+				FacesContextHelperUtil.addGlobalErrorMessage("Unable to determine authentication type");
 				authType = CompanyConstants.AUTH_TYPE_EA;
 			}
 		}
