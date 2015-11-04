@@ -26,7 +26,7 @@ import org.primefaces.event.SelectEvent;
 
 import com.liferay.faces.demos.dto.UploadedFileWrapper;
 import com.liferay.faces.demos.util.UploadedFileUtil;
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.model.UploadedFile;
@@ -75,8 +75,7 @@ public class UsersBackingBean {
 		catch (Exception e) {
 			logger.error(e);
 
-			LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-			liferayFacesContext.addGlobalUnexpectedErrorMessage();
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 
@@ -97,8 +96,7 @@ public class UsersBackingBean {
 		catch (Exception e) {
 			logger.error(e);
 
-			LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-			liferayFacesContext.addGlobalUnexpectedErrorMessage();
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 
@@ -126,8 +124,7 @@ public class UsersBackingBean {
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
 
-			LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-			liferayFacesContext.addGlobalUnexpectedErrorMessage();
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 
 		usersViewBean.setFormRendered(false);
@@ -144,8 +141,7 @@ public class UsersBackingBean {
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
 
-			LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-			liferayFacesContext.addGlobalUnexpectedErrorMessage();
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 

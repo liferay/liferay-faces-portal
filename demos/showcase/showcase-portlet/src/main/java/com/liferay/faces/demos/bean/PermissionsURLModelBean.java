@@ -16,7 +16,7 @@ package com.liferay.faces.demos.bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
@@ -35,9 +35,8 @@ public class PermissionsURLModelBean {
 	public String getPortletResourcePrimaryKey() {
 
 		if (portletResourcePrimaryKey == null) {
-			LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-			long plid = liferayFacesContext.getPlid();
-			Portlet portlet = liferayFacesContext.getPortlet();
+			long plid = LiferayPortletHelperUtil.getPlid();
+			Portlet portlet = LiferayPortletHelperUtil.getPortlet();
 			String portletId = portlet.getPortletId();
 			portletResourcePrimaryKey = PortletPermissionUtil.getPrimaryKey(plid, portletId);
 		}

@@ -15,7 +15,7 @@ package com.liferay.faces.portal.security;
 
 import java.util.HashMap;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
 
 /**
@@ -29,9 +29,6 @@ public class UserPermissionMap extends HashMap<String, Boolean> {
 	// serialVersionUID
 	private static final long serialVersionUID = 3480405658664457419L;
 
-	// Self-Injections
-	LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
-
 	@Override
 	public Boolean get(Object actionIdAsObject) {
 
@@ -44,7 +41,7 @@ public class UserPermissionMap extends HashMap<String, Boolean> {
 			String actionId = (String) actionIdAsObject;
 
 			if (actionId != null) {
-				value = liferayFacesContext.userHasPortletPermission(actionId);
+				value = LiferayPortletHelperUtil.userHasPortletPermission(actionId);
 			}
 
 			put(actionId, value);

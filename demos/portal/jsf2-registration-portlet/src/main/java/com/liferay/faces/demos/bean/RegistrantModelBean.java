@@ -19,7 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.liferay.faces.demos.model.Registrant;
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
 
 /**
@@ -38,7 +38,7 @@ public class RegistrantModelBean implements Serializable {
 	private Registrant registrant;
 
 	public RegistrantModelBean() {
-		registrant = new Registrant(LiferayFacesContext.getInstance().getCompanyId());
+		registrant = new Registrant(LiferayPortletHelperUtil.getCompanyId());
 	}
 
 	public Registrant getRegistrant() {

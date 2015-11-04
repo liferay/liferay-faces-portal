@@ -16,11 +16,13 @@ package com.liferay.faces.portal.lifecycle;
 import java.util.Locale;
 
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
+import com.liferay.faces.portal.context.PortletHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -59,19 +61,19 @@ public class LiferayLocalePhaseListener implements PhaseListener {
 	private void setLocale() {
 
 		try {
-			LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
 
 			// It's possible that the FacesServlet was invoked directly, and so this PhaseListener
 			// needs to check to see if the request/response is part of a portlet environment before
 			// proceeding further.
-			if (liferayFacesContext.isPortletEnvironment()) {
-				ThemeDisplay themeDisplay = liferayFacesContext.getThemeDisplay();
+			if (PortletHelperUtil.isPortletEnvironment()) {
+				ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay();
 
 				if (themeDisplay != null) {
 					Locale locale = themeDisplay.getLocale();
 
 					if (locale != null) {
-						UIViewRoot viewRoot = liferayFacesContext.getViewRoot();
+						FacesContext facesContext = FacesContext.getCurrentInstance();
+						UIViewRoot viewRoot = facesContext.getViewRoot();
 
 						if (viewRoot != null) {
 							viewRoot.setLocale(locale);
