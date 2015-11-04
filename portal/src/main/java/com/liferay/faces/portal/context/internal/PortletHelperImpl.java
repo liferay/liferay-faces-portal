@@ -41,10 +41,7 @@ import com.liferay.faces.util.helper.ShortHelper;
 /**
  * @author  Neil Griffin
  */
-public class PortletHelperImpl implements PortletHelper, Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 840141805125109913L;
+public class PortletHelperImpl implements PortletHelper {
 
 	/** JSR-168/286 request attribute that contains an instance of javax.portlet.PortletConfig */
 	private static final String REQUEST_ATTR_PORTLET_CONFIG = "javax.portlet.config";
@@ -243,5 +240,4 @@ public class PortletHelperImpl implements PortletHelper, Serializable {
 	public void setWindowStateToNormal() {
 		setWindowState(WindowState.NORMAL);
 	}
-
 }
