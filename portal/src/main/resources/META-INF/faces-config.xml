@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+	xmlns:portal="http://www.liferay.com/xml/ns/liferay-faces-portal-extension"
 	xmlns:util="http://www.liferay.com/xml/ns/liferay-faces-util-extension">
 	<faces-config-extension>
 		<name>LiferayFacesPortal</name>
@@ -26,6 +27,8 @@
 	</component>
 	<factory>
 		<factory-extension>
+			<portal:portlet-helper-factory>com.liferay.faces.portal.context.PortletHelperFactory</portal:portlet-helper-factory>
+			<portal:liferay-portlet-helper-factory>com.liferay.faces.portal.context.LiferayPortletHelperFactory</portal:liferay-portlet-helper-factory>
 			<util:message-context-factory>com.liferay.faces.portal.context.internal.MessageContextFactoryPortalImpl</util:message-context-factory>
 		</factory-extension>
 	</factory>

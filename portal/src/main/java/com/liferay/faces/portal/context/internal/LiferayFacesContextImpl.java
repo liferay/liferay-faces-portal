@@ -48,12 +48,14 @@ import javax.portlet.WindowState;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.faces.portal.context.LiferayPortletHelper;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.portal.context.PortletHelper;
+import com.liferay.faces.portal.context.PortletHelperUtil;
 import com.liferay.faces.portal.security.AuthorizationException;
 import com.liferay.faces.util.context.FacesContextHelper;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
@@ -68,16 +70,12 @@ import com.liferay.portal.theme.ThemeDisplay;
 /**
  * @author  Neil Griffin
  */
+@SuppressWarnings("deprecation")
 public class LiferayFacesContextImpl extends LiferayFacesContext implements Serializable {
 
 	// serialVersionUID Note: This class implements Serializable only to avoid extraneous stacktraces from being thrown
-	// by Mojarra. All of the private data members are marked as transient since they are lazy-initialized.
+	// by Mojarra.
 	private static final long serialVersionUID = 905195020822157073L;
-
-	// Private Data Members
-	FacesContextHelper facesContextHelper = new FacesContextHelperPortletImpl();
-	LiferayPortletHelper liferayPortletHelper = new LiferayPortletHelperImpl();
-	PortletHelper portletHelper = new PortletHelperImpl();
 
 	public LiferayFacesContextImpl() {
 		setInstance(this);
@@ -86,99 +84,113 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  FacesContextHelper#addComponentErrorMessage(String, String)
 	 */
+	@Override
 	public void addComponentErrorMessage(String clientId, String messageId) {
-		facesContextHelper.addComponentErrorMessage(clientId, messageId);
+		FacesContextHelperUtil.addComponentErrorMessage(clientId, messageId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addComponentErrorMessage(String, String, Object)
 	 */
+	@Override
 	public void addComponentErrorMessage(String clientId, String messageId, Object argument) {
-		facesContextHelper.addComponentErrorMessage(clientId, messageId, argument);
+		FacesContextHelperUtil.addComponentErrorMessage(clientId, messageId, argument);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addComponentErrorMessage(String, String, Object...)
 	 */
+	@Override
 	public void addComponentErrorMessage(String clientId, String messageId, Object... arguments) {
-		facesContextHelper.addComponentErrorMessage(clientId, messageId, arguments);
+		FacesContextHelperUtil.addComponentErrorMessage(clientId, messageId, arguments);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addComponentInfoMessage(String, String)
 	 */
+	@Override
 	public void addComponentInfoMessage(String clientId, String messageId) {
-		facesContextHelper.addComponentInfoMessage(clientId, messageId);
+		FacesContextHelperUtil.addComponentInfoMessage(clientId, messageId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addComponentInfoMessage(String, String, Object)
 	 */
+	@Override
 	public void addComponentInfoMessage(String clientId, String messageId, Object argument) {
-		facesContextHelper.addComponentInfoMessage(clientId, messageId, argument);
+		FacesContextHelperUtil.addComponentInfoMessage(clientId, messageId, argument);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addComponentInfoMessage(String, String, Object...)
 	 */
+	@Override
 	public void addComponentInfoMessage(String clientId, String messageId, Object... arguments) {
-		facesContextHelper.addComponentInfoMessage(clientId, messageId, arguments);
+		FacesContextHelperUtil.addComponentInfoMessage(clientId, messageId, arguments);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addGlobalErrorMessage(String)
 	 */
+	@Override
 	public void addGlobalErrorMessage(String messageId) {
-		facesContextHelper.addGlobalErrorMessage(messageId);
+		FacesContextHelperUtil.addGlobalErrorMessage(messageId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addGlobalErrorMessage(String, Object)
 	 */
+	@Override
 	public void addGlobalErrorMessage(String messageId, Object argument) {
-		facesContextHelper.addGlobalErrorMessage(messageId, argument);
+		FacesContextHelperUtil.addGlobalErrorMessage(messageId, argument);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addGlobalErrorMessage(String, Object...)
 	 */
+	@Override
 	public void addGlobalErrorMessage(String messageId, Object... arguments) {
-		facesContextHelper.addGlobalErrorMessage(messageId, arguments);
+		FacesContextHelperUtil.addGlobalErrorMessage(messageId, arguments);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addGlobalInfoMessage(String)
 	 */
+	@Override
 	public void addGlobalInfoMessage(String messageId) {
-		facesContextHelper.addGlobalInfoMessage(messageId);
+		FacesContextHelperUtil.addGlobalInfoMessage(messageId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addGlobalInfoMessage(String, Object)
 	 */
+	@Override
 	public void addGlobalInfoMessage(String messageId, Object argument) {
-		facesContextHelper.addGlobalInfoMessage(messageId, argument);
+		FacesContextHelperUtil.addGlobalInfoMessage(messageId, argument);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addGlobalInfoMessage(String, Object...)
 	 */
+	@Override
 	public void addGlobalInfoMessage(String messageId, Object... arguments) {
-		facesContextHelper.addGlobalInfoMessage(messageId, arguments);
+		FacesContextHelperUtil.addGlobalInfoMessage(messageId, arguments);
 	}
 
 	/**
 	 * @see  FacesContextHelper#addGlobalSuccessInfoMessage()
 	 */
+	@Override
 	public void addGlobalSuccessInfoMessage() {
-		facesContextHelper.addGlobalSuccessInfoMessage();
+		FacesContextHelperUtil.addGlobalSuccessInfoMessage();
 	}
 
 	/**
 	 * @see  FacesContextHelper#addGlobalUnexpectedErrorMessage()
 	 */
+	@Override
 	public void addGlobalUnexpectedErrorMessage() {
-		facesContextHelper.addGlobalUnexpectedErrorMessage();
+		FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 	}
 
 	/**
@@ -192,88 +204,99 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  FacesContextHelper#addMessage(String, Severity, String)
 	 */
+	@Override
 	public void addMessage(String clientId, Severity severity, String messageId) {
-		facesContextHelper.addMessage(clientId, severity, messageId);
+		FacesContextHelperUtil.addMessage(clientId, severity, messageId);
 
 	}
 
 	/**
 	 * @see  FacesContextHelper#addMessage(String, Severity, String, Object)
 	 */
+	@Override
 	public void addMessage(String clientId, Severity severity, String messageId, Object argument) {
-		facesContextHelper.addMessage(clientId, severity, messageId, argument);
+		FacesContextHelperUtil.addMessage(clientId, severity, messageId, argument);
 
 	}
 
 	/**
 	 * @see  FacesContextHelper#addMessage(String, Severity, String, Object...)
 	 */
+	@Override
 	public void addMessage(String clientId, Severity severity, String messageId, Object... arguments) {
-		facesContextHelper.addMessage(clientId, severity, messageId, arguments);
+		FacesContextHelperUtil.addMessage(clientId, severity, messageId, arguments);
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#checkUserPortletPermission(String)
 	 */
+	@Override
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException {
-		liferayPortletHelper.checkUserPortletPermission(actionId);
+		LiferayPortletHelperUtil.checkUserPortletPermission(actionId);
 	}
 
 	/**
 	 * @see  PortletHelper#createActionURL()
 	 */
+	@Override
 	public PortletURL createActionURL() {
-		return portletHelper.createActionURL();
+		return PortletHelperUtil.createActionURL();
 	}
 
 	/**
 	 * @see  PortletHelper#createRenderURL()
 	 */
+	@Override
 	public PortletURL createRenderURL() {
-		return portletHelper.createRenderURL();
+		return PortletHelperUtil.createRenderURL();
 	}
 
 	/**
 	 * @see  FacesContextHelper#matchComponentInHierarchy(UIComponent, String)
 	 */
+	@Override
 	public UIComponent matchComponentInHierarchy(UIComponent parent, String partialClientId) {
-
-		return facesContextHelper.matchComponentInHierarchy(parent, partialClientId);
+		return FacesContextHelperUtil.matchComponentInHierarchy(parent, partialClientId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#matchComponentInViewRoot(String)
 	 */
+	@Override
 	public UIComponent matchComponentInViewRoot(String partialClientId) {
-		return facesContextHelper.matchComponentInViewRoot(partialClientId);
+		return FacesContextHelperUtil.matchComponentInViewRoot(partialClientId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#navigate(String, String)
 	 */
+	@Override
 	public void navigate(String fromAction, String outcome) {
-		facesContextHelper.navigate(fromAction, outcome);
+		FacesContextHelperUtil.navigate(fromAction, outcome);
 	}
 
 	/**
 	 * @see  FacesContextHelper#navigateTo(String)
 	 */
+	@Override
 	public void navigateTo(String outcome) {
-		facesContextHelper.navigateTo(outcome);
+		FacesContextHelperUtil.navigateTo(outcome);
 	}
 
 	/**
 	 * @see  FacesContextHelper#recreateComponentTree()
 	 */
+	@Override
 	public void recreateComponentTree() {
-		facesContextHelper.recreateComponentTree();
+		FacesContextHelperUtil.recreateComponentTree();
 	}
 
 	/**
 	 * @see  FacesContextHelper#registerPhaseListener(PhaseListener)
 	 */
+	@Override
 	public void registerPhaseListener(PhaseListener phaseListener) {
-		facesContextHelper.registerPhaseListener(phaseListener);
+		FacesContextHelperUtil.registerPhaseListener(phaseListener);
 	}
 
 	/**
@@ -287,36 +310,41 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  FacesContextHelper#removeChildrenFromComponentTree(String)
 	 */
+	@Override
 	public void removeChildrenFromComponentTree(String clientId) {
-		facesContextHelper.removeChildrenFromComponentTree(clientId);
+		FacesContextHelperUtil.removeChildrenFromComponentTree(clientId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#removeMessages(String)
 	 */
+	@Override
 	public void removeMessages(String clientId) {
-		facesContextHelper.removeMessages(clientId);
+		FacesContextHelperUtil.removeMessages(clientId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#removeMessagesForImmediateComponents()
 	 */
+	@Override
 	public void removeMessagesForImmediateComponents() {
-		facesContextHelper.removeMessagesForImmediateComponents();
+		FacesContextHelperUtil.removeMessagesForImmediateComponents();
 	}
 
 	/**
 	 * @see  FacesContextHelper#removeMessagesForImmediateComponents(UIComponent)
 	 */
+	@Override
 	public void removeMessagesForImmediateComponents(UIComponent uiComponent) {
-		facesContextHelper.removeMessagesForImmediateComponents(uiComponent);
+		FacesContextHelperUtil.removeMessagesForImmediateComponents(uiComponent);
 	}
 
 	/**
 	 * @see  FacesContextHelper#removeParentFormFromComponentTree(UIComponent)
 	 */
+	@Override
 	public void removeParentFormFromComponentTree(UIComponent uiComponent) {
-		facesContextHelper.removeParentFormFromComponentTree(uiComponent);
+		FacesContextHelperUtil.removeParentFormFromComponentTree(uiComponent);
 	}
 
 	/**
@@ -330,22 +358,25 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  FacesContextHelper#resetView()
 	 */
+	@Override
 	public void resetView() {
-		facesContextHelper.resetView();
+		FacesContextHelperUtil.resetView();
 	}
 
 	/**
 	 * @see  FacesContextHelper#resetView(boolean)
 	 */
+	@Override
 	public void resetView(boolean renderResponse) {
-		facesContextHelper.resetView();
+		FacesContextHelperUtil.resetView();
 	}
 
 	/**
 	 * @see  FacesContextHelper#resolveExpression(String)
 	 */
+	@Override
 	public Object resolveExpression(String elExpression) {
-		return facesContextHelper.resolveExpression(elExpression);
+		return FacesContextHelperUtil.resolveExpression(elExpression);
 	}
 
 	/**
@@ -359,22 +390,25 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  LiferayPortletHelper#userHasPortletPermission(String)
 	 */
+	@Override
 	public boolean userHasPortletPermission(String actionId) {
-		return liferayPortletHelper.userHasPortletPermission(actionId);
+		return LiferayPortletHelperUtil.userHasPortletPermission(actionId);
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#userHasRole(String)
 	 */
+	@Override
 	public boolean userHasRole(String roleName) {
-		return liferayPortletHelper.userHasRole(roleName);
+		return LiferayPortletHelperUtil.userHasRole(roleName);
 	}
 
 	/**
 	 * @see  PortletHelper#getActionResponse()
 	 */
+	@Override
 	public ActionResponse getActionResponse() {
-		return portletHelper.getActionResponse();
+		return PortletHelperUtil.getActionResponse();
 	}
 
 	/**
@@ -387,7 +421,7 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 
 	@Override
 	public int getBuildNumber() {
-		return ReleaseInfo.getBuildNumber();
+		return LiferayPortletHelperUtil.getBuildNumber();
 	}
 
 	/**
@@ -401,29 +435,33 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  LiferayPortletHelper#getCompanyId()
 	 */
+	@Override
 	public long getCompanyId() {
-		return liferayPortletHelper.getCompanyId();
+		return LiferayPortletHelperUtil.getCompanyId();
 	}
 
 	/**
 	 * @see  PortletHelper#isWindowMaximized()
 	 */
+	@Override
 	public boolean isWindowMaximized() {
-		return portletHelper.isWindowMaximized();
+		return PortletHelperUtil.isWindowMaximized();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getDocumentLibraryURL()
 	 */
+	@Override
 	public String getDocumentLibraryURL() {
-		return liferayPortletHelper.getDocumentLibraryURL();
+		return LiferayPortletHelperUtil.getDocumentLibraryURL();
 	}
 
 	/**
 	 * @see  PortletHelper#isUserInRole(String)
 	 */
+	@Override
 	public boolean isUserInRole(String roleName) {
-		return portletHelper.isUserInRole(roleName);
+		return PortletHelperUtil.isUserInRole(roleName);
 	}
 
 	/**
@@ -445,6 +483,7 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  FacesContextHelper#getFacesContext()
 	 */
+	@Override
 	public FacesContext getFacesContext() {
 		return FacesContext.getCurrentInstance();
 	}
@@ -452,34 +491,39 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  LiferayPortletHelper#getHostGroupId()
 	 */
+	@Override
 	public long getHostGroupId() {
-		return liferayPortletHelper.getHostGroupId();
+		return LiferayPortletHelperUtil.getHostGroupId();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getImageGalleryURL()
 	 */
+	@Override
 	public String getImageGalleryURL() {
-		return liferayPortletHelper.getImageGalleryURL();
+		return LiferayPortletHelperUtil.getImageGalleryURL();
 	}
 
 	/**
 	 * @see  PortletHelper#isWindowNormal()
 	 */
+	@Override
 	public boolean isWindowNormal() {
-		return portletHelper.isWindowNormal();
+		return PortletHelperUtil.isWindowNormal();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getLayout()
 	 */
+	@Override
 	public Layout getLayout() {
-		return liferayPortletHelper.getLayout();
+		return LiferayPortletHelperUtil.getLayout();
 	}
 
 	/**
 	 * @see  FacesContextHelper#getLocale()
 	 */
+	@Override
 	public Locale getLocale() {
 		Locale locale = null;
 
@@ -522,29 +566,33 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  FacesContextHelper#getMessage(String)
 	 */
+	@Override
 	public String getMessage(String messageId) {
-		return facesContextHelper.getMessage(messageId);
+		return FacesContextHelperUtil.getMessage(messageId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getMessage(String, Object...)
 	 */
+	@Override
 	public String getMessage(String messageId, Object... arguments) {
-		return facesContextHelper.getMessage(messageId, arguments);
+		return FacesContextHelperUtil.getMessage(messageId, arguments);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getMessage(Locale, String)
 	 */
+	@Override
 	public String getMessage(Locale locale, String messageId) {
-		return facesContextHelper.getMessage(locale, messageId);
+		return FacesContextHelperUtil.getMessage(locale, messageId);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getMessage(Locale, String, Object...)
 	 */
+	@Override
 	public String getMessage(Locale locale, String messageId, Object... arguments) {
-		return facesContextHelper.getMessage(locale, messageId, arguments);
+		return FacesContextHelperUtil.getMessage(locale, messageId, arguments);
 	}
 
 	/**
@@ -566,184 +614,210 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  FacesContextHelper#getNamespace()
 	 */
+	@Override
 	public String getNamespace() {
-		return facesContextHelper.getNamespace();
+		return FacesContextHelperUtil.getNamespace();
 	}
 
 	/**
 	 * @see  FacesContextHelper#getParentForm(UIComponent)
 	 */
+	@Override
 	public UIForm getParentForm(UIComponent uiComponent) {
 
-		return facesContextHelper.getParentForm(uiComponent);
+		return FacesContextHelperUtil.getParentForm(uiComponent);
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getPermissionChecker()
 	 */
+	@Override
 	public PermissionChecker getPermissionChecker() {
-		return liferayPortletHelper.getPermissionChecker();
+		return LiferayPortletHelperUtil.getPermissionChecker();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getPlid()
 	 */
+	@Override
 	public long getPlid() {
-		return liferayPortletHelper.getPlid();
+		return LiferayPortletHelperUtil.getPlid();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortalContext()
 	 */
+	@Override
 	public PortalContext getPortalContext() {
-		return portletHelper.getPortalContext();
+		return PortletHelperUtil.getPortalContext();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getPortalURL()
 	 */
+	@Override
 	public String getPortalURL() {
-		return liferayPortletHelper.getPortalURL();
+		return LiferayPortletHelperUtil.getPortalURL();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getPortlet()
 	 */
+	@Override
 	public Portlet getPortlet() {
-		return liferayPortletHelper.getPortlet();
+		return LiferayPortletHelperUtil.getPortlet();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletConfig()
 	 */
+	@Override
 	public PortletConfig getPortletConfig() {
-		return portletHelper.getPortletConfig();
+		return PortletHelperUtil.getPortletConfig();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletContext()
 	 */
+	@Override
 	public PortletContext getPortletContext() {
-		return portletHelper.getPortletContext();
+		return PortletHelperUtil.getPortletContext();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletContextName()
 	 */
+	@Override
 	public String getPortletContextName() {
-		return portletHelper.getPortletContextName();
+		return PortletHelperUtil.getPortletContextName();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getPortletInstanceId()
 	 */
+	@Override
 	public String getPortletInstanceId() {
-		return liferayPortletHelper.getPortletInstanceId();
+		return LiferayPortletHelperUtil.getPortletInstanceId();
 	}
 
 	/**
 	 * @see  PortletHelper#setPortletMode(PortletMode)
 	 */
+	@Override
 	public void setPortletMode(PortletMode portletMode) {
-		portletHelper.setPortletMode(portletMode);
+		PortletHelperUtil.setPortletMode(portletMode);
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletName()
 	 */
+	@Override
 	public String getPortletName() {
-		return portletHelper.getPortletName();
+		return PortletHelperUtil.getPortletName();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletPreference(String, Object)
 	 */
+	@Override
 	public Object getPortletPreference(String preferenceName, Object defaultValue) {
-		return portletHelper.getPortletPreference(preferenceName, defaultValue);
+		return PortletHelperUtil.getPortletPreference(preferenceName, defaultValue);
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletPreferenceAsBool(String, boolean)
 	 */
+	@Override
 	public boolean getPortletPreferenceAsBool(String preferenceName, boolean defaultValue) {
-		return portletHelper.getPortletPreferenceAsBool(preferenceName, defaultValue);
+		return PortletHelperUtil.getPortletPreferenceAsBool(preferenceName, defaultValue);
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletPreferenceAsInt(String, int)
 	 */
+	@Override
 	public int getPortletPreferenceAsInt(String preferenceName, int defaultValue) {
-		return portletHelper.getPortletPreferenceAsInt(preferenceName, defaultValue);
+		return PortletHelperUtil.getPortletPreferenceAsInt(preferenceName, defaultValue);
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletPreferenceAsShort(String, short)
 	 */
+	@Override
 	public short getPortletPreferenceAsShort(String preferenceName, short defaultValue) {
-		return portletHelper.getPortletPreferenceAsShort(preferenceName, defaultValue);
+		return PortletHelperUtil.getPortletPreferenceAsShort(preferenceName, defaultValue);
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletPreferenceAsString(String, String)
 	 */
+	@Override
 	public String getPortletPreferenceAsString(String preferenceName, String defaultValue) {
-		return portletHelper.getPortletPreferenceAsString(preferenceName, defaultValue);
+		return PortletHelperUtil.getPortletPreferenceAsString(preferenceName, defaultValue);
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletPreferences()
 	 */
+	@Override
 	public PortletPreferences getPortletPreferences() {
-		return portletHelper.getPortletPreferences();
+		return PortletHelperUtil.getPortletPreferences();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletRenderRequest()
 	 */
+	@Override
 	public RenderRequest getPortletRenderRequest() {
-		return portletHelper.getPortletRenderRequest();
+		return PortletHelperUtil.getPortletRenderRequest();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletRenderResponse()
 	 */
+	@Override
 	public RenderResponse getPortletRenderResponse() {
-		return portletHelper.getPortletRenderResponse();
+		return PortletHelperUtil.getPortletRenderResponse();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletRequest()
 	 */
+	@Override
 	public PortletRequest getPortletRequest() {
-		return portletHelper.getPortletRequest();
+		return PortletHelperUtil.getPortletRequest();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletResponse()
 	 */
+	@Override
 	public PortletResponse getPortletResponse() {
-		return portletHelper.getPortletResponse();
+		return PortletHelperUtil.getPortletResponse();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getPortletRootId()
 	 */
+	@Override
 	public String getPortletRootId() {
-		return liferayPortletHelper.getPortletRootId();
+		return LiferayPortletHelperUtil.getPortletRootId();
 	}
 
 	/**
 	 * @see  PortletHelper#getPortletSession()
 	 */
+	@Override
 	public PortletSession getPortletSession() {
-		return portletHelper.getPortletSession();
+		return PortletHelperUtil.getPortletSession();
 	}
 
 	/**
 	 * @see  PortletHelper#getRemoteUser()
 	 */
+	@Override
 	public String getRemoteUser() {
-		return portletHelper.getRemoteUser();
+		return PortletHelperUtil.getRemoteUser();
 	}
 
 	/**
@@ -765,88 +839,99 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  FacesContextHelper#getRequestAttribute(String)
 	 */
+	@Override
 	public Object getRequestAttribute(String name) {
 
-		return facesContextHelper.getRequestAttribute(name);
+		return FacesContextHelperUtil.getRequestAttribute(name);
 	}
 
 	/**
 	 * @see  FacesContextHelper#setRequestAttribute(String, Object)
 	 */
+	@Override
 	public void setRequestAttribute(String name, Object value) {
-		facesContextHelper.setRequestAttribute(name, value);
+		FacesContextHelperUtil.setRequestAttribute(name, value);
 
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestContextPath()
 	 */
+	@Override
 	public String getRequestContextPath() {
 
-		return facesContextHelper.getRequestContextPath();
+		return FacesContextHelperUtil.getRequestContextPath();
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestParameter(String)
 	 */
+	@Override
 	public String getRequestParameter(String name) {
 
-		return facesContextHelper.getRequestParameter(name);
+		return FacesContextHelperUtil.getRequestParameter(name);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestParameterAsBool(String, boolean)
 	 */
+	@Override
 	public boolean getRequestParameterAsBool(String name, boolean defaultValue) {
 
-		return facesContextHelper.getRequestParameterAsBool(name, defaultValue);
+		return FacesContextHelperUtil.getRequestParameterAsBool(name, defaultValue);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestParameterAsInt(String, int)
 	 */
+	@Override
 	public int getRequestParameterAsInt(String name, int defaultValue) {
 
-		return facesContextHelper.getRequestParameterAsInt(name, defaultValue);
+		return FacesContextHelperUtil.getRequestParameterAsInt(name, defaultValue);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestParameterAsLong(String, long)
 	 */
+	@Override
 	public long getRequestParameterAsLong(String name, long defaultValue) {
 
-		return facesContextHelper.getRequestParameterAsLong(name, defaultValue);
+		return FacesContextHelperUtil.getRequestParameterAsLong(name, defaultValue);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestParameterFromMap(String)
 	 */
+	@Override
 	public String getRequestParameterFromMap(String name) {
 
-		return facesContextHelper.getRequestParameterFromMap(name);
+		return FacesContextHelperUtil.getRequestParameterFromMap(name);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestParameterMap()
 	 */
+	@Override
 	public Map<String, String> getRequestParameterMap() {
-		return facesContextHelper.getRequestParameterMap();
+		return FacesContextHelperUtil.getRequestParameterMap();
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestQueryString()
 	 */
+	@Override
 	public String getRequestQueryString() {
 
-		return facesContextHelper.getRequestQueryString();
+		return FacesContextHelperUtil.getRequestQueryString();
 	}
 
 	/**
 	 * @see  FacesContextHelper#getRequestQueryStringParameter(String)
 	 */
+	@Override
 	public String getRequestQueryStringParameter(String name) {
 
-		return facesContextHelper.getRequestQueryStringParameter(name);
+		return FacesContextHelperUtil.getRequestQueryStringParameter(name);
 	}
 
 	/**
@@ -892,116 +977,132 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  LiferayPortletHelper#getScopeGroup()
 	 */
+	@Override
 	public Group getScopeGroup() {
-		return liferayPortletHelper.getScopeGroup();
+		return LiferayPortletHelperUtil.getScopeGroup();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getScopeGroupId()
 	 */
+	@Override
 	public long getScopeGroupId() {
-		return liferayPortletHelper.getScopeGroupId();
+		return LiferayPortletHelperUtil.getScopeGroupId();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getScopeGroupUser()
 	 */
+	@Override
 	public User getScopeGroupUser() {
-		return liferayPortletHelper.getScopeGroupUser();
+		return LiferayPortletHelperUtil.getScopeGroupUser();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getServiceContext()
 	 */
+	@Override
 	public ServiceContext getServiceContext() {
-		return liferayPortletHelper.getServiceContext();
+		return LiferayPortletHelperUtil.getServiceContext();
 	}
 
 	/**
 	 * @see  FacesContextHelper#getSession(boolean)
 	 */
+	@Override
 	public Object getSession(boolean create) {
 
-		return facesContextHelper.getSession(create);
+		return FacesContextHelperUtil.getSession(create);
 	}
 
 	/**
 	 * @see  FacesContextHelper#getSessionAttribute(String)
 	 */
+	@Override
 	public Object getSessionAttribute(String name) {
 
-		return facesContextHelper.getSessionAttribute(name);
+		return FacesContextHelperUtil.getSessionAttribute(name);
 	}
 
 	/**
 	 * @see  FacesContextHelper#setSessionAttribute(String, Object)
 	 */
+	@Override
 	public void setSessionAttribute(String name, Object value) {
 
-		facesContextHelper.setSessionAttribute(name, value);
+		FacesContextHelperUtil.setSessionAttribute(name, value);
 	}
 
 	/**
 	 * @see  PortletHelper#getSessionSharedAttribute(String)
 	 */
+	@Override
 	public Object getSessionSharedAttribute(String name) {
-		return portletHelper.getSessionSharedAttribute(name);
+		return PortletHelperUtil.getSessionSharedAttribute(name);
 	}
 
 	/**
 	 * @see  PortletHelper#setSessionSharedAttribute(String, Object)
 	 */
+	@Override
 	public void setSessionSharedAttribute(String name, Object value) {
-		portletHelper.setSessionSharedAttribute(name, value);
+		PortletHelperUtil.setSessionSharedAttribute(name, value);
 	}
 
 	/**
 	 * @see  PortletHelper#isPortletEnvironment()
 	 */
+	@Override
 	public boolean isPortletEnvironment() {
-		return portletHelper.isPortletEnvironment();
+		return PortletHelperUtil.isPortletEnvironment();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getTheme()
 	 */
+	@Override
 	public Theme getTheme() {
-		return liferayPortletHelper.getTheme();
+		return LiferayPortletHelperUtil.getTheme();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getThemeDisplay()
 	 */
+	@Override
 	public ThemeDisplay getThemeDisplay() {
-		return liferayPortletHelper.getThemeDisplay();
+		return LiferayPortletHelperUtil.getThemeDisplay();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getThemeImagesURL()
 	 */
+	@Override
 	public String getThemeImagesURL() {
-		return liferayPortletHelper.getThemeImagesURL();
+		return LiferayPortletHelperUtil.getThemeImagesURL();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getUser()
 	 */
+	@Override
 	public User getUser() {
-		return liferayPortletHelper.getUser();
+		return LiferayPortletHelperUtil.getUser();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getUserId()
 	 */
+	@Override
 	public long getUserId() {
-		return liferayPortletHelper.getUserId();
+		return LiferayPortletHelperUtil.getUserId();
 	}
 
 	/**
 	 * @see  LiferayPortletHelper#getUserRoles()
 	 */
+	@Override
 	public List<Role> getUserRoles() throws SystemException {
-		return liferayPortletHelper.getUserRoles();
+		return LiferayPortletHelperUtil.getUserRoles();
 	}
 
 	/**
@@ -1023,28 +1124,32 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	/**
 	 * @see  PortletHelper#getWindowState()
 	 */
+	@Override
 	public WindowState getWindowState() {
-		return portletHelper.getWindowState();
+		return PortletHelperUtil.getWindowState();
 	}
 
 	/**
 	 * @see  PortletHelper#setWindowState(WindowState)
 	 */
+	@Override
 	public void setWindowState(WindowState windowState) {
-		portletHelper.setWindowState(windowState);
+		PortletHelperUtil.setWindowState(windowState);
 	}
 
 	/**
 	 * @see  PortletHelper#setWindowStateToMaximized()
 	 */
+	@Override
 	public void setWindowStateToMaximized() {
-		portletHelper.setWindowStateToMaximized();
+		PortletHelperUtil.setWindowStateToMaximized();
 	}
 
 	/**
 	 * @see  PortletHelper#setWindowStateToNormal()
 	 */
+	@Override
 	public void setWindowStateToNormal() {
-		portletHelper.setWindowStateToNormal();
+		PortletHelperUtil.setWindowStateToNormal();
 	}
 }
