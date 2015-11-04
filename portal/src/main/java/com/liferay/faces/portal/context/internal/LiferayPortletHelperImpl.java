@@ -13,9 +13,12 @@
  */
 package com.liferay.faces.portal.context.internal;
 
-import java.io.Serializable;
 import java.util.List;
 
+import javax.el.ELContext;
+import javax.el.ELResolver;
+import javax.faces.application.Application;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
@@ -26,6 +29,7 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
@@ -38,6 +42,7 @@ import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
+import com.liferay.portal.theme.PortletDisplay;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 
@@ -45,10 +50,7 @@ import com.liferay.portal.util.PortalUtil;
 /**
  * @author  Neil Griffin
  */
-public class LiferayPortletHelperImpl implements LiferayPortletHelper, Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 3313208322138123167L;
+public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(LiferayPortletHelperImpl.class);
@@ -69,9 +71,11 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper, Serializa
 	}
 
 	public boolean userHasPortletPermission(String actionId) {
+
 		ThemeDisplay themeDisplay = getThemeDisplay();
 		PermissionChecker permissionChecker = themeDisplay.getPermissionChecker();
-		String portletId = themeDisplay.getPortletDisplay().getId();
+		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
+		String portletId = portletDisplay.getId();
 		boolean hasPermission = false;
 
 		try {
@@ -103,84 +107,132 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper, Serializa
 		}
 
 		return false;
+	}
 
+	@Override
+	public int getBuildNumber() {
+		return ReleaseInfo.getBuildNumber();
 	}
 
 	public long getCompanyId() {
-		return getThemeDisplay().getCompanyId();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getCompanyId();
 	}
 
 	public String getDocumentLibraryURL() {
-		return getPortalURL() + "/c/document_library";
+
+		String portalURL = getPortalURL();
+
+		return portalURL + "/c/document_library";
 	}
 
 	public long getHostGroupId() {
-		return getLayout().getGroupId();
+
+		Layout layout = getLayout();
+
+		return layout.getGroupId();
 	}
 
 	public String getImageGalleryURL() {
-		return getPortalURL() + "/image_gallery";
+
+		String portalURL = getPortalURL();
+
+		return portalURL + "/image_gallery";
 	}
 
 	public Layout getLayout() {
-		return getThemeDisplay().getLayout();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getLayout();
 	}
 
 	protected Liferay getLiferayManagedBean() {
+
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		return (Liferay) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null,
-				"liferay");
+		Application application = facesContext.getApplication();
+		ELResolver elResolver = application.getELResolver();
+		ELContext elContext = facesContext.getELContext();
+
+		return (Liferay) elResolver.getValue(elContext, null, "liferay");
 	}
 
 	public PermissionChecker getPermissionChecker() {
-		return getThemeDisplay().getPermissionChecker();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getPermissionChecker();
 	}
 
 	public long getPlid() {
-		return getThemeDisplay().getPlid();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getPlid();
 	}
 
 	public String getPortalURL() {
-		return getThemeDisplay().getPortalURL();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getPortalURL();
 	}
 
 	public Portlet getPortlet() {
 
 		// Attempt to get the Portlet object from the "RENDER_PORTLET" request attribute.
-		Portlet portlet = (Portlet) getPortletRequest().getAttribute(WebKeys.RENDER_PORTLET);
+		PortletRequest portletRequest = getPortletRequest();
+		Portlet portlet = (Portlet) portletRequest.getAttribute(WebKeys.RENDER_PORTLET);
 
 		// FACES-1212: If the request attribute was null, then this method is being called outside of the RENDER_PHASE
 		// of the portlet lifecycle. In that case, use the cached version of the Portlet object from the "liferay"
 		// ViewScoped managed-bean.
 		if (portlet == null) {
-			portlet = getLiferayManagedBean().getPortlet();
+			Liferay liferayManagedBean = getLiferayManagedBean();
+			portlet = liferayManagedBean.getPortlet();
 		}
 
 		return portlet;
 	}
 
 	public String getPortletInstanceId() {
-		return getPortlet().getPortletId();
+
+		Portlet portlet = getPortlet();
+
+		return portlet.getPortletId();
 	}
 
 	protected PortletRequest getPortletRequest() {
+
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
 		return portletRequest;
 	}
 
 	public String getPortletRootId() {
-		return getPortlet().getRootPortletId();
+
+		Portlet portlet = getPortlet();
+
+		return portlet.getRootPortletId();
 	}
 
 	public Group getScopeGroup() {
-		return getThemeDisplay().getScopeGroup();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getScopeGroup();
 	}
 
 	public long getScopeGroupId() {
-		return getThemeDisplay().getScopeGroupId();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getScopeGroupId();
 	}
 
 	public User getScopeGroupUser() {
@@ -225,10 +277,14 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper, Serializa
 	}
 
 	public Theme getTheme() {
-		return getThemeDisplay().getTheme();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getTheme();
 	}
 
 	public ThemeDisplay getThemeDisplay() {
+
 		ThemeDisplay themeDisplay = (ThemeDisplay) getPortletRequest().getAttribute(WebKeys.THEME_DISPLAY);
 
 		return themeDisplay;
@@ -260,15 +316,20 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper, Serializa
 	}
 
 	public User getUser() {
-		return getThemeDisplay().getUser();
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		return themeDisplay.getUser();
 	}
 
 	public long getUserId() {
-		return getUser().getUserId();
+
+		User user = getUser();
+
+		return user.getUserId();
 	}
 
 	public List<Role> getUserRoles() throws SystemException {
 		return RoleLocalServiceUtil.getUserRoles(getUserId());
 	}
-
 }
