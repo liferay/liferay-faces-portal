@@ -13,14 +13,13 @@
  */
 package com.liferay.faces.portal.bean;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
-import com.liferay.faces.portal.context.LiferayFacesContext;
+import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.portal.el.PortraitURLMap;
 import com.liferay.faces.portal.el.ThemeImageURLMap;
 import com.liferay.faces.portal.security.UserPermissionMap;
@@ -41,9 +40,6 @@ public class Liferay implements Serializable {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 2084947229350893151L;
-
-	// Self-Injections
-	private transient LiferayFacesContext liferayFacesContext = LiferayFacesContext.getInstance();
 
 	// Private Data Members: All marked as transient since they are lazy-initialized.
 	private transient Long companyId;
@@ -72,17 +68,8 @@ public class Liferay implements Serializable {
 		portlet = (Portlet) portletRequest.getAttribute(WebKeys.RENDER_PORTLET);
 	}
 
-	/**
-	 * This method is necessary in order to re-self-inject the {@link LiferayFacesContext} during deserialization. For
-	 * more information, see: http://issues.liferay.com/browse/FACES-1168
-	 */
-	private void readObject(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
-		objectInputStream.defaultReadObject();
-		liferayFacesContext = LiferayFacesContext.getInstance();
-	}
-
 	public int getBuildNumber() {
-		return liferayFacesContext.getBuildNumber();
+		return LiferayPortletHelperUtil.getBuildNumber();
 	}
 
 	/**
@@ -92,7 +79,7 @@ public class Liferay implements Serializable {
 	public Long getCompanyId() {
 
 		if (companyId == null) {
-			companyId = liferayFacesContext.getCompanyId();
+			companyId = LiferayPortletHelperUtil.getCompanyId();
 		}
 
 		return companyId;
@@ -105,7 +92,7 @@ public class Liferay implements Serializable {
 	public String getDocumentLibraryURL() {
 
 		if (documentLibraryURL == null) {
-			documentLibraryURL = liferayFacesContext.getDocumentLibraryURL();
+			documentLibraryURL = LiferayPortletHelperUtil.getDocumentLibraryURL();
 		}
 
 		return documentLibraryURL;
@@ -118,7 +105,7 @@ public class Liferay implements Serializable {
 	public String getImageGalleryURL() {
 
 		if (imageGalleryURL == null) {
-			imageGalleryURL = liferayFacesContext.getImageGalleryURL();
+			imageGalleryURL = LiferayPortletHelperUtil.getImageGalleryURL();
 		}
 
 		return imageGalleryURL;
@@ -131,7 +118,7 @@ public class Liferay implements Serializable {
 	public String getImageURL() {
 
 		if (imageURL == null) {
-			imageURL = liferayFacesContext.getImageGalleryURL();
+			imageURL = LiferayPortletHelperUtil.getImageGalleryURL();
 		}
 
 		return imageURL;
@@ -144,7 +131,7 @@ public class Liferay implements Serializable {
 	public Layout getLayout() {
 
 		if (layout == null) {
-			layout = liferayFacesContext.getLayout();
+			layout = LiferayPortletHelperUtil.getLayout();
 		}
 
 		return layout;
@@ -156,7 +143,7 @@ public class Liferay implements Serializable {
 	public String getPortalURL() {
 
 		if (portalURL == null) {
-			portalURL = liferayFacesContext.getPortalURL();
+			portalURL = LiferayPortletHelperUtil.getPortalURL();
 		}
 
 		return portalURL;
@@ -189,20 +176,20 @@ public class Liferay implements Serializable {
 		if (inlineInputEditor == null) {
 			inlineInputEditor = Boolean.FALSE;
 
-			int buildNumber = liferayFacesContext.getBuildNumber();
+			int buildNumber = LiferayPortletHelperUtil.getBuildNumber();
 
 			if (buildNumber >= 6012) {
 				inlineInputEditor = Boolean.TRUE;
 			}
 			else {
-				String configOption = liferayFacesContext.getExternalContext().getInitParameter(
-						"com.liferay.faces.portal.inlineInputEditor");
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				String configOption = externalContext.getInitParameter("com.liferay.faces.portal.inlineInputEditor");
 
 				if (configOption == null) {
 
 					// Backwards compatibility
-					configOption = liferayFacesContext.getExternalContext().getInitParameter(
-							"org.portletfaces.liferay.faces.inlineInputEditor");
+					configOption = externalContext.getInitParameter("org.portletfaces.liferay.faces.inlineInputEditor");
 				}
 
 				if ((configOption != null) && BooleanHelper.isTrueToken(configOption)) {
@@ -221,7 +208,7 @@ public class Liferay implements Serializable {
 	public User getScopeGroupUser() {
 
 		if (groupUser == null) {
-			groupUser = liferayFacesContext.getScopeGroupUser();
+			groupUser = LiferayPortletHelperUtil.getScopeGroupUser();
 		}
 
 		return groupUser;
@@ -233,7 +220,7 @@ public class Liferay implements Serializable {
 	public Theme getTheme() {
 
 		if (theme == null) {
-			theme = liferayFacesContext.getTheme();
+			theme = LiferayPortletHelperUtil.getTheme();
 		}
 
 		return theme;
@@ -245,7 +232,7 @@ public class Liferay implements Serializable {
 	public ThemeDisplay getThemeDisplay() {
 
 		if (themeDisplay == null) {
-			themeDisplay = liferayFacesContext.getThemeDisplay();
+			themeDisplay = LiferayPortletHelperUtil.getThemeDisplay();
 		}
 
 		return themeDisplay;
@@ -258,7 +245,7 @@ public class Liferay implements Serializable {
 	public String getThemeImagesURL() {
 
 		if (themeImagesURL == null) {
-			themeImagesURL = liferayFacesContext.getThemeImagesURL();
+			themeImagesURL = LiferayPortletHelperUtil.getThemeImagesURL();
 		}
 
 		return themeImagesURL;
@@ -284,7 +271,7 @@ public class Liferay implements Serializable {
 	public User getUser() {
 
 		if (user == null) {
-			user = liferayFacesContext.getUser();
+			user = LiferayPortletHelperUtil.getUser();
 		}
 
 		return user;
