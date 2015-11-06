@@ -38,6 +38,7 @@ import com.liferay.faces.util.jsp.JspAdapterFactory;
 
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.taglib.aui.ScriptTag;
 
 
 /**
@@ -211,9 +212,9 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 				try {
 
 					stringJspWriter.write(portalTagOutputParser.getScriptSectionMarker());
-					ScriptTagUtil.flushScriptData(stringPageContext);
+					ScriptTag.flushScriptData(stringPageContext);
 				}
-				catch (IOException e) {
+				catch (Exception e) {
 					throw new JspException(e);
 				}
 			}
