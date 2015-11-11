@@ -19,8 +19,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-import com.liferay.faces.demos.dto.LiferayBenefit;
-import com.liferay.faces.demos.service.LiferayBenefitService;
+import com.liferay.faces.showcase.dto.LiferayBenefit;
+import com.liferay.faces.showcase.service.LiferayBenefitService;
 
 
 /**
