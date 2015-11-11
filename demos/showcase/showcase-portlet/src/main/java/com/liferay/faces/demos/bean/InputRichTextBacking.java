@@ -21,8 +21,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 
-import com.liferay.faces.demos.dto.Applicant;
-import com.liferay.faces.demos.util.ViewParamUtil;
+import com.liferay.faces.showcase.dto.Applicant;
+import com.liferay.faces.showcase.util.ViewParamUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
