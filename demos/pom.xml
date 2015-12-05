@@ -16,6 +16,7 @@
 	<modules>
 		<module>portal</module>
 		<module>showcase</module>
+		<module>portal-showcase-portlet</module>
 	</modules>
 
 	<profiles>

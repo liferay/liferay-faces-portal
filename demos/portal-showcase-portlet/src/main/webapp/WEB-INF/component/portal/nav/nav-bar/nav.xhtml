@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:portal="http://liferay.com/faces/portal" xmlns:showcase="http://liferay.com/faces/showcase"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/WEB-INF/templates/component-1col-80.xhtml">
+
+	<ui:define name="col1">
+		<h:form>
+			<showcase:example description="#{i18n['portal-nav-nav-bar-example-1']}" renderedCheckbox="true">
+				<portal:navBar rendered="#{showcaseModelBean.selectedComponent.rendered}">
+					<portal:nav>
+						<portal:navItem>
+							<h:commandLink value="Compatible" />
+						</portal:navItem>
+						<portal:navItem>
+							<h:commandLink value="Enterprise Ready" />
+						</portal:navItem>
+						<portal:navItem>
+							<h:commandLink value="Powerful Integration" />
+						</portal:navItem>
+						<portal:navItem>
+							<h:commandLink value="Lightweight" />
+						</portal:navItem>
+						<portal:navItem>
+							<h:commandLink value="Open Source" />
+						</portal:navItem>
+					</portal:nav>
+				</portal:navBar>
+			</showcase:example>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

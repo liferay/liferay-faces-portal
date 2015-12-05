@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:portal="http://liferay.com/faces/portal"
+	xmlns:showcase="http://liferay.com/faces/showcase" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<showcase:example>
+		<h:messages id="feedback" globalOnly="true" layout="table" />
+			<portal:inputSearch actionListener="#{inputSearchBacking.searchActionListener}"
+				value="#{inputSearchBacking.searchText}">
+				<f:ajax render="feedback :modelValue" />
+			</portal:inputSearch>
+		</showcase:example>
+	</h:form>
+	<showcase:results label="#{i18n['model-value']}">
+		<h:outputText value="#{inputSearchBacking.searchText}" id="modelValue" />
+	</showcase:results>
+
+</ui:composition>
