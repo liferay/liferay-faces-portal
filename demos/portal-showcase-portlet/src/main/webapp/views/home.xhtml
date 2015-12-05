@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:showcase="http://liferay.com/faces/showcase"
+	template="/WEB-INF/templates/showcase-#{showcaseModelBean.deploymentType}.xhtml">
+
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="home.css" />
+		<div class="showcase-home">
+			<h:graphicImage library="images" name="component-showcase.png" />
+			<h:graphicImage library="images" name="liferay-logo.png" style="float: right;" />
+			<p>
+				<a href="https://www.liferay.com/community/liferay-projects/liferay-faces">Liferay Faces</a> is an <strong>umbrella
+				project</strong> that provides support for the JavaServer<sup>TM</sup> Faces (JSF) standard within Liferay Portal.
+			</p>
+			<showcase:panel>
+				<f:facet name="header">
+					<h:graphicImage library="images" name="liferay-faces-portal.png" />
+				</f:facet>
+				<p>
+					The <a href="https://www.liferay.com/community/liferay-projects/liferay-faces/portal" target="_blank">Liferay
+					Faces Portal</a> sub-project includes JSF utilities, EL keywords, and a suite of JSF UI components for use with <a
+						href="http://www.liferay.com/community/liferay-projects/liferay-portal" target="_blank">Liferay Portal</a>.
+				</p>
+				<p>
+					The Facelet component tags are prefixed with the <code>portal:</code> namespace are only compatible with <strong>Liferay
+					portlet environments</strong>.
+				</p>
+			</showcase:panel>
+		</div>
+	</ui:define>
+
+</ui:composition>

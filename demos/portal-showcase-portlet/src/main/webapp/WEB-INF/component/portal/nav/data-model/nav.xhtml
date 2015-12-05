@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:portal="http://liferay.com/faces/portal" xmlns:showcase="http://liferay.com/faces/showcase"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/WEB-INF/templates/component-3col.xhtml">
+
+	<ui:define name="col1">
+		<showcase:example>
+			<h:form>
+				<portal:nav responsive="false" value="#{navModelBean.liferayBenefits}" var="liferayBenefit">
+					<portal:navItem>
+						<h:commandLink>
+							<h:graphicImage name="icon-#{liferayBenefit.imageName}" library="images" />
+							<h:outputText value="#{liferayBenefit.label}" />
+						</h:commandLink>
+					</portal:navItem>
+				</portal:nav>
+			</h:form>
+		</showcase:example>
+	</ui:define>
+
+</ui:composition>

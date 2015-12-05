@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:portal="http://liferay.com/faces/portal" xmlns:showcase="http://liferay.com/faces/showcase"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/WEB-INF/templates/component-1col-80.xhtml">
+
+	<ui:define name="col1">
+		<showcase:example description="#{i18n['portal-permissionsurl-windowstate-example-1']}">
+			<portal:permissionsURL resourcePrimKey="#{permissionsURLModelBean.portletResourcePrimaryKey}" windowState="pop_up"
+				var="permissionsURL" />
+			<pre>#{permissionsURL}</pre>
+			<h:form>
+				<h:button
+					onclick="window.open('#{permissionsURL}', '#{i18n.permissions}', 'scrollbars=1,width=800,height=600'); return false;"
+					rendered="#{liferay.userHasPortletPermission['PERMISSIONS']}" value="#{i18n['permissions']}" />
+			</h:form>
+		</showcase:example>
+	</ui:define>
+
+</ui:composition>
