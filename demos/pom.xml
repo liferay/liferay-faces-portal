@@ -14,7 +14,9 @@
 	<name>Liferay Faces Portal Demos</name>
 
 	<modules>
-		<module>portal</module>
+		<module>jsf2-login-portlet</module>
+		<module>jsf2-registration-portlet</module>
+		<module>primefaces5-users-portlet</module>
 		<module>portal-showcase-portlet</module>
 	</modules>
 
