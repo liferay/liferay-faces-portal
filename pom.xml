@@ -380,6 +380,7 @@
 				<faces.spec.version>2.2</faces.spec.version>
 				<liferay.faces.bridge.version>4.0.0-SNAPSHOT</liferay.faces.bridge.version>
 				<liferay.faces.bridge.ext.version>5.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
+				<liferay.faces.showcase.version>3.0.0-SNAPSHOT</liferay.faces.showcase.version>
 				<liferay.faces.util.version>3.0.0-SNAPSHOT</liferay.faces.util.version>
 				<mojarra.version>2.2.12</mojarra.version>
 			</properties>
