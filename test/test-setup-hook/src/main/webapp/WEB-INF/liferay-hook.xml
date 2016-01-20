@@ -3,5 +3,4 @@
 
 <hook>
 	<portal-properties>portal.properties</portal-properties>
-	<custom-jsp-dir>/META-INF/custom-jsp</custom-jsp-dir>
 </hook>
