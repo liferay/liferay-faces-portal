@@ -16,6 +16,7 @@ package com.liferay.faces.test.hooks;
 import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortlet;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
@@ -38,8 +39,8 @@ public abstract class TestSetupCompatAction extends SimpleAction {
 	// Private Data Members
 	boolean fixedPermissionChecker = false;
 
-	protected void addPortlet(LayoutTypePortlet layoutTypePortlet, long userId, int columnNumber, String portletId)
-		throws PortalException, SystemException {
+	protected void addPortlet(Layout portalPageLayout, LayoutTypePortlet layoutTypePortlet, long userId,
+		int columnNumber, String portletId) throws PortalException, SystemException {
 
 		String columnNumberLabel = Integer.toString(columnNumber);
 

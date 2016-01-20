@@ -201,7 +201,7 @@ public class TestSetupAction extends TestSetupCompatAction {
 				portletId = portletId + "ABCD";
 			}
 
-			addPortlet(layoutTypePortlet, userId, columnNumber, portletId);
+			addPortlet(portalPageLayout, layoutTypePortlet, userId, columnNumber, portletId);
 
 			columnNumber++;
 		}
