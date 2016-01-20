@@ -13,18 +13,30 @@
  */
 package com.liferay.faces.test.hooks;
 
+import java.io.IOException;
+
+import javax.portlet.PortletPreferences;
+import javax.portlet.ValidatorException;
+
 import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.portlet.PortletBag;
+import com.liferay.portal.kernel.portlet.PortletBagPool;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.LayoutTypePortlet;
+import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
+import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
+
+import com.liferay.portlet.PortletPreferencesFactoryUtil;
 
 
 /**
@@ -38,8 +50,8 @@ public abstract class TestSetupCompatAction extends SimpleAction {
 	// Private Data Members
 	boolean fixedPermissionChecker = false;
 
-	protected void addPortlet(LayoutTypePortlet layoutTypePortlet, long userId, int columnNumber, String portletId)
-		throws PortalException, SystemException {
+	protected void addPortlet(Layout portalPageLayout, LayoutTypePortlet layoutTypePortlet, long userId,
+		int columnNumber, String portletId) throws PortalException, SystemException {
 
 		String columnNumberLabel = Integer.toString(columnNumber);
 
@@ -50,6 +62,22 @@ public abstract class TestSetupCompatAction extends SimpleAction {
 		// NOTE: In Liferay 6.1.x the following call was to setPortletIds() but that method was removed in 6.2.x
 		layoutTypePortlet.addPortletId(userId, portletId, columnNumberLabel, 1);
 
+		// Store the preferences for the portlet, if any
+		PortletPreferences portletPreferences = PortletPreferencesFactoryUtil.getLayoutPortletSetup(portalPageLayout,
+				portletId);
+		long companyId = portalPageLayout.getCompanyId();
+		Portlet portlet = PortletLocalServiceUtil.getPortletById(companyId, portletId);
+		PortletBag portletBag = PortletBagPool.get(portlet.getRootPortletId());
+
+		if (portletBag != null) {
+
+			try {
+				portletPreferences.store();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
