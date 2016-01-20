@@ -30,7 +30,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.DuplicateUserEmailAddressException;
 import com.liferay.portal.DuplicateUserScreenNameException;
-import com.liferay.portal.UserPasswordException;
+import com.liferay.portal.exception.UserPasswordException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;

@@ -49,7 +49,8 @@ public abstract class TestSetupCompatAction extends SimpleAction {
 
 		// NOTE: In Liferay 6.1.x the following call was to setPortletIds() but that method was removed in 6.2.x
 		layoutTypePortlet.addPortletId(userId, portletId, columnNumberLabel, 1);
-
+		layoutTypePortlet.resetModes();
+		layoutTypePortlet.resetStates();
 	}
 
 	/**

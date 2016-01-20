@@ -42,7 +42,8 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.persistence.PhoneUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.usersadmin.util.UsersAdminUtil;
+
+import com.liferay.users.admin.kernel.util.UsersAdminUtil;
 
 
 /**

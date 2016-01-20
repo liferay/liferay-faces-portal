@@ -21,10 +21,14 @@ import java.util.Locale;
 
 import javax.portlet.PortletPreferences;
 
+import com.liferay.portal.kernel.portlet.AddPortletProvider;
+import com.liferay.portlet.asset.model.AssetEntry;
+import com.liferay.registry.collections.ServiceTrackerCollections;
+import com.liferay.registry.collections.ServiceTrackerMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.liferay.portal.NoSuchGroupException;
+import com.liferay.portal.exception.NoSuchGroupException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.portlet.PortletBag;
