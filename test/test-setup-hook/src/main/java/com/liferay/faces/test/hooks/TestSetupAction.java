@@ -201,17 +201,7 @@ public class TestSetupAction extends TestSetupCompatAction {
 				portletId = portletId + "ABCD";
 			}
 
-			addPortlet(layoutTypePortlet, userId, columnNumber, portletId);
-
-			// Store the preferences for the portlet, if any
-			PortletPreferences portletPreferences = PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-					portalPageLayout, portletId);
-			Portlet portlet = PortletLocalServiceUtil.getPortletById(companyId, portletId);
-			PortletBag portletBag = PortletBagPool.get(portlet.getRootPortletId());
-
-			if (portletBag != null) {
-				portletPreferences.store();
-			}
+			addPortlet(portalPageLayout, layoutTypePortlet, userId, columnNumber, portletId);
 
 			columnNumber++;
 		}
