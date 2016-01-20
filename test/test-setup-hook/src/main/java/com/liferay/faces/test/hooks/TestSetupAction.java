@@ -21,10 +21,6 @@ import java.util.Locale;
 
 import javax.portlet.PortletPreferences;
 
-import com.liferay.portal.kernel.portlet.AddPortletProvider;
-import com.liferay.portlet.asset.model.AssetEntry;
-import com.liferay.registry.collections.ServiceTrackerCollections;
-import com.liferay.registry.collections.ServiceTrackerMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
