@@ -90,4 +90,9 @@ public abstract class TestSetupCompatAction extends SimpleAction {
 		}
 
 	}
+
+	protected void storePortletPreferences(Layout portalPageLayout, String portletId) throws PortalException,
+		SystemException {
+		// No-op for Liferay 7.0
+	}
 }
