@@ -29,6 +29,7 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Group;
@@ -37,7 +38,6 @@ import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.model.User;
-import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -55,6 +55,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(LiferayPortletHelperImpl.class);
 
+	@Override
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException {
 
 		try {
@@ -70,6 +71,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		}
 	}
 
+	@Override
 	public boolean userHasPortletPermission(String actionId) {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -89,6 +91,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return hasPermission;
 	}
 
+	@Override
 	public boolean userHasRole(String roleName) {
 
 		try {
@@ -114,6 +117,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return ReleaseInfo.getBuildNumber();
 	}
 
+	@Override
 	public long getCompanyId() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -121,6 +125,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay.getCompanyId();
 	}
 
+	@Override
 	public String getDocumentLibraryURL() {
 
 		String portalURL = getPortalURL();
@@ -128,6 +133,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return portalURL + "/c/document_library";
 	}
 
+	@Override
 	public long getHostGroupId() {
 
 		Layout layout = getLayout();
@@ -135,6 +141,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return layout.getGroupId();
 	}
 
+	@Override
 	public String getImageGalleryURL() {
 
 		String portalURL = getPortalURL();
@@ -142,6 +149,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return portalURL + "/image_gallery";
 	}
 
+	@Override
 	public Layout getLayout() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -160,6 +168,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return (Liferay) elResolver.getValue(elContext, null, "liferay");
 	}
 
+	@Override
 	public PermissionChecker getPermissionChecker() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -167,6 +176,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay.getPermissionChecker();
 	}
 
+	@Override
 	public long getPlid() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -174,6 +184,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay.getPlid();
 	}
 
+	@Override
 	public String getPortalURL() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -181,6 +192,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay.getPortalURL();
 	}
 
+	@Override
 	public Portlet getPortlet() {
 
 		// Attempt to get the Portlet object from the "RENDER_PORTLET" request attribute.
@@ -198,6 +210,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return portlet;
 	}
 
+	@Override
 	public String getPortletInstanceId() {
 
 		Portlet portlet = getPortlet();
@@ -214,6 +227,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return portletRequest;
 	}
 
+	@Override
 	public String getPortletRootId() {
 
 		Portlet portlet = getPortlet();
@@ -221,6 +235,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return portlet.getRootPortletId();
 	}
 
+	@Override
 	public Group getScopeGroup() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -228,6 +243,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay.getScopeGroup();
 	}
 
+	@Override
 	public long getScopeGroupId() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -235,6 +251,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay.getScopeGroupId();
 	}
 
+	@Override
 	public User getScopeGroupUser() {
 		User groupUser = null;
 		Group scopeGroup = getScopeGroup();
@@ -252,6 +269,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return groupUser;
 	}
 
+	@Override
 	public ServiceContext getServiceContext() {
 
 		ServiceContext serviceContext = new ServiceContext();
@@ -276,6 +294,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return serviceContext;
 	}
 
+	@Override
 	public Theme getTheme() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -283,6 +302,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay.getTheme();
 	}
 
+	@Override
 	public ThemeDisplay getThemeDisplay() {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) getPortletRequest().getAttribute(WebKeys.THEME_DISPLAY);
@@ -290,6 +310,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay;
 	}
 
+	@Override
 	public String getThemeImagesURL() {
 
 		String portalURL = null;
@@ -315,6 +336,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		}
 	}
 
+	@Override
 	public User getUser() {
 
 		ThemeDisplay themeDisplay = getThemeDisplay();
@@ -322,6 +344,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return themeDisplay.getUser();
 	}
 
+	@Override
 	public long getUserId() {
 
 		User user = getUser();
@@ -329,6 +352,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		return user.getUserId();
 	}
 
+	@Override
 	public List<Role> getUserRoles() throws SystemException {
 		return RoleLocalServiceUtil.getUserRoles(getUserId());
 	}

@@ -18,13 +18,13 @@ import java.util.List;
 import com.liferay.faces.portal.security.AuthorizationException;
 
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.model.User;
-import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
 
@@ -48,11 +48,11 @@ public interface LiferayPortletHelper {
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException;
 
 	/**
-	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn, is assumed to
-	 * be an action defined for the current portlet). Any errors that occur will be caught and re-thrown, wrapped in a
-	 * PortletRuntimeException.
+	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn,
+	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
+	 * wrapped in a PortletRuntimeException.
 	 *
-	 * @see    {@link #checkUserPortletPermission(String)}
+	 * @see  {@link #checkUserPortletPermission(String)}
 	 */
 	public boolean userHasPortletPermission(String actionId);
 

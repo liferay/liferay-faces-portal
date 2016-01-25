@@ -20,13 +20,13 @@ import javax.faces.FacesWrapper;
 import com.liferay.faces.portal.security.AuthorizationException;
 
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.Theme;
 import com.liferay.portal.model.User;
-import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.theme.ThemeDisplay;
 
@@ -36,98 +36,122 @@ import com.liferay.portal.theme.ThemeDisplay;
  */
 public abstract class LiferayPortletHelperWrapper implements LiferayPortletHelper, FacesWrapper<LiferayPortletHelper> {
 
+	@Override
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException {
 		getWrapped().checkUserPortletPermission(actionId);
 	}
 
+	@Override
 	public boolean userHasPortletPermission(String actionId) {
 		return getWrapped().userHasPortletPermission(actionId);
 	}
 
+	@Override
 	public boolean userHasRole(String roleName) {
 		return getWrapped().userHasRole(roleName);
 	}
 
+	@Override
 	public long getCompanyId() {
 		return getWrapped().getCompanyId();
 	}
 
+	@Override
 	public String getDocumentLibraryURL() {
 		return getWrapped().getDocumentLibraryURL();
 	}
 
+	@Override
 	public long getHostGroupId() {
 		return getWrapped().getHostGroupId();
 	}
 
+	@Override
 	public String getImageGalleryURL() {
 		return getWrapped().getImageGalleryURL();
 	}
 
+	@Override
 	public Layout getLayout() {
 		return getWrapped().getLayout();
 	}
 
+	@Override
 	public PermissionChecker getPermissionChecker() {
 		return getWrapped().getPermissionChecker();
 	}
 
+	@Override
 	public long getPlid() {
 		return getWrapped().getPlid();
 	}
 
+	@Override
 	public String getPortalURL() {
 		return getWrapped().getPortalURL();
 	}
 
+	@Override
 	public Portlet getPortlet() {
 		return getWrapped().getPortlet();
 	}
 
+	@Override
 	public String getPortletInstanceId() {
 		return getWrapped().getPortletInstanceId();
 	}
 
+	@Override
 	public String getPortletRootId() {
 		return getWrapped().getPortletRootId();
 	}
 
+	@Override
 	public Group getScopeGroup() {
 		return getWrapped().getScopeGroup();
 	}
 
+	@Override
 	public long getScopeGroupId() {
 		return getWrapped().getScopeGroupId();
 	}
 
+	@Override
 	public User getScopeGroupUser() {
 		return getWrapped().getScopeGroupUser();
 	}
 
+	@Override
 	public ServiceContext getServiceContext() {
 		return getWrapped().getServiceContext();
 	}
 
+	@Override
 	public Theme getTheme() {
 		return getWrapped().getTheme();
 	}
 
+	@Override
 	public ThemeDisplay getThemeDisplay() {
 		return getWrapped().getThemeDisplay();
 	}
 
+	@Override
 	public String getThemeImagesURL() {
 		return getWrapped().getThemeImagesURL();
 	}
 
+	@Override
 	public User getUser() {
 		return getWrapped().getUser();
 	}
 
+	@Override
 	public long getUserId() {
 		return getWrapped().getUserId();
 	}
 
+	@Override
 	public List<Role> getUserRoles() throws SystemException {
 		return getWrapped().getUserRoles();
 	}

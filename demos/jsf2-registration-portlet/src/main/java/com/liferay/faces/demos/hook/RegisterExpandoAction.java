@@ -22,11 +22,11 @@ import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
-import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 
 import com.liferay.portlet.expando.exception.NoSuchTableException;
