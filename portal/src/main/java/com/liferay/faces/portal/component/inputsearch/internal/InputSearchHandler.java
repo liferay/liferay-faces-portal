@@ -48,7 +48,7 @@ public class InputSearchHandler extends ComponentHandler {
 		return metaRuleset;
 	}
 
-	protected class InputSearchMethodRule extends MetaRule {
+	private static class InputSearchMethodRule extends MetaRule {
 
 		@Override
 		public Metadata applyRule(String name, TagAttribute tagAttribute, MetadataTarget metadataTarget) {

@@ -123,7 +123,7 @@ public class CaptchaResource extends Resource {
 		return null;
 	}
 
-	public class CaptchaServletOutputStream extends ServletOutputStream {
+	private static class CaptchaServletOutputStream extends ServletOutputStream {
 
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
@@ -137,7 +137,7 @@ public class CaptchaResource extends Resource {
 		}
 	}
 
-	protected class CaptchaHttpServletResponse extends HttpServletResponseWrapper {
+	private static class CaptchaHttpServletResponse extends HttpServletResponseWrapper {
 
 		ServletOutputStream outputStream;
 
