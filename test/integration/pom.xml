@@ -37,7 +37,7 @@
 	</dependencies>
 
 	<properties>
-		<integration.portal>liferay</integration.portal>
+		<integration.portal>liferay62</integration.portal>
 		<integration.host>localhost</integration.host>
 		<integration.port>8080</integration.port>
 		<integration.url>http://${integration.host}:${integration.port}</integration.url>

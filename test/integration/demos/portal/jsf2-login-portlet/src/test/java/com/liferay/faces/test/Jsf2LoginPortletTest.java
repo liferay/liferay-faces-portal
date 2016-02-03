@@ -41,9 +41,6 @@ public class Jsf2LoginPortletTest extends TesterBase {
 
 	private static final Logger logger = Logger.getLogger(Jsf2LoginPortletTest.class.getName());
 
-	@FindBy(xpath = "//section[@id='portlet_1_WAR_jsf2loginportlet']/header/h1/span[2]")
-	private WebElement portletDisplayName;
-
 	@FindBy(xpath = "//form[@method='post']/ul/li")
 	private WebElement messageError;
 
@@ -78,10 +75,6 @@ public class Jsf2LoginPortletTest extends TesterBase {
 		logger.log(Level.INFO, "url = " + url);
 
 		browser.get(url);
-
-		logger.log(Level.INFO, "portletDisplayName.getText() = " + portletDisplayName.getText());
-		assertTrue("portletDisplayName.isDisplayed()", portletDisplayName.isDisplayed());
-		assertTrue("portlet is called JSF2 Sign-In", portletDisplayName.getText().contains("JSF2 Sign-In"));
 
 		logger.log(Level.INFO, "emailField.isDisplayed() = " + emailField.isDisplayed());
 		assertTrue("emailField.isDisplayed()", emailField.isDisplayed());
@@ -133,6 +126,7 @@ public class Jsf2LoginPortletTest extends TesterBase {
 		logger.log(Level.INFO, "signInButton.click() ...");
 		signInButton.click();
 		logger.log(Level.INFO, "starting to wait ...");
+		waitForElement(browser, "//div[contains(text(),'You are signed in as')]");
 
 		logger.log(Level.INFO, "portletBody.getText() = " + portletBody.getText());
 		assertTrue("portletBody is displayed", portletBody.isDisplayed());

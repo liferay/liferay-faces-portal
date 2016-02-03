@@ -37,9 +37,6 @@ import com.liferay.faces.test.util.TesterBase;
 @RunWith(Arquillian.class)
 public class FACES257PortletTest extends TesterBase {
 
-	// portlet topper and menu elements
-	private static final String portletDisplayNameXpath = "//header[@class='portlet-topper']/h1/span";
-
 	private static final String anchor1Xpath = "//a[contains(text(), 'alpha=1 beta=2 gamma=0')]";
 
 	private static final String assert1Xpath = anchor1Xpath +
@@ -72,8 +69,6 @@ public class FACES257PortletTest extends TesterBase {
 
 	static final String url = baseUrl + "/web/portal-issues/faces-257";
 
-	@FindBy(xpath = portletDisplayNameXpath)
-	private WebElement portletDisplayName;
 	@FindBy(xpath = anchor1Xpath)
 	private WebElement anchor1;
 	@FindBy(xpath = assert1Xpath)
@@ -111,10 +106,8 @@ public class FACES257PortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		logger.log(Level.INFO, "portletDisplayName.getText() = " + portletDisplayName.getText());
-		Thread.sleep(250);
 
-		logger.log(Level.INFO, "portletDisplayName.isDisplayed() = " + portletDisplayName.isDisplayed());
+		waitForElement(browser, anchor1Xpath);
 
 		logger.log(Level.INFO, "anchor1.isDisplayed() = " + anchor1.isDisplayed());
 		logger.log(Level.INFO, "assert1.getText() = " + assert1.getText());
@@ -133,9 +126,6 @@ public class FACES257PortletTest extends TesterBase {
 		logger.log(Level.INFO, "isThere(gammaXpath) = " + isThere(browser, gammaXpath));
 		logger.log(Level.INFO, "requestedUrl.isDisplayed() = " + requestedUrl.isDisplayed());
 
-		assertTrue(
-			"The portlet should be displayed by this point, but it is not ... portletDisplayName.isDisplayed() = " +
-			portletDisplayName.isDisplayed(), portletDisplayName.isDisplayed());
 		assertTrue(
 			"The requestedUrl should be displayed by this point, but it is not ... requestedUrl.isDisplayed() = " +
 			requestedUrl.isDisplayed(), requestedUrl.isDisplayed());
