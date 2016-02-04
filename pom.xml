@@ -382,7 +382,7 @@
 				<liferay.faces.bridge.ext.version>3.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 				<liferay.faces.showcase.version>3.0.0-SNAPSHOT</liferay.faces.showcase.version>
 				<liferay.faces.util.version>3.0.0-SNAPSHOT</liferay.faces.util.version>
-				<mojarra.version>2.2.12</mojarra.version>
+				<mojarra.version>2.2.13</mojarra.version>
 			</properties>
 		</profile>
 		<profile>
