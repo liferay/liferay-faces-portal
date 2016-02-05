@@ -34,6 +34,7 @@ import com.liferay.taglib.aui.NavTag;
  * @author  Neil Griffin
  * @author  Juan Gonzalez
  */
+
 //J-
 @FacesRenderer(componentFamily = Nav.COMPONENT_FAMILY, rendererType = Nav.RENDERER_TYPE)
 //J+

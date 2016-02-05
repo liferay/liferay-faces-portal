@@ -64,6 +64,7 @@ import com.liferay.taglib.ui.InputSearchTag;
  *
  * @author  Juan Gonzalez
  */
+
 //J-
 @FacesRenderer(componentFamily = InputSearch.COMPONENT_FAMILY, rendererType = InputSearch.RENDERER_TYPE)
 //J+

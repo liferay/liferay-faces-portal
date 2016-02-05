@@ -35,6 +35,7 @@ import com.liferay.taglib.ui.CaptchaTag;
 /**
  * @author  Juan Gonzalez
  */
+
 //J-
 @FacesRenderer(componentFamily = Captcha.COMPONENT_FAMILY, rendererType = Captcha.RENDERER_TYPE)
 //J+

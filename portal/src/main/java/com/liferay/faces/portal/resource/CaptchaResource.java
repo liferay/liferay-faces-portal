@@ -123,20 +123,6 @@ public class CaptchaResource extends Resource {
 		return null;
 	}
 
-	private static class CaptchaServletOutputStream extends ServletOutputStream {
-
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-		public byte[] toByteArray() {
-			return byteArrayOutputStream.toByteArray();
-		}
-
-		@Override
-		public void write(int b) throws IOException {
-			byteArrayOutputStream.write(b);
-		}
-	}
-
 	private static class CaptchaHttpServletResponse extends HttpServletResponseWrapper {
 
 		ServletOutputStream outputStream;
@@ -155,6 +141,20 @@ public class CaptchaResource extends Resource {
 			return outputStream;
 		}
 
+	}
+
+	private static class CaptchaServletOutputStream extends ServletOutputStream {
+
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+		public byte[] toByteArray() {
+			return byteArrayOutputStream.toByteArray();
+		}
+
+		@Override
+		public void write(int b) throws IOException {
+			byteArrayOutputStream.write(b);
+		}
 	}
 
 }

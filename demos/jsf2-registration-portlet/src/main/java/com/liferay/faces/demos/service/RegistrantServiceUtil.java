@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.liferay.expando.kernel.model.ExpandoBridge;
+
 import com.liferay.faces.demos.expando.UserExpando;
 import com.liferay.faces.demos.model.Registrant;
 import com.liferay.faces.util.logging.Logger;
@@ -41,8 +43,6 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.persistence.PhoneUtil;
 
-import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.users.admin.kernel.util.UsersAdminUtil;
 
 
@@ -55,7 +55,6 @@ public class RegistrantServiceUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(RegistrantServiceUtil.class);
 
-	public static final String CONTACT_CLASS_NAME = "com.liferay.portal.model.Contact";
 	public static final String PHONE_CLASS_NAME = "com.liferay.portal.model.Contact.phone";
 
 	public static Registrant add(long creatorUserId, long companyId, Locale locale, Registrant registrant,
@@ -63,7 +62,7 @@ public class RegistrantServiceUtil {
 		boolean autoPassword = false;
 		String password1 = registrant.getPassword1();
 		String password2 = registrant.getPassword2();
-		String screenName = null;
+		String screenName;
 
 		if (autoScreenName) {
 			screenName = "";
@@ -168,7 +167,7 @@ public class RegistrantServiceUtil {
 
 	private static PermissionChecker getAdministratorPermissionChecker(long companyId) throws PortalException,
 		SystemException {
-		PermissionChecker administratorPermissionChecker = null;
+		PermissionChecker administratorPermissionChecker;
 		Role administratorRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.ADMINISTRATOR);
 		List<User> administratorUsers = UserLocalServiceUtil.getRoleUsers(administratorRole.getRoleId());
 

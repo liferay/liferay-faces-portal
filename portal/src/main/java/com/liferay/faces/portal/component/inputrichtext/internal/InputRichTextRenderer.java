@@ -43,6 +43,7 @@ import com.liferay.taglib.ui.InputEditorTag;
 /**
  * @author  Neil Griffin
  */
+
 //J-
 @FacesRenderer(componentFamily = InputRichText.COMPONENT_FAMILY, rendererType = InputRichText.RENDERER_TYPE)
 @ResourceDependency(library = "liferay-faces-portal", name = "portal.js")

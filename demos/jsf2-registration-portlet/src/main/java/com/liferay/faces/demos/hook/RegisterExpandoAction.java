@@ -13,6 +13,13 @@
  */
 package com.liferay.faces.demos.hook;
 
+import com.liferay.expando.kernel.exception.NoSuchTableException;
+import com.liferay.expando.kernel.model.ExpandoColumn;
+import com.liferay.expando.kernel.model.ExpandoColumnConstants;
+import com.liferay.expando.kernel.model.ExpandoTable;
+import com.liferay.expando.kernel.service.ExpandoColumnLocalServiceUtil;
+import com.liferay.expando.kernel.service.ExpandoTableLocalServiceUtil;
+
 import com.liferay.faces.demos.expando.UserExpando;
 import com.liferay.faces.demos.security.PermissionUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -28,13 +35,6 @@ import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.service.RoleLocalServiceUtil;
-
-import com.liferay.expando.kernel.exception.NoSuchTableException;
-import com.liferay.expando.kernel.model.ExpandoColumn;
-import com.liferay.expando.kernel.model.ExpandoColumnConstants;
-import com.liferay.expando.kernel.model.ExpandoTable;
-import com.liferay.expando.kernel.service.ExpandoColumnLocalServiceUtil;
-import com.liferay.expando.kernel.service.ExpandoTableLocalServiceUtil;
 
 
 /**
@@ -65,7 +65,7 @@ public class RegisterExpandoAction extends SimpleAction {
 	protected void addExpandoColumn(long companyId, String modelClassName, String expandoColumnName,
 		int expandoColumnType, boolean indexable) throws PortalException, SystemException {
 
-		ExpandoTable expandoTable = null;
+		ExpandoTable expandoTable;
 
 		try {
 			expandoTable = ExpandoTableLocalServiceUtil.getDefaultTable(companyId, modelClassName);
@@ -75,7 +75,7 @@ public class RegisterExpandoAction extends SimpleAction {
 			logger.debug("Added expando table for modelClassName=[{0}]", modelClassName);
 		}
 
-		ExpandoColumn expandoColumn = null;
+		ExpandoColumn expandoColumn;
 
 		expandoColumn = ExpandoColumnLocalServiceUtil.getColumn(expandoTable.getTableId(), expandoColumnName);
 

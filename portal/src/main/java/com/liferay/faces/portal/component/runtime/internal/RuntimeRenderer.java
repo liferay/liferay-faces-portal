@@ -28,6 +28,7 @@ import com.liferay.taglib.portletext.RuntimeTag;
 /**
  * @author  Juan Gonzalez
  */
+
 //J-
 @FacesRenderer(componentFamily = Runtime.COMPONENT_FAMILY, rendererType = Runtime.RENDERER_TYPE)
 //J+
