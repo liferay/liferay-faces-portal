@@ -15,7 +15,7 @@ package com.liferay.faces.demos.expando;
 
 import com.liferay.portal.model.User;
 
-import com.liferay.portlet.expando.model.ExpandoColumnConstants;
+import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 
 
 /**

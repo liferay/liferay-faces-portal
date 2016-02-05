@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 
 

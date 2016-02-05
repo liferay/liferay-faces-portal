@@ -21,7 +21,7 @@ import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.servlet.http.HttpServletRequest;
 
-import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.util.Portal;
 
 import com.liferay.portlet.PortletURLFactoryUtil;

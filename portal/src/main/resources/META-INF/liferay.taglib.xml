@@ -87,7 +87,7 @@
 		<vdldoc:el-variable>
 			<vdldoc:el-variable-name>liferay.themeDisplay</vdldoc:el-variable-name>
 			<vdldoc:description>The Liferay `ThemeDisplay` associated with the `PortletRequest`.</vdldoc:description>
-			<vdldoc:type>com.liferay.portal.theme.ThemeDisplay</vdldoc:type>
+			<vdldoc:type>com.liferay.portal.kernel.theme.ThemeDisplay</vdldoc:type>
 			<vdldoc:since>1.0.0</vdldoc:since>
 		</vdldoc:el-variable>
 		<vdldoc:el-variable>

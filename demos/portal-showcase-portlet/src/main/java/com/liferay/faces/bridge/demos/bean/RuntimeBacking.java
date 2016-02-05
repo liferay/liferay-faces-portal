@@ -26,7 +26,7 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 // TODO import com.liferay.portlet.journal.model.JournalArticle;
