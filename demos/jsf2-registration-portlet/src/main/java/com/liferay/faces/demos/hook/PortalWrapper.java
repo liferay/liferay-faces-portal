@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 
 import javax.faces.FacesWrapper;
 
-import com.liferay.portal.util.Portal;
+import com.liferay.portal.kernel.util.Portal;
 
 
 /**

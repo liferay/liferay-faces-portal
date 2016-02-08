@@ -37,7 +37,7 @@ import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.jsp.JspAdapterFactory;
 
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import com.liferay.taglib.aui.ScriptTag;
 

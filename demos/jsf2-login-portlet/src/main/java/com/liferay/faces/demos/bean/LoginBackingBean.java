@@ -49,7 +49,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.CompanyConstants;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.util.PortalUtilCompat;
 import com.liferay.portal.util.PropsValuesCompat;
 

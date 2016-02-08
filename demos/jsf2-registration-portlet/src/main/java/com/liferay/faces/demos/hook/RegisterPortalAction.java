@@ -21,8 +21,8 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.events.SimpleAction;
-import com.liferay.portal.util.Portal;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 
 /**

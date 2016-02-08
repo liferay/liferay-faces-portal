@@ -21,14 +21,14 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-import com.liferay.faces.bridge.demos.util.WebContentUtil;
+import com.liferay.document.library.kernel.model.DLFolderConstants;
+
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 
-import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 // TODO import com.liferay.portlet.journal.model.JournalArticle;
 
 

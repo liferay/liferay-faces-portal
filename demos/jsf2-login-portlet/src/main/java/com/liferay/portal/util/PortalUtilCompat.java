@@ -16,6 +16,8 @@ package com.liferay.portal.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.liferay.portal.kernel.util.PortalUtil;
+
 
 /**
  * This class provides a compatibility layer that isolates differences between different versions of Liferay Portal.

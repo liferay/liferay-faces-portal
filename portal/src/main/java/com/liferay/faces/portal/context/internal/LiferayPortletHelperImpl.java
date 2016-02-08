@@ -43,8 +43,8 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.permission.PortletPermissionUtil;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 
 /**
@@ -222,9 +222,8 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
-		return portletRequest;
+		return (PortletRequest) externalContext.getRequest();
 	}
 
 	@Override
@@ -304,19 +303,16 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 
 	@Override
 	public ThemeDisplay getThemeDisplay() {
-
-		ThemeDisplay themeDisplay = (ThemeDisplay) getPortletRequest().getAttribute(WebKeys.THEME_DISPLAY);
-
-		return themeDisplay;
+		return (ThemeDisplay) getPortletRequest().getAttribute(WebKeys.THEME_DISPLAY);
 	}
 
 	@Override
 	public String getThemeImagesURL() {
 
-		String portalURL = null;
 		ThemeDisplay themeDisplay = getThemeDisplay();
 		String cdnHost = themeDisplay.getCDNHost();
 
+		String portalURL;
 		if ((cdnHost != null) && (cdnHost.length() > 0)) {
 			portalURL = cdnHost;
 		}

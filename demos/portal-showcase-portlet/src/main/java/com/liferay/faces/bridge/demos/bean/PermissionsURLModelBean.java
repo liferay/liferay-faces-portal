@@ -18,15 +18,13 @@ import javax.faces.bean.RequestScoped;
 
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
+import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.RoleConstants;
-import com.liferay.portal.service.permission.PortletPermissionUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

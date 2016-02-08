@@ -22,9 +22,9 @@ import javax.portlet.WindowState;
 import javax.servlet.http.HttpServletRequest;
 
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.util.Portal;
+import com.liferay.portal.kernel.util.Portal;
 
-import com.liferay.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 
 
 /**

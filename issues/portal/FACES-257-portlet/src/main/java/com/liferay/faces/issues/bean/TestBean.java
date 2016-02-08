@@ -21,9 +21,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.util.PortalUtil;
 
 
 /**
