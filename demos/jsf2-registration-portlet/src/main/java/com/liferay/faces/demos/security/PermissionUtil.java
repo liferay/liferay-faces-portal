@@ -17,8 +17,8 @@ import java.util.Arrays;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.service.ResourceActionLocalServiceUtil;
-import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourceActionLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalServiceUtil;
 
 
 /**

@@ -29,10 +29,10 @@ import com.liferay.faces.util.helper.BooleanHelper;
 
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.Theme;
-import com.liferay.portal.model.User;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.model.Theme;
+import com.liferay.portal.kernel.model.User;
 
 
 /**

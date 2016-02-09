@@ -26,8 +26,8 @@ import javax.portlet.ResourceResponse;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
 
 /**

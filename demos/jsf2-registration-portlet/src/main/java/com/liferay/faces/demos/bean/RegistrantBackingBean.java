@@ -28,15 +28,15 @@ import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.DuplicateUserEmailAddressException;
-import com.liferay.portal.DuplicateUserScreenNameException;
-import com.liferay.portal.exception.UserPasswordException;
+import com.liferay.portal.kernel.exception.DuplicateUserEmailAddressException;
+import com.liferay.portal.kernel.exception.DuplicateUserScreenNameException;
+import com.liferay.portal.kernel.exception.UserPasswordException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.PasswordPolicy;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.PasswordPolicy;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 
 
 /**

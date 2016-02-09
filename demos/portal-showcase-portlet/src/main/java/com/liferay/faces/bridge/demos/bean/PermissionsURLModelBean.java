@@ -19,8 +19,8 @@ import javax.faces.bean.RequestScoped;
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
 import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
-import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.RoleConstants;
+import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.portal.kernel.model.RoleConstants;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

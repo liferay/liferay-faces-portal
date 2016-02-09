@@ -29,10 +29,10 @@ import com.liferay.faces.demos.util.UploadedFileUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.model.Image;
-import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserConstants;
-import com.liferay.portal.service.ImageServiceUtil;
+import com.liferay.portal.kernel.model.Image;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserConstants;
+import com.liferay.portal.kernel.service.ImageServiceUtil;
 
 
 /**

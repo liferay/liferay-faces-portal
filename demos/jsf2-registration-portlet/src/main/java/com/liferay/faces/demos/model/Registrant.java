@@ -13,8 +13,8 @@
  */
 package com.liferay.faces.demos.model;
 
-import com.liferay.portal.model.UserWrapper;
-import com.liferay.portal.service.persistence.UserUtil;
+import com.liferay.portal.kernel.model.UserWrapper;
+import com.liferay.portal.kernel.service.persistence.UserUtil;
 
 
 /**

@@ -22,7 +22,7 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.util.LocalizationUtil;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 /* TODO
 import com.liferay.portlet.journal.NoSuchArticleException;

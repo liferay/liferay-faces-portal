@@ -18,7 +18,7 @@ import java.util.HashMap;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.model.User;
+import com.liferay.portal.kernel.model.User;
 
 
 /**

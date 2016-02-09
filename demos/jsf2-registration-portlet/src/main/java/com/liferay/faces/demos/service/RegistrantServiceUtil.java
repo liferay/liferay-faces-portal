@@ -31,17 +31,17 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.Contact;
-import com.liferay.portal.model.ListType;
-import com.liferay.portal.model.Phone;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.model.RoleConstants;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.ListTypeServiceUtil;
-import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.persistence.PhoneUtil;
+import com.liferay.portal.kernel.model.Contact;
+import com.liferay.portal.kernel.model.ListType;
+import com.liferay.portal.kernel.model.Phone;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.RoleConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ListTypeServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.persistence.PhoneUtil;
 
 import com.liferay.users.admin.kernel.util.UsersAdminUtil;
 
