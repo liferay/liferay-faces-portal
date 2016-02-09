@@ -33,26 +33,27 @@ public class TestPages {
 
 	static {
 		BRIDGE_DEMO_PAGES = new ArrayList<PortalPage>();
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF", "1_WAR_jsf2portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF-CDI", "1_WAR_jsf2cdiportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF-FLOWS", "1_WAR_jsf2flowsportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF-HTML5", "1_WAR_jsf2html5portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF-SPRING", "1_WAR_jsf2springportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF-JSP", "1_WAR_jsf2jspportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF-PDF", "1_WAR_jsf2exportpdfportlet"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF-EVENTS",
-				new String[] {
-					"customers_WAR_jsf2ipceventscustomersportlet", "bookings_WAR_jsf2ipceventsbookingsportlet"
-				}));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF-PRP",
-				new String[] {
-					"customersPortlet_WAR_jsf2ipcpubrenderparamsportlet",
-					"bookingsPortlet_WAR_jsf2ipcpubrenderparamsportlet"
-				}));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("ICE", "1_WAR_icefaces4portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("ALLOY", "1_WAR_liferayfaces4portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("PRIME", "1_WAR_primefaces4portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("RICH", "1_WAR_richfaces4portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2", "1_WAR_jsf2portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-CDI", "1_WAR_jsf2cdiportlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-FLOWS", "1_WAR_jsf2flowsportlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-HTML5", "1_WAR_jsf2html5portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-SPRING", "1_WAR_jsf2springportlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-JSP", "1_WAR_jsf2jspportlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-PDF", "1_WAR_jsf2exportpdfportlet"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-EVENTS",
+			new String[] {
+				"customers_WAR_jsf2ipceventscustomersportlet", "bookings_WAR_jsf2ipceventsbookingsportlet"
+			}));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF2-PRP",
+			new String[] {
+				"customersPortlet_WAR_jsf2ipcpubrenderparamsportlet",
+				"bookingsPortlet_WAR_jsf2ipcpubrenderparamsportlet"
+			}));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("ICE4", "1_WAR_icefaces4portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("LF4", "1_WAR_liferayfaces4portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("PRIME4", "1_WAR_primefaces4portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("PRIME5", "1_WAR_primefaces5portlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("RICH4", "1_WAR_richfaces4portlet_INSTANCE_"));
 	}
 
 	static {
@@ -62,7 +63,7 @@ public class TestPages {
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1478", "1_WAR_FACES1478portlet"));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1618", "1_WAR_FACES1618portlet"));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1635",
-				new String[] { "1_WAR_jsf2portlet_INSTANCE_", "1_WAR_primefaces4portlet_INSTANCE_" }));
+			new String[] { "1_WAR_jsf2portlet_INSTANCE_", "1_WAR_primefaces4portlet_INSTANCE_" }));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1638", "1_WAR_FACES1638portlet"));
 	}
 
