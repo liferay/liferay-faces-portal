@@ -14,14 +14,14 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>primefaces5-users-portlet</module>
+		<module>primefaces-users-portlet</module>
 	</modules>
 
 	<profiles>
 		<profile>
 			<id>tomcat</id>
 			<modules>
-				<module>jsf2-login-portlet</module>
+				<module>jsf-login-portlet</module>
 			</modules>
 		</profile>
 		<profile>
