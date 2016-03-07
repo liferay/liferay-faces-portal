@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
-			<artifactId>portal-service</artifactId>
+			<artifactId>com.liferay.portal.kernel</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>
