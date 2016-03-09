@@ -33,20 +33,20 @@ public class TestPages {
 
 	static {
 		BRIDGE_DEMO_PAGES = new ArrayList<PortalPage>();
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF1", "1_WAR_jsf1portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF1-JSP", "1_WAR_jsf1jspportlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF1-EVENTS",
+		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-applicant", "1_WAR_jsfapplicantportlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-jsp-applicant", "1_WAR_jsfjspapplicantportlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-events",
 				new String[] {
-					"customers_WAR_jsf1ipceventscustomersportlet", "bookings_WAR_jsf1ipceventsbookingsportlet"
+					"customers_WAR_jsfipceventscustomersportlet", "bookings_WAR_jsfipceventsbookingsportlet"
 				}));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("JSF1-PRP",
+		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-prp",
 				new String[] {
-					"customersPortlet_WAR_jsf1ipcpubrenderparamsportlet",
-					"bookingsPortlet_WAR_jsf1ipcpubrenderparamsportlet"
+					"customersPortlet_WAR_jsfipcpubrenderparamsportlet",
+					"bookingsPortlet_WAR_jsfipcpubrenderparamsportlet"
 				}));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("ICE1", "1_WAR_icefaces1portlet_INSTANCE_"));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("ICE1-IPC",
-				new String[] { "1_WAR_icefaces1ipcajaxpushportlet", "2_WAR_icefaces1ipcajaxpushportlet" }));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("icefaces-applicant", "1_WAR_icefacesapplicantportlet_INSTANCE_"));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("icefaces-ipc",
+				new String[] { "1_WAR_icefacesipcajaxpushportlet", "2_WAR_icefacesipcajaxpushportlet" }));
 	}
 
 	static {
