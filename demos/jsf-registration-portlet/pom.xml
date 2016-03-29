@@ -39,6 +39,10 @@
 			<artifactId>liferay-faces-bridge-impl</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.liferay.faces.bridge</groupId>
+			<artifactId>liferay-faces-bridge-ext</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.liferay.faces.alloy</groupId>
 			<artifactId>liferay-faces-alloy</artifactId>
 		</dependency>
