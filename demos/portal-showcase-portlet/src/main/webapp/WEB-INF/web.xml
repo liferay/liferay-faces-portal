@@ -8,12 +8,17 @@
 		<param-name>javax.faces.CONFIG_FILES</param-name>
 		<param-value>/WEB-INF/navigation-rule.xml</param-value>
 	</context-param>
-    <!-- Inform the JSF runtime (Mojarra) that this application is under development. -->
+	<!-- Inform the JSF runtime (Mojarra) that this application is under development. -->
+	<!-- Setting the JSF 2 PROJECT_STAGE to Development will cause the -->
+	<!-- JSF implementation to do the following at runtime: -->
+	<!-- 1. Log more verbose messages. -->
+	<!-- 2. Render tips and/or warnings in the view markup. -->
+	<!-- 3. Cause the default ExceptionHandler to display a developer-friendly error page. -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>${project.stage}</param-value>
 	</context-param>
-    <!-- Instruct Mojarra to namespace parameters according to NamingContainer rules. -->
+	<!-- Instruct Mojarra to namespace parameters according to NamingContainer rules. -->
 	<!-- JAVASERVERFACES-3031 -->
 	<context-param>
 		<param-name>com.sun.faces.namespaceParameters</param-name>
