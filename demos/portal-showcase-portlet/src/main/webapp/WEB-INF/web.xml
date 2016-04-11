@@ -8,7 +8,6 @@
 		<param-name>javax.faces.CONFIG_FILES</param-name>
 		<param-value>/WEB-INF/navigation-rule.xml</param-value>
 	</context-param>
-	<!-- Inform the JSF runtime (Mojarra) that this application is under development. -->
 	<!-- Setting the JSF 2 PROJECT_STAGE to Development will cause the -->
 	<!-- JSF implementation to do the following at runtime: -->
 	<!-- 1. Log more verbose messages. -->
