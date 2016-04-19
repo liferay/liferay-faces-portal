@@ -26,7 +26,7 @@ public abstract class PortletHelperFactory implements Wrapper<PortletHelperFacto
 	 * Returns an instance of {@link PortletHelper} from the {@link PortletHelperFactory} found by the {@link
 	 * FactoryExtensionFinder}.
 	 */
-	public static PortletHelper getInstance() {
+	public static PortletHelper getPortletHelperInstance() {
 
 		PortletHelperFactory portletHelperFactory = (PortletHelperFactory) FactoryExtensionFinder.getFactory(
 				PortletHelperFactory.class);
