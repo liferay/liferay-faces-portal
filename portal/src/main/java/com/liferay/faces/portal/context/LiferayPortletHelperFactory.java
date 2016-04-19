@@ -27,7 +27,7 @@ public abstract class LiferayPortletHelperFactory implements FacesWrapper<Lifera
 	 * Returns an instance of {@link LiferayPortletHelper} from the {@link LiferayPortletHelperFactory} found by the
 	 * {@link FactoryExtensionFinder}.
 	 */
-	public static LiferayPortletHelper getInstance() {
+	public static LiferayPortletHelper getLiferayPortletHelperInstance() {
 
 		LiferayPortletHelperFactory liferayPortletHelperFactory = (LiferayPortletHelperFactory) FactoryExtensionFinder
 			.getFactory(LiferayPortletHelperFactory.class);

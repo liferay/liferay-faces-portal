@@ -26,7 +26,6 @@ import javax.portlet.filter.PortletRequestWrapper;
 
 import com.liferay.faces.util.context.MessageContext;
 import com.liferay.faces.util.context.MessageContextFactory;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -57,9 +56,7 @@ public class Captcha extends CaptchaBase {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			UIViewRoot viewRoot = facesContext.getViewRoot();
 			Locale locale = viewRoot.getLocale();
-			MessageContextFactory messageContextFactory = (MessageContextFactory) FactoryExtensionFinder.getFactory(
-					MessageContextFactory.class);
-			MessageContext messageContext = messageContextFactory.getMessageContext();
+			MessageContext messageContext = MessageContextFactory.getMessageContextInstance();
 
 			try {
 				ExternalContext externalContext = facesContext.getExternalContext();
