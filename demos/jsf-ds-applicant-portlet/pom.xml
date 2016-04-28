@@ -8,11 +8,9 @@
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-
-	<artifactId>jsf.ds.applicant.portlet</artifactId>
-	<version>4.0.0-SNAPSHOT</version>
+	<artifactId>${project.groupId}.jsf.ds.applicant</artifactId>
 	<packaging>war</packaging>
-	<name>jsf.ds.applicant.portlet</name>
+	<name>jsf-ds-applicant</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

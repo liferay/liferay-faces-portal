@@ -33,8 +33,8 @@ import com.liferay.faces.util.logging.LoggerFactory;
 @Component(
 	immediate = true, property = {
 			"com.liferay.portlet.display-category=category.sample", "com.liferay.portlet.instanceable=true",
-			"com.liferay.portlet.ajaxable=false", "javax.portlet.name=jsf.ds.applicant.portlet",
-			"javax.portlet.display-name=jsf.ds.applicant",
+			"com.liferay.portlet.ajaxable=false", "javax.portlet.name=jsf_ds_applicant",
+			"javax.portlet.display-name=jsf-ds-applicant",
 			"javax.portlet.init-param.javax.portlet.faces.defaultViewId.view=/WEB-INF/views/portletViewMode.xhtml",
 			"javax.portlet.init-param.javax.portlet.faces.defaultViewId.edit=/WEB-INF/views/portletEditMode.xhtml",
 			"javax.portlet.init-param.javax.portlet.faces.defaultViewId.help=/WEB-INF/views/portletHelpMode.xhtml",

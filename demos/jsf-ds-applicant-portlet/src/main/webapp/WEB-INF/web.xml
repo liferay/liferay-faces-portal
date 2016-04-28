@@ -41,7 +41,7 @@
 
 	<!-- The PortletServlet and corresponding servlet-mapping are specified because the Liferay Portal auto-deploy process is bypassed for pre-configured WABs. -->
 	<servlet>
-		<servlet-name>1 Servlet</servlet-name>
+		<servlet-name>Portlet Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
 			<init-param>
 				<param-name>portlet-class</param-name>
@@ -50,7 +50,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>1 Servlet</servlet-name>
+		<servlet-name>Portlet Servlet</servlet-name>
 		<url-pattern>/portlet-servlet/*</url-pattern>
 	</servlet-mapping>
 
