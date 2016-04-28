@@ -1,17 +1,15 @@
 /**
  * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  */
 package com.liferay.faces.demos.bean;
 
@@ -63,27 +61,6 @@ public class ApplicantModelBean implements Serializable {
 		this.dateOfBirth = calendar.getTime();
 	}
 
-	public void clearProperties() {
-		uploadedFiles = new ArrayList<UploadedFile>();
-		city = null;
-		comments = null;
-		dateOfBirth = null;
-		emailAddress = null;
-		firstName = null;
-		lastName = null;
-		phoneNumber = null;
-		postalCode = null;
-		provinceId = null;
-	}
-
-	public void setAutoFillCity(String autoFillCity) {
-		this.autoFillCity = autoFillCity;
-	}
-
-	public void setAutoFillProvinceId(Long autoFillProvinceId) {
-		this.autoFillProvinceId = autoFillProvinceId;
-	}
-
 	public String getCity() {
 
 		if (autoFillCity == null) {
@@ -92,6 +69,56 @@ public class ApplicantModelBean implements Serializable {
 		else {
 			return autoFillCity;
 		}
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public Long getProvinceId() {
+
+		if (autoFillProvinceId == null) {
+			return provinceId;
+		}
+		else {
+			return autoFillProvinceId;
+		}
+	}
+
+	public List<UploadedFile> getUploadedFiles() {
+		return uploadedFiles;
+	}
+
+	public void setAutoFillCity(String autoFillCity) {
+		this.autoFillCity = autoFillCity;
+	}
+
+	public void setAutoFillProvinceId(Long autoFillProvinceId) {
+		this.autoFillProvinceId = autoFillProvinceId;
 	}
 
 	public void setCity(String city) {
@@ -105,70 +132,32 @@ public class ApplicantModelBean implements Serializable {
 		}
 	}
 
-	public String getComments() {
-		return comments;
-	}
-
 	public void setComments(String comments) {
 		this.comments = comments;
-	}
-
-	public Date getDateOfBirth() {
-		return dateOfBirth;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
-	}
-
-	public String getFirstName() {
-		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getPostalCode() {
-		return postalCode;
-	}
-
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
-	}
-
-	public Long getProvinceId() {
-
-		if (autoFillProvinceId == null) {
-			return provinceId;
-		}
-		else {
-			return autoFillProvinceId;
-		}
 	}
 
 	public void setProvinceId(Long provinceId) {
@@ -182,8 +171,17 @@ public class ApplicantModelBean implements Serializable {
 		}
 	}
 
-	public List<UploadedFile> getUploadedFiles() {
-		return uploadedFiles;
+	public void clearProperties() {
+		uploadedFiles = new ArrayList<UploadedFile>();
+		city = null;
+		comments = null;
+		dateOfBirth = null;
+		emailAddress = null;
+		firstName = null;
+		lastName = null;
+		phoneNumber = null;
+		postalCode = null;
+		provinceId = null;
 	}
 
 }

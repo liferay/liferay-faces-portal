@@ -22,7 +22,7 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- LPS-64789 or else suffer NPE -->
+	<!-- The PluginContextListener is specified because the Liferay Portal auto-deploy process is bypassed for pre-configured WABs. -->
 	<listener>
 		<listener-class>com.liferay.portal.kernel.servlet.PluginContextListener</listener-class>
 	</listener>
@@ -38,12 +38,14 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+
+	<!-- The PortletServlet and corresponding servlet-mapping are specified because the Liferay Portal auto-deploy process is bypassed for pre-configured WABs. -->
 	<servlet>
 		<servlet-name>1 Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
 			<init-param>
-				<param-name>foo</param-name>
-				<param-value>bar</param-value>
+				<param-name>portlet-class</param-name>
+				<param-value>com.liferay.faces.demos.portlet.ApplicantFacesPortlet</param-value>
 			</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

@@ -23,6 +23,48 @@
 
 	<profiles>
 		<profile>
+			<id>integration</id>
+			<properties>
+				<integration.browser>phantomjs</integration.browser>
+				<integration.log.level>WARNING</integration.log.level>
+				<integration.container>tomcat</integration.container>
+				<integration.host>localhost</integration.host>
+				<integration.port>8080</integration.port>
+				<integration.base.url>http://${integration.host}:${integration.port}</integration.base.url>
+				<integration.context>/${project.artifactId}-${project.version}/web/guest/showcase/-/component/h/</integration.context>
+				<integration.sign.in.context></integration.sign.in.context>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<systemPropertyVariables>
+								<runningWithMavenSurefirePlugin>true</runningWithMavenSurefirePlugin>
+								<integration.browser>${integration.browser}</integration.browser>
+								<integration.log.level>${integration.log.level}</integration.log.level>
+								<integration.container>${integration.container}</integration.container>
+								<integration.host>${integration.host}</integration.host>
+								<integration.port>${integration.port}</integration.port>
+								<integration.context>${integration.context}</integration.context>
+								<integration.sign.in.context>${integration.sign.in.context}</integration.sign.in.context>
+							</systemPropertyVariables>
+							<properties>
+								<property>
+									<name>listener</name>
+									<value>com.liferay.faces.test.IntegrationTestSuiteListener</value>
+								</property>
+							</properties>
+							<includes>
+								<include>**/*Test.java,**/Test*.java,**/*TestCase.java,**/*Tester.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>licenses</id>
 			<properties>
 				<licenses.output.dir>${project.basedir}/src/main/resources/META-INF</licenses.output.dir>
@@ -148,6 +190,22 @@
 			</build>
 		</profile>
 		<profile>
+			<id>liferay</id>
+			<properties>
+				<integration.container>liferay</integration.container>
+				<integration.context>/group/bridge-demos/alloy-showcase/-/component/</integration.context>
+				<integration.sign.in.context>/web/guest/home</integration.sign.in.context>
+			</properties>
+		</profile>
+		<profile>
+			<id>pluto</id>
+			<properties>
+				<integration.container>pluto</integration.container>
+				<integration.context>/pluto/portal</integration.context>
+				<integration.sign.in.context>/pluto/portal</integration.sign.in.context>
+			</properties>
+		</profile>
+		<profile>
 			<id>war-license-packaging</id>
 			<activation>
 				<file>
@@ -198,5 +256,70 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<!-- Integration test dependencies. -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.codeborne</groupId>
+			<artifactId>phantomjsdriver</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<!-- End integration test dependencies. -->
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.seleniumhq.selenium</groupId>
+				<artifactId>selenium-chrome-driver</artifactId>
+				<version>2.53.0</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.seleniumhq.selenium</groupId>
+				<artifactId>selenium-java</artifactId>
+				<version>2.53.0</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<!-- Note: The official version of phantomjsdriver is under the groupId com.github.detro. However, the
+				version of selenium that it depends on is old and conflicts with newer versions of selenium. The
+				com.codeborne version that we are depending on is a patched version which works with newer versions of
+				selenium. If a new official version of phantomjsdriver is ever released, we should probably switch to that.
+				For more details, see this post: https://github.com/detro/ghostdriver/issues/397#issuecomment-65539540 -->
+				<groupId>com.codeborne</groupId>
+				<artifactId>phantomjsdriver</artifactId>
+				<version>1.2.1</version>
+				<scope>test</scope>
+				<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
+				version we specify. -->
+				<exclusions>
+					<exclusion>
+						<artifactId>org.seleniumhq.selenium</artifactId>
+						<groupId>selenium-java</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>org.seleniumhq.selenium</artifactId>
+						<groupId>selenium-server</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>org.seleniumhq.selenium</artifactId>
+						<groupId>selenium-remote-driver</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 </project>
