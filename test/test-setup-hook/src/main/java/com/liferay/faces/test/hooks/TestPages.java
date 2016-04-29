@@ -88,8 +88,17 @@ public class TestPages {
 		GUEST_PAGES = new ArrayList<PortalPage>();
 		GUEST_PAGES.add(new PortalPage("jsf-sign-in", new Portlet("1", "jsf-login-portlet")));
 
-		PortalPage portalPage = new PortalPage("SHOWCASE", new Portlet("1", "showcase-portlet"));
-		portalPage.setLayoutTemplateId("2_columns_iii");
+		PortalPage portalPage = new PortalPage("jsf-showcase", new Portlet("1", "jsf-showcase-portlet", false));
+		portalPage.setLayoutTemplateId("1_column");
+		GUEST_PAGES.add(portalPage);
+		portalPage = new PortalPage("alloy-showcase", new Portlet("1", "alloy-showcase-portlet", false));
+		portalPage.setLayoutTemplateId("1_column");
+		GUEST_PAGES.add(portalPage);
+		portalPage = new PortalPage("metal-showcase", new Portlet("1", "metal-showcase-portlet", false));
+		portalPage.setLayoutTemplateId("1_column");
+		GUEST_PAGES.add(portalPage);
+		portalPage = new PortalPage("portal-showcase", new Portlet("1", "portal-showcase-portlet", false));
+		portalPage.setLayoutTemplateId("1_column");
 		GUEST_PAGES.add(portalPage);
 	}
 }
