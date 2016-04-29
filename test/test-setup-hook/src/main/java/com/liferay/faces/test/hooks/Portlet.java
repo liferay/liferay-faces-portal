@@ -18,7 +18,10 @@ package com.liferay.faces.test.hooks;
  */
 public class Portlet {
 
+	public enum ArtifactType {WAR, WAB};
+
 	// Private Data Members
+	private ArtifactType artifactType;
 	private String portletName;
 	private String bundleName;
 	private boolean instanceable;
@@ -28,9 +31,22 @@ public class Portlet {
 	}
 
 	public Portlet(String portletName, String bundleName, boolean instanceable) {
+		this(portletName, bundleName, instanceable, ArtifactType.WAR);
+	}
+
+	public Portlet(String portletName, String bundleName, ArtifactType artifactType) {
+		this(portletName, bundleName, true, artifactType);
+	}
+
+	public Portlet(String portletName, String bundleName, boolean instanceable, ArtifactType artifactType) {
 		this.portletName = portletName;
 		this.bundleName = bundleName;
 		this.instanceable = instanceable;
+		this.artifactType = artifactType;
+	}
+
+	public ArtifactType getArtifactType() {
+		return this.artifactType;
 	}
 
 	public String getBundleName() {
