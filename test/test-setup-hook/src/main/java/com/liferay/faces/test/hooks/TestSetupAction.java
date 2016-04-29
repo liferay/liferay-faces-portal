@@ -216,9 +216,17 @@ public class TestSetupAction extends TestSetupCompatAction {
 			if (bundleId > 0) {
 
 				if (bundleState == Bundle.ACTIVE) {
-					String portletId = portletName.replaceAll("[-]", "") + "_WAR_" + bundleName.replaceAll("[-]", "") +
-						bundleVersion.getMajor() + bundleVersion.getMinor() + bundleVersion.getMicro() +
-						portlet.getInstanceToken();
+
+					String portletId;
+
+					if (portlet.getArtifactType() == Portlet.ArtifactType.WAB) {
+						portletId = portletName + portlet.getInstanceToken();
+					}
+					else {
+						portletId = portletName.replaceAll("[-]", "") + "_WAR_" + bundleName.replaceAll("[-]", "") +
+							bundleVersion.getMajor() + bundleVersion.getMinor() + bundleVersion.getMicro() +
+							portlet.getInstanceToken();
+					}
 
 					addPortlet(portalPageLayout, layoutTypePortlet, userId, columnNumber, portletId);
 					storePortletPreferences(portalPageLayout, portletId);

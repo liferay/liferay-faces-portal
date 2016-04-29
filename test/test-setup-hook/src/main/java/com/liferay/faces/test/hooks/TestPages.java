@@ -35,6 +35,9 @@ public class TestPages {
 		BRIDGE_DEMO_PAGES = new ArrayList<PortalPage>();
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-applicant", new Portlet("1", "jsf-applicant-portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-cdi-applicant", new Portlet("1", "jsf-cdi-applicant-portlet")));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-ds-applicant",
+			new Portlet("jsf_ds_applicant", "com.liferay.faces.portal.demos.jsf.ds.applicant",
+				Portlet.ArtifactType.WAB)));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-flows", new Portlet("1", "jsf-flows-portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-html5-applicant", new Portlet("1", "jsf-html5-applicant-portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-spring-applicant", new Portlet("1", "jsf-spring-applicant-portlet")));
