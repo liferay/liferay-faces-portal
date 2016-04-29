@@ -13,42 +13,41 @@
  */
 package com.liferay.faces.test.hooks;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 /**
  * @author  Neil Griffin
  */
-public class PortalPage {
+public class Portlet {
 
 	// Private Data Members
-	private String pageName;
-	private List<Portlet> portlets;
-	private String layoutTemplateId = "2_columns_i";
+	private String portletName;
+	private String bundleName;
+	private boolean instanceable;
 
-	public PortalPage(String pageName, Portlet... portlets) {
-		this.pageName = pageName;
-		this.portlets = new ArrayList<Portlet>(portlets.length);
+	public Portlet(String portletName, String bundleName) {
+		this(portletName, bundleName, true);
+	}
 
-		for (Portlet portlet : portlets) {
-			this.portlets.add(portlet);
+	public Portlet(String portletName, String bundleName, boolean instanceable) {
+		this.portletName = portletName;
+		this.bundleName = bundleName;
+		this.instanceable = instanceable;
+	}
+
+	public String getBundleName() {
+		return this.bundleName;
+	}
+
+	public String getInstanceToken() {
+
+		if (instanceable) {
+			return "_INSTANCE_ABCD";
+		}
+		else {
+			return "";
 		}
 	}
 
-	public String getLayoutTemplateId() {
-		return layoutTemplateId;
-	}
-
-	public void setLayoutTemplateId(String layoutTemplateId) {
-		this.layoutTemplateId = layoutTemplateId;
-	}
-
-	public String getPageName() {
-		return pageName;
-	}
-
-	public List<Portlet> getPortlets() {
-		return portlets;
+	public String getPortletName() {
+		return portletName;
 	}
 }
