@@ -44,15 +44,10 @@ public class BundleUtil {
 				if (pos > 0) {
 
 					String symbolicName = portletId.substring(pos + 5);
-					// System.err.println("!@#$ portlet symbolicName=" + symbolicName + " name=" +
-						// portlet.getPortletName());
 
 					Bundle bundle = new Bundle(bundleId++, symbolicName, Bundle.ACTIVE);
 					bundles.add(bundle);
 				}
-				// else {
-					// System.err.println("!@#$ NOT WAR: " + portletId + " name=" + portlet.getPortletName());
-				// }
 			}
 		}
 		catch (SystemException e) {
