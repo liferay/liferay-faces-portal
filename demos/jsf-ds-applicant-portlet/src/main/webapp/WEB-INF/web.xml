@@ -39,7 +39,7 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
-	<!-- The PortletServlet and corresponding servlet-mapping are specified because the Liferay Portal auto-deploy process is bypassed for pre-configured WABs. -->
+	<!-- The PortletServlet (servlet-class and init-param) and corresponding servlet-mapping are specified because the Liferay Portal auto-deploy process is bypassed for pre-configured WABs. -->
 	<servlet>
 		<servlet-name>Portlet Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
@@ -49,6 +49,7 @@
 			</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<!-- "portlet-servlet" is the magic context that is needed for any portlet that does not add an InvokerFilter layer -->
 	<servlet-mapping>
 		<servlet-name>Portlet Servlet</servlet-name>
 		<url-pattern>/portlet-servlet/*</url-pattern>

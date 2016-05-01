@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>com.liferay.faces.alloy</groupId>
 			<artifactId>liferay-faces-alloy</artifactId>
-			<scope>compile</scope> <!-- Necessary until the bnd-maven-plugin can handle <scope>runtime</scope> -->
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces.bridge</groupId>
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>com.liferay.faces.bridge</groupId>
 			<artifactId>liferay-faces-bridge-impl</artifactId>
-			<scope>compile</scope> <!-- Necessary until the bnd-maven-plugin can handle <scope>runtime</scope> -->
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces.bridge</groupId>
@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>${faces.group.id}</groupId>
 			<artifactId>${faces.impl.artifact.id}</artifactId>
-			<scope>compile</scope> <!-- Necessary until the bnd-maven-plugin can handle <scope>runtime</scope> -->
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
@@ -86,25 +86,6 @@
 						<goals>
 							<goal>bnd-process</goal>
 						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/${project.build.finalName}/OSGI-INF</outputDirectory>
-							<resources>
-								<resource><directory>${project.build.outputDirectory}/OSGI-INF</directory></resource>
-							</resources>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
