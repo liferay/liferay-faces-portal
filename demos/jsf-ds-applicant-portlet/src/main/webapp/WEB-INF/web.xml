@@ -51,7 +51,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<!-- The "Portlet Servlet" servlet-mapping must be specified here with the "/portlet-servlet/*" url-pattern -->
-	<!-- since that is request dispatcher path used by Liferay Portal to invoke the portlet lifecycle. -->
+	<!-- since that is the request dispatcher path used by Liferay Portal to invoke the portlet lifecycle. -->
 	<servlet-mapping>
 		<servlet-name>Portlet Servlet</servlet-name>
 		<url-pattern>/portlet-servlet/*</url-pattern>
