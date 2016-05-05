@@ -15,36 +15,13 @@
  */
 package com.liferay.faces.test.applicant;
 
-import org.junit.Test;
-
-import com.liferay.faces.test.Browser;
-
-
 /**
  * @author  Liferay Faces Team
  */
-public class ApplicantTester extends Applicant {
+public class ApplicantTester extends ApplicantTesterBase {
 
-	@Test
-	public void runInputTextGeneralTest() throws Exception {
-
-		Browser browser = Browser.getInstance();
-		browser.navigateToURL(inputTextURL + "");
-
-		// Wait to begin the test until the logo is rendered.
-		browser.waitForElementVisible(logoXpath);
-
-		// Test that an empty value submits successfully, but with validation errors.
-		browser.clickAndWaitForAjaxRerender(submitButtonXpath);
-		browser.assertElementVisible(firstNameFieldErrorXpath);
-
-		// Test that a text value submits successfully.
-		String text = "asdf";
-		browser.sendKeys(firstNameFieldXpath, text);
-		browser.waitForElementValue(firstNameFieldXpath, text);
-		browser.clickAndWaitForAjaxRerender(submitButtonXpath);
-		browser.assertElementValue(firstNameFieldXpath, text);
-		
-		browser.assertElementVisible(logoXpath);
+	@Override
+	protected String getContext() {
+		return "/group/bridge-demos/jsf-ds-applicant";
 	}
 }
