@@ -22,6 +22,39 @@
 
 	<profiles>
 		<profile>
+			<id>integration</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<systemPropertyVariables>
+								<RUNNING_WITH_MAVEN_SUREFIRE_PLUGIN>true</RUNNING_WITH_MAVEN_SUREFIRE_PLUGIN>
+								<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
+								<integration.browser>${integration.browser}</integration.browser>
+								<integration.log.level>${integration.log.level}</integration.log.level>
+								<integration.container>liferay70</integration.container>
+								<integration.host>${integration.host}</integration.host>
+								<integration.port>${integration.port}</integration.port>
+								<integration.context>${integration.context}</integration.context>
+								<integration.sign.in.context>${integration.sign.in.context}</integration.sign.in.context>
+							</systemPropertyVariables>
+							<properties>
+								<property>
+									<name>listener</name>
+									<value>com.liferay.faces.test.IntegrationTestSuiteListener</value>
+								</property>
+							</properties>
+							<includes>
+								<include>**/*Test.java,**/Test*.java,**/*TestCase.java,**/*Tester.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>licenses</id>
 			<properties>
 				<licenses.output.dir>${project.basedir}/src/main/resources/META-INF</licenses.output.dir>
@@ -197,5 +230,28 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<!-- Integration test dependencies. -->
+		<dependency>
+			<groupId>com.liferay.faces.test</groupId>
+			<artifactId>liferay-faces-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- End integration test dependencies. -->
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Integration test dependencies. -->
+			<dependency>
+				<groupId>com.liferay.faces.test</groupId>
+				<artifactId>liferay-faces-test</artifactId>
+				<version>0.1.0-SNAPSHOT</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- End integration test dependencies. -->
+		</dependencies>
+	</dependencyManagement>
 
 </project>
