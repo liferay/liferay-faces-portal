@@ -13,7 +13,8 @@
  */
 package com.liferay.faces.test.applicant;
 
-import com.liferay.faces.test.TestUtil;
+import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.applicant.ApplicantTesterBase;
 
 
 /**
