@@ -49,7 +49,7 @@
 							<properties>
 								<property>
 									<name>listener</name>
-									<value>com.liferay.faces.test.IntegrationTestSuiteListener</value>
+									<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
 								</property>
 							</properties>
 							<includes>
@@ -240,7 +240,7 @@
 	<dependencies>
 		<!-- Integration test dependencies. -->
 		<dependency>
-			<groupId>com.liferay.faces.test</groupId>
+			<groupId>com.liferay.faces.test.selenium</groupId>
 			<artifactId>com.liferay.faces.test.selenium</artifactId>
 			<scope>test</scope>
 		</dependency>
@@ -313,7 +313,7 @@
 		<dependencies>
 			<!-- Integration test dependencies. -->
 			<dependency>
-				<groupId>com.liferay.faces.test</groupId>
+				<groupId>com.liferay.faces.test.selenium</groupId>
 				<artifactId>com.liferay.faces.test.selenium</artifactId>
 				<version>0.1.0-SNAPSHOT</version>
 				<scope>test</scope>
