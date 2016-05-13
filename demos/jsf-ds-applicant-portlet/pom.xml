@@ -3,12 +3,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces.portal.demos</groupId>
-		<artifactId>liferay-faces-portal-demos</artifactId>
+		<groupId>com.liferay.faces.demo</groupId>
+		<artifactId>com.liferay.faces.demo.portal.parent</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>${project.groupId}.jsf.ds.applicant</artifactId>
+	<artifactId>com.liferay.faces.demo.jsf.ds.applicant.portlet</artifactId>
 	<packaging>war</packaging>
 	<name>jsf-ds-applicant</name>
 
@@ -18,22 +18,22 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.liferay.faces.alloy</groupId>
-			<artifactId>liferay-faces-alloy</artifactId>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.alloy</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.bridge</groupId>
-			<artifactId>liferay-faces-bridge-api</artifactId>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.bridge</groupId>
-			<artifactId>liferay-faces-bridge-impl</artifactId>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.impl</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.bridge</groupId>
-			<artifactId>liferay-faces-bridge-ext</artifactId>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.ext</artifactId>
 			<version>${liferay.faces.bridge.ext.version}</version>
 		</dependency>
 		<dependency>
