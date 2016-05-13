@@ -134,26 +134,26 @@ public class TestSetupAction extends TestSetupCompatAction {
 
 			String portletName = nameAttribute.getValue();
 			PortalPage portalPage = new PortalPage(pageName,
-					new Portlet(portletName, "bridge-tck-main-portlet", false));
+				new Portlet(portletName, "com.liferay.faces.test.bridge.tck.main.portlet", false));
 			setupPrivatePage(userId, groupId, portalPage, bundles);
 		}
 
 		setupPrivatePage(userId, groupId,
 			new PortalPage("Lifecycle Set",
-				new Portlet("chapter3TestslifecycleTestportlet", "bridge-tcklifecycleset-portlet")), bundles);
+				new Portlet("chapter3TestslifecycleTestportlet", "com.liferay.faces.test.bridge.tck.lifecycle.set.portlet")), bundles);
 		setupPrivatePage(userId, groupId,
 			new PortalPage("Render Policy Always Delegate",
-				new Portlet("chapter3TestsrenderPolicyTestportlet", "bridge-tck-render-policy1-portlet")), bundles);
+				new Portlet("chapter3TestsrenderPolicyTestportlet", "com.liferay.faces.test.bridge.tck.render.policy1.portlet")), bundles);
 		setupPrivatePage(userId, groupId,
 			new PortalPage("Render Policy Default",
-				new Portlet("chapter3TestsrenderPolicyTestportlet", "bridge-tck-render-policy2-portlet")), bundles);
+				new Portlet("chapter3TestsrenderPolicyTestportlet", "com.liferay.faces.test.bridge.tck.render.policy2.portlet")), bundles);
 		setupPrivatePage(userId, groupId,
 			new PortalPage("Render Policy Never Delegate",
-				new Portlet("chapter3TestsrenderPolicyTestportlet", "bridge-tck-render-policy3-portlet")), bundles);
+				new Portlet("chapter3TestsrenderPolicyTestportlet", "com.liferay.faces.test.bridge.tck.render.policy3.portlet")), bundles);
 		setupPrivatePage(userId, groupId,
 			new PortalPage("Render Response Wrapper",
 				new Portlet("chapter6_2_1TestsusesConfiguredRenderResponseWrapperTestportlet",
-					"bridge-tck-response-wrapper-portlet")), bundles);
+					"")), bundles);
 		setupPrivatePage(userId, groupId,
 			new PortalPage("Resource Response Wrapper",
 				new Portlet("chapter6_2_1TestsusesConfiguredResourceResponseWrapperTestportlet",
@@ -223,9 +223,8 @@ public class TestSetupAction extends TestSetupCompatAction {
 						portletId = portletName + portlet.getInstanceToken();
 					}
 					else {
-						portletId = portletName.replaceAll("[-]", "") + "_WAR_" + bundleName.replaceAll("[-]", "") +
-							bundleVersion.getMajor() + bundleVersion.getMinor() + bundleVersion.getMicro() +
-							portlet.getInstanceToken();
+						portletId = portletName.replaceAll("[-]", "") + "_WAR_" +
+							bundleName.replaceAll("[-]", "").replaceAll("[.]", "") + portlet.getInstanceToken();
 					}
 
 					addPortlet(portalPageLayout, layoutTypePortlet, userId, columnNumber, portletId);
@@ -346,7 +345,7 @@ public class TestSetupAction extends TestSetupCompatAction {
 			String type = LayoutConstants.TYPE_PORTLET;
 			String friendlyURL = "/" + portalPageName.toLowerCase();
 			portalPageLayout = ServiceUtil.addLayout(userId, groupId, privateLayout, parentLayoutId, portalPageName,
-					portalPageName, portalPageName, type, false, friendlyURL);
+				portalPageName, portalPageName, type, false, friendlyURL);
 		}
 
 		return portalPageLayout;
