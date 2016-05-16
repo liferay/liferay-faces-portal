@@ -195,16 +195,13 @@ public class TestSetupAction extends TestSetupCompatAction {
 			String bundleName = portlet.getBundleName().replaceAll("[-]", "").replaceAll("[.]", "");
 			long bundleId = 0L;
 			int bundleState = Bundle.UNINSTALLED;
-			Version bundleVersion = null;
 
 			for (Bundle bundle : bundles) {
 
 				String symbolicName = bundle.getSymbolicName().replaceAll("[-]", "").replaceAll("[.]", "");
-				System.err.println("!@#$ bundleName=" + bundleName + " symbolicName=" + symbolicName);
 				if (symbolicName.startsWith(bundleName)) {
 					bundleId = bundle.getBundleId();
 					bundleState = bundle.getState();
-					bundleVersion = bundle.getVersion();
 				}
 			}
 
