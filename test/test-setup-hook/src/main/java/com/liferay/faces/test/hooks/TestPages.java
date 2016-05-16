@@ -33,32 +33,32 @@ public class TestPages {
 
 	static {
 		BRIDGE_DEMO_PAGES = new ArrayList<PortalPage>();
-		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-applicant", new Portlet("1", "jsf-applicant-portlet")));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-jsp-applicant", new Portlet("1", "jsf-jsp-applicant-portlet")));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-applicant", new Portlet("1", "com.liferay.faces.demo.jsf.applicant.portlet")));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-jsp-applicant", new Portlet("1", "com.liferay.faces.demo.jsf.jsp.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-events",
-			new Portlet("customers", "jsf-ipc-events-customers-portlet", false),
-			new Portlet("bookings", "jsf-ipc-events-bookings-portlet", false)));
+			new Portlet("customers", "com.liferay.faces.demo.jsf.ipc.events.customers.portlet", false),
+			new Portlet("bookings", "com.liferay.faces.demo.jsf.ipc.events.bookings.portlet", false)));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-prp",
-			new Portlet("customersPortlet", "jsf-ipc-pub-render-params-portlet", false),
-			new Portlet("bookingsPortlet", "jsf-ipc-pub-render-params-portlet", false)));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("icefaces-applicant", new Portlet("1", "icefaces-applicant-portlet")));
+			new Portlet("customersPortlet", "com.liferay.faces.demo.jsf.ipc.pub.render.params.portlet", false),
+			new Portlet("bookingsPortlet", "com.liferay.faces.demo.jsf.ipc.pub.render.params.portlet", false)));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("icefaces-applicant", new Portlet("1", "com.liferay.faces.demo.icefaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("icefaces-ipc",
-			new Portlet("1", "icefaces-ipc-ajax-push-portlet", false),
-			new Portlet("2", "icefaces-ipc-ajax-push-portlet", false)));
+			new Portlet("1", "com.liferay.faces.demo.icefaces.ipc.ajax.push.portlet", false),
+			new Portlet("2", "com.liferay.faces.demo.icefaces.ipc.ajax.push.portlet", false)));
 	}
 
 	static {
 		BRIDGE_ISSUE_PAGES = new ArrayList<PortalPage>();
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1478", new Portlet("1", "FACES-1478-portlet", false)));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1478", new Portlet("1", "com.liferay.faces.issue.1478.portlet", false)));
 	}
 
 	static {
 		LSV_ISSUE_PAGES = new ArrayList<PortalPage>();
-		LSV_ISSUE_PAGES.add(new PortalPage("LSV-5", new Portlet("1", "lsv5portlet", false)));
-		LSV_ISSUE_PAGES.add(new PortalPage("LSV-71-Auto-Dispatch", new Portlet("1", "lsv71portlet", false)));
-		LSV_ISSUE_PAGES.add(new PortalPage("LSV-71-Non-Dispatch", new Portlet("2", "lsv71portlet", false)));
-		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Auto-Dispatch", new Portlet("1", "lsv158portlet", false)));
-		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Non-Dispatch", new Portlet("2", "lsv158portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-5", new Portlet("1", "com.liferay.faces.lsv.5.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-71-Auto-Dispatch", new Portlet("1", "com.liferay.faces.lsv.71.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-71-Non-Dispatch", new Portlet("2", "com.liferay.faces.lsv.71.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Auto-Dispatch", new Portlet("1", "com.liferay.faces.lsv.158.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Non-Dispatch", new Portlet("2", "com.liferay.faces.lsv.158.portlet", false)));
 	}
 
 	static {
