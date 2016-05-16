@@ -23,7 +23,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.osgi.framework.Bundle;
-import org.osgi.framework.Version;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.events.ActionException;
@@ -198,7 +197,6 @@ public class TestSetupAction extends TestSetupCompatAction {
 			String bundleName = portlet.getBundleName();
 			long bundleId = 0L;
 			int bundleState = Bundle.UNINSTALLED;
-			Version bundleVersion = null;
 
 			for (Bundle bundle : bundles) {
 
@@ -207,7 +205,6 @@ public class TestSetupAction extends TestSetupCompatAction {
 				if (symbolicName.startsWith(bundleName)) {
 					bundleId = bundle.getBundleId();
 					bundleState = bundle.getState();
-					bundleVersion = bundle.getVersion();
 				}
 			}
 
