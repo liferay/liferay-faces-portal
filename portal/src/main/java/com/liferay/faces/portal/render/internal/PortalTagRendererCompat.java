@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 public abstract class PortalTagRendererCompat extends Renderer {
 
 	protected HttpServletRequest getHttpServletRequest(PortletRequest portletRequest) {
-		return new HttpServletRequestTagSafeImpl(PortalUtil.getOriginalServletRequest(
-					PortalUtil.getHttpServletRequest(portletRequest)));
+		return new HttpServletRequestTagSafeImpl(PortalUtil.getHttpServletRequest(portletRequest));
 	}
 }
