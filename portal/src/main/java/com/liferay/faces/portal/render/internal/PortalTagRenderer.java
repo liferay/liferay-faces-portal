@@ -46,7 +46,7 @@ import com.liferay.taglib.aui.ScriptTag;
  *
  * @author  Neil Griffin
  */
-public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> extends Renderer {
+public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> extends PortalTagRendererCompat {
 
 	// Protected Constants
 	protected static final String CORRESPONDING_JSP_TAG = "correspondingJspTag";
@@ -146,10 +146,6 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 
 	public String getChildInsertionMarker() {
 		return null;
-	}
-
-	protected HttpServletRequest getHttpServletRequest(PortletRequest portletRequest) {
-		return new HttpServletRequestTagSafeImpl(PortalUtil.getHttpServletRequest(portletRequest));
 	}
 
 	protected HttpServletResponse getHttpServletResponse(PortletResponse portletResponse) {
