@@ -660,6 +660,12 @@
 				<version>2.0.1</version>
 			</dependency>
 			<dependency>
+				<groupId>com.liferay</groupId>
+				<artifactId>com.liferay.journal.api</artifactId>
+				<version>2.0.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
 				<groupId>com.sun.faces</groupId>
 				<artifactId>jsf-api</artifactId>
 				<version>${mojarra.version}</version>
