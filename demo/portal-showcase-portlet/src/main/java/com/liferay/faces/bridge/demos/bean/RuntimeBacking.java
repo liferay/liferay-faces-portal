@@ -23,13 +23,14 @@ import javax.faces.context.FacesContext;
 
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 
+import com.liferay.faces.bridge.demos.util.WebContentUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.journal.model.JournalArticle;
 
-// TODO import com.liferay.portlet.journal.model.JournalArticle;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 
 
 /**
@@ -61,19 +62,39 @@ public class RuntimeBacking {
 			long folderId = DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
 			Locale locale = themeDisplay.getLocale();
 
-			/* TODO
+			StringBuilder content1 = new StringBuilder(9);
+			content1.append("<?xml version=\"1.0\"?>");
+			content1.append("<root available-locales=\"en_US\" default-locale=\"en_US\">");
+			content1.append(
+				"<dynamic-element name=\"content\" type=\"text_area\" index-type=\"keyword\" instance-id=\"zeun\">");
+			content1.append("<dynamic-content language-id=\"en_US\"><![CDATA[");
+			content1.append(
+				"<p>Liferay Portal is an enterprise web platform for building business solutions that deliver ");
+			content1.append("immediate results and long-term value.</p>");
+			content1.append("]]></dynamic-content>");
+			content1.append("</dynamic-element>");
+			content1.append("</root>");
+
 			JournalArticle article1 = WebContentUtil.getArticle(companyId, userId, groupId, folderId, locale,
-					"Liferay Portal",
-					"Liferay Portal is an enterprise web platform for building business solutions that deliver " +
-					"immediate results and long-term value.");
+					"Liferay Portal", content1.toString());
 			this.preferencesArticle1 = getPreferences(article1.getGroupId(), article1.getArticleId());
 
+			StringBuilder content2 = new StringBuilder(9);
+			content2.append("<?xml version=\"1.0\"?>");
+			content2.append("<root available-locales=\"en_US\" default-locale=\"en_US\">");
+			content2.append(
+				"<dynamic-element name=\"content\" type=\"text_area\" index-type=\"keyword\" instance-id=\"yujh\">");
+			content2.append("<dynamic-content language-id=\"en_US\"><![CDATA[");
+			content2.append(
+				"<p>Liferay Faces is an umbrella project that provides support for the JavaServer™ Faces (JSF) ");
+			content2.append("standard within Liferay Portal.</p>");
+			content2.append("]]></dynamic-content>");
+			content2.append("</dynamic-element>");
+			content2.append("</root>");
+
 			JournalArticle article2 = WebContentUtil.getArticle(companyId, userId, groupId, folderId, locale,
-					"Liferay Faces",
-					"Liferay Faces is an umbrella project that provides support for the JavaServer™ Faces (JSF) " +
-					"standard within Liferay Portal.");
+					"Liferay Faces", content2.toString());
 			this.preferencesArticle2 = getPreferences(article2.getGroupId(), article2.getArticleId());
-			*/
 		}
 		catch (Exception e) {
 			logger.error(e);
