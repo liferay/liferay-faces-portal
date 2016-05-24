@@ -252,158 +252,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  FacesContextHelper#matchComponentInHierarchy(UIComponent, String)
-	 */
-	@Override
-	public UIComponent matchComponentInHierarchy(UIComponent parent, String partialClientId) {
-		return FacesContextHelperUtil.matchComponentInHierarchy(parent, partialClientId);
-	}
-
-	/**
-	 * @see  FacesContextHelper#matchComponentInViewRoot(String)
-	 */
-	@Override
-	public UIComponent matchComponentInViewRoot(String partialClientId) {
-		return FacesContextHelperUtil.matchComponentInViewRoot(partialClientId);
-	}
-
-	/**
-	 * @see  FacesContextHelper#navigate(String, String)
-	 */
-	@Override
-	public void navigate(String fromAction, String outcome) {
-		FacesContextHelperUtil.navigate(fromAction, outcome);
-	}
-
-	/**
-	 * @see  FacesContextHelper#navigateTo(String)
-	 */
-	@Override
-	public void navigateTo(String outcome) {
-		FacesContextHelperUtil.navigateTo(outcome);
-	}
-
-	/**
-	 * @see  FacesContextHelper#recreateComponentTree()
-	 */
-	@Override
-	public void recreateComponentTree() {
-		FacesContextHelperUtil.recreateComponentTree();
-	}
-
-	/**
-	 * @see  FacesContextHelper#registerPhaseListener(PhaseListener)
-	 */
-	@Override
-	public void registerPhaseListener(PhaseListener phaseListener) {
-		FacesContextHelperUtil.registerPhaseListener(phaseListener);
-	}
-
-	/**
-	 * @since  JSF 1.0
-	 */
-	@Override
-	public void release() {
-		FacesContext.getCurrentInstance().release();
-	}
-
-	/**
-	 * @see  FacesContextHelper#removeChildrenFromComponentTree(String)
-	 */
-	@Override
-	public void removeChildrenFromComponentTree(String clientId) {
-		FacesContextHelperUtil.removeChildrenFromComponentTree(clientId);
-	}
-
-	/**
-	 * @see  FacesContextHelper#removeMessages(String)
-	 */
-	@Override
-	public void removeMessages(String clientId) {
-		FacesContextHelperUtil.removeMessages(clientId);
-	}
-
-	/**
-	 * @see  FacesContextHelper#removeMessagesForImmediateComponents()
-	 */
-	@Override
-	public void removeMessagesForImmediateComponents() {
-		FacesContextHelperUtil.removeMessagesForImmediateComponents();
-	}
-
-	/**
-	 * @see  FacesContextHelper#removeMessagesForImmediateComponents(UIComponent)
-	 */
-	@Override
-	public void removeMessagesForImmediateComponents(UIComponent uiComponent) {
-		FacesContextHelperUtil.removeMessagesForImmediateComponents(uiComponent);
-	}
-
-	/**
-	 * @see  FacesContextHelper#removeParentFormFromComponentTree(UIComponent)
-	 */
-	@Override
-	public void removeParentFormFromComponentTree(UIComponent uiComponent) {
-		FacesContextHelperUtil.removeParentFormFromComponentTree(uiComponent);
-	}
-
-	/**
-	 * @since  JSF 1.0
-	 */
-	@Override
-	public void renderResponse() {
-		FacesContext.getCurrentInstance().renderResponse();
-	}
-
-	/**
-	 * @see  FacesContextHelper#resetView()
-	 */
-	@Override
-	public void resetView() {
-		FacesContextHelperUtil.resetView();
-	}
-
-	/**
-	 * @see  FacesContextHelper#resetView(boolean)
-	 */
-	@Override
-	public void resetView(boolean renderResponse) {
-		FacesContextHelperUtil.resetView();
-	}
-
-	/**
-	 * @see  FacesContextHelper#resolveExpression(String)
-	 */
-	@Override
-	public Object resolveExpression(String elExpression) {
-		return FacesContextHelperUtil.resolveExpression(elExpression);
-	}
-
-	/**
-	 * @since  JSF 1.0
-	 */
-	@Override
-	public void responseComplete() {
-		FacesContext.getCurrentInstance().responseComplete();
-	}
-
-	/**
-	 * @see  LiferayPortletHelper#userHasPortletPermission(String)
-	 */
-	@Override
-	public boolean userHasPortletPermission(String actionId) {
-		return LiferayPortletHelperUtil.userHasPortletPermission(actionId);
-	}
-
-	/**
-	 * @see  LiferayPortletHelper#userHasRole(String)
-	 */
-	@Override
-	public boolean userHasRole(String roleName) {
-		return LiferayPortletHelperUtil.userHasRole(roleName);
-	}
-
-	/**
 	 * @see  PortletHelper#getActionResponse()
 	 */
 	@Override
@@ -441,27 +289,11 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  PortletHelper#isWindowMaximized()
-	 */
-	@Override
-	public boolean isWindowMaximized() {
-		return PortletHelperUtil.isWindowMaximized();
-	}
-
-	/**
 	 * @see  LiferayPortletHelper#getDocumentLibraryURL()
 	 */
 	@Override
 	public String getDocumentLibraryURL() {
 		return LiferayPortletHelperUtil.getDocumentLibraryURL();
-	}
-
-	/**
-	 * @see  PortletHelper#isUserInRole(String)
-	 */
-	@Override
-	public boolean isUserInRole(String roleName) {
-		return PortletHelperUtil.isUserInRole(roleName);
 	}
 
 	/**
@@ -502,14 +334,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public String getImageGalleryURL() {
 		return LiferayPortletHelperUtil.getImageGalleryURL();
-	}
-
-	/**
-	 * @see  PortletHelper#isWindowNormal()
-	 */
-	@Override
-	public boolean isWindowNormal() {
-		return PortletHelperUtil.isWindowNormal();
 	}
 
 	/**
@@ -701,14 +525,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  PortletHelper#setPortletMode(PortletMode)
-	 */
-	@Override
-	public void setPortletMode(PortletMode portletMode) {
-		PortletHelperUtil.setPortletMode(portletMode);
-	}
-
-	/**
 	 * @see  PortletHelper#getPortletName()
 	 */
 	@Override
@@ -846,15 +662,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  FacesContextHelper#setRequestAttribute(String, Object)
-	 */
-	@Override
-	public void setRequestAttribute(String name, Object value) {
-		FacesContextHelperUtil.setRequestAttribute(name, value);
-
-	}
-
-	/**
 	 * @see  FacesContextHelper#getRequestContextPath()
 	 */
 	@Override
@@ -954,24 +761,8 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 * @since  JSF 1.0
 	 */
 	@Override
-	public void setResponseStream(ResponseStream responseStream) {
-		FacesContext.getCurrentInstance().setResponseStream(responseStream);
-	}
-
-	/**
-	 * @since  JSF 1.0
-	 */
-	@Override
 	public ResponseWriter getResponseWriter() {
 		return FacesContext.getCurrentInstance().getResponseWriter();
-	}
-
-	/**
-	 * @since  JSF 1.0
-	 */
-	@Override
-	public void setResponseWriter(ResponseWriter responseWriter) {
-		FacesContext.getCurrentInstance().setResponseWriter(responseWriter);
 	}
 
 	/**
@@ -1025,36 +816,11 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  FacesContextHelper#setSessionAttribute(String, Object)
-	 */
-	@Override
-	public void setSessionAttribute(String name, Object value) {
-
-		FacesContextHelperUtil.setSessionAttribute(name, value);
-	}
-
-	/**
 	 * @see  PortletHelper#getSessionSharedAttribute(String)
 	 */
 	@Override
 	public Object getSessionSharedAttribute(String name) {
 		return PortletHelperUtil.getSessionSharedAttribute(name);
-	}
-
-	/**
-	 * @see  PortletHelper#setSessionSharedAttribute(String, Object)
-	 */
-	@Override
-	public void setSessionSharedAttribute(String name, Object value) {
-		PortletHelperUtil.setSessionSharedAttribute(name, value);
-	}
-
-	/**
-	 * @see  PortletHelper#isPortletEnvironment()
-	 */
-	@Override
-	public boolean isPortletEnvironment() {
-		return PortletHelperUtil.isPortletEnvironment();
 	}
 
 	/**
@@ -1114,19 +880,237 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @since  JSF 1.0
-	 */
-	@Override
-	public void setViewRoot(UIViewRoot viewRoot) {
-		FacesContext.getCurrentInstance().setViewRoot(viewRoot);
-	}
-
-	/**
 	 * @see  PortletHelper#getWindowState()
 	 */
 	@Override
 	public WindowState getWindowState() {
 		return PortletHelperUtil.getWindowState();
+	}
+
+	/**
+	 * @see  PortletHelper#isPortletEnvironment()
+	 */
+	@Override
+	public boolean isPortletEnvironment() {
+		return PortletHelperUtil.isPortletEnvironment();
+	}
+
+	/**
+	 * @see  PortletHelper#isUserInRole(String)
+	 */
+	@Override
+	public boolean isUserInRole(String roleName) {
+		return PortletHelperUtil.isUserInRole(roleName);
+	}
+
+	/**
+	 * @see  PortletHelper#isWindowMaximized()
+	 */
+	@Override
+	public boolean isWindowMaximized() {
+		return PortletHelperUtil.isWindowMaximized();
+	}
+
+	/**
+	 * @see  PortletHelper#isWindowNormal()
+	 */
+	@Override
+	public boolean isWindowNormal() {
+		return PortletHelperUtil.isWindowNormal();
+	}
+
+	/**
+	 * @see  FacesContextHelper#matchComponentInHierarchy(UIComponent, String)
+	 */
+	@Override
+	public UIComponent matchComponentInHierarchy(UIComponent parent, String partialClientId) {
+		return FacesContextHelperUtil.matchComponentInHierarchy(parent, partialClientId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#matchComponentInViewRoot(String)
+	 */
+	@Override
+	public UIComponent matchComponentInViewRoot(String partialClientId) {
+		return FacesContextHelperUtil.matchComponentInViewRoot(partialClientId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#navigate(String, String)
+	 */
+	@Override
+	public void navigate(String fromAction, String outcome) {
+		FacesContextHelperUtil.navigate(fromAction, outcome);
+	}
+
+	/**
+	 * @see  FacesContextHelper#navigateTo(String)
+	 */
+	@Override
+	public void navigateTo(String outcome) {
+		FacesContextHelperUtil.navigateTo(outcome);
+	}
+
+	/**
+	 * @see  FacesContextHelper#recreateComponentTree()
+	 */
+	@Override
+	public void recreateComponentTree() {
+		FacesContextHelperUtil.recreateComponentTree();
+	}
+
+	/**
+	 * @see  FacesContextHelper#registerPhaseListener(PhaseListener)
+	 */
+	@Override
+	public void registerPhaseListener(PhaseListener phaseListener) {
+		FacesContextHelperUtil.registerPhaseListener(phaseListener);
+	}
+
+	/**
+	 * @since  JSF 1.0
+	 */
+	@Override
+	public void release() {
+		FacesContext.getCurrentInstance().release();
+	}
+
+	/**
+	 * @see  FacesContextHelper#removeChildrenFromComponentTree(String)
+	 */
+	@Override
+	public void removeChildrenFromComponentTree(String clientId) {
+		FacesContextHelperUtil.removeChildrenFromComponentTree(clientId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#removeMessages(String)
+	 */
+	@Override
+	public void removeMessages(String clientId) {
+		FacesContextHelperUtil.removeMessages(clientId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#removeMessagesForImmediateComponents()
+	 */
+	@Override
+	public void removeMessagesForImmediateComponents() {
+		FacesContextHelperUtil.removeMessagesForImmediateComponents();
+	}
+
+	/**
+	 * @see  FacesContextHelper#removeMessagesForImmediateComponents(UIComponent)
+	 */
+	@Override
+	public void removeMessagesForImmediateComponents(UIComponent uiComponent) {
+		FacesContextHelperUtil.removeMessagesForImmediateComponents(uiComponent);
+	}
+
+	/**
+	 * @see  FacesContextHelper#removeParentFormFromComponentTree(UIComponent)
+	 */
+	@Override
+	public void removeParentFormFromComponentTree(UIComponent uiComponent) {
+		FacesContextHelperUtil.removeParentFormFromComponentTree(uiComponent);
+	}
+
+	/**
+	 * @since  JSF 1.0
+	 */
+	@Override
+	public void renderResponse() {
+		FacesContext.getCurrentInstance().renderResponse();
+	}
+
+	/**
+	 * @see  FacesContextHelper#resetView()
+	 */
+	@Override
+	public void resetView() {
+		FacesContextHelperUtil.resetView();
+	}
+
+	/**
+	 * @see  FacesContextHelper#resetView(boolean)
+	 */
+	@Override
+	public void resetView(boolean renderResponse) {
+		FacesContextHelperUtil.resetView();
+	}
+
+	/**
+	 * @see  FacesContextHelper#resolveExpression(String)
+	 */
+	@Override
+	public Object resolveExpression(String elExpression) {
+		return FacesContextHelperUtil.resolveExpression(elExpression);
+	}
+
+	/**
+	 * @since  JSF 1.0
+	 */
+	@Override
+	public void responseComplete() {
+		FacesContext.getCurrentInstance().responseComplete();
+	}
+
+	/**
+	 * @see  PortletHelper#setPortletMode(PortletMode)
+	 */
+	@Override
+	public void setPortletMode(PortletMode portletMode) {
+		PortletHelperUtil.setPortletMode(portletMode);
+	}
+
+	/**
+	 * @see  FacesContextHelper#setRequestAttribute(String, Object)
+	 */
+	@Override
+	public void setRequestAttribute(String name, Object value) {
+		FacesContextHelperUtil.setRequestAttribute(name, value);
+
+	}
+
+	/**
+	 * @since  JSF 1.0
+	 */
+	@Override
+	public void setResponseStream(ResponseStream responseStream) {
+		FacesContext.getCurrentInstance().setResponseStream(responseStream);
+	}
+
+	/**
+	 * @since  JSF 1.0
+	 */
+	@Override
+	public void setResponseWriter(ResponseWriter responseWriter) {
+		FacesContext.getCurrentInstance().setResponseWriter(responseWriter);
+	}
+
+	/**
+	 * @see  FacesContextHelper#setSessionAttribute(String, Object)
+	 */
+	@Override
+	public void setSessionAttribute(String name, Object value) {
+
+		FacesContextHelperUtil.setSessionAttribute(name, value);
+	}
+
+	/**
+	 * @see  PortletHelper#setSessionSharedAttribute(String, Object)
+	 */
+	@Override
+	public void setSessionSharedAttribute(String name, Object value) {
+		PortletHelperUtil.setSessionSharedAttribute(name, value);
+	}
+
+	/**
+	 * @since  JSF 1.0
+	 */
+	@Override
+	public void setViewRoot(UIViewRoot viewRoot) {
+		FacesContext.getCurrentInstance().setViewRoot(viewRoot);
 	}
 
 	/**
@@ -1151,5 +1135,21 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void setWindowStateToNormal() {
 		PortletHelperUtil.setWindowStateToNormal();
+	}
+
+	/**
+	 * @see  LiferayPortletHelper#userHasPortletPermission(String)
+	 */
+	@Override
+	public boolean userHasPortletPermission(String actionId) {
+		return LiferayPortletHelperUtil.userHasPortletPermission(actionId);
+	}
+
+	/**
+	 * @see  LiferayPortletHelper#userHasRole(String)
+	 */
+	@Override
+	public boolean userHasRole(String roleName) {
+		return LiferayPortletHelperUtil.userHasRole(roleName);
 	}
 }

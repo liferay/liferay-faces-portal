@@ -35,17 +35,6 @@ public class ScriptCapturingHttpServletRequest extends NonNamespacedHttpServletR
 	}
 
 	@Override
-	public void removeAttribute(String name) {
-
-		if (WebKeys.AUI_SCRIPT_DATA.equals(name)) {
-			auiScriptData = null;
-		}
-		else {
-			super.removeAttribute(name);
-		}
-	}
-
-	@Override
 	public Object getAttribute(String name) {
 
 		if (WebKeys.AUI_SCRIPT_DATA.equals(name)) {
@@ -53,6 +42,17 @@ public class ScriptCapturingHttpServletRequest extends NonNamespacedHttpServletR
 		}
 		else {
 			return super.getAttribute(name);
+		}
+	}
+
+	@Override
+	public void removeAttribute(String name) {
+
+		if (WebKeys.AUI_SCRIPT_DATA.equals(name)) {
+			auiScriptData = null;
+		}
+		else {
+			super.removeAttribute(name);
 		}
 	}
 

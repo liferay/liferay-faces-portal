@@ -247,139 +247,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract PortletURL createRenderURL();
 
 	/**
-	 * @deprecated  Call {@link FacesContextHelper#matchComponentInHierarchy(UIComponent, String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract UIComponent matchComponentInHierarchy(UIComponent parent, String partialClientId);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#matchComponentInViewRoot(String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract UIComponent matchComponentInViewRoot(String partialClientId);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#navigate(String, String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void navigate(String fromAction, String outcome);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#navigateTo(String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void navigateTo(String outcome);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#recreateComponentTree()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void recreateComponentTree();
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#registerPhaseListener(PhaseListener)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void registerPhaseListener(PhaseListener phaseListener);
-
-	/**
-	 * @deprecated  Call {@link FacesContext#release()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void release();
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#removeChildrenFromComponentTree(String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void removeChildrenFromComponentTree(String clientId);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#removeMessages(String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void removeMessages(String clientId);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#removeMessagesForImmediateComponents()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void removeMessagesForImmediateComponents();
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#removeMessagesForImmediateComponents(UIComponent)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void removeMessagesForImmediateComponents(UIComponent uiComponent);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#removeParentFormFromComponentTree(UIComponent)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void removeParentFormFromComponentTree(UIComponent uiComponent);
-
-	/**
-	 * @deprecated  Call {@link FacesContext#renderResponse()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void renderResponse();
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#resetView()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void resetView();
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#resetView(boolean)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void resetView(boolean renderResponse);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#resolveExpression(String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract Object resolveExpression(String elExpression);
-
-	/**
-	 * @deprecated  Call {@link FacesContext#responseComplete()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void responseComplete();
-
-	/**
-	 * @deprecated  Call {@link LiferayPortletHelper#userHasPortletPermission(String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract boolean userHasPortletPermission(String actionId);
-
-	/**
-	 * @deprecated  Call {@link LiferayPortletHelper#userHasRole(String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract boolean userHasRole(String roleName);
-
-	/**
 	 * @deprecated  Call {@link PortletHelper#getActionResponse()} instead.
 	 */
 	@Deprecated
@@ -413,25 +280,11 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract long getCompanyId();
 
 	/**
-	 * @deprecated  Call {@link PortletHelper#isWindowMaximized()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract boolean isWindowMaximized();
-
-	/**
 	 * @deprecated  Call {@link LiferayPortletHelper#getDocumentLibraryURL()} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract String getDocumentLibraryURL();
-
-	/**
-	 * @deprecated  Call {@link PortletHelper#isUserInRole(String)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract boolean isUserInRole(String roleName);
 
 	/**
 	 * @deprecated  Call {@link FacesContext#getELContext()} instead.
@@ -467,13 +320,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract String getImageGalleryURL();
-
-	/**
-	 * @deprecated  Call {@link PortletHelper#isWindowNormal()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract boolean isWindowNormal();
 
 	/**
 	 * @deprecated  Call {@link LiferayPortletHelper#getLayout()} instead.
@@ -616,13 +462,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract String getPortletInstanceId();
 
 	/**
-	 * @deprecated  Call {@link PortletHelper#setPortletMode(PortletMode)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void setPortletMode(PortletMode portletMode);
-
-	/**
 	 * @deprecated  Call {@link PortletHelper#getPortletName()} instead.
 	 */
 	@Deprecated
@@ -742,13 +581,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract Object getRequestAttribute(String name);
 
 	/**
-	 * @deprecated  Call {@link FacesContextHelper#setRequestAttribute(String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void setRequestAttribute(String name, Object value);
-
-	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestContextPath()} instead.
 	 */
 	@Deprecated
@@ -826,25 +658,11 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract ResponseStream getResponseStream();
 
 	/**
-	 * @deprecated  Call {@link FacesContext#setResponseStream(ResponseStream)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void setResponseStream(ResponseStream responseStream);
-
-	/**
 	 * @deprecated  Call {@link FacesContext#getResponseWriter()} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract ResponseWriter getResponseWriter();
-
-	/**
-	 * @deprecated  Call {@link FacesContext#setResponseWriter(ResponseWriter)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void setResponseWriter(ResponseWriter responseWriter);
 
 	/**
 	 * @deprecated  Call {@link LiferayPortletHelper#getScopeGroup()} instead.
@@ -889,32 +707,11 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract Object getSessionAttribute(String name);
 
 	/**
-	 * @deprecated  Call {@link FacesContextHelper#setSessionAttribute(String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void setSessionAttribute(String name, Object value);
-
-	/**
 	 * @deprecated  Call {@link PortletHelper#getSessionSharedAttribute(String)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract Object getSessionSharedAttribute(String name);
-
-	/**
-	 * @deprecated  Call {@link PortletHelper#setSessionSharedAttribute(String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void setSessionSharedAttribute(String name, Object value);
-
-	/**
-	 * @deprecated  Call {@link PortletHelper#isPortletEnvironment()} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract boolean isPortletEnvironment();
 
 	/**
 	 * @deprecated  Call {@link LiferayPortletHelper#getTheme()} instead.
@@ -966,18 +763,207 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract UIViewRoot getViewRoot();
 
 	/**
-	 * @deprecated  Call {@link FacesContext#setViewRoot(UIViewRoot)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void setViewRoot(UIViewRoot uiViewRoot);
-
-	/**
 	 * @deprecated  Call {@link PortletHelper#getWindowState()} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract WindowState getWindowState();
+
+	/**
+	 * @deprecated  Call {@link PortletHelper#isPortletEnvironment()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract boolean isPortletEnvironment();
+
+	/**
+	 * @deprecated  Call {@link PortletHelper#isUserInRole(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract boolean isUserInRole(String roleName);
+
+	/**
+	 * @deprecated  Call {@link PortletHelper#isWindowMaximized()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract boolean isWindowMaximized();
+
+	/**
+	 * @deprecated  Call {@link PortletHelper#isWindowNormal()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract boolean isWindowNormal();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#matchComponentInHierarchy(UIComponent, String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract UIComponent matchComponentInHierarchy(UIComponent parent, String partialClientId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#matchComponentInViewRoot(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract UIComponent matchComponentInViewRoot(String partialClientId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#navigate(String, String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void navigate(String fromAction, String outcome);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#navigateTo(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void navigateTo(String outcome);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#recreateComponentTree()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void recreateComponentTree();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#registerPhaseListener(PhaseListener)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void registerPhaseListener(PhaseListener phaseListener);
+
+	/**
+	 * @deprecated  Call {@link FacesContext#release()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void release();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeChildrenFromComponentTree(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeChildrenFromComponentTree(String clientId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeMessages(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeMessages(String clientId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeMessagesForImmediateComponents()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeMessagesForImmediateComponents();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeMessagesForImmediateComponents(UIComponent)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeMessagesForImmediateComponents(UIComponent uiComponent);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeParentFormFromComponentTree(UIComponent)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeParentFormFromComponentTree(UIComponent uiComponent);
+
+	/**
+	 * @deprecated  Call {@link FacesContext#renderResponse()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void renderResponse();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#resetView()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void resetView();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#resetView(boolean)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void resetView(boolean renderResponse);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#resolveExpression(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract Object resolveExpression(String elExpression);
+
+	/**
+	 * @deprecated  Call {@link FacesContext#responseComplete()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void responseComplete();
+
+	/**
+	 * @deprecated  Call {@link PortletHelper#setPortletMode(PortletMode)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void setPortletMode(PortletMode portletMode);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#setRequestAttribute(String, Object)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void setRequestAttribute(String name, Object value);
+
+	/**
+	 * @deprecated  Call {@link FacesContext#setResponseStream(ResponseStream)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void setResponseStream(ResponseStream responseStream);
+
+	/**
+	 * @deprecated  Call {@link FacesContext#setResponseWriter(ResponseWriter)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void setResponseWriter(ResponseWriter responseWriter);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#setSessionAttribute(String, Object)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void setSessionAttribute(String name, Object value);
+
+	/**
+	 * @deprecated  Call {@link PortletHelper#setSessionSharedAttribute(String, Object)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void setSessionSharedAttribute(String name, Object value);
+
+	/**
+	 * @deprecated  Call {@link FacesContext#setViewRoot(UIViewRoot)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void setViewRoot(UIViewRoot uiViewRoot);
 
 	/**
 	 * @deprecated  Call {@link PortletHelper#setWindowState(WindowState)} instead.
@@ -999,4 +985,18 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract void setWindowStateToNormal();
+
+	/**
+	 * @deprecated  Call {@link LiferayPortletHelper#userHasPortletPermission(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract boolean userHasPortletPermission(String actionId);
+
+	/**
+	 * @deprecated  Call {@link LiferayPortletHelper#userHasRole(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract boolean userHasRole(String roleName);
 }

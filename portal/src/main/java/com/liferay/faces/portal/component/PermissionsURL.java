@@ -41,6 +41,75 @@ public class PermissionsURL extends UIOutput {
 	}
 
 	@Override
+	public String getFamily() {
+		return COMPONENT_TYPE;
+	}
+
+	public String getModelResource() {
+
+		if (Validator.isNotNull(modelResource)) {
+			return modelResource;
+		}
+
+		ValueExpression valueExpression = getValueExpression("modelResource");
+
+		if (Validator.isNotNull(valueExpression)) {
+			return (String) valueExpression.getValue(getFacesContext().getELContext());
+		}
+		else {
+			return null;
+		}
+	}
+
+	public String getModelResourceDescription() {
+
+		if (Validator.isNotNull(modelResourceDescription)) {
+			return modelResourceDescription;
+		}
+
+		ValueExpression valueExpression = getValueExpression("modelResourceDescription");
+
+		if (Validator.isNotNull(valueExpression)) {
+			return (String) valueExpression.getValue(getFacesContext().getELContext());
+		}
+		else {
+			return null;
+		}
+	}
+
+	public String getRedirect() {
+
+		if (Validator.isNotNull(redirect)) {
+			return redirect;
+		}
+
+		ValueExpression valueExpression = getValueExpression("redirect");
+
+		if (Validator.isNotNull(valueExpression)) {
+			return (String) valueExpression.getValue(getFacesContext().getELContext());
+		}
+		else {
+			return null;
+		}
+	}
+
+	public String getResourcePrimKey() {
+
+		if (Validator.isNotNull(resourcePrimKey)) {
+			return resourcePrimKey;
+		}
+
+		ValueExpression valueExpression = getValueExpression("resourcePrimKey");
+
+		if (Validator.isNotNull(valueExpression)) {
+			return (String) valueExpression.getValue(getFacesContext().getELContext());
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
 	public void restoreState(FacesContext facesContext, Object state) {
 		Object[] values = (Object[]) state;
 
@@ -64,85 +133,16 @@ public class PermissionsURL extends UIOutput {
 		return values;
 	}
 
-	@Override
-	public String getFamily() {
-		return COMPONENT_TYPE;
-	}
-
-	public String getModelResource() {
-
-		if (Validator.isNotNull(modelResource)) {
-			return modelResource;
-		}
-
-		ValueExpression valueExpression = getValueExpression("modelResource");
-
-		if (Validator.isNotNull(valueExpression)) {
-			return (String) valueExpression.getValue(getFacesContext().getELContext());
-		}
-		else {
-			return null;
-		}
-	}
-
 	public void setModelResource(String modelResource) {
 		this.modelResource = modelResource;
-	}
-
-	public String getModelResourceDescription() {
-
-		if (Validator.isNotNull(modelResourceDescription)) {
-			return modelResourceDescription;
-		}
-
-		ValueExpression valueExpression = getValueExpression("modelResourceDescription");
-
-		if (Validator.isNotNull(valueExpression)) {
-			return (String) valueExpression.getValue(getFacesContext().getELContext());
-		}
-		else {
-			return null;
-		}
 	}
 
 	public void setModelResourceDescription(String modelResourceDescription) {
 		this.modelResourceDescription = modelResourceDescription;
 	}
 
-	public String getRedirect() {
-
-		if (Validator.isNotNull(redirect)) {
-			return redirect;
-		}
-
-		ValueExpression valueExpression = getValueExpression("redirect");
-
-		if (Validator.isNotNull(valueExpression)) {
-			return (String) valueExpression.getValue(getFacesContext().getELContext());
-		}
-		else {
-			return null;
-		}
-	}
-
 	public void setRedirect(String redirect) {
 		this.redirect = redirect;
-	}
-
-	public String getResourcePrimKey() {
-
-		if (Validator.isNotNull(resourcePrimKey)) {
-			return resourcePrimKey;
-		}
-
-		ValueExpression valueExpression = getValueExpression("resourcePrimKey");
-
-		if (Validator.isNotNull(valueExpression)) {
-			return (String) valueExpression.getValue(getFacesContext().getELContext());
-		}
-		else {
-			return null;
-		}
 	}
 
 	public void setResourcePrimKey(String resourcePrimKey) {

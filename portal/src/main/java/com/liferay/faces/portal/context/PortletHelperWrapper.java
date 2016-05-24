@@ -35,6 +35,9 @@ import com.liferay.faces.util.helper.Wrapper;
  */
 public abstract class PortletHelperWrapper implements PortletHelper, Wrapper<PortletHelper> {
 
+	@Override
+	public abstract PortletHelper getWrapped();
+
 	public PortletURL createActionURL() {
 		return getWrapped().createActionURL();
 	}
@@ -45,18 +48,6 @@ public abstract class PortletHelperWrapper implements PortletHelper, Wrapper<Por
 
 	public ActionResponse getActionResponse() {
 		return getWrapped().getActionResponse();
-	}
-
-	public boolean isWindowMaximized() {
-		return getWrapped().isWindowMaximized();
-	}
-
-	public boolean isUserInRole(String roleName) {
-		return getWrapped().isUserInRole(roleName);
-	}
-
-	public boolean isWindowNormal() {
-		return getWrapped().isWindowNormal();
 	}
 
 	public PortalContext getPortalContext() {
@@ -73,10 +64,6 @@ public abstract class PortletHelperWrapper implements PortletHelper, Wrapper<Por
 
 	public String getPortletContextName() {
 		return getWrapped().getPortletContextName();
-	}
-
-	public void setPortletMode(PortletMode portletMode) {
-		getWrapped().setPortletMode(portletMode);
 	}
 
 	public String getPortletName() {
@@ -135,16 +122,32 @@ public abstract class PortletHelperWrapper implements PortletHelper, Wrapper<Por
 		return getWrapped().getSessionSharedAttribute(name);
 	}
 
-	public void setSessionSharedAttribute(String name, Object value) {
-		getWrapped().setSessionSharedAttribute(name, value);
+	public WindowState getWindowState() {
+		return getWrapped().getWindowState();
 	}
 
 	public boolean isPortletEnvironment() {
 		return getWrapped().isPortletEnvironment();
 	}
 
-	public WindowState getWindowState() {
-		return getWrapped().getWindowState();
+	public boolean isUserInRole(String roleName) {
+		return getWrapped().isUserInRole(roleName);
+	}
+
+	public boolean isWindowMaximized() {
+		return getWrapped().isWindowMaximized();
+	}
+
+	public boolean isWindowNormal() {
+		return getWrapped().isWindowNormal();
+	}
+
+	public void setPortletMode(PortletMode portletMode) {
+		getWrapped().setPortletMode(portletMode);
+	}
+
+	public void setSessionSharedAttribute(String name, Object value) {
+		getWrapped().setSessionSharedAttribute(name, value);
 	}
 
 	public void setWindowState(WindowState windowState) {
@@ -158,7 +161,4 @@ public abstract class PortletHelperWrapper implements PortletHelper, Wrapper<Por
 	public void setWindowStateToNormal() {
 		getWrapped().setWindowStateToNormal();
 	}
-
-	@Override
-	public abstract PortletHelper getWrapped();
 }

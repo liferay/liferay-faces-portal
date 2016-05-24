@@ -18,7 +18,12 @@ package com.liferay.faces.test.hooks;
  */
 public class Portlet {
 
-	public enum ArtifactType {WAR, WAB};
+	/**
+	 * @author  Neil Griffin
+	 */
+	public enum ArtifactType {
+		WAR, WAB
+	}
 
 	// Private Data Members
 	private ArtifactType artifactType;

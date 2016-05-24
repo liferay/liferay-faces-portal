@@ -35,16 +35,11 @@ import com.liferay.portal.theme.ThemeDisplay;
  */
 public abstract class LiferayPortletHelperWrapper implements LiferayPortletHelper, Wrapper<LiferayPortletHelper> {
 
+	@Override
+	public abstract LiferayPortletHelper getWrapped();
+
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException {
 		getWrapped().checkUserPortletPermission(actionId);
-	}
-
-	public boolean userHasPortletPermission(String actionId) {
-		return getWrapped().userHasPortletPermission(actionId);
-	}
-
-	public boolean userHasRole(String roleName) {
-		return getWrapped().userHasRole(roleName);
 	}
 
 	public long getCompanyId() {
@@ -131,6 +126,11 @@ public abstract class LiferayPortletHelperWrapper implements LiferayPortletHelpe
 		return getWrapped().getUserRoles();
 	}
 
-	@Override
-	public abstract LiferayPortletHelper getWrapped();
+	public boolean userHasPortletPermission(String actionId) {
+		return getWrapped().userHasPortletPermission(actionId);
+	}
+
+	public boolean userHasRole(String roleName) {
+		return getWrapped().userHasRole(roleName);
+	}
 }

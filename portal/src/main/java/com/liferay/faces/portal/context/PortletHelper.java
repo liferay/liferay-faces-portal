@@ -51,21 +51,6 @@ public interface PortletHelper {
 	public ActionResponse getActionResponse();
 
 	/**
-	 * Returns TRUE if the Window state of the current portlet is set to MAXIMIZED
-	 */
-	public boolean isWindowMaximized();
-
-	/**
-	 * Returns TRUE if the current user is associated with the specified role.
-	 */
-	public boolean isUserInRole(String roleName);
-
-	/**
-	 * Returns TRUE if the Window state of the current portlet is set to MAXIMIZED
-	 */
-	public boolean isWindowNormal();
-
-	/**
 	 * Retrieves the <code>javax.portlet.PortalContext</code> object associated with the current JSF FacesContext.
 	 */
 	public PortalContext getPortalContext();
@@ -85,11 +70,6 @@ public interface PortletHelper {
 	 * portlet .war)
 	 */
 	public String getPortletContextName();
-
-	/**
-	 * Sets the portlet mode of the portlet associated with the current JSF FacesContext to the specified portlet mode.
-	 */
-	public void setPortletMode(PortletMode portletMode);
 
 	/**
 	 * Retrieves the name of the portlet associated with the current JSF FacesContext (as defined in portlet.xml's
@@ -169,10 +149,9 @@ public interface PortletHelper {
 	public Object getSessionSharedAttribute(String name);
 
 	/**
-	 * Sets the value of the a session attribute using the specified name and value within
-	 * PortletSession.APPLICATION_SCOPE
+	 * Returns the window state of the portlet associated with the current JSF FacesContext
 	 */
-	public void setSessionSharedAttribute(String name, Object value);
+	public WindowState getWindowState();
 
 	/**
 	 * Returns TRUE if the underlying request/response is from a portlet environment. Otherwise, must be running in a
@@ -181,9 +160,30 @@ public interface PortletHelper {
 	public boolean isPortletEnvironment();
 
 	/**
-	 * Returns the window state of the portlet associated with the current JSF FacesContext
+	 * Returns TRUE if the current user is associated with the specified role.
 	 */
-	public WindowState getWindowState();
+	public boolean isUserInRole(String roleName);
+
+	/**
+	 * Returns TRUE if the Window state of the current portlet is set to MAXIMIZED
+	 */
+	public boolean isWindowMaximized();
+
+	/**
+	 * Returns TRUE if the Window state of the current portlet is set to MAXIMIZED
+	 */
+	public boolean isWindowNormal();
+
+	/**
+	 * Sets the portlet mode of the portlet associated with the current JSF FacesContext to the specified portlet mode.
+	 */
+	public void setPortletMode(PortletMode portletMode);
+
+	/**
+	 * Sets the value of the a session attribute using the specified name and value within
+	 * PortletSession.APPLICATION_SCOPE
+	 */
+	public void setSessionSharedAttribute(String name, Object value);
 
 	/**
 	 * Sets the window state of the portlet associated with the current JSF FacesContext to the specified window state.
