@@ -38,25 +38,10 @@ public class HttpServletRequestTagSafeImpl extends HttpServletRequestWrapper {
 	private static final Logger logger = LoggerFactory.getLogger(HttpServletRequestTagSafeImpl.class);
 
 	// Private Constants
-	private static final String AUI_FORM_USE_NAMESPACE = "aui:form:useNamespace";
 	private static final String NAMESPACE_SERVLET_REQUEST_FQCN = "com.liferay.portal.servlet.NamespaceServletRequest";
 
 	public HttpServletRequestTagSafeImpl(HttpServletRequest httpServletRequest) {
 		super(httpServletRequest);
-	}
-
-	@Override
-	public Object getAttribute(String name) {
-
-		if (AUI_FORM_USE_NAMESPACE.equals(name)) {
-
-			// Note: The portal-web/docroot/html/taglib/init.jsp file asks the value of this attribute. Need to return
-			// false in order to ensure that the portlet namespace is not prepended to method names and element ids.
-			return Boolean.FALSE.toString();
-		}
-		else {
-			return super.getAttribute(name);
-		}
 	}
 
 	@Override

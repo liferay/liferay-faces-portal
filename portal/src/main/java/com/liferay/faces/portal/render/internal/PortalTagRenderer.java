@@ -168,6 +168,10 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		// Setup the Facelet -> JSP tag adapter.
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		portletRequest.setAttribute(PortalTagRendererCompat.AUI_FORM_PORTLET_NAMESPACE, "");
+		portletRequest.setAttribute(PortalTagRendererCompat.AUI_FORM_USE_NAMESPACE, "false");
+
 		HttpServletRequest httpServletRequest = getHttpServletRequest(portletRequest);
 		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 		HttpServletResponse httpServletResponse = getHttpServletResponse(portletResponse);

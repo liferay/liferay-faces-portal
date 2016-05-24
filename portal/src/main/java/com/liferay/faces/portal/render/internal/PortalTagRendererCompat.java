@@ -17,6 +17,7 @@ import javax.faces.render.Renderer;
 import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletRequest;
 
+import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.util.PortalUtil;
 
 
@@ -27,7 +28,18 @@ import com.liferay.portal.util.PortalUtil;
  */
 public abstract class PortalTagRendererCompat extends Renderer {
 
+	// Public Constants
+	public static final String AUI_FORM_USE_NAMESPACE = "aui:form:useNamespace";
+	public static final String AUI_FORM_PORTLET_NAMESPACE = "aui:form:portletNamespace";
+
 	protected HttpServletRequest getHttpServletRequest(PortletRequest portletRequest) {
-		return new HttpServletRequestTagSafeImpl(PortalUtil.getHttpServletRequest(portletRequest));
+		return new HttpServletRequestTagSafeImpl(_getHttpServletRequest(portletRequest));
 	}
+
+	private HttpServletRequest _getHttpServletRequest(PortletRequest portletRequest) {
+		LiferayPortletRequest liferayPortletRequest = PortalUtil.getLiferayPortletRequest(portletRequest);
+
+		return liferayPortletRequest.getHttpServletRequest();
+	}
+
 }
