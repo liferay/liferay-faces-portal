@@ -43,6 +43,7 @@ import com.liferay.taglib.ui.InputEditorTag;
 /**
  * @author  Neil Griffin
  */
+
 //J-
 @FacesRenderer(componentFamily = InputRichText.COMPONENT_FAMILY, rendererType = InputRichText.RENDERER_TYPE)
 @ResourceDependency(library = "liferay-faces-portal", name = "portal.js")
@@ -239,56 +240,13 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 	}
 
 	@Override
-	public InputEditorTag newTag() {
-		return new InputEditorTag();
-	}
-
-	private void encodeTagFunction(ResponseWriter responseWriter, String clientId, char separatorChar,
-		String functionName, String... parameters) throws IOException {
-
-		responseWriter.write("function ");
-
-		String functionNamespace = clientId.replace(separatorChar, '_');
-		responseWriter.write(functionNamespace);
-		responseWriter.write(functionName);
-		responseWriter.write("(");
-
-		boolean first = true;
-
-		for (String parameter : parameters) {
-
-			if (!first) {
-				responseWriter.write(",");
-			}
-
-			responseWriter.write(parameter);
-			first = false;
-		}
-
-		responseWriter.write("){");
-
-		if ("Init".equals(functionName)) {
-			responseWriter.write("return ");
-		}
-
-		responseWriter.write("LFPI.inputRichText");
-		responseWriter.write(functionName);
-		responseWriter.write("(\"");
-		responseWriter.write(clientId);
-		responseWriter.write("\"");
-
-		for (String parameter : parameters) {
-
-			responseWriter.write(",");
-			responseWriter.write(parameter);
-		}
-
-		responseWriter.write(");};");
+	public String getChildInsertionMarker() {
+		return "</div>";
 	}
 
 	@Override
-	public String getChildInsertionMarker() {
-		return "</div>";
+	public InputEditorTag newTag() {
+		return new InputEditorTag();
 	}
 
 	protected String getEditorId(FacesContext facesContext, UIComponent uiComponent) {
@@ -370,5 +328,48 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 		}
 
 		return scripts;
+	}
+
+	private void encodeTagFunction(ResponseWriter responseWriter, String clientId, char separatorChar,
+		String functionName, String... parameters) throws IOException {
+
+		responseWriter.write("function ");
+
+		String functionNamespace = clientId.replace(separatorChar, '_');
+		responseWriter.write(functionNamespace);
+		responseWriter.write(functionName);
+		responseWriter.write("(");
+
+		boolean first = true;
+
+		for (String parameter : parameters) {
+
+			if (!first) {
+				responseWriter.write(",");
+			}
+
+			responseWriter.write(parameter);
+			first = false;
+		}
+
+		responseWriter.write("){");
+
+		if ("Init".equals(functionName)) {
+			responseWriter.write("return ");
+		}
+
+		responseWriter.write("LFPI.inputRichText");
+		responseWriter.write(functionName);
+		responseWriter.write("(\"");
+		responseWriter.write(clientId);
+		responseWriter.write("\"");
+
+		for (String parameter : parameters) {
+
+			responseWriter.write(",");
+			responseWriter.write(parameter);
+		}
+
+		responseWriter.write(");};");
 	}
 }

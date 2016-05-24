@@ -43,13 +43,6 @@ public class FacesContextHelperPortletImpl extends FacesContextHelperImpl implem
 	}
 
 	@Override
-	public void setRequestAttribute(String name, Object value) {
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-		portletRequest.setAttribute(name, value);
-	}
-
-	@Override
 	public String getRequestContextPath() {
 		return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
 	}
@@ -91,6 +84,13 @@ public class FacesContextHelperPortletImpl extends FacesContextHelperImpl implem
 		}
 
 		return value;
+	}
+
+	@Override
+	public void setRequestAttribute(String name, Object value) {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+		portletRequest.setAttribute(name, value);
 	}
 
 	@Override

@@ -64,6 +64,7 @@ import com.liferay.taglib.ui.InputSearchTag;
  *
  * @author  Juan Gonzalez
  */
+
 //J-
 @FacesRenderer(componentFamily = InputSearch.COMPONENT_FAMILY, rendererType = InputSearch.RENDERER_TYPE)
 //J+
@@ -106,6 +107,11 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 		// Encode the closing </div> element
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.endElement("div");
+	}
+
+	@Override
+	public String getChildInsertionMarker() {
+		return "</div>";
 	}
 
 	@Override
@@ -270,11 +276,6 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 			inputSearch.markInitialState();
 		}
 
-	}
-
-	@Override
-	public String getChildInsertionMarker() {
-		return "</div>";
 	}
 
 	@Override

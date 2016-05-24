@@ -175,36 +175,6 @@ public class Liferay implements Serializable {
 		return portraitURLMap;
 	}
 
-	public boolean isInlineInputEditor() {
-
-		if (inlineInputEditor == null) {
-			inlineInputEditor = Boolean.FALSE;
-
-			int buildNumber = LiferayPortletHelperUtil.getBuildNumber();
-
-			if (buildNumber >= 6012) {
-				inlineInputEditor = Boolean.TRUE;
-			}
-			else {
-				FacesContext facesContext = FacesContext.getCurrentInstance();
-				ExternalContext externalContext = facesContext.getExternalContext();
-				String configOption = externalContext.getInitParameter("com.liferay.faces.portal.inlineInputEditor");
-
-				if (configOption == null) {
-
-					// Backwards compatibility
-					configOption = externalContext.getInitParameter("org.portletfaces.liferay.faces.inlineInputEditor");
-				}
-
-				if ((configOption != null) && BooleanHelper.isTrueToken(configOption)) {
-					inlineInputEditor = Boolean.TRUE;
-				}
-			}
-		}
-
-		return inlineInputEditor;
-	}
-
 	/**
 	 * Returns the Liferay {@link User} that owns the Liferay community/organization portal page that the containing
 	 * portlet is placed upon.
@@ -293,5 +263,35 @@ public class Liferay implements Serializable {
 		}
 
 		return userPermissionMap;
+	}
+
+	public boolean isInlineInputEditor() {
+
+		if (inlineInputEditor == null) {
+			inlineInputEditor = Boolean.FALSE;
+
+			int buildNumber = LiferayPortletHelperUtil.getBuildNumber();
+
+			if (buildNumber >= 6012) {
+				inlineInputEditor = Boolean.TRUE;
+			}
+			else {
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				String configOption = externalContext.getInitParameter("com.liferay.faces.portal.inlineInputEditor");
+
+				if (configOption == null) {
+
+					// Backwards compatibility
+					configOption = externalContext.getInitParameter("org.portletfaces.liferay.faces.inlineInputEditor");
+				}
+
+				if ((configOption != null) && BooleanHelper.isTrueToken(configOption)) {
+					inlineInputEditor = Boolean.TRUE;
+				}
+			}
+		}
+
+		return inlineInputEditor;
 	}
 }

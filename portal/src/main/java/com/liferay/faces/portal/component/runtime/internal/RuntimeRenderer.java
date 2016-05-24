@@ -28,6 +28,7 @@ import com.liferay.taglib.portletext.RuntimeTag;
 /**
  * @author  Juan Gonzalez
  */
+
 //J-
 @FacesRenderer(componentFamily = Runtime.COMPONENT_FAMILY, rendererType = Runtime.RENDERER_TYPE)
 //J+
@@ -59,6 +60,11 @@ public class RuntimeRenderer extends RuntimeRendererBase {
 	}
 
 	@Override
+	public String getChildInsertionMarker() {
+		return "</div>";
+	}
+
+	@Override
 	public RuntimeTag newTag() {
 		return new RuntimeTag();
 	}
@@ -78,10 +84,5 @@ public class RuntimeRenderer extends RuntimeRendererBase {
 	@Override
 	protected void copyNonFrameworkAttributes(FacesContext facesContext, Runtime u, RuntimeTag t) {
 
-	}
-
-	@Override
-	public String getChildInsertionMarker() {
-		return "</div>";
 	}
 }

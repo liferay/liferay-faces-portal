@@ -48,20 +48,6 @@ public interface LiferayPortletHelper {
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException;
 
 	/**
-	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn, is assumed to
-	 * be an action defined for the current portlet). Any errors that occur will be caught and re-thrown, wrapped in a
-	 * PortletRuntimeException.
-	 *
-	 * @see    {@link #checkUserPortletPermission(String)}
-	 */
-	public boolean userHasPortletPermission(String actionId);
-
-	/**
-	 * Returns <code>true</code> if the current user has the specified role name.
-	 */
-	public boolean userHasRole(String roleName);
-
-	/**
 	 * Returns the build identifier for the running version of Liferay Portal.
 	 */
 	public int getBuildNumber();
@@ -187,4 +173,18 @@ public interface LiferayPortletHelper {
 	 * Returns a list of all of the roles played by the user associated with the current JSF FacesContext.
 	 */
 	public List<Role> getUserRoles() throws SystemException;
+
+	/**
+	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn,
+	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
+	 * wrapped in a PortletRuntimeException.
+	 *
+	 * @see  {@link #checkUserPortletPermission(String)}
+	 */
+	public boolean userHasPortletPermission(String actionId);
+
+	/**
+	 * Returns <code>true</code> if the current user has the specified role name.
+	 */
+	public boolean userHasRole(String roleName);
 }

@@ -34,6 +34,7 @@ import com.liferay.taglib.aui.NavTag;
  * @author  Neil Griffin
  * @author  Juan Gonzalez
  */
+
 //J-
 @FacesRenderer(componentFamily = Nav.COMPONENT_FAMILY, rendererType = Nav.RENDERER_TYPE)
 //J+
@@ -124,11 +125,6 @@ public class NavRenderer extends NavRendererBase {
 	}
 
 	@Override
-	public NavTag newTag() {
-		return new NavTag();
-	}
-
-	@Override
 	public String getChildInsertionMarker() {
 		return "</ul>";
 	}
@@ -165,5 +161,10 @@ public class NavRenderer extends NavRendererBase {
 	@Override
 	public boolean getRendersChildren() {
 		return true;
+	}
+
+	@Override
+	public NavTag newTag() {
+		return new NavTag();
 	}
 }

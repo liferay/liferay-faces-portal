@@ -51,24 +51,6 @@ public class LiferayPortletHelperUtil {
 	}
 
 	/**
-	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn,
-	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
-	 * wrapped in a PortletRuntimeException.
-	 *
-	 * @see  {@link LiferayPortletHelper#checkUserPortletPermission(String)}
-	 */
-	public static boolean userHasPortletPermission(String actionId) {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().userHasPortletPermission(actionId);
-	}
-
-	/**
-	 * Returns <code>true</code> if the current user has the specified role name.
-	 */
-	public static boolean userHasRole(String roleName) {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().userHasRole(roleName);
-	}
-
-	/**
 	 * Returns the build identifier for the running version of Liferay Portal.
 	 */
 	public static int getBuildNumber() {
@@ -237,5 +219,23 @@ public class LiferayPortletHelperUtil {
 	 */
 	public static List<Role> getUserRoles() throws SystemException {
 		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getUserRoles();
+	}
+
+	/**
+	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn,
+	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
+	 * wrapped in a PortletRuntimeException.
+	 *
+	 * @see  {@link LiferayPortletHelper#checkUserPortletPermission(String)}
+	 */
+	public static boolean userHasPortletPermission(String actionId) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().userHasPortletPermission(actionId);
+	}
+
+	/**
+	 * Returns <code>true</code> if the current user has the specified role name.
+	 */
+	public static boolean userHasRole(String roleName) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().userHasRole(roleName);
 	}
 }

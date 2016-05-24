@@ -99,6 +99,25 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		return totalCount;
 	}
 
+	@Override
+	public User getRowData(String rowKey) {
+		User user = null;
+
+		try {
+			user = UserLocalServiceUtil.getUserById(Long.parseLong(rowKey));
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+
+		return user;
+	}
+
+	@Override
+	public Object getRowKey(User user) {
+		return user.getUserId();
+	}
+
 	/**
 	 * This method is called by the PrimeFaces {@link DataTable} according to the rows specified in the currently
 	 * displayed page of data.
@@ -197,24 +216,5 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		}
 
 		return expression;
-	}
-
-	@Override
-	public User getRowData(String rowKey) {
-		User user = null;
-
-		try {
-			user = UserLocalServiceUtil.getUserById(Long.parseLong(rowKey));
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-
-		return user;
-	}
-
-	@Override
-	public Object getRowKey(User user) {
-		return user.getUserId();
 	}
 }

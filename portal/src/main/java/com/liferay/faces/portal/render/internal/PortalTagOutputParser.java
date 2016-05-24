@@ -21,7 +21,7 @@ import javax.servlet.jsp.JspWriter;
  */
 public interface PortalTagOutputParser {
 
-	public PortalTagOutput parse(JspWriter stringJspWriter);
-
 	public String getScriptSectionMarker();
+
+	public PortalTagOutput parse(JspWriter stringJspWriter);
 }

@@ -49,6 +49,16 @@ public class InputSearch extends InputSearchBase implements ClientBehaviorHolder
 	}
 
 	@Override
+	public String getDefaultEventName() {
+		return defaultEventName;
+	}
+
+	@Override
+	public Collection<String> getEventNames() {
+		return eventNames;
+	}
+
+	@Override
 	public void processEvent(ComponentSystemEvent componentSystemEvent) throws AbortProcessingException {
 
 		super.processEvent(componentSystemEvent);
@@ -65,15 +75,5 @@ public class InputSearch extends InputSearchBase implements ClientBehaviorHolder
 				preRenderComponentEventListener.processEvent((PreRenderComponentEvent) componentSystemEvent);
 			}
 		}
-	}
-
-	@Override
-	public String getDefaultEventName() {
-		return defaultEventName;
-	}
-
-	@Override
-	public Collection<String> getEventNames() {
-		return eventNames;
 	}
 }

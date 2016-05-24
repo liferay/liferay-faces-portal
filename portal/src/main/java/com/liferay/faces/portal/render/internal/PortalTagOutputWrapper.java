@@ -21,6 +21,8 @@ import javax.faces.FacesWrapper;
  */
 public abstract class PortalTagOutputWrapper implements PortalTagOutput, FacesWrapper<PortalTagOutput> {
 
+	public abstract PortalTagOutput getWrapped();
+
 	@Override
 	public String getMarkup() {
 		return getWrapped().getMarkup();
@@ -30,6 +32,4 @@ public abstract class PortalTagOutputWrapper implements PortalTagOutput, FacesWr
 	public String getScripts() {
 		return getWrapped().getScripts();
 	}
-
-	public abstract PortalTagOutput getWrapped();
 }

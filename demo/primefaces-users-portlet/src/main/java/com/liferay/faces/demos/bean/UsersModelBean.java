@@ -85,11 +85,6 @@ public class UsersModelBean implements Serializable {
 		return selectedUser;
 	}
 
-	public void setSelectedUser(User selectedUser) {
-		this.selectedUser = selectedUser;
-		this.selectedUserPortraitURL = null;
-	}
-
 	/**
 	 * This method returns a fully encoded URL that can be used in an HTML img tag to display the selected user's
 	 * portrait. In order to determine the value of the URL, this method delegates much of that responsibility to the
@@ -140,6 +135,11 @@ public class UsersModelBean implements Serializable {
 
 	public UploadedFile getUploadedFile() {
 		return uploadedFile;
+	}
+
+	public void setSelectedUser(User selectedUser) {
+		this.selectedUser = selectedUser;
+		this.selectedUserPortraitURL = null;
 	}
 
 	public void setUploadedFile(UploadedFile uploadedFile) {

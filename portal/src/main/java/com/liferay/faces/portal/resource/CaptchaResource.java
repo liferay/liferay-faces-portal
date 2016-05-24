@@ -59,14 +59,6 @@ public class CaptchaResource extends Resource {
 	}
 
 	@Override
-	public boolean userAgentNeedsUpdate(FacesContext context) {
-
-		// Since the captcha image changes for every request, always return true so that the browser does not attempt
-		// to cache it.
-		return true;
-	}
-
-	@Override
 	public InputStream getInputStream() {
 		ByteArrayInputStream byteArrayInputStream = null;
 
@@ -123,18 +115,12 @@ public class CaptchaResource extends Resource {
 		return null;
 	}
 
-	private static class CaptchaServletOutputStream extends ServletOutputStream {
+	@Override
+	public boolean userAgentNeedsUpdate(FacesContext context) {
 
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-		public byte[] toByteArray() {
-			return byteArrayOutputStream.toByteArray();
-		}
-
-		@Override
-		public void write(int b) throws IOException {
-			byteArrayOutputStream.write(b);
-		}
+		// Since the captcha image changes for every request, always return true so that the browser does not attempt
+		// to cache it.
+		return true;
 	}
 
 	private static class CaptchaHttpServletResponse extends HttpServletResponseWrapper {
@@ -155,6 +141,20 @@ public class CaptchaResource extends Resource {
 			return outputStream;
 		}
 
+	}
+
+	private static class CaptchaServletOutputStream extends ServletOutputStream {
+
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+		public byte[] toByteArray() {
+			return byteArrayOutputStream.toByteArray();
+		}
+
+		@Override
+		public void write(int b) throws IOException {
+			byteArrayOutputStream.write(b);
+		}
 	}
 
 }

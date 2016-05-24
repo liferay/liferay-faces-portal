@@ -40,15 +40,15 @@ public class PortalPage {
 		return layoutTemplateId;
 	}
 
-	public void setLayoutTemplateId(String layoutTemplateId) {
-		this.layoutTemplateId = layoutTemplateId;
-	}
-
 	public String getPageName() {
 		return pageName;
 	}
 
 	public List<Portlet> getPortlets() {
 		return portlets;
+	}
+
+	public void setLayoutTemplateId(String layoutTemplateId) {
+		this.layoutTemplateId = layoutTemplateId;
 	}
 }

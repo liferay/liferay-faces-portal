@@ -39,6 +39,10 @@ public class InputRichTextBacking {
 	private Applicant applicant;
 	private boolean resizable = true;
 
+	public Applicant getApplicant() {
+		return applicant;
+	}
+
 	@PostConstruct
 	public void init() {
 
@@ -48,6 +52,14 @@ public class InputRichTextBacking {
 			applicant.setComments(
 				"<p>This is some <strong>bold</strong> text\nand this is some <em>italic</em> text.</p>");
 		}
+	}
+
+	public boolean isResizable() {
+		return resizable;
+	}
+
+	public void setResizable(boolean resizable) {
+		this.resizable = resizable;
 	}
 
 	public void submit() {
@@ -64,17 +76,5 @@ public class InputRichTextBacking {
 		FacesMessage facesMessage = new FacesMessage("The valueChangeListener method was called during the " +
 				phaseName + " phase of the JSF lifecycle.");
 		facesContext.addMessage(null, facesMessage);
-	}
-
-	public Applicant getApplicant() {
-		return applicant;
-	}
-
-	public boolean isResizable() {
-		return resizable;
-	}
-
-	public void setResizable(boolean resizable) {
-		this.resizable = resizable;
 	}
 }

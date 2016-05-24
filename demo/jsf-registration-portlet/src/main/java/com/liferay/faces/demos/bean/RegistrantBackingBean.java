@@ -61,6 +61,22 @@ public class RegistrantBackingBean implements Serializable {
 	// Private Data Members
 	private Boolean captchaRendered;
 
+	public boolean isCaptchaRendered() {
+
+		if (captchaRendered == null) {
+			captchaRendered = Boolean.valueOf(GetterUtil.getBoolean(
+						PropsUtil.get(PropsKeys.CAPTCHA_CHECK_PORTAL_CREATE_ACCOUNT)));
+		}
+
+		return captchaRendered.booleanValue();
+	}
+
+	public void setRegistrantModelBean(RegistrantModelBean registrantModelBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.registrantModelBean = registrantModelBean;
+	}
+
 	public void submit(ActionEvent actionEvent) {
 
 		Registrant submittedRegistrant = registrantModelBean.getRegistrant();
@@ -187,22 +203,6 @@ public class RegistrantBackingBean implements Serializable {
 			logger.error(e.getMessage(), e);
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
-	}
-
-	public boolean isCaptchaRendered() {
-
-		if (captchaRendered == null) {
-			captchaRendered = Boolean.valueOf(GetterUtil.getBoolean(
-						PropsUtil.get(PropsKeys.CAPTCHA_CHECK_PORTAL_CREATE_ACCOUNT)));
-		}
-
-		return captchaRendered.booleanValue();
-	}
-
-	public void setRegistrantModelBean(RegistrantModelBean registrantModelBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.registrantModelBean = registrantModelBean;
 	}
 
 }

@@ -208,13 +208,6 @@ public class LoginBackingBean {
 		return authType;
 	}
 
-	protected String getCompleteRedirectURL(HttpServletRequest httpServletRequest, String redirect) {
-
-		String portalURL = PortalUtilCompat.getPortalURL(httpServletRequest);
-
-		return portalURL.concat(redirect);
-	}
-
 	public String getHandleLabel() {
 
 		if (handleLabel == null) {
@@ -237,5 +230,12 @@ public class LoginBackingBean {
 
 	public void setLoginModelBean(LoginModelBean loginModelBean) {
 		this.loginModelBean = loginModelBean;
+	}
+
+	protected String getCompleteRedirectURL(HttpServletRequest httpServletRequest, String redirect) {
+
+		String portalURL = PortalUtilCompat.getPortalURL(httpServletRequest);
+
+		return portalURL.concat(redirect);
 	}
 }

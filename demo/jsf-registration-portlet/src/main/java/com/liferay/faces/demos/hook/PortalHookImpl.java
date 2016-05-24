@@ -40,6 +40,11 @@ public class PortalHookImpl extends PortalWrapper {
 	}
 
 	@Override
+	public Portal getWrapped() {
+		return wrappedPortal;
+	}
+
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] arguments) throws Throwable {
 
 		Object returnValue = null;
@@ -69,11 +74,6 @@ public class PortalHookImpl extends PortalWrapper {
 		urlCreateAccount.setParameter("struts_action", "/login/create_account");
 
 		return urlCreateAccount.toString();
-	}
-
-	@Override
-	public Portal getWrapped() {
-		return wrappedPortal;
 	}
 
 }

@@ -70,45 +70,6 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		}
 	}
 
-	public boolean userHasPortletPermission(String actionId) {
-
-		ThemeDisplay themeDisplay = getThemeDisplay();
-		PermissionChecker permissionChecker = themeDisplay.getPermissionChecker();
-		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
-		String portletId = portletDisplay.getId();
-		boolean hasPermission = false;
-
-		try {
-			hasPermission = PortletPermissionUtil.contains(permissionChecker, themeDisplay.getPlid(), portletId,
-					actionId);
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-
-		return hasPermission;
-	}
-
-	public boolean userHasRole(String roleName) {
-
-		try {
-			List<Role> roles = getUserRoles();
-
-			for (Role role : roles) {
-
-				if (role.getName().equals(roleName)) {
-					return true;
-				}
-			}
-
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-
-		return false;
-	}
-
 	@Override
 	public int getBuildNumber() {
 		return ReleaseInfo.getBuildNumber();
@@ -147,17 +108,6 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		ThemeDisplay themeDisplay = getThemeDisplay();
 
 		return themeDisplay.getLayout();
-	}
-
-	protected Liferay getLiferayManagedBean() {
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-
-		Application application = facesContext.getApplication();
-		ELResolver elResolver = application.getELResolver();
-		ELContext elContext = facesContext.getELContext();
-
-		return (Liferay) elResolver.getValue(elContext, null, "liferay");
 	}
 
 	public PermissionChecker getPermissionChecker() {
@@ -203,15 +153,6 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		Portlet portlet = getPortlet();
 
 		return portlet.getPortletId();
-	}
-
-	protected PortletRequest getPortletRequest() {
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-
-		return portletRequest;
 	}
 
 	public String getPortletRootId() {
@@ -331,5 +272,64 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 
 	public List<Role> getUserRoles() throws SystemException {
 		return RoleLocalServiceUtil.getUserRoles(getUserId());
+	}
+
+	public boolean userHasPortletPermission(String actionId) {
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+		PermissionChecker permissionChecker = themeDisplay.getPermissionChecker();
+		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
+		String portletId = portletDisplay.getId();
+		boolean hasPermission = false;
+
+		try {
+			hasPermission = PortletPermissionUtil.contains(permissionChecker, themeDisplay.getPlid(), portletId,
+					actionId);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+
+		return hasPermission;
+	}
+
+	public boolean userHasRole(String roleName) {
+
+		try {
+			List<Role> roles = getUserRoles();
+
+			for (Role role : roles) {
+
+				if (role.getName().equals(roleName)) {
+					return true;
+				}
+			}
+
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+
+		return false;
+	}
+
+	protected Liferay getLiferayManagedBean() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		Application application = facesContext.getApplication();
+		ELResolver elResolver = application.getELResolver();
+		ELContext elContext = facesContext.getELContext();
+
+		return (Liferay) elResolver.getValue(elContext, null, "liferay");
+	}
+
+	protected PortletRequest getPortletRequest() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		return portletRequest;
 	}
 }

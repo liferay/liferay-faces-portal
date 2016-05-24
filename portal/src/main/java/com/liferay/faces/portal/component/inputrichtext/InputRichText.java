@@ -48,6 +48,16 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 	private static final Logger logger = LoggerFactory.getLogger(InputRichText.class);
 
 	@Override
+	public String getDefaultEventName() {
+		return "valueChange";
+	}
+
+	@Override
+	public Collection<String> getEventNames() {
+		return EVENT_NAMES;
+	}
+
+	@Override
 	protected void validateValue(FacesContext facesContext, Object newValue) {
 
 		super.validateValue(facesContext, newValue);
@@ -102,15 +112,5 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 				setValid(false);
 			}
 		}
-	}
-
-	@Override
-	public String getDefaultEventName() {
-		return "valueChange";
-	}
-
-	@Override
-	public Collection<String> getEventNames() {
-		return EVENT_NAMES;
 	}
 }

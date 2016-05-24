@@ -114,6 +114,47 @@ public class RegistrantServiceUtil {
 		return registrant;
 	}
 
+	private static PermissionChecker getAdministratorPermissionChecker(long companyId) throws PortalException,
+		SystemException {
+		PermissionChecker administratorPermissionChecker = null;
+		Role administratorRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.ADMINISTRATOR);
+		List<User> administratorUsers = UserLocalServiceUtil.getRoleUsers(administratorRole.getRoleId());
+
+		if ((administratorUsers != null) && (administratorUsers.size() > 0)) {
+
+			User administratorUser = administratorUsers.get(0);
+
+			try {
+				administratorPermissionChecker = PermissionCheckerFactoryUtil.getPermissionCheckerFactory().create(
+						administratorUser);
+			}
+			catch (Exception e) {
+				throw new SystemException(e.getMessage(), e);
+			}
+		}
+		else {
+			throw new SystemException("Unable to find a user with the Administrator role! Impossible!");
+		}
+
+		return administratorPermissionChecker;
+	}
+
+	private static int getMobilePhoneTypeId() throws SystemException {
+		int phoneTypeId = 0;
+		List<ListType> phoneTypes = ListTypeServiceUtil.getListTypes(PHONE_CLASS_NAME);
+
+		for (ListType phoneType : phoneTypes) {
+
+			if (phoneType.getName().equals("mobile-phone")) {
+				phoneTypeId = phoneType.getListTypeId();
+
+				break;
+			}
+		}
+
+		return phoneTypeId;
+	}
+
 	private static void updateExpandos(long companyId, Registrant registrant) throws PortalException, SystemException {
 
 		// Set the expando column (custom field) values. Note that since the registration portlet is being used
@@ -163,46 +204,5 @@ public class RegistrantServiceUtil {
 				}
 			}
 		}
-	}
-
-	private static PermissionChecker getAdministratorPermissionChecker(long companyId) throws PortalException,
-		SystemException {
-		PermissionChecker administratorPermissionChecker = null;
-		Role administratorRole = RoleLocalServiceUtil.getRole(companyId, RoleConstants.ADMINISTRATOR);
-		List<User> administratorUsers = UserLocalServiceUtil.getRoleUsers(administratorRole.getRoleId());
-
-		if ((administratorUsers != null) && (administratorUsers.size() > 0)) {
-
-			User administratorUser = administratorUsers.get(0);
-
-			try {
-				administratorPermissionChecker = PermissionCheckerFactoryUtil.getPermissionCheckerFactory().create(
-						administratorUser);
-			}
-			catch (Exception e) {
-				throw new SystemException(e.getMessage(), e);
-			}
-		}
-		else {
-			throw new SystemException("Unable to find a user with the Administrator role! Impossible!");
-		}
-
-		return administratorPermissionChecker;
-	}
-
-	private static int getMobilePhoneTypeId() throws SystemException {
-		int phoneTypeId = 0;
-		List<ListType> phoneTypes = ListTypeServiceUtil.getListTypes(PHONE_CLASS_NAME);
-
-		for (ListType phoneType : phoneTypes) {
-
-			if (phoneType.getName().equals("mobile-phone")) {
-				phoneTypeId = phoneType.getListTypeId();
-
-				break;
-			}
-		}
-
-		return phoneTypeId;
 	}
 }

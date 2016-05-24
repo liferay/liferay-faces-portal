@@ -58,6 +58,10 @@ public class LiferayLocalePhaseListener implements PhaseListener {
 		}
 	}
 
+	public PhaseId getPhaseId() {
+		return PhaseId.ANY_PHASE;
+	}
+
 	private void setLocale() {
 
 		try {
@@ -88,10 +92,6 @@ public class LiferayLocalePhaseListener implements PhaseListener {
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-	}
-
-	public PhaseId getPhaseId() {
-		return PhaseId.ANY_PHASE;
 	}
 
 }

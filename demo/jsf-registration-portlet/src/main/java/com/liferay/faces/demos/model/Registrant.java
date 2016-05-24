@@ -64,16 +64,8 @@ public class Registrant extends UserWrapper {
 		return captchaText;
 	}
 
-	public void setCaptchaText(String captchaText) {
-		this.captchaText = captchaText;
-	}
-
 	public String getCompanyName() {
 		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
 	}
 
 	@Override
@@ -81,17 +73,8 @@ public class Registrant extends UserWrapper {
 		return emailAddress;
 	}
 
-	@Override
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-
 	public String getFavoriteColor() {
 		return favoriteColor;
-	}
-
-	public void setFavoriteColor(String favoriteColor) {
-		this.favoriteColor = favoriteColor;
 	}
 
 	@Override
@@ -100,13 +83,52 @@ public class Registrant extends UserWrapper {
 	}
 
 	@Override
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public String getLastName() {
+		return lastName;
 	}
 
 	@Override
-	public String getLastName() {
-		return lastName;
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public String getPassword1() {
+		return password1;
+	}
+
+	public String getPassword2() {
+		return password2;
+	}
+
+	@Override
+	public String getScreenName() {
+		return screenName;
+	}
+
+	public void setCaptchaText(String captchaText) {
+		this.captchaText = captchaText;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	@Override
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public void setFavoriteColor(String favoriteColor) {
+		this.favoriteColor = favoriteColor;
+	}
+
+	@Override
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	@Override
@@ -115,42 +137,20 @@ public class Registrant extends UserWrapper {
 	}
 
 	@Override
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	@Override
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
-	}
-
-	public String getMobilePhone() {
-		return mobilePhone;
 	}
 
 	public void setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
 
-	public String getPassword1() {
-		return password1;
-	}
-
 	public void setPassword1(String password1) {
 		this.password1 = password1;
 	}
 
-	public String getPassword2() {
-		return password2;
-	}
-
 	public void setPassword2(String password2) {
 		this.password2 = password2;
-	}
-
-	@Override
-	public String getScreenName() {
-		return screenName;
 	}
 
 	@Override

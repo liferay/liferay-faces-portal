@@ -58,18 +58,6 @@ public class PortletHelperImpl implements PortletHelper {
 		return (ActionResponse) getPortletResponse();
 	}
 
-	public boolean isWindowMaximized() {
-		return (getWindowState() == WindowState.MAXIMIZED);
-	}
-
-	public boolean isUserInRole(String roleName) {
-		return getPortletRequest().isUserInRole(roleName);
-	}
-
-	public boolean isWindowNormal() {
-		return (getWindowState() == WindowState.NORMAL);
-	}
-
 	public PortalContext getPortalContext() {
 		return getPortletRequest().getPortalContext();
 	}
@@ -84,17 +72,6 @@ public class PortletHelperImpl implements PortletHelper {
 
 	public String getPortletContextName() {
 		return getPortletContext().getPortletContextName();
-	}
-
-	public void setPortletMode(PortletMode portletMode) {
-		ActionResponse response = getActionResponse();
-
-		try {
-			response.setPortletMode(portletMode);
-		}
-		catch (PortletModeException e) {
-			throw new UnsupportedOperationException("Invalid portlet mode", e);
-		}
 	}
 
 	public String getPortletName() {
@@ -194,13 +171,8 @@ public class PortletHelperImpl implements PortletHelper {
 		return value;
 	}
 
-	public void setSessionSharedAttribute(String name, Object value) {
-		PortletSession portletSession = (PortletSession) FacesContext.getCurrentInstance().getExternalContext()
-			.getSession(true);
-
-		if (portletSession != null) {
-			portletSession.setAttribute(name, value, PortletSession.APPLICATION_SCOPE);
-		}
+	public WindowState getWindowState() {
+		return getPortletRequest().getWindowState();
 	}
 
 	public boolean isPortletEnvironment() {
@@ -218,8 +190,36 @@ public class PortletHelperImpl implements PortletHelper {
 		return portletEnvironment;
 	}
 
-	public WindowState getWindowState() {
-		return getPortletRequest().getWindowState();
+	public boolean isUserInRole(String roleName) {
+		return getPortletRequest().isUserInRole(roleName);
+	}
+
+	public boolean isWindowMaximized() {
+		return (getWindowState() == WindowState.MAXIMIZED);
+	}
+
+	public boolean isWindowNormal() {
+		return (getWindowState() == WindowState.NORMAL);
+	}
+
+	public void setPortletMode(PortletMode portletMode) {
+		ActionResponse response = getActionResponse();
+
+		try {
+			response.setPortletMode(portletMode);
+		}
+		catch (PortletModeException e) {
+			throw new UnsupportedOperationException("Invalid portlet mode", e);
+		}
+	}
+
+	public void setSessionSharedAttribute(String name, Object value) {
+		PortletSession portletSession = (PortletSession) FacesContext.getCurrentInstance().getExternalContext()
+			.getSession(true);
+
+		if (portletSession != null) {
+			portletSession.setAttribute(name, value, PortletSession.APPLICATION_SCOPE);
+		}
 	}
 
 	public void setWindowState(WindowState windowState) {

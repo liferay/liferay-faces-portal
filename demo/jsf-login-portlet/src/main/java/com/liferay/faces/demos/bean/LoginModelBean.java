@@ -34,20 +34,20 @@ public class LoginModelBean implements Serializable {
 	private String password;
 	private boolean rememberMe;
 
-	public boolean isRememberMe() {
-		return rememberMe;
-	}
-
 	public String getHandle() {
 		return handle;
 	}
 
-	public void setHandle(String handle) {
-		this.handle = handle;
-	}
-
 	public String getPassword() {
 		return password;
+	}
+
+	public boolean isRememberMe() {
+		return rememberMe;
+	}
+
+	public void setHandle(String handle) {
+		this.handle = handle;
 	}
 
 	public void setPassword(String password) {

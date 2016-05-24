@@ -47,6 +47,14 @@ public class RuntimeBacking {
 	private String preferencesArticle2;
 	private String preferencesArticle3;
 
+	public String getPreferencesArticle1() {
+		return preferencesArticle1;
+	}
+
+	public String getPreferencesArticle2() {
+		return preferencesArticle2;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 
@@ -62,18 +70,16 @@ public class RuntimeBacking {
 			Locale locale = themeDisplay.getLocale();
 
 			/* TODO
-			JournalArticle article1 = WebContentUtil.getArticle(companyId, userId, groupId, folderId, locale,
-					"Liferay Portal",
-					"Liferay Portal is an enterprise web platform for building business solutions that deliver " +
-					"immediate results and long-term value.");
-			this.preferencesArticle1 = getPreferences(article1.getGroupId(), article1.getArticleId());
-
-			JournalArticle article2 = WebContentUtil.getArticle(companyId, userId, groupId, folderId, locale,
-					"Liferay Faces",
-					"Liferay Faces is an umbrella project that provides support for the JavaServer™ Faces (JSF) " +
-					"standard within Liferay Portal.");
-			this.preferencesArticle2 = getPreferences(article2.getGroupId(), article2.getArticleId());
-			*/
+			 * JournalArticle article1 = WebContentUtil.getArticle(companyId, userId, groupId, folderId, locale,
+			 * "Liferay Portal",     "Liferay Portal is an enterprise web platform for building business solutions that
+			 * deliver " +     "immediate results and long-term value."); this.preferencesArticle1 =
+			 * getPreferences(article1.getGroupId(), article1.getArticleId());
+			 *
+			 * JournalArticle article2 = WebContentUtil.getArticle(companyId, userId, groupId, folderId, locale,
+			 * "Liferay Faces",     "Liferay Faces is an umbrella project that provides support for the JavaServer™
+			 * Faces (JSF) " +     "standard within Liferay Portal."); this.preferencesArticle2 =
+			 * getPreferences(article2.getGroupId(), article2.getArticleId());
+			 */
 		}
 		catch (Exception e) {
 			logger.error(e);
@@ -103,13 +109,5 @@ public class RuntimeBacking {
 		buf.append("</portlet-preferences>");
 
 		return buf.toString();
-	}
-
-	public String getPreferencesArticle1() {
-		return preferencesArticle1;
-	}
-
-	public String getPreferencesArticle2() {
-		return preferencesArticle2;
 	}
 }

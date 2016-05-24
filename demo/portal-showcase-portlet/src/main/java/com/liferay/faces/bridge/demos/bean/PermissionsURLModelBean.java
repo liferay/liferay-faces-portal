@@ -13,6 +13,13 @@
  */
 package com.liferay.faces.bridge.demos.bean;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -21,13 +28,6 @@ import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -58,11 +58,14 @@ public class PermissionsURLModelBean {
 		if (roleConstants == null) {
 
 			roleConstants = new HashMap<String, Object>();
+
 			Field[] fields = RoleConstants.class.getFields();
-			for (Field field: fields) {
+
+			for (Field field : fields) {
 				int modifiers = field.getModifiers();
 
 				if (Modifier.isStatic(modifiers)) {
+
 					try {
 						roleConstants.put(field.getName(), field.get(null));
 					}
