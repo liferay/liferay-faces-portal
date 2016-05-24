@@ -34,10 +34,10 @@ import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.model.UploadedFile;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 
 /**
@@ -83,11 +83,6 @@ public class UsersModelBean implements Serializable {
 
 	public User getSelectedUser() {
 		return selectedUser;
-	}
-
-	public void setSelectedUser(User selectedUser) {
-		this.selectedUser = selectedUser;
-		this.selectedUserPortraitURL = null;
 	}
 
 	/**
@@ -140,6 +135,11 @@ public class UsersModelBean implements Serializable {
 
 	public UploadedFile getUploadedFile() {
 		return uploadedFile;
+	}
+
+	public void setSelectedUser(User selectedUser) {
+		this.selectedUser = selectedUser;
+		this.selectedUserPortraitURL = null;
 	}
 
 	public void setUploadedFile(UploadedFile uploadedFile) {

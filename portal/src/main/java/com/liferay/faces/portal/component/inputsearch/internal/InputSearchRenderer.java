@@ -110,6 +110,11 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 	}
 
 	@Override
+	public String getChildInsertionMarker() {
+		return "</div>";
+	}
+
+	@Override
 	public InputSearchTag newTag() {
 		return new InputSearchTag();
 	}
@@ -271,11 +276,6 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 			inputSearch.markInitialState();
 		}
 
-	}
-
-	@Override
-	public String getChildInsertionMarker() {
-		return "</div>";
 	}
 
 	@Override

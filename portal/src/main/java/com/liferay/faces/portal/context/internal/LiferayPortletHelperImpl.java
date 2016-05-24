@@ -29,22 +29,22 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.theme.PortletDisplay;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ReleaseInfo;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Theme;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
+import com.liferay.portal.kernel.theme.PortletDisplay;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.ReleaseInfo;
+import com.liferay.portal.kernel.util.WebKeys;
 
 
 /**
@@ -69,47 +69,6 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 			throw new AuthorizationException("Exception checking permissions for actionId " + actionId, e);
 
 		}
-	}
-
-	@Override
-	public boolean userHasPortletPermission(String actionId) {
-
-		ThemeDisplay themeDisplay = getThemeDisplay();
-		PermissionChecker permissionChecker = themeDisplay.getPermissionChecker();
-		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
-		String portletId = portletDisplay.getId();
-		boolean hasPermission = false;
-
-		try {
-			hasPermission = PortletPermissionUtil.contains(permissionChecker, themeDisplay.getPlid(), portletId,
-					actionId);
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-
-		return hasPermission;
-	}
-
-	@Override
-	public boolean userHasRole(String roleName) {
-
-		try {
-			List<Role> roles = getUserRoles();
-
-			for (Role role : roles) {
-
-				if (role.getName().equals(roleName)) {
-					return true;
-				}
-			}
-
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-
-		return false;
 	}
 
 	@Override
@@ -155,17 +114,6 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		ThemeDisplay themeDisplay = getThemeDisplay();
 
 		return themeDisplay.getLayout();
-	}
-
-	protected Liferay getLiferayManagedBean() {
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-
-		Application application = facesContext.getApplication();
-		ELResolver elResolver = application.getELResolver();
-		ELContext elContext = facesContext.getELContext();
-
-		return (Liferay) elResolver.getValue(elContext, null, "liferay");
 	}
 
 	@Override
@@ -216,14 +164,6 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		Portlet portlet = getPortlet();
 
 		return portlet.getPortletId();
-	}
-
-	protected PortletRequest getPortletRequest() {
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-
-		return (PortletRequest) externalContext.getRequest();
 	}
 
 	@Override
@@ -313,6 +253,7 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 		String cdnHost = themeDisplay.getCDNHost();
 
 		String portalURL;
+
 		if ((cdnHost != null) && (cdnHost.length() > 0)) {
 			portalURL = cdnHost;
 		}
@@ -351,5 +292,65 @@ public class LiferayPortletHelperImpl implements LiferayPortletHelper {
 	@Override
 	public List<Role> getUserRoles() throws SystemException {
 		return RoleLocalServiceUtil.getUserRoles(getUserId());
+	}
+
+	@Override
+	public boolean userHasPortletPermission(String actionId) {
+
+		ThemeDisplay themeDisplay = getThemeDisplay();
+		PermissionChecker permissionChecker = themeDisplay.getPermissionChecker();
+		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
+		String portletId = portletDisplay.getId();
+		boolean hasPermission = false;
+
+		try {
+			hasPermission = PortletPermissionUtil.contains(permissionChecker, themeDisplay.getPlid(), portletId,
+					actionId);
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+
+		return hasPermission;
+	}
+
+	@Override
+	public boolean userHasRole(String roleName) {
+
+		try {
+			List<Role> roles = getUserRoles();
+
+			for (Role role : roles) {
+
+				if (role.getName().equals(roleName)) {
+					return true;
+				}
+			}
+
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+
+		return false;
+	}
+
+	protected Liferay getLiferayManagedBean() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		Application application = facesContext.getApplication();
+		ELResolver elResolver = application.getELResolver();
+		ELContext elContext = facesContext.getELContext();
+
+		return (Liferay) elResolver.getValue(elContext, null, "liferay");
+	}
+
+	protected PortletRequest getPortletRequest() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		return (PortletRequest) externalContext.getRequest();
 	}
 }

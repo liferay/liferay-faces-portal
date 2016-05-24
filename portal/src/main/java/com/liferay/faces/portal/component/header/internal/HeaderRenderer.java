@@ -63,6 +63,11 @@ public class HeaderRenderer extends HeaderRendererBase {
 	}
 
 	@Override
+	public String getChildInsertionMarker() {
+		return "</h3>";
+	}
+
+	@Override
 	public HeaderTag newTag() {
 		return new HeaderTag();
 	}
@@ -84,10 +89,5 @@ public class HeaderRenderer extends HeaderRendererBase {
 		headerTag.setEscapeXml(header.isEscapeXml());
 		headerTag.setShowBackURL(header.isShowBackURL());
 		headerTag.setTitle(header.getTitle());
-	}
-
-	@Override
-	public String getChildInsertionMarker() {
-		return "</h3>";
 	}
 }

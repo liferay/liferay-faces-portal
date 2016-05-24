@@ -32,24 +32,24 @@ import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.kernel.exception.CookieNotSupportedException;
+import com.liferay.portal.kernel.LoginUtilCompat;
 import com.liferay.portal.kernel.exception.CompanyMaxUsersException;
+import com.liferay.portal.kernel.exception.CookieNotSupportedException;
 import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PasswordExpiredException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.exception.UserEmailAddressException;
 import com.liferay.portal.kernel.exception.UserLockoutException;
 import com.liferay.portal.kernel.exception.UserPasswordException;
 import com.liferay.portal.kernel.exception.UserScreenNameException;
-import com.liferay.portal.kernel.LoginUtilCompat;
-import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.security.auth.AuthException;
-import com.liferay.portal.kernel.util.Http;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.CompanyConstants;
+import com.liferay.portal.kernel.security.auth.AuthException;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.Http;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.util.PortalUtilCompat;
 import com.liferay.portal.util.PropsValuesCompat;
 
@@ -208,13 +208,6 @@ public class LoginBackingBean {
 		return authType;
 	}
 
-	protected String getCompleteRedirectURL(HttpServletRequest httpServletRequest, String redirect) {
-
-		String portalURL = PortalUtilCompat.getPortalURL(httpServletRequest);
-
-		return portalURL.concat(redirect);
-	}
-
 	public String getHandleLabel() {
 
 		if (handleLabel == null) {
@@ -237,5 +230,12 @@ public class LoginBackingBean {
 
 	public void setLoginModelBean(LoginModelBean loginModelBean) {
 		this.loginModelBean = loginModelBean;
+	}
+
+	protected String getCompleteRedirectURL(HttpServletRequest httpServletRequest, String redirect) {
+
+		String portalURL = PortalUtilCompat.getPortalURL(httpServletRequest);
+
+		return portalURL.concat(redirect);
 	}
 }

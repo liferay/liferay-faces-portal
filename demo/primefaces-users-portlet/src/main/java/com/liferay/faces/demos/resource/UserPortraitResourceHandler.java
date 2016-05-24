@@ -106,6 +106,11 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 	}
 
 	@Override
+	public ResourceHandler getWrapped() {
+		return wrappedResourceHandler;
+	}
+
+	@Override
 	public boolean libraryExists(String libraryName) {
 
 		if (LIBRARY_NAME.equals(libraryName)) {
@@ -114,10 +119,5 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 		else {
 			return super.libraryExists(libraryName);
 		}
-	}
-
-	@Override
-	public ResourceHandler getWrapped() {
-		return wrappedResourceHandler;
 	}
 }

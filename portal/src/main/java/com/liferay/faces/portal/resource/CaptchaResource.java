@@ -59,14 +59,6 @@ public class CaptchaResource extends Resource {
 	}
 
 	@Override
-	public boolean userAgentNeedsUpdate(FacesContext context) {
-
-		// Since the captcha image changes for every request, always return true so that the browser does not attempt
-		// to cache it.
-		return true;
-	}
-
-	@Override
 	public InputStream getInputStream() {
 		ByteArrayInputStream byteArrayInputStream = null;
 
@@ -121,6 +113,14 @@ public class CaptchaResource extends Resource {
 	@Override
 	public URL getURL() {
 		return null;
+	}
+
+	@Override
+	public boolean userAgentNeedsUpdate(FacesContext context) {
+
+		// Since the captcha image changes for every request, always return true so that the browser does not attempt
+		// to cache it.
+		return true;
 	}
 
 	private static class CaptchaHttpServletResponse extends HttpServletResponseWrapper {

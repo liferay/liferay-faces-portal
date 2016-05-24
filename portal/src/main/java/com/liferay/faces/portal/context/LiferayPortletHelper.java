@@ -18,15 +18,15 @@ import java.util.List;
 import com.liferay.faces.portal.security.AuthorizationException;
 
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Theme;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 
 /**
@@ -46,20 +46,6 @@ public interface LiferayPortletHelper {
 	 * @see     {@link #userHasPortletPermission(String)}
 	 */
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException;
-
-	/**
-	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn,
-	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
-	 * wrapped in a PortletRuntimeException.
-	 *
-	 * @see  {@link #checkUserPortletPermission(String)}
-	 */
-	public boolean userHasPortletPermission(String actionId);
-
-	/**
-	 * Returns <code>true</code> if the current user has the specified role name.
-	 */
-	public boolean userHasRole(String roleName);
 
 	/**
 	 * Returns the build identifier for the running version of Liferay Portal.
@@ -187,4 +173,18 @@ public interface LiferayPortletHelper {
 	 * Returns a list of all of the roles played by the user associated with the current JSF FacesContext.
 	 */
 	public List<Role> getUserRoles() throws SystemException;
+
+	/**
+	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn,
+	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
+	 * wrapped in a PortletRuntimeException.
+	 *
+	 * @see  {@link #checkUserPortletPermission(String)}
+	 */
+	public boolean userHasPortletPermission(String actionId);
+
+	/**
+	 * Returns <code>true</code> if the current user has the specified role name.
+	 */
+	public boolean userHasRole(String roleName);
 }

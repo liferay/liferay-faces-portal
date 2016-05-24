@@ -48,6 +48,14 @@ public class RuntimeBacking {
 	private String preferencesArticle2;
 	private String preferencesArticle3;
 
+	public String getPreferencesArticle1() {
+		return preferencesArticle1;
+	}
+
+	public String getPreferencesArticle2() {
+		return preferencesArticle2;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 
@@ -124,13 +132,5 @@ public class RuntimeBacking {
 		buf.append("</portlet-preferences>");
 
 		return buf.toString();
-	}
-
-	public String getPreferencesArticle1() {
-		return preferencesArticle1;
-	}
-
-	public String getPreferencesArticle2() {
-		return preferencesArticle2;
 	}
 }

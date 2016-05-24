@@ -35,6 +35,10 @@ public class InputSearchBacking {
 
 	private String searchText;
 
+	public String getSearchText() {
+		return searchText;
+	}
+
 	public void searchActionListener(ActionEvent actionEvent) {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -45,10 +49,6 @@ public class InputSearchBacking {
 		FacesMessage facesMessage = new FacesMessage("The searchActionListener method was called during the " +
 				phaseName + " phase of the JSF lifecycle.");
 		facesContext.addMessage(null, facesMessage);
-	}
-
-	public String getSearchText() {
-		return searchText;
 	}
 
 	public void setSearchText(String searchText) {

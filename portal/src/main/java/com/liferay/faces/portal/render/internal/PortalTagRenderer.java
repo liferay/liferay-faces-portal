@@ -35,8 +35,8 @@ import javax.servlet.jsp.tagext.Tag;
 import com.liferay.faces.util.context.FacesRequestContext;
 import com.liferay.faces.util.jsp.PageContextFactory;
 
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import com.liferay.taglib.aui.ScriptTag;
 
@@ -124,6 +124,10 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		componentAttributes.remove(CORRESPONDING_JSP_TAG);
 	}
 
+	public String getChildInsertionMarker() {
+		return null;
+	}
+
 	/**
 	 * Casts a UIComponent to a concrete instance of UIComponent.
 	 */
@@ -143,10 +147,6 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		copyFrameworkAttributes(facesContext, u, t);
 		copyNonFrameworkAttributes(facesContext, u, t);
 		t.setParent(getParentTag(facesContext, u, t));
-	}
-
-	public String getChildInsertionMarker() {
-		return null;
 	}
 
 	protected HttpServletResponse getHttpServletResponse(PortletResponse portletResponse) {

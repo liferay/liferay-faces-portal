@@ -27,6 +27,8 @@ import com.liferay.portal.kernel.util.Portal;
  */
 public abstract class PortalWrapper implements InvocationHandler, FacesWrapper<Portal> {
 
+	public abstract Portal getWrapped();
+
 	public Object invoke(Object proxy, Method method, Object[] arguments) throws Throwable {
 
 		try {
@@ -38,6 +40,4 @@ public abstract class PortalWrapper implements InvocationHandler, FacesWrapper<P
 			throw e.getTargetException();
 		}
 	}
-
-	public abstract Portal getWrapped();
 }

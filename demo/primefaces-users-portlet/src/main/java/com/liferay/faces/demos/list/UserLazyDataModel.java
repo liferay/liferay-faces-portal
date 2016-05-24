@@ -27,17 +27,17 @@ import org.primefaces.model.SortOrder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.NoSuchUserException;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
 
 /**
@@ -97,6 +97,25 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		}
 
 		return totalCount;
+	}
+
+	@Override
+	public User getRowData(String rowKey) {
+		User user = null;
+
+		try {
+			user = UserLocalServiceUtil.getUserById(Long.parseLong(rowKey));
+		}
+		catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+
+		return user;
+	}
+
+	@Override
+	public Object getRowKey(User user) {
+		return user.getUserId();
 	}
 
 	/**
@@ -197,24 +216,5 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		}
 
 		return expression;
-	}
-
-	@Override
-	public User getRowData(String rowKey) {
-		User user = null;
-
-		try {
-			user = UserLocalServiceUtil.getUserById(Long.parseLong(rowKey));
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
-
-		return user;
-	}
-
-	@Override
-	public Object getRowKey(User user) {
-		return user.getUserId();
 	}
 }

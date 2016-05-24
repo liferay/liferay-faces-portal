@@ -46,10 +46,6 @@ public enum UserExpando {
 		this.indexable = indexable;
 	}
 
-	public boolean isIndexable() {
-		return indexable;
-	}
-
 	public int getExpandoType() {
 		return expandoType;
 	}
@@ -60,5 +56,9 @@ public enum UserExpando {
 
 	public String getName() {
 		return name;
+	}
+
+	public boolean isIndexable() {
+		return indexable;
 	}
 }

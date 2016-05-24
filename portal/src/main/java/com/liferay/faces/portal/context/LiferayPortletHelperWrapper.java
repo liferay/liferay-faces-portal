@@ -20,15 +20,15 @@ import javax.faces.FacesWrapper;
 import com.liferay.faces.portal.security.AuthorizationException;
 
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Theme;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 
 /**
@@ -37,18 +37,11 @@ import com.liferay.portal.kernel.service.ServiceContext;
 public abstract class LiferayPortletHelperWrapper implements LiferayPortletHelper, FacesWrapper<LiferayPortletHelper> {
 
 	@Override
+	public abstract LiferayPortletHelper getWrapped();
+
+	@Override
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException {
 		getWrapped().checkUserPortletPermission(actionId);
-	}
-
-	@Override
-	public boolean userHasPortletPermission(String actionId) {
-		return getWrapped().userHasPortletPermission(actionId);
-	}
-
-	@Override
-	public boolean userHasRole(String roleName) {
-		return getWrapped().userHasRole(roleName);
 	}
 
 	@Override
@@ -157,5 +150,12 @@ public abstract class LiferayPortletHelperWrapper implements LiferayPortletHelpe
 	}
 
 	@Override
-	public abstract LiferayPortletHelper getWrapped();
+	public boolean userHasPortletPermission(String actionId) {
+		return getWrapped().userHasPortletPermission(actionId);
+	}
+
+	@Override
+	public boolean userHasRole(String roleName) {
+		return getWrapped().userHasRole(roleName);
+	}
 }

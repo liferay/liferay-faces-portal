@@ -80,11 +80,6 @@ public class NavBarRenderer extends NavBarRendererBase {
 	}
 
 	@Override
-	public NavBarTag newTag() {
-		return new NavBarTag();
-	}
-
-	@Override
 	public String getChildInsertionMarker() {
 
 		// Typical output looks like the following:
@@ -98,5 +93,10 @@ public class NavBarRenderer extends NavBarRendererBase {
 		// </div>
 		//J+
 		return "</div>";
+	}
+
+	@Override
+	public NavBarTag newTag() {
+		return new NavBarTag();
 	}
 }

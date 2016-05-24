@@ -40,11 +40,6 @@ public class LiferayPortalResource extends Resource {
 	}
 
 	@Override
-	public boolean userAgentNeedsUpdate(FacesContext facesContext) {
-		return false;
-	}
-
-	@Override
 	public InputStream getInputStream() throws IOException {
 		return null;
 	}
@@ -65,5 +60,10 @@ public class LiferayPortalResource extends Resource {
 	@Override
 	public URL getURL() {
 		return null;
+	}
+
+	@Override
+	public boolean userAgentNeedsUpdate(FacesContext facesContext) {
+		return false;
 	}
 }

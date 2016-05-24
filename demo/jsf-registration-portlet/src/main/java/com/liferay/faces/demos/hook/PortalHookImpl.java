@@ -21,10 +21,9 @@ import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.servlet.http.HttpServletRequest;
 
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
-
-import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 
 
 /**
@@ -37,6 +36,11 @@ public class PortalHookImpl extends PortalWrapper {
 
 	public PortalHookImpl(Portal portal) {
 		wrappedPortal = portal;
+	}
+
+	@Override
+	public Portal getWrapped() {
+		return wrappedPortal;
 	}
 
 	@Override
@@ -69,11 +73,6 @@ public class PortalHookImpl extends PortalWrapper {
 		urlCreateAccount.setParameter("struts_action", "/login/create_account");
 
 		return urlCreateAccount.toString();
-	}
-
-	@Override
-	public Portal getWrapped() {
-		return wrappedPortal;
 	}
 
 }

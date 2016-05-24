@@ -26,6 +26,7 @@ public class BundleUtil {
 	public static Bundle[] getBundles() {
 		Bundle portletBundle = FrameworkUtil.getBundle(BundleUtil.class);
 		BundleContext bundleContext = portletBundle.getBundleContext();
+
 		return bundleContext.getBundles();
 	}
 }

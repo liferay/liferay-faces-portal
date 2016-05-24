@@ -142,13 +142,13 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 		uiComponent.getAttributes().remove(CORRESPONDING_JSP_TAG);
 	}
 
-	protected StringBuilder getMarkup(UIComponent uiComponent, StringBuilder markup) throws Exception {
-		return markup;
-	}
-
 	@Override
 	public boolean getRendersChildren() {
 		return true;
+	}
+
+	protected StringBuilder getMarkup(UIComponent uiComponent, StringBuilder markup) throws Exception {
+		return markup;
 	}
 
 	protected String getScripts(UIComponent uiComponent, String scripts) throws Exception {

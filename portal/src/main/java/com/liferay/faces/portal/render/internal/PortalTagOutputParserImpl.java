@@ -28,6 +28,11 @@ public class PortalTagOutputParserImpl implements PortalTagOutputParser {
 	private static final String SCRIPT_TAG_BEGIN_TYPE_JS = "<script type=\"" + ContentTypes.TEXT_JAVASCRIPT + "\">";
 
 	@Override
+	public String getScriptSectionMarker() {
+		return "<hr id=\"scripts\"/>";
+	}
+
+	@Override
 	public PortalTagOutput parse(JspWriter stringJspWriter) {
 
 		String markup = stringJspWriter.toString();
@@ -104,10 +109,5 @@ public class PortalTagOutputParserImpl implements PortalTagOutputParser {
 		}
 
 		return new PortalTagOutputImpl(markup.trim(), scriptBuilder.toString());
-	}
-
-	@Override
-	public String getScriptSectionMarker() {
-		return "<hr id=\"scripts\"/>";
 	}
 }

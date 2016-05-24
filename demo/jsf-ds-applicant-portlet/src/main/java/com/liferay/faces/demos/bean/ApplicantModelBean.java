@@ -61,6 +61,19 @@ public class ApplicantModelBean implements Serializable {
 		this.dateOfBirth = calendar.getTime();
 	}
 
+	public void clearProperties() {
+		uploadedFiles = new ArrayList<UploadedFile>();
+		city = null;
+		comments = null;
+		dateOfBirth = null;
+		emailAddress = null;
+		firstName = null;
+		lastName = null;
+		phoneNumber = null;
+		postalCode = null;
+		provinceId = null;
+	}
+
 	public String getCity() {
 
 		if (autoFillCity == null) {
@@ -169,19 +182,6 @@ public class ApplicantModelBean implements Serializable {
 			this.provinceId = autoFillProvinceId;
 			autoFillProvinceId = null;
 		}
-	}
-
-	public void clearProperties() {
-		uploadedFiles = new ArrayList<UploadedFile>();
-		city = null;
-		comments = null;
-		dateOfBirth = null;
-		emailAddress = null;
-		firstName = null;
-		lastName = null;
-		phoneNumber = null;
-		postalCode = null;
-		provinceId = null;
 	}
 
 }

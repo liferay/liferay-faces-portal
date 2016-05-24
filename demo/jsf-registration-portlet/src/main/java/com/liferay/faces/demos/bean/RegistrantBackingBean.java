@@ -31,12 +31,12 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.exception.DuplicateUserEmailAddressException;
 import com.liferay.portal.kernel.exception.DuplicateUserScreenNameException;
 import com.liferay.portal.kernel.exception.UserPasswordException;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.PasswordPolicy;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 
 
 /**
@@ -60,6 +60,22 @@ public class RegistrantBackingBean implements Serializable {
 
 	// Private Data Members
 	private Boolean captchaRendered;
+
+	public boolean isCaptchaRendered() {
+
+		if (captchaRendered == null) {
+			captchaRendered = Boolean.valueOf(GetterUtil.getBoolean(
+						PropsUtil.get(PropsKeys.CAPTCHA_CHECK_PORTAL_CREATE_ACCOUNT)));
+		}
+
+		return captchaRendered.booleanValue();
+	}
+
+	public void setRegistrantModelBean(RegistrantModelBean registrantModelBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.registrantModelBean = registrantModelBean;
+	}
 
 	public void submit(ActionEvent actionEvent) {
 
@@ -187,22 +203,6 @@ public class RegistrantBackingBean implements Serializable {
 			logger.error(e.getMessage(), e);
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
-	}
-
-	public boolean isCaptchaRendered() {
-
-		if (captchaRendered == null) {
-			captchaRendered = Boolean.valueOf(GetterUtil.getBoolean(
-						PropsUtil.get(PropsKeys.CAPTCHA_CHECK_PORTAL_CREATE_ACCOUNT)));
-		}
-
-		return captchaRendered.booleanValue();
-	}
-
-	public void setRegistrantModelBean(RegistrantModelBean registrantModelBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.registrantModelBean = registrantModelBean;
 	}
 
 }

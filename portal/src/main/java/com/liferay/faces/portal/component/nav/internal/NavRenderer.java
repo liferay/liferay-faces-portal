@@ -125,11 +125,6 @@ public class NavRenderer extends NavRendererBase {
 	}
 
 	@Override
-	public NavTag newTag() {
-		return new NavTag();
-	}
-
-	@Override
 	public String getChildInsertionMarker() {
 		return "</ul>";
 	}
@@ -166,5 +161,10 @@ public class NavRenderer extends NavRendererBase {
 	@Override
 	public boolean getRendersChildren() {
 		return true;
+	}
+
+	@Override
+	public NavTag newTag() {
+		return new NavTag();
 	}
 }

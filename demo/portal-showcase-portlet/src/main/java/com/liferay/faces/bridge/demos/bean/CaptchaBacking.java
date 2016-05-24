@@ -30,13 +30,6 @@ public class CaptchaBacking {
 
 	private String captchaText;
 
-	public void submit() {
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		FacesMessage facesMessage = new FacesMessage("You entered the correct text verification code.");
-		facesContext.addMessage(null, facesMessage);
-	}
-
 	public String getCaptchaImpl() {
 		return CaptchaUtil.getCaptcha().getClass().getName();
 	}
@@ -47,5 +40,12 @@ public class CaptchaBacking {
 
 	public void setCaptchaText(String captchaText) {
 		this.captchaText = captchaText;
+	}
+
+	public void submit() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		FacesMessage facesMessage = new FacesMessage("You entered the correct text verification code.");
+		facesContext.addMessage(null, facesMessage);
 	}
 }

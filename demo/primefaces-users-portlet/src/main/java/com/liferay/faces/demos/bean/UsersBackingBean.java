@@ -79,6 +79,23 @@ public class UsersBackingBean {
 		}
 	}
 
+	public String getFileUploadAbsolutePath() {
+
+		if (fileUploadAbsolutePath == null) {
+			fileUploadAbsolutePath = UploadedFileUtil.getTempDir();
+		}
+
+		return fileUploadAbsolutePath;
+	}
+
+	public UploadedFile getUploadedFile() {
+		return uploadedFile;
+	}
+
+	public String getUploadedFileId() {
+		return uploadedFileId;
+	}
+
 	public void handleFileUpload(FileUploadEvent fileUploadEvent) {
 
 		try {
@@ -143,23 +160,6 @@ public class UsersBackingBean {
 
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
-	}
-
-	public String getFileUploadAbsolutePath() {
-
-		if (fileUploadAbsolutePath == null) {
-			fileUploadAbsolutePath = UploadedFileUtil.getTempDir();
-		}
-
-		return fileUploadAbsolutePath;
-	}
-
-	public UploadedFile getUploadedFile() {
-		return uploadedFile;
-	}
-
-	public String getUploadedFileId() {
-		return uploadedFileId;
 	}
 
 	public void setUploadedFileId(String uploadedFileId) {

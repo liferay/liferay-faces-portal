@@ -60,6 +60,11 @@ public class RuntimeRenderer extends RuntimeRendererBase {
 	}
 
 	@Override
+	public String getChildInsertionMarker() {
+		return "</div>";
+	}
+
+	@Override
 	public RuntimeTag newTag() {
 		return new RuntimeTag();
 	}
@@ -79,10 +84,5 @@ public class RuntimeRenderer extends RuntimeRendererBase {
 	@Override
 	protected void copyNonFrameworkAttributes(FacesContext facesContext, Runtime u, RuntimeTag t) {
 
-	}
-
-	@Override
-	public String getChildInsertionMarker() {
-		return "</div>";
 	}
 }

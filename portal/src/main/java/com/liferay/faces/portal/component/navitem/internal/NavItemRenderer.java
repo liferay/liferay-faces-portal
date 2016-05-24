@@ -59,12 +59,12 @@ public class NavItemRenderer extends NavItemRendererBase {
 	}
 
 	@Override
-	public NavItemTag newTag() {
-		return new NavItemTag();
+	public String getChildInsertionMarker() {
+		return "</li>";
 	}
 
 	@Override
-	public String getChildInsertionMarker() {
-		return "</li>";
+	public NavItemTag newTag() {
+		return new NavItemTag();
 	}
 }

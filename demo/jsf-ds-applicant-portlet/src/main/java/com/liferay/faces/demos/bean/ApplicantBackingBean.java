@@ -53,18 +53,6 @@ public class ApplicantBackingBean implements Serializable {
 	@ManagedProperty(value = "#{listModelBean}")
 	private transient ListModelBean listModelBean;
 
-	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.applicantModelBean = applicantModelBean;
-	}
-
-	public void setListModelBean(ListModelBean listModelBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.listModelBean = listModelBean;
-	}
-
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
 		UICommand uiCommand = (UICommand) actionEvent.getComponent();
@@ -118,6 +106,18 @@ public class ApplicantBackingBean implements Serializable {
 			logger.error(e.getMessage(), e);
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
+	}
+
+	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.applicantModelBean = applicantModelBean;
+	}
+
+	public void setListModelBean(ListModelBean listModelBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.listModelBean = listModelBean;
 	}
 
 	public String submit() {

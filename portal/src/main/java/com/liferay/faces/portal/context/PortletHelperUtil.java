@@ -58,27 +58,6 @@ public class PortletHelperUtil {
 	}
 
 	/**
-	 * Returns TRUE if the Window state of the current portlet is set to MAXIMIZED
-	 */
-	public static boolean isWindowMaximized() {
-		return PortletHelperFactory.getPortletHelperInstance().isWindowMaximized();
-	}
-
-	/**
-	 * Returns TRUE if the current user is associated with the specified role.
-	 */
-	public static boolean isUserInRole(String roleName) {
-		return PortletHelperFactory.getPortletHelperInstance().isUserInRole(roleName);
-	}
-
-	/**
-	 * Returns TRUE if the Window state of the current portlet is set to MAXIMIZED
-	 */
-	public static boolean isWindowNormal() {
-		return PortletHelperFactory.getPortletHelperInstance().isWindowNormal();
-	}
-
-	/**
 	 * Retrieves the <code>javax.portlet.PortalContext</code> object associated with the current JSF FacesContext.
 	 */
 	public static PortalContext getPortalContext() {
@@ -105,13 +84,6 @@ public class PortletHelperUtil {
 	 */
 	public static String getPortletContextName() {
 		return PortletHelperFactory.getPortletHelperInstance().getPortletContextName();
-	}
-
-	/**
-	 * Sets the portlet mode of the portlet associated with the current JSF FacesContext to the specified portlet mode.
-	 */
-	public static void setPortletMode(PortletMode portletMode) {
-		PortletHelperFactory.getPortletHelperInstance().setPortletMode(portletMode);
 	}
 
 	/**
@@ -222,11 +194,10 @@ public class PortletHelperUtil {
 	}
 
 	/**
-	 * Sets the value of the a session attribute using the specified name and value within
-	 * PortletSession.APPLICATION_SCOPE
+	 * Returns the window state of the portlet associated with the current JSF FacesContext
 	 */
-	public static void setSessionSharedAttribute(String name, Object value) {
-		PortletHelperFactory.getPortletHelperInstance().setSessionSharedAttribute(name, value);
+	public static WindowState getWindowState() {
+		return PortletHelperFactory.getPortletHelperInstance().getWindowState();
 	}
 
 	/**
@@ -238,10 +209,39 @@ public class PortletHelperUtil {
 	}
 
 	/**
-	 * Returns the window state of the portlet associated with the current JSF FacesContext
+	 * Returns TRUE if the current user is associated with the specified role.
 	 */
-	public static WindowState getWindowState() {
-		return PortletHelperFactory.getPortletHelperInstance().getWindowState();
+	public static boolean isUserInRole(String roleName) {
+		return PortletHelperFactory.getPortletHelperInstance().isUserInRole(roleName);
+	}
+
+	/**
+	 * Returns TRUE if the Window state of the current portlet is set to MAXIMIZED
+	 */
+	public static boolean isWindowMaximized() {
+		return PortletHelperFactory.getPortletHelperInstance().isWindowMaximized();
+	}
+
+	/**
+	 * Returns TRUE if the Window state of the current portlet is set to MAXIMIZED
+	 */
+	public static boolean isWindowNormal() {
+		return PortletHelperFactory.getPortletHelperInstance().isWindowNormal();
+	}
+
+	/**
+	 * Sets the portlet mode of the portlet associated with the current JSF FacesContext to the specified portlet mode.
+	 */
+	public static void setPortletMode(PortletMode portletMode) {
+		PortletHelperFactory.getPortletHelperInstance().setPortletMode(portletMode);
+	}
+
+	/**
+	 * Sets the value of the a session attribute using the specified name and value within
+	 * PortletSession.APPLICATION_SCOPE
+	 */
+	public static void setSessionSharedAttribute(String name, Object value) {
+		PortletHelperFactory.getPortletHelperInstance().setSessionSharedAttribute(name, value);
 	}
 
 	/**

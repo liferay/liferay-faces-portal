@@ -94,31 +94,6 @@ public class UserPortraitResource extends Resource {
 		setResourceName(RESOURCE_NAME);
 	}
 
-	@Override
-	public boolean userAgentNeedsUpdate(FacesContext context) {
-
-		// Since the portrait image might come from the Liferay database or from a temporary file that is uploaded by
-		// the user, always return true.
-		return true;
-	}
-
-	/**
-	 * This method returns the data contained in the specified file as an array of bytes.
-	 */
-	protected byte[] getBytes(File file) throws IOException {
-
-		if ((file == null) || !file.exists()) {
-			return null;
-		}
-
-		RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-		byte[] bytes = new byte[(int) randomAccessFile.length()];
-		randomAccessFile.readFully(bytes);
-		randomAccessFile.close();
-
-		return bytes;
-	}
-
 	/**
 	 * This method returns an {@link InputStream} to either the uploaded file or the portrait image from the Liferay
 	 * database. It is designed to be called by a {@link ResourceHandler} outside of the JSF lifecycle.
@@ -224,6 +199,36 @@ public class UserPortraitResource extends Resource {
 		return null;
 	}
 
+	@Override
+	public URL getURL() {
+		return null;
+	}
+
+	@Override
+	public boolean userAgentNeedsUpdate(FacesContext context) {
+
+		// Since the portrait image might come from the Liferay database or from a temporary file that is uploaded by
+		// the user, always return true.
+		return true;
+	}
+
+	/**
+	 * This method returns the data contained in the specified file as an array of bytes.
+	 */
+	protected byte[] getBytes(File file) throws IOException {
+
+		if ((file == null) || !file.exists()) {
+			return null;
+		}
+
+		RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
+		byte[] bytes = new byte[(int) randomAccessFile.length()];
+		randomAccessFile.readFully(bytes);
+		randomAccessFile.close();
+
+		return bytes;
+	}
+
 	protected File getUploadedFile() {
 		File uploadedFile = null;
 
@@ -236,10 +241,5 @@ public class UserPortraitResource extends Resource {
 		}
 
 		return uploadedFile;
-	}
-
-	@Override
-	public URL getURL() {
-		return null;
 	}
 }

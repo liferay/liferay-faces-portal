@@ -34,6 +34,11 @@ import com.liferay.taglib.aui.NavBarSearchTag;
 public class NavBarSearchRenderer extends PortalTagRenderer<NavBarSearch, NavBarSearchTag> {
 
 	@Override
+	public String getChildInsertionMarker() {
+		return "</div>";
+	}
+
+	@Override
 	public NavBarSearchTag newTag() {
 		return new NavBarSearchTag();
 	}
@@ -55,10 +60,5 @@ public class NavBarSearchRenderer extends PortalTagRenderer<NavBarSearch, NavBar
 	@Override
 	protected void copyNonFrameworkAttributes(FacesContext facesContext, NavBarSearch u, NavBarSearchTag t) {
 		// no-op
-	}
-
-	@Override
-	public String getChildInsertionMarker() {
-		return "</div>";
 	}
 }
