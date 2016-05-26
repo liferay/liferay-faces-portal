@@ -28,10 +28,6 @@ import com.liferay.portal.util.PortalUtil;
  */
 public abstract class PortalTagRendererCompat extends Renderer {
 
-	// Public Constants
-	public static final String AUI_FORM_USE_NAMESPACE = "aui:form:useNamespace";
-	public static final String AUI_FORM_PORTLET_NAMESPACE = "aui:form:portletNamespace";
-
 	protected HttpServletRequest getHttpServletRequest(PortletRequest portletRequest) {
 		return new HttpServletRequestTagSafeImpl(_getHttpServletRequest(portletRequest));
 	}

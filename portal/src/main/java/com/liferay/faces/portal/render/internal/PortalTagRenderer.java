@@ -169,8 +169,8 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
-		portletRequest.setAttribute(PortalTagRendererCompat.AUI_FORM_PORTLET_NAMESPACE, "");
-		portletRequest.setAttribute(PortalTagRendererCompat.AUI_FORM_USE_NAMESPACE, "false");
+		portletRequest.setAttribute("aui:form:portletNamespace", "");
+		portletRequest.setAttribute("aui:form:useNamespace", "false");
 
 		HttpServletRequest httpServletRequest = getHttpServletRequest(portletRequest);
 		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
