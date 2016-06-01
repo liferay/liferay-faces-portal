@@ -27,7 +27,7 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalService;
 
 
 /**
@@ -82,7 +82,9 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 				User user = null;
 
 				try {
-					user = UserLocalServiceUtil.getUser(Long.parseLong(userId));
+					UserLocalService userLocalService = (UserLocalService) facesContext.getExternalContext()
+						.getApplicationMap().get("userLocalService");
+					user = userLocalService.getUser(Long.parseLong(userId));
 				}
 				catch (Exception e) {
 					logger.error(e);

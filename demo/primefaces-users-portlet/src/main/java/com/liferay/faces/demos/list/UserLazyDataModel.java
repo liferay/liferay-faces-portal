@@ -19,6 +19,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.FacesContext;
+
 import org.primefaces.component.datatable.DataTable;
 
 import org.primefaces.model.LazyDataModel;
@@ -35,7 +37,7 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
@@ -61,11 +63,21 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 	// Private Data Members
 	private long companyId;
 
-	public UserLazyDataModel(long companyId, int pageSize) {
+	private UserLocalService userLocalService;
+
+	public UserLazyDataModel(long companyId, int pageSize, FacesContext facesContext) {
 
 		this.companyId = companyId;
+
+		if (userLocalService == null) {
+			UserLocalService userLocalService = (UserLocalService) facesContext.getExternalContext().getApplicationMap()
+				.get("userLocalService");
+			this.userLocalService = userLocalService;
+		}
+
 		setPageSize(pageSize);
 		setRowCount(countRows());
+
 	}
 
 	public int countRows() {
@@ -73,6 +85,9 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		int totalCount = 0;
 
 		try {
+
+			logger.debug("countRows: userLocalService.getUsersCount() = " + userLocalService.getUsersCount());
+
 			LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
 			params.put("expandoAttributes", null);
 
@@ -87,8 +102,8 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 			String screenName = null;
 			String emailAddress = null;
 
-			Hits hits = UserLocalServiceUtil.search(companyId, firstName, middleName, lastName, screenName,
-					emailAddress, status, params, andSearch, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+			Hits hits = userLocalService.search(companyId, firstName, middleName, lastName, screenName, emailAddress,
+					status, params, andSearch, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
 			totalCount = hits.getLength();
 
 		}
@@ -104,7 +119,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		User user = null;
 
 		try {
-			user = UserLocalServiceUtil.getUserById(Long.parseLong(rowKey));
+			user = userLocalService.getUserById(Long.parseLong(rowKey));
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -167,8 +182,8 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 			// For the sake of speed, search for users in the index rather than
 			// querying the database directly.
-			Hits hits = UserLocalServiceUtil.search(companyId, firstName, middleName, lastName, screenName,
-					emailAddress, status, params, andSearch, first, liferayOneRelativeFinishRow, sort);
+			Hits hits = userLocalService.search(companyId, firstName, middleName, lastName, screenName, emailAddress,
+					status, params, andSearch, first, liferayOneRelativeFinishRow, sort);
 
 			List<Document> documentHits = hits.toList();
 
@@ -186,7 +201,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 				long userId = GetterUtil.getLong(document.get(Field.USER_ID));
 
 				try {
-					User user = UserLocalServiceUtil.getUserById(userId);
+					User user = userLocalService.getUserById(userId);
 					users.add(user);
 				}
 				catch (NoSuchUserException nsue) {
