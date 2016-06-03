@@ -34,9 +34,9 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
-	<!-- Workaround for LPS-66225, LPS-66267: -->
-	<!-- This sevlet init-param (along with the corresponding method in ApplicantFacesPortlet) is necessary in order -->
-	<!-- to ensure that the context listeners have been called before the init(PortletConfig) method is called. -->
+	<!-- BEGIN: Workaround -->
+	<!-- The Liferay Portal auto-deploy process should automatically add the following servlet, init-param, and -->
+	<!-- servlet-mapping elements but must be manually specified until LPS-66225 and LPS-66267 are fixed. -->
 	<servlet>
 		<servlet-name>Portlet Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
@@ -46,13 +46,11 @@
 			</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<!-- The "Portlet Servlet" servlet-mapping must be specified here with the "/portlet-servlet/*" url-pattern -->
-	<!-- since that is the request dispatcher path used by Liferay Portal to invoke the portlet lifecycle. -->
 	<servlet-mapping>
 		<servlet-name>Portlet Servlet</servlet-name>
 		<url-pattern>/portlet-servlet/*</url-pattern>
 	</servlet-mapping>
-	<!-- End Workaround for LPS-66225, LPS-66267: -->
+	<!-- END: Workaround -->
 
 	<security-constraint>
 		<display-name>Prevent direct access to Facelet XHTML</display-name>
