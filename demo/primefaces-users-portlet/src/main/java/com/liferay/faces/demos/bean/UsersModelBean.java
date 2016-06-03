@@ -78,7 +78,7 @@ public class UsersModelBean implements Serializable {
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
-			userDataModel = new UserLazyDataModel(LiferayPortletHelperUtil.getCompanyId(), rowsPerPage, facesContext);
+			userDataModel = new UserLazyDataModel(facesContext, LiferayPortletHelperUtil.getCompanyId(), rowsPerPage);
 		}
 
 		return userDataModel;

@@ -68,13 +68,13 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 				// UserPortraitResource.getRequestPath() method. The resource URL will contain a "userId" parameter and
 				// optionally an "uploadedFileId" parameter.
 				FacesContext facesContext = FacesContext.getCurrentInstance();
-				Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
 				String userId = requestParameterMap.get(PARAM_NAME_USER_ID);
 				String uploadedFileId = requestParameterMap.get(PARAM_NAME_UPLOADED_FILE_ID);
 
 				// Determine the current "sessionId" so that the UserPortraitResource class will be able to find the
 				// uploaded file.
-				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletSession portletSession = (PortletSession) externalContext.getSession(true);
 				String sessionId = portletSession.getId();
 
@@ -82,8 +82,8 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 				User user = null;
 
 				try {
-					UserLocalService userLocalService = (UserLocalService) facesContext.getExternalContext()
-						.getApplicationMap().get("userLocalService");
+					Map<String, Object> applicationMap = externalContext.getApplicationMap();
+					UserLocalService userLocalService = (UserLocalService) applicationMap.get("userLocalService");
 					user = userLocalService.getUser(Long.parseLong(userId));
 				}
 				catch (Exception e) {

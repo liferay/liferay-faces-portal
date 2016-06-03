@@ -52,6 +52,7 @@ public class PrimeFacesUsersPortlet extends GenericFacesPortlet {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(PrimeFacesUsersPortlet.class);
 
+	// Private Data Members
 	private UserLocalService userLocalService;
 
 	@Activate
@@ -72,9 +73,12 @@ public class PrimeFacesUsersPortlet extends GenericFacesPortlet {
 
 	@Override
 	public void init(PortletConfig portletConfig) throws PortletException {
+
 		logger.debug("init(PortletConfig) called");
 		super.init(portletConfig);
 
+		// Save the user service as a portlet context (application scoped) attribute so that it can be easily accessible
+		// from a managed bean during the JSF lifecycle.
 		PortletContext portletContext = getPortletContext();
 		portletContext.setAttribute("userLocalService", userLocalService);
 	}
@@ -92,6 +96,5 @@ public class PrimeFacesUsersPortlet extends GenericFacesPortlet {
 
 		logger.debug("setUserLocalService: " + userLocalService.getOSGiServiceIdentifier());
 		this.userLocalService = userLocalService;
-
 	}
 }

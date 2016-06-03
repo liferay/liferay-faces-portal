@@ -19,6 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.component.datatable.DataTable;
@@ -62,22 +63,18 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 	// Private Data Members
 	private long companyId;
-
 	private UserLocalService userLocalService;
 
-	public UserLazyDataModel(long companyId, int pageSize, FacesContext facesContext) {
+	public UserLazyDataModel(FacesContext facesContext, long companyId, int pageSize) {
 
 		this.companyId = companyId;
 
-		if (userLocalService == null) {
-			UserLocalService userLocalService = (UserLocalService) facesContext.getExternalContext().getApplicationMap()
-				.get("userLocalService");
-			this.userLocalService = userLocalService;
-		}
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> applicationMap = externalContext.getApplicationMap();
+		this.userLocalService = (UserLocalService) applicationMap.get("userLocalService");
 
 		setPageSize(pageSize);
 		setRowCount(countRows());
-
 	}
 
 	public int countRows() {

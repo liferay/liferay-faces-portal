@@ -13,6 +13,8 @@
  */
 package com.liferay.faces.demos.bean;
 
+import java.util.Map;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -122,8 +124,9 @@ public class UsersBackingBean {
 		try {
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			UserLocalService userLocalService = (UserLocalService) facesContext.getExternalContext().getApplicationMap()
-				.get("userLocalService");
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Map<String, Object> applicationMap = externalContext.getApplicationMap();
+			UserLocalService userLocalService = (UserLocalService) applicationMap.get("userLocalService");
 
 			// Update the selected user in the Liferay database.
 			User user = usersModelBean.getSelectedUser();
