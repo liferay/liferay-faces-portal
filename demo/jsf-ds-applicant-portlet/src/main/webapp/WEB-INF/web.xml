@@ -22,11 +22,6 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- The PluginContextListener is specified because the Liferay Portal auto-deploy process is bypassed for pre-configured WABs. -->
-	<listener>
-		<listener-class>com.liferay.portal.kernel.servlet.PluginContextListener</listener-class>
-	</listener>
-
 	<!-- Although the FacesServlet will not be invoked by any portlet requests, it is required to initialize JSF. -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -39,8 +34,9 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
-	<!-- The "Portlet Servlet" servlet-class and init-param are automatically included by the Liferay Portal -->
-	<!-- auto-deploy process, but must be specified here since that process is bypassed for pre-configured WABs. -->
+	<!-- Workaround for LPS-66225, LPS-66267: -->
+	<!-- This sevlet init-param (along with the corresponding method in ApplicantFacesPortlet) is necessary in order -->
+	<!-- to ensure that the context listeners have been called before the init(PortletConfig) method is called. -->
 	<servlet>
 		<servlet-name>Portlet Servlet</servlet-name>
 		<servlet-class>com.liferay.portal.kernel.servlet.PortletServlet</servlet-class>
@@ -56,6 +52,7 @@
 		<servlet-name>Portlet Servlet</servlet-name>
 		<url-pattern>/portlet-servlet/*</url-pattern>
 	</servlet-mapping>
+	<!-- End Workaround for LPS-66225, LPS-66267: -->
 
 	<security-constraint>
 		<display-name>Prevent direct access to Facelet XHTML</display-name>
