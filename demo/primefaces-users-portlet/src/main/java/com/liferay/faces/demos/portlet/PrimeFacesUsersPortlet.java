@@ -52,7 +52,14 @@ public class PrimeFacesUsersPortlet extends GenericFacesPortlet {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(PrimeFacesUsersPortlet.class);
 
+	// Workaround for LPS-66225:
+	// This reference (along with the corresponding init-param in web.xml) is necessary in order to ensure that the
+	// context listeners have been called before the init(PortletConfig) method is called.
+	@Reference(target = "(servlet.init.portlet-class=com.liferay.faces.demos.portlet.PrimeFacesUsersPortlet)")
+	private Servlet servlet;
+	
 	// Private Data Members
+	@Reference
 	private UserLocalService userLocalService;
 
 	@Activate
@@ -83,18 +90,4 @@ public class PrimeFacesUsersPortlet extends GenericFacesPortlet {
 		portletContext.setAttribute("userLocalService", userLocalService);
 	}
 
-	// Workaround for LPS-66225:
-	// This method (along with the corresponding init-param in web.xml) is necessary in order to ensure that the
-	// context listeners have been called before the init(PortletConfig) method is called.
-	@Reference(target = "(servlet.init.portlet-class=com.liferay.faces.demos.portlet.PrimeFacesUsersPortlet)")
-	protected void setServlet(Servlet servlet) {
-		logger.debug("context listeners initialized");
-	}
-
-	@Reference(service = UserLocalService.class, unbind = "-")
-	protected void setUserLocalService(UserLocalService userLocalService) {
-
-		logger.debug("setUserLocalService: " + userLocalService.getOSGiServiceIdentifier());
-		this.userLocalService = userLocalService;
-	}
 }
