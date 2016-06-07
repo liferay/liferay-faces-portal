@@ -119,7 +119,7 @@
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
-		<primefaces1.version>UNSUPPORTED</primefaces1.version>
+		<primefaces.version>UNSUPPORTED</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.stage>Production</project.stage>
 		<selenium.version>2.46.0</selenium.version>
