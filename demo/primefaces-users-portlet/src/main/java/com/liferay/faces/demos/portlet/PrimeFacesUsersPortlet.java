@@ -57,7 +57,7 @@ public class PrimeFacesUsersPortlet extends GenericFacesPortlet {
 	// context listeners have been called before the init(PortletConfig) method is called.
 	@Reference(target = "(servlet.init.portlet-class=com.liferay.faces.demos.portlet.PrimeFacesUsersPortlet)")
 	private Servlet servlet;
-	
+
 	// Private Data Members
 	@Reference
 	private UserLocalService userLocalService;
@@ -89,5 +89,4 @@ public class PrimeFacesUsersPortlet extends GenericFacesPortlet {
 		PortletContext portletContext = getPortletContext();
 		portletContext.setAttribute("userLocalService", userLocalService);
 	}
-
 }

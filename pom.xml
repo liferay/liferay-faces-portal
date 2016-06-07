@@ -121,7 +121,6 @@
 		<liferay.portal>liferay-portal-${liferay.deploy.version}</liferay.portal>
 		<mojarra.version>2.1.29-05</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
-		<osgi.version>5.0.0</osgi.version>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
 		<primefaces.version>6.0</primefaces.version>
@@ -825,14 +824,14 @@
 			</dependency>
 			<dependency>
 				<groupId>org.osgi</groupId>
-				<artifactId>org.osgi.compendium</artifactId>
-				<version>${osgi.version}</version>
+				<artifactId>org.osgi.service.component.annotations</artifactId>
+				<version>1.3.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.osgi</groupId>
 				<artifactId>org.osgi.core</artifactId>
-				<version>${osgi.version}</version>
+				<version>6.0.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>

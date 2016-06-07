@@ -48,6 +48,12 @@ public class ApplicantFacesPortlet extends GenericFacesPortlet {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ApplicantFacesPortlet.class);
 
+	// Workaround for LPS-66225:
+	// This reference (along with the corresponding init-param in web.xml) is necessary in order to ensure that the
+	// context listeners have been called before the init(PortletConfig) method is called.
+	@Reference(target = "(servlet.init.portlet-class=com.liferay.faces.demos.portlet.ApplicantFacesPortlet)")
+	private Servlet servlet;
+
 	@Activate
 	public void activate() {
 		logger.debug("activate() called");
@@ -68,13 +74,5 @@ public class ApplicantFacesPortlet extends GenericFacesPortlet {
 	public void init(PortletConfig portletConfig) throws PortletException {
 		logger.debug("init(PortletConfig) called");
 		super.init(portletConfig);
-	}
-
-	// Workaround for LPS-66225:
-	// This method (along with the corresponding init-param in web.xml) is necessary in order to ensure that the
-	// context listeners have been called before the init(PortletConfig) method is called.
-	@Reference(target = "(servlet.init.portlet-class=com.liferay.faces.demos.portlet.ApplicantFacesPortlet)")
-	protected void setServlet(Servlet servlet) {
-		logger.debug("context listeners initialized");
 	}
 }
