@@ -21,6 +21,11 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.naming.ServiceUnavailableException;
+
+import org.osgi.framework.ServiceException;
+
+import org.osgi.util.tracker.ServiceTracker;
 
 import org.primefaces.component.datatable.DataTable;
 
@@ -65,13 +70,10 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 	private long companyId;
 	private UserLocalService userLocalService;
 
-	public UserLazyDataModel(FacesContext facesContext, long companyId, int pageSize) {
+	public UserLazyDataModel(UserLocalService userLocalService, long companyId, int pageSize) {
 
 		this.companyId = companyId;
-
-		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, Object> applicationMap = externalContext.getApplicationMap();
-		this.userLocalService = (UserLocalService) applicationMap.get("userLocalService");
+		this.userLocalService = userLocalService;
 
 		setPageSize(pageSize);
 		setRowCount(countRows());
@@ -81,31 +83,33 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 		int totalCount = 0;
 
-		try {
+		if (userLocalService != null) {
 
-			logger.debug("countRows: userLocalService.getUsersCount() = " + userLocalService.getUsersCount());
+			try {
 
-			LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
-			params.put("expandoAttributes", null);
+				logger.debug("countRows: userLocalService.getUsersCount() = " + userLocalService.getUsersCount());
 
-			Sort sort = SortFactoryUtil.getSort(User.class, DEFAULT_SORT_CRITERIA, "asc");
+				LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
+				params.put("expandoAttributes", null);
 
-			boolean andSearch = true;
-			int status = WorkflowConstants.STATUS_ANY;
+				Sort sort = SortFactoryUtil.getSort(User.class, DEFAULT_SORT_CRITERIA, "asc");
 
-			String firstName = null;
-			String middleName = null;
-			String lastName = null;
-			String screenName = null;
-			String emailAddress = null;
+				boolean andSearch = true;
+				int status = WorkflowConstants.STATUS_ANY;
 
-			Hits hits = userLocalService.search(companyId, firstName, middleName, lastName, screenName, emailAddress,
-					status, params, andSearch, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
-			totalCount = hits.getLength();
+				String firstName = null;
+				String middleName = null;
+				String lastName = null;
+				String screenName = null;
+				String emailAddress = null;
 
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
+				Hits hits = userLocalService.search(companyId, firstName, middleName, lastName, screenName,
+						emailAddress, status, params, andSearch, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
+				totalCount = hits.getLength();
+			}
+			catch (Exception e) {
+				logger.error(e.getMessage(), e);
+			}
 		}
 
 		return totalCount;
@@ -179,6 +183,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 			// For the sake of speed, search for users in the index rather than
 			// querying the database directly.
+
 			Hits hits = userLocalService.search(companyId, firstName, middleName, lastName, screenName, emailAddress,
 					status, params, andSearch, first, liferayOneRelativeFinishRow, sort);
 
@@ -205,7 +210,6 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 					logger.error("User with userId=[{0}] does not exist in the search index. Please reindex.");
 				}
 			}
-
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);

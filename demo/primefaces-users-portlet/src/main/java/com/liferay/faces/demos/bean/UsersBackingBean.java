@@ -13,8 +13,8 @@
  */
 package com.liferay.faces.demos.bean;
 
-import java.util.Map;
-
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -22,6 +22,12 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.portlet.PortletSession;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+
+import org.osgi.util.tracker.ServiceTracker;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
@@ -62,6 +68,7 @@ public class UsersBackingBean {
 	private String fileUploadAbsolutePath;
 	private String uploadedFileId;
 	private UploadedFile uploadedFile;
+	private ServiceTracker userLocalServiceTracker;
 
 	public void cancel(ActionEvent actionEvent) {
 		usersViewBean.setFormRendered(false);
@@ -119,30 +126,46 @@ public class UsersBackingBean {
 		}
 	}
 
+	@PostConstruct
+	public void postConstruct() {
+		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+		BundleContext bundleContext = bundle.getBundleContext();
+		userLocalServiceTracker = new ServiceTracker(bundleContext, UserLocalService.class, null);
+		userLocalServiceTracker.open();
+	}
+
+	@PreDestroy
+	public void preDestroy() {
+		userLocalServiceTracker.close();
+	}
+
 	public void save(ActionEvent actionEvent) {
 
 		try {
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			Map<String, Object> applicationMap = externalContext.getApplicationMap();
-			UserLocalService userLocalService = (UserLocalService) applicationMap.get("userLocalService");
+			if (!userLocalServiceTracker.isEmpty()) {
 
-			// Update the selected user in the Liferay database.
-			User user = usersModelBean.getSelectedUser();
-			long userId = user.getUserId();
+				UserLocalService userLocalService = (UserLocalService) userLocalServiceTracker.getService();
 
-			userLocalService.updateUser(user);
+				// Update the selected user in the Liferay database.
+				User user = usersModelBean.getSelectedUser();
+				long userId = user.getUserId();
 
-			// If the end-user uploaded a portrait, then update the portrait in
-			// the Liferay database and delete the temporary file.
-			UploadedFile modelUploadedFile = usersModelBean.getUploadedFile();
+				userLocalService.updateUser(user);
 
-			if (modelUploadedFile != null) {
+				// If the end-user uploaded a portrait, then update the portrait in
+				// the Liferay database and delete the temporary file.
+				UploadedFile modelUploadedFile = usersModelBean.getUploadedFile();
 
-				byte[] imageBytes = modelUploadedFile.getBytes();
-				userLocalService.updatePortrait(userId, imageBytes);
-				modelUploadedFile.delete();
+				if (modelUploadedFile != null) {
+
+					byte[] imageBytes = modelUploadedFile.getBytes();
+					userLocalService.updatePortrait(userId, imageBytes);
+					modelUploadedFile.delete();
+				}
+			}
+			else {
+				FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
 			}
 		}
 		catch (Exception e) {

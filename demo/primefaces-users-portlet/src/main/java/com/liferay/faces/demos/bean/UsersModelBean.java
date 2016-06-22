@@ -17,6 +17,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
@@ -25,6 +27,12 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.portlet.PortletRequest;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+
+import org.osgi.util.tracker.ServiceTracker;
 
 import com.liferay.faces.demos.list.UserLazyDataModel;
 import com.liferay.faces.demos.resource.UserPortraitResource;
@@ -35,6 +43,7 @@ import com.liferay.faces.util.model.UploadedFile;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -62,6 +71,7 @@ public class UsersModelBean implements Serializable {
 	private transient List<SelectItem> statusSelectItems;
 	private transient UploadedFile uploadedFile;
 	private transient String selectedUserPortraitURL;
+	private transient ServiceTracker userLocalServiceTracker;
 
 	public void forceListReload() {
 
@@ -74,11 +84,19 @@ public class UsersModelBean implements Serializable {
 	public UserLazyDataModel getDataModel() {
 
 		if (userDataModel == null) {
+
 			int rowsPerPage = PortletHelperUtil.getPortletPreferenceAsInt("rowsPerPage", SearchContainer.DEFAULT_DELTA);
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+			if (!userLocalServiceTracker.isEmpty()) {
 
-			userDataModel = new UserLazyDataModel(facesContext, LiferayPortletHelperUtil.getCompanyId(), rowsPerPage);
+				UserLocalService userLocalService = (UserLocalService) userLocalServiceTracker.getService();
+				userDataModel = new UserLazyDataModel(userLocalService, LiferayPortletHelperUtil.getCompanyId(),
+						rowsPerPage);
+			}
+			else {
+				userDataModel = new UserLazyDataModel(null, LiferayPortletHelperUtil.getCompanyId(), rowsPerPage);
+				FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
+			}
 		}
 
 		return userDataModel;
@@ -138,6 +156,19 @@ public class UsersModelBean implements Serializable {
 
 	public UploadedFile getUploadedFile() {
 		return uploadedFile;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+		BundleContext bundleContext = bundle.getBundleContext();
+		userLocalServiceTracker = new ServiceTracker(bundleContext, UserLocalService.class, null);
+		userLocalServiceTracker.open();
+	}
+
+	@PreDestroy
+	public void preDestroy() {
+		userLocalServiceTracker.close();
 	}
 
 	public void setSelectedUser(User selectedUser) {

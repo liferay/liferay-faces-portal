@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-
-<portlet-preferences>
-	<preference>
-		<name>rowsPerPage</name>
-		<value>15</value>
-	</preference>
-</portlet-preferences>

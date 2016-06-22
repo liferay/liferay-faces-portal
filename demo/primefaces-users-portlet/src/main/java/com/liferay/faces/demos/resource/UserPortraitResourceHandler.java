@@ -23,6 +23,12 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletSession;
 import javax.portlet.ResourceResponse;
 
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+
+import org.osgi.util.tracker.ServiceTracker;
+
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -82,9 +88,21 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 				User user = null;
 
 				try {
-					Map<String, Object> applicationMap = externalContext.getApplicationMap();
-					UserLocalService userLocalService = (UserLocalService) applicationMap.get("userLocalService");
-					user = userLocalService.getUser(Long.parseLong(userId));
+					Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+					BundleContext bundleContext = bundle.getBundleContext();
+					ServiceTracker userLocalServiceTracker = new ServiceTracker(bundleContext, UserLocalService.class,
+							null);
+					userLocalServiceTracker.open();
+
+					if (!userLocalServiceTracker.isEmpty()) {
+						UserLocalService userLocalService = (UserLocalService) userLocalServiceTracker.getService();
+						user = userLocalService.getUser(Long.parseLong(userId));
+					}
+					else {
+						logger.error("User service is temporarily unavailable");
+					}
+
+					userLocalServiceTracker.close();
 				}
 				catch (Exception e) {
 					logger.error(e);
