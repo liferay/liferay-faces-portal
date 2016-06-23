@@ -33,6 +33,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 
 import com.liferay.faces.demos.dto.UploadedFileWrapper;
+import com.liferay.faces.demos.service.UserLocalServiceTracker;
 import com.liferay.faces.demos.util.UploadedFileUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -68,7 +69,7 @@ public class UsersBackingBean {
 	private String fileUploadAbsolutePath;
 	private String uploadedFileId;
 	private UploadedFile uploadedFile;
-	private ServiceTracker userLocalServiceTracker;
+	private UserLocalServiceTracker userLocalServiceTracker;
 
 	public void cancel(ActionEvent actionEvent) {
 		usersViewBean.setFormRendered(false);
@@ -130,7 +131,7 @@ public class UsersBackingBean {
 	public void postConstruct() {
 		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
 		BundleContext bundleContext = bundle.getBundleContext();
-		userLocalServiceTracker = new ServiceTracker(bundleContext, UserLocalService.class, null);
+		userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
 		userLocalServiceTracker.open();
 	}
 
@@ -145,7 +146,7 @@ public class UsersBackingBean {
 
 			if (!userLocalServiceTracker.isEmpty()) {
 
-				UserLocalService userLocalService = (UserLocalService) userLocalServiceTracker.getService();
+				UserLocalService userLocalService = userLocalServiceTracker.getService();
 
 				// Update the selected user in the Liferay database.
 				User user = usersModelBean.getSelectedUser();

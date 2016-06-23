@@ -29,6 +29,7 @@ import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
+import com.liferay.faces.demos.service.UserLocalServiceTracker;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -90,12 +91,11 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 				try {
 					Bundle bundle = FrameworkUtil.getBundle(this.getClass());
 					BundleContext bundleContext = bundle.getBundleContext();
-					ServiceTracker userLocalServiceTracker = new ServiceTracker(bundleContext, UserLocalService.class,
-							null);
+					UserLocalServiceTracker userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
 					userLocalServiceTracker.open();
 
 					if (!userLocalServiceTracker.isEmpty()) {
-						UserLocalService userLocalService = (UserLocalService) userLocalServiceTracker.getService();
+						UserLocalService userLocalService = userLocalServiceTracker.getService();
 						user = userLocalService.getUser(Long.parseLong(userId));
 					}
 					else {

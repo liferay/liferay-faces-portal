@@ -36,6 +36,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 import com.liferay.faces.demos.list.UserLazyDataModel;
 import com.liferay.faces.demos.resource.UserPortraitResource;
+import com.liferay.faces.demos.service.UserLocalServiceTracker;
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.portal.context.PortletHelperUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
@@ -71,7 +72,7 @@ public class UsersModelBean implements Serializable {
 	private transient List<SelectItem> statusSelectItems;
 	private transient UploadedFile uploadedFile;
 	private transient String selectedUserPortraitURL;
-	private transient ServiceTracker userLocalServiceTracker;
+	private transient UserLocalServiceTracker userLocalServiceTracker;
 
 	public void forceListReload() {
 
@@ -89,7 +90,7 @@ public class UsersModelBean implements Serializable {
 
 			if (!userLocalServiceTracker.isEmpty()) {
 
-				UserLocalService userLocalService = (UserLocalService) userLocalServiceTracker.getService();
+				UserLocalService userLocalService = userLocalServiceTracker.getService();
 				userDataModel = new UserLazyDataModel(userLocalService, LiferayPortletHelperUtil.getCompanyId(),
 						rowsPerPage);
 			}
@@ -162,7 +163,7 @@ public class UsersModelBean implements Serializable {
 	public void postConstruct() {
 		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
 		BundleContext bundleContext = bundle.getBundleContext();
-		userLocalServiceTracker = new ServiceTracker(bundleContext, UserLocalService.class, null);
+		userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
 		userLocalServiceTracker.open();
 	}
 
