@@ -24,12 +24,13 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 
+import com.liferay.faces.portal.component.inputrichtext.internal.RichText;
+import com.liferay.faces.portal.component.inputrichtext.internal.RichTextFactory;
+import com.liferay.faces.portal.component.inputrichtext.internal.RichTextFactoryImpl;
 import com.liferay.faces.util.context.MessageContext;
 import com.liferay.faces.util.context.MessageContextFactory;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.text.RichText;
-import com.liferay.faces.util.text.RichTextFactory;
 
 import com.liferay.portal.kernel.util.PropsUtil;
 
@@ -83,7 +84,8 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 				richTextType = RichText.Type.HTML;
 			}
 
-			RichText richText = RichTextFactory.getRichTextInstance(richTextType, newValue.toString());
+			RichTextFactory richTextFactory = new RichTextFactoryImpl();
+			RichText richText = richTextFactory.getRichText(richTextType, newValue.toString());
 			int length = richText.getPlainTextLength();
 			int minimum = getMinPlainTextChars();
 			int maximum = getMaxPlainTextChars();

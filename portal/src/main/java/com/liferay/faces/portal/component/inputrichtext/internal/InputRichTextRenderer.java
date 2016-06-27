@@ -29,10 +29,10 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 
 import com.liferay.faces.portal.component.inputrichtext.InputRichText;
-import com.liferay.faces.util.ContentTypes;
 import com.liferay.faces.util.component.Styleable;
 import com.liferay.faces.util.render.RendererUtil;
 
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringUtil;
