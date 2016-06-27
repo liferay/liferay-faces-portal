@@ -15,7 +15,7 @@ package com.liferay.faces.portal.render.internal;
 
 import javax.servlet.jsp.JspWriter;
 
-import com.liferay.faces.util.ContentTypes;
+import com.liferay.portal.kernel.util.ContentTypes;
 
 
 /**
