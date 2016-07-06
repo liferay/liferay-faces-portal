@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:alloy="http://liferay.com/faces/alloy"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head />
+	<h:body>
+		<h:form>
+			<h:commandLink actionListener="#{selectOneBackingBean.actionListener}" immediate="true">
+				<h:graphicImage library="images" name="liferay-faces-logo.png" style="float: right;" /><br />
+			</h:commandLink>
+			
+			<h:outputText value="Liferay: " />
+			<h:selectOneMenu id="liferayVersion" class="lv" value="#{selectOneModelBean.favoriteLiferayVersion}">
+				<f:selectItem itemLabel="-- Select --" noSelectionOption="true" />
+				<f:selectItems value="#{selectOneModelBean.liferayVersions}" var="liferayVersion"
+					itemValue="#{liferayVersion.version}" itemLabel="#{liferayVersion.version}" />
+			</h:selectOneMenu>
+			<h:message for="vers" /><br /><br />
+			
+			<h:outputText value="JSF: " />
+			<h:selectOneMenu id="jsfVersion" class="jv" value="#{selectOneModelBean.favoriteJsfVersion}">
+				<f:selectItem itemLabel="-- Select --" noSelectionOption="true" />
+				<f:selectItems value="#{selectOneModelBean.jsfVersions}" var="jsfVersion"
+					itemValue="#{jsfVersion.version}" itemLabel="#{jsfVersion.version}" />
+			</h:selectOneMenu>
+			<h:message for="jsfId" /><br /><br />
+			
+			<h:outputText value="Suite: " />
+			<h:selectOneMenu id="suite" class="suite" value="#{selectOneModelBean.favoriteSuite}">
+				<f:selectItem itemLabel="-- Select --" noSelectionOption="true" />
+				<f:selectItems value="#{selectOneModelBean.suites}" var="suite"
+					itemValue="#{suite.suite}" itemLabel="#{suite.suite}" />
+			</h:selectOneMenu>
+			<h:message for="suite" /><br />
+			<br />
+			
+			<alloy:outputScript target="body">
+				
+				$('select.suite').change(function() {
+					window.location.hash = $('select.lv').val() + "," + $('select.jv').val() + "," + $(this).val(); 
+				});​
+			</alloy:outputScript>
+			
+<ui:remove>
+			<h:commandButton action="#{selectOneBackingBean.submit}" value="#{i18n['submit']}">
+				<f:ajax execute="@form" render="@form" />
+			</h:commandButton><br />
+			<br />
+			<h:outputText id="modelValue" value="#{selectOneModelBean.favoriteSuite}" /><br />
+</ui:remove>
+			
+			<alloy:dataList value="#{selectOneModelBean.archetypes}" var="archetype" type="description">
+				<alloy:dataItem>
+					<a id="#{archetype.liferayVersion},#{archetype.jsfVersion},#{archetype.suite}">
+						<alloy:outputText value="liferay-#{archetype.liferayVersion} jsf-#{archetype.jsfVersion} #{archetype.suite}" />
+					</a><br />
+				</alloy:dataItem>
+				<f:facet name="description">
+					<pre>#{archetype.command}</pre>
+					<pre>#{archetype.propertiesAndDependencies}</pre>
+				</f:facet>
+			</alloy:dataList><br />
+			
+		</h:form>
+	</h:body>
+</f:view>
+
