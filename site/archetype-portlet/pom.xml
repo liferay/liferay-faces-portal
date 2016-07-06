@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.liferay.faces.site</groupId>
+		<artifactId>com.liferay.faces.site.portal.parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>com.liferay.faces.site.archetype.portlet</artifactId>
+	<packaging>war</packaging>
+	<name>archetype-portlet</name>
+	<description>This portlet is meant to help folks find the artifacts that they need based on available archetypes.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>com.liferay.portal.kernel</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.alloy</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.ext</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.portal</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
