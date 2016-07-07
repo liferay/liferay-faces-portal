@@ -99,4 +99,14 @@ public class NavBarRenderer extends NavBarRendererBase {
 	public NavBarTag newTag() {
 		return new NavBarTag();
 	}
+
+	@Override
+	public boolean writeBodyContent() {
+		return true;
+	}
+
+	@Override
+	public boolean writeChildrenMarkup() {
+		return false;
+	}
 }

@@ -30,14 +30,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.BodyContent;
+import javax.servlet.jsp.tagext.BodyTag;
 import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.util.context.FacesRequestContext;
+import com.liferay.faces.util.jsp.BodyContentStringImpl;
+import com.liferay.faces.util.jsp.JspWriterStringImpl;
 import com.liferay.faces.util.jsp.PageContextFactory;
 
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.taglib.BaseBodyTagSupport;
 import com.liferay.taglib.aui.ScriptTag;
 
 
@@ -128,6 +133,10 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		return null;
 	}
 
+	public boolean writeBodyContent() {
+		return false;
+	}
+
 	/**
 	 * Casts a UIComponent to a concrete instance of UIComponent.
 	 */
@@ -165,6 +174,12 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 	protected PortalTagOutput getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, Tag tag)
 		throws JspException {
 
+		return getPortalTagOutput(facesContext, uiComponent, tag, null);
+	}
+
+	protected PortalTagOutput getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, Tag tag,
+		String customBodyContent) throws JspException {
+
 		// Setup the Facelet -> JSP tag adapter.
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
@@ -183,6 +198,24 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		// Invoke the JSP tag lifecycle directly (rather than using the tag from a JSP).
 		tag.setPageContext(stringPageContext);
 		tag.doStartTag();
+
+		if (writeBodyContent() && (customBodyContent != null) && (tag instanceof BaseBodyTagSupport)) {
+			BaseBodyTagSupport bodyTag = (BaseBodyTagSupport) tag;
+			BodyContent bodyContent = bodyTag.getBodyContent();
+
+			if (bodyContent == null) {
+				bodyContent = new BodyContentStringImpl(new JspWriterStringImpl());
+				bodyTag.setBodyContent(bodyContent);
+			}
+
+			try {
+				bodyContent.write(customBodyContent);
+			}
+			catch (Exception e) {
+				throw new JspException(e);
+			}
+		}
+
 		tag.doEndTag();
 
 		// If executing within an Ajax request, then write all the scripts contained in the AUI_SCRIPT_DATA attribute
