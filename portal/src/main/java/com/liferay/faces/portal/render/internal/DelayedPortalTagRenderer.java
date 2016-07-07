@@ -76,7 +76,8 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 		PortalTagOutput portalTagOutput;
 
 		try {
-			portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag);
+			portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag,
+					bufferedChildrenMarkupWriter.toString());
 
 			String preChildMarkup = portalTagOutput.getMarkup();
 			String postChildMarkup = null;
@@ -113,11 +114,14 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 				facesRequestContext.addScript(processedScripts);
 			}
 
-			// Encode the children markup.
-			String childrenMarkup = bufferedChildrenMarkupWriter.toString();
+			if (writeChildrenMarkup()) {
 
-			if (childrenMarkup != null) {
-				markup.append(childrenMarkup);
+				// Encode the children markup.
+				String childrenMarkup = bufferedChildrenMarkupWriter.toString();
+
+				if (childrenMarkup != null) {
+					markup.append(childrenMarkup);
+				}
 			}
 
 			// Encode the output of the JSP tag that is to appear after the children.
@@ -144,6 +148,10 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 
 	@Override
 	public boolean getRendersChildren() {
+		return true;
+	}
+
+	public boolean writeChildrenMarkup() {
 		return true;
 	}
 
