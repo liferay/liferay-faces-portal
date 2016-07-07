@@ -45,6 +45,28 @@ public class HttpServletRequestTagSafeImpl extends HttpServletRequestWrapper {
 	}
 
 	@Override
+	public void removeAttribute(String name) {
+
+		Object wrappedRequest = getRequest();
+
+		if (wrappedRequest.getClass().getName().equals(NAMESPACE_SERVLET_REQUEST_FQCN)) {
+
+			try {
+
+				Method method = wrappedRequest.getClass().getMethod("setAttribute", String.class, Object.class,
+						boolean.class);
+				method.invoke(wrappedRequest, name, null, false);
+			}
+			catch (Exception e) {
+				logger.error(e);
+			}
+		}
+		else {
+			super.removeAttribute(name);
+		}
+	}
+
+	@Override
 	public void setAttribute(String name, Object value) {
 
 		Object wrappedRequest = getRequest();
