@@ -11,12 +11,14 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.portal.context.internal;
+package com.liferay.faces.portal.i18n.internal;
 
 import java.util.Locale;
 
-import com.liferay.faces.util.context.MessageContext;
-import com.liferay.faces.util.context.MessageContextWrapper;
+import javax.faces.context.FacesContext;
+
+import com.liferay.faces.util.i18n.I18n;
+import com.liferay.faces.util.i18n.I18nWrapper;
 
 import com.liferay.portal.kernel.language.LanguageUtil;
 
@@ -24,39 +26,41 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 /**
  * @author  Neil Griffin
  */
-public class MessageContextPortalImpl extends MessageContextWrapper {
+public class I18nPortalImpl extends I18nWrapper {
 
 	// Private Data Members
-	private MessageContext wrappedMessageContext;
+	private I18n wrappedI18n;
 
-	public MessageContextPortalImpl(MessageContext messageContext) {
-		this.wrappedMessageContext = messageContext;
+	public I18nPortalImpl(I18n i18n) {
+		this.wrappedI18n = i18n;
 	}
 
 	@Override
-	public String getMessage(Locale locale, String messageId) {
+	public String getMessage(FacesContext facesContext, Locale locale, String messageId) {
+
 		String value = LanguageUtil.get(locale, messageId);
 
 		if ((value == null) || value.equals(messageId)) {
-			value = super.getMessage(locale, messageId);
+			value = super.getMessage(facesContext, locale, messageId);
 		}
 
 		return value;
 	}
 
 	@Override
-	public String getMessage(Locale locale, String messageId, Object... arguments) {
+	public String getMessage(FacesContext facesContext, Locale locale, String messageId, Object... arguments) {
+
 		String value = LanguageUtil.format(locale, messageId, arguments);
 
 		if ((value == null) || value.equals(messageId)) {
-			value = super.getMessage(locale, messageId, arguments);
+			value = super.getMessage(facesContext, locale, messageId, arguments);
 		}
 
 		return value;
 	}
 
 	@Override
-	public MessageContext getWrapped() {
-		return wrappedMessageContext;
+	public I18n getWrapped() {
+		return wrappedI18n;
 	}
 }
