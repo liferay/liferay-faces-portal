@@ -105,13 +105,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void addComponentErrorMessage(String clientId, String messageId);
 
 	/**
-	 * @deprecated  Call {@link FacesContextHelper#addComponentErrorMessage(String, String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void addComponentErrorMessage(String clientId, String messageId, Object argument);
-
-	/**
 	 * @deprecated  Call {@link FacesContextHelper#addComponentErrorMessage(String, String, Object...)} instead.
 	 */
 	@Deprecated
@@ -208,13 +201,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract void addMessage(String clientId, FacesMessage.Severity severity, String messageId);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#addMessage(String, FacesMessage.Severity, String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void addMessage(String clientId, FacesMessage.Severity severity, String messageId, Object argument);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#addMessage(String, FacesMessage.Severity, String, Object...)}

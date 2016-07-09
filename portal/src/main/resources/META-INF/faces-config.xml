@@ -29,7 +29,7 @@
 		<factory-extension>
 			<portal:portlet-helper-factory>com.liferay.faces.portal.context.internal.PortletHelperFactoryImpl</portal:portlet-helper-factory>
 			<portal:liferay-portlet-helper-factory>com.liferay.faces.portal.context.internal.LiferayPortletHelperFactoryImpl</portal:liferay-portlet-helper-factory>
-			<util:message-context-factory>com.liferay.faces.portal.context.internal.MessageContextFactoryPortalImpl</util:message-context-factory>
+			<util:i18n-factory>com.liferay.faces.portal.i18n.internal.I18nFactoryPortalImpl</util:i18n-factory>
 		</factory-extension>
 	</factory>
 	<render-kit>

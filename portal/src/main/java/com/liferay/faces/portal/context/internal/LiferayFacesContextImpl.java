@@ -90,14 +90,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  FacesContextHelper#addComponentErrorMessage(String, String, Object)
-	 */
-	@Override
-	public void addComponentErrorMessage(String clientId, String messageId, Object argument) {
-		FacesContextHelperUtil.addComponentErrorMessage(clientId, messageId, argument);
-	}
-
-	/**
 	 * @see  FacesContextHelper#addComponentErrorMessage(String, String, Object...)
 	 */
 	@Override
@@ -207,16 +199,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void addMessage(String clientId, Severity severity, String messageId) {
 		FacesContextHelperUtil.addMessage(clientId, severity, messageId);
-
-	}
-
-	/**
-	 * @see  FacesContextHelper#addMessage(String, Severity, String, Object)
-	 */
-	@Override
-	public void addMessage(String clientId, Severity severity, String messageId, Object argument) {
-		FacesContextHelperUtil.addMessage(clientId, severity, messageId, argument);
-
 	}
 
 	/**
