@@ -27,8 +27,8 @@ import javax.faces.validator.LengthValidator;
 import com.liferay.faces.portal.component.inputrichtext.internal.RichText;
 import com.liferay.faces.portal.component.inputrichtext.internal.RichTextFactory;
 import com.liferay.faces.portal.component.inputrichtext.internal.RichTextFactoryImpl;
-import com.liferay.faces.util.context.MessageContext;
-import com.liferay.faces.util.context.MessageContextFactory;
+import com.liferay.faces.util.i18n.I18n;
+import com.liferay.faces.util.i18n.I18nFactory;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -96,8 +96,8 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 
 				Object label = getAttributes().get("label");
 				Locale locale = facesContext.getViewRoot().getLocale();
-				MessageContext messageContext = MessageContextFactory.getMessageContextInstance();
-				FacesMessage facesMessage = messageContext.newFacesMessage(locale, FacesMessage.SEVERITY_ERROR,
+				I18n i18n = I18nFactory.getI18nInstance();
+				FacesMessage facesMessage = i18n.getFacesMessage(facesContext, locale, FacesMessage.SEVERITY_ERROR,
 						LengthValidator.MINIMUM_MESSAGE_ID, minimum, label);
 				facesContext.addMessage(getClientId(), facesMessage);
 				setValid(false);
@@ -107,8 +107,8 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 
 				Object label = getAttributes().get("label");
 				Locale locale = facesContext.getViewRoot().getLocale();
-				MessageContext messageContext = MessageContextFactory.getMessageContextInstance();
-				FacesMessage facesMessage = messageContext.newFacesMessage(locale, FacesMessage.SEVERITY_ERROR,
+				I18n i18n = I18nFactory.getI18nInstance();
+				FacesMessage facesMessage = i18n.getFacesMessage(facesContext, locale, FacesMessage.SEVERITY_ERROR,
 						LengthValidator.MAXIMUM_MESSAGE_ID, maximum, label);
 				facesContext.addMessage(getClientId(), facesMessage);
 				setValid(false);
