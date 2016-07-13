@@ -21,10 +21,6 @@
 		<component-type>com.liferay.faces.portal.PermissionsURL</component-type>
 		<component-class>com.liferay.faces.portal.component.PermissionsURL</component-class>
 	</component>
-	<component>
-		<component-type>com.liferay.faces.portal.InputEditorInternal</component-type>
-		<component-class>com.liferay.faces.portal.component.InputEditorInternal</component-class>
-	</component>
 	<factory>
 		<factory-extension>
 			<portal:portlet-helper-factory>com.liferay.faces.portal.context.internal.PortletHelperFactoryImpl</portal:portlet-helper-factory>
@@ -35,16 +31,8 @@
 	<render-kit>
 		<renderer>
 			<component-family>com.liferay.faces.portal.PermissionsURL</component-family>
-			<renderer-type>com.liferay.faces.portal.renderkit.PermissionsURLRenderer</renderer-type>
-			<renderer-class>com.liferay.faces.portal.renderkit.PermissionsURLRenderer</renderer-class>
+			<renderer-type>com.liferay.faces.portal.component.permissionsurl.PermissionsURLRenderer</renderer-type>
+			<renderer-class>com.liferay.faces.portal.component.internal.PermissionsURLRenderer</renderer-class>
 		</renderer>
 	</render-kit>
-	<validator>
-		<validator-id>com.liferay.faces.portal.CaptchaValidator</validator-id>
-		<validator-class>com.liferay.faces.portal.validator.CaptchaValidator</validator-class>
-	</validator>
-	<validator>
-		<validator-id>com.liferay.faces.portal.RichTextLengthValidator</validator-id>
-		<validator-class>com.liferay.faces.portal.validator.RichTextLengthValidator</validator-class>
-	</validator>
 </faces-config>

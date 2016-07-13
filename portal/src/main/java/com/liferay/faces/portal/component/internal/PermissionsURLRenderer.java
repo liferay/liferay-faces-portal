@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.portal.renderkit;
+package com.liferay.faces.portal.component.internal;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -40,7 +40,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 
 
 /**
- * This class is the HTML renderer for the pf:permissionsLink tag.
+ * This class is the HTML renderer for the portal:permissionsURL tag.
  *
  * @author  Ed Shin
  */
