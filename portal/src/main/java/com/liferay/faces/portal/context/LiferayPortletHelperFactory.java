@@ -24,8 +24,8 @@ import com.liferay.faces.util.factory.FactoryExtensionFinder;
 public abstract class LiferayPortletHelperFactory implements FacesWrapper<LiferayPortletHelperFactory> {
 
 	/**
-	 * Returns an instance of {@link LiferayPortletHelper} from the {@link LiferayPortletHelperFactory} found by the
-	 * {@link FactoryExtensionFinder}.
+	 * Returns a stateless, thread-safe singleton instance of {@link LiferayPortletHelper} from the {@link
+	 * LiferayPortletHelperFactory} found by the {@link FactoryExtensionFinder}.
 	 */
 	public static LiferayPortletHelper getLiferayPortletHelperInstance() {
 
@@ -36,7 +36,13 @@ public abstract class LiferayPortletHelperFactory implements FacesWrapper<Lifera
 	}
 
 	/**
-	 * Returns the {@link LiferayPortletHelper} instance from the factory delegation chain.
+	 * Returns a stateless, thread-safe singleton instance of {@link LiferayPortletHelper}.
 	 */
 	public abstract LiferayPortletHelper getLiferayPortletHelper();
+
+	/**
+	 * Returns the wrapped factory instance if this factory has been decorated. Otherwise, this method returns null.
+	 */
+	@Override
+	public abstract LiferayPortletHelperFactory getWrapped();
 }

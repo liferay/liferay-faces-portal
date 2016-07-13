@@ -13,6 +13,8 @@
  */
 package com.liferay.faces.portal.context.internal;
 
+import java.io.Serializable;
+
 import com.liferay.faces.portal.context.LiferayPortletHelper;
 import com.liferay.faces.portal.context.LiferayPortletHelperFactory;
 
@@ -20,14 +22,13 @@ import com.liferay.faces.portal.context.LiferayPortletHelperFactory;
 /**
  * @author  Neil Griffin
  */
-public class LiferayPortletHelperFactoryImpl extends LiferayPortletHelperFactory {
+public class LiferayPortletHelperFactoryImpl extends LiferayPortletHelperFactory implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 6343901431445710179L;
 
 	// Private Data Members
-	private LiferayPortletHelper liferayPortletHelper;
-
-	public LiferayPortletHelperFactoryImpl() {
-		this.liferayPortletHelper = new LiferayPortletHelperImpl();
-	}
+	private LiferayPortletHelper liferayPortletHelper = new LiferayPortletHelperImpl();
 
 	@Override
 	public LiferayPortletHelper getLiferayPortletHelper() {
