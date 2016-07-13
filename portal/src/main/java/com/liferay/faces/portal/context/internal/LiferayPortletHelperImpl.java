@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.portal.context.internal;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.el.ELContext;
@@ -50,7 +51,10 @@ import com.liferay.portal.util.PortalUtil;
 /**
  * @author  Neil Griffin
  */
-public class LiferayPortletHelperImpl implements LiferayPortletHelper {
+public class LiferayPortletHelperImpl implements LiferayPortletHelper, Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 4883383450898636902L;
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(LiferayPortletHelperImpl.class);

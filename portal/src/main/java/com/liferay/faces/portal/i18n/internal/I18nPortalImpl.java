@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.portal.i18n.internal;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.faces.context.FacesContext;
@@ -26,7 +27,10 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 /**
  * @author  Neil Griffin
  */
-public class I18nPortalImpl extends I18nWrapper {
+public class I18nPortalImpl extends I18nWrapper implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 2228392557312272111L;
 
 	// Private Data Members
 	private I18n wrappedI18n;

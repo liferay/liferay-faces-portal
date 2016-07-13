@@ -23,8 +23,8 @@ import com.liferay.faces.util.helper.Wrapper;
 public abstract class PortletHelperFactory implements Wrapper<PortletHelperFactory> {
 
 	/**
-	 * Returns an instance of {@link PortletHelper} from the {@link PortletHelperFactory} found by the {@link
-	 * FactoryExtensionFinder}.
+	 * Returns a stateless, thread-safe singleton instance of {@link PortletHelper} from the {@link
+	 * PortletHelperFactory} found by the {@link FactoryExtensionFinder}.
 	 */
 	public static PortletHelper getPortletHelperInstance() {
 
@@ -35,7 +35,13 @@ public abstract class PortletHelperFactory implements Wrapper<PortletHelperFacto
 	}
 
 	/**
-	 * Returns the {@link PortletHelper} instance from the factory delegation chain.
+	 * Returns a stateless, thread-safe singleton instance of {@link PortletHelper}.
 	 */
 	public abstract PortletHelper getPortletHelper();
+
+	/**
+	 * Returns the wrapped factory instance if this factory has been decorated. Otherwise, this method returns null.
+	 */
+	@Override
+	public abstract PortletHelperFactory getWrapped();
 }
