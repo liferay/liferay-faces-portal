@@ -14,7 +14,7 @@
 	</lifecycle>
 	<managed-bean>
 	   <managed-bean-name>liferay</managed-bean-name>
-	   <managed-bean-class>com.liferay.faces.portal.bean.Liferay</managed-bean-class>
+	   <managed-bean-class>com.liferay.faces.portal.el.internal.Liferay</managed-bean-class>
 	   <managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<component>
