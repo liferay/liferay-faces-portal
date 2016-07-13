@@ -11,8 +11,8 @@
 		</after>
 	</ordering>
 	<application>
-		<resource-handler>com.liferay.faces.portal.resource.LiferayFacesResourceHandler</resource-handler>
-		<resource-handler>com.liferay.faces.portal.resource.LiferayPortalResourceHandler</resource-handler>
+		<resource-handler>com.liferay.faces.portal.resource.internal.LiferayFacesResourceHandler</resource-handler>
+		<resource-handler>com.liferay.faces.portal.resource.internal.LiferayPortalResourceHandler</resource-handler>
 	</application>
 	<factory>
 		<factory-extension>

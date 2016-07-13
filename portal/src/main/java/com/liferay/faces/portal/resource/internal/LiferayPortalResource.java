@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.portal.resource;
+package com.liferay.faces.portal.resource.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
