@@ -25,6 +25,7 @@
 		<factory-extension>
 			<portal:portlet-helper-factory>com.liferay.faces.portal.context.internal.PortletHelperFactoryImpl</portal:portlet-helper-factory>
 			<portal:liferay-portlet-helper-factory>com.liferay.faces.portal.context.internal.LiferayPortletHelperFactoryImpl</portal:liferay-portlet-helper-factory>
+			<util:faces-context-helper-factory>com.liferay.faces.portal.context.internal.FacesContextHelperFactoryPortletImpl</util:faces-context-helper-factory>
 			<util:i18n-factory>com.liferay.faces.portal.i18n.internal.I18nFactoryPortalImpl</util:i18n-factory>
 		</factory-extension>
 	</factory>
