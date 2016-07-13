@@ -15,7 +15,7 @@
 		<vdldoc:el-variable>
 			<vdldoc:el-variable-name>liferay</vdldoc:el-variable-name>
 			<vdldoc:description>Utility managed-bean that is designed to be kept in JSF request scope. Its purpose is to introduce some Liferay-specific variables into the JSF EL.</vdldoc:description>
-			<vdldoc:type>com.liferay.faces.portal.bean.Liferay</vdldoc:type>
+			<vdldoc:type>com.liferay.faces.portal.el.internal.Liferay</vdldoc:type>
 			<vdldoc:since>1.0.0</vdldoc:since>
 		</vdldoc:el-variable>
 		<vdldoc:el-variable>

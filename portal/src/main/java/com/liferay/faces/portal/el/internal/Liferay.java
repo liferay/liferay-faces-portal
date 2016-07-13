@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.portal.bean;
+package com.liferay.faces.portal.el.internal;
 
 import java.io.Serializable;
 
@@ -22,9 +22,9 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
-import com.liferay.faces.portal.el.PortraitURLMap;
-import com.liferay.faces.portal.el.ThemeImageURLMap;
-import com.liferay.faces.portal.security.UserPermissionMap;
+import com.liferay.faces.portal.el.internal.PortraitURLMap;
+import com.liferay.faces.portal.el.internal.ThemeImageURLMap;
+import com.liferay.faces.portal.el.internal.UserPermissionMap;
 import com.liferay.faces.util.helper.BooleanHelper;
 
 import com.liferay.portal.kernel.util.WebKeys;
