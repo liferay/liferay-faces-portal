@@ -24,8 +24,8 @@ import javax.portlet.PortletResponse;
 
 import com.liferay.faces.portal.component.captcha.Captcha;
 import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
-import com.liferay.faces.portal.resource.CaptchaResource;
-import com.liferay.faces.portal.resource.LiferayFacesResourceHandler;
+import com.liferay.faces.portal.resource.internal.CaptchaResource;
+import com.liferay.faces.portal.resource.internal.LiferayFacesResourceHandler;
 
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
 
