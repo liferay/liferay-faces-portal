@@ -131,14 +131,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  FacesContextHelper#addComponentInfoMessage(String, String, Object)
-	 */
-	@Override
-	public void addComponentInfoMessage(String clientId, String messageId, Object argument) {
-		FacesContextHelperUtil.addComponentInfoMessage(clientId, messageId, argument);
-	}
-
-	/**
 	 * @see  FacesContextHelper#addComponentInfoMessage(String, String, Object...)
 	 */
 	@Override
@@ -152,14 +144,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId) {
 		FacesContextHelperUtil.addComponentInfoMessage(facesContext, clientId, messageId);
-	}
-
-	/**
-	 * @see  FacesContextHelper#addComponentInfoMessage(String, String, Object)
-	 */
-	@Override
-	public void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId, Object argument) {
-		FacesContextHelperUtil.addComponentInfoMessage(facesContext, clientId, messageId, argument);
 	}
 
 	/**
@@ -180,14 +164,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  FacesContextHelper#addGlobalErrorMessage(String, Object)
-	 */
-	@Override
-	public void addGlobalErrorMessage(String messageId, Object argument) {
-		FacesContextHelperUtil.addGlobalErrorMessage(messageId, argument);
-	}
-
-	/**
 	 * @see  FacesContextHelper#addGlobalErrorMessage(String, Object...)
 	 */
 	@Override
@@ -201,14 +177,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void addGlobalErrorMessage(FacesContext facesContext, String messageId) {
 		FacesContextHelperUtil.addGlobalErrorMessage(facesContext, messageId);
-	}
-
-	/**
-	 * @see  FacesContextHelper#addGlobalErrorMessage(String, Object)
-	 */
-	@Override
-	public void addGlobalErrorMessage(FacesContext facesContext, String messageId, Object argument) {
-		FacesContextHelperUtil.addGlobalErrorMessage(facesContext, messageId, argument);
 	}
 
 	/**
@@ -228,14 +196,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
-	 * @see  FacesContextHelper#addGlobalInfoMessage(String, Object)
-	 */
-	@Override
-	public void addGlobalInfoMessage(String messageId, Object argument) {
-		FacesContextHelperUtil.addGlobalInfoMessage(messageId, argument);
-	}
-
-	/**
 	 * @see  FacesContextHelper#addGlobalInfoMessage(String, Object...)
 	 */
 	@Override
@@ -249,14 +209,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void addGlobalInfoMessage(FacesContext facesContext, String messageId) {
 		FacesContextHelperUtil.addGlobalInfoMessage(facesContext, messageId);
-	}
-
-	/**
-	 * @see  FacesContextHelper#addGlobalInfoMessage(String, Object)
-	 */
-	@Override
-	public void addGlobalInfoMessage(FacesContext facesContext, String messageId, Object argument) {
-		FacesContextHelperUtil.addGlobalInfoMessage(facesContext, messageId, argument);
 	}
 
 	/**

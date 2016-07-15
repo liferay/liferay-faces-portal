@@ -137,13 +137,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void addComponentInfoMessage(String clientId, String messageId);
 
 	/**
-	 * @deprecated  Call {@link FacesContextHelper#addComponentInfoMessage(String, String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void addComponentInfoMessage(String clientId, String messageId, Object argument);
-
-	/**
 	 * @deprecated  Call {@link FacesContextHelper#addComponentInfoMessage(String, String, Object...)} instead.
 	 */
 	@Deprecated
@@ -156,14 +149,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#addComponentInfoMessage(String, String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId,
-		Object argument);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#addComponentInfoMessage(String, String, Object...)} instead.
@@ -181,13 +166,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void addGlobalErrorMessage(String messageId);
 
 	/**
-	 * @deprecated  Call {@link FacesContextHelper#addGlobalErrorMessage(String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void addGlobalErrorMessage(String messageId, Object argument);
-
-	/**
 	 * @deprecated  Call {@link FacesContextHelper#addGlobalErrorMessage(String, Object...)} instead.
 	 */
 	@Deprecated
@@ -200,13 +178,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract void addGlobalErrorMessage(FacesContext facesContext, String messageId);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#addGlobalErrorMessage(String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void addGlobalErrorMessage(FacesContext facesContext, String messageId, Object argument);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#addGlobalErrorMessage(String, Object...)} instead.
@@ -223,13 +194,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void addGlobalInfoMessage(String messageId);
 
 	/**
-	 * @deprecated  Call {@link FacesContextHelper#addGlobalInfoMessage(String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void addGlobalInfoMessage(String messageId, Object argument);
-
-	/**
 	 * @deprecated  Call {@link FacesContextHelper#addGlobalInfoMessage(String, Object...)} instead.
 	 */
 	@Deprecated
@@ -242,13 +206,6 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract void addGlobalInfoMessage(FacesContext facesContext, String messageId);
-
-	/**
-	 * @deprecated  Call {@link FacesContextHelper#addGlobalInfoMessage(String, Object)} instead.
-	 */
-	@Deprecated
-	@Override
-	public abstract void addGlobalInfoMessage(FacesContext facesContext, String messageId, Object argument);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#addGlobalInfoMessage(String, Object...)} instead.
