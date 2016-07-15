@@ -115,6 +115,21 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void addComponentErrorMessage(String clientId, String messageId, Object... arguments);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#addComponentErrorMessage(String, String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addComponentErrorMessage(FacesContext facesContext, String clientId, String messageId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addComponentErrorMessage(String, String, Object...)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addComponentErrorMessage(FacesContext facesContext, String clientId, String messageId,
+		Object... arguments);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#addComponentInfoMessage(String, String)} instead.
 	 */
 	@Deprecated
@@ -134,6 +149,29 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract void addComponentInfoMessage(String clientId, String messageId, Object... arguments);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addComponentInfoMessage(String, String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addComponentInfoMessage(String, String, Object)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId,
+		Object argument);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addComponentInfoMessage(String, String, Object...)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId,
+		Object... arguments);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#addGlobalErrorMessage(String)} instead.
@@ -157,6 +195,27 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void addGlobalErrorMessage(String messageId, Object... arguments);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#addGlobalErrorMessage(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addGlobalErrorMessage(FacesContext facesContext, String messageId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addGlobalErrorMessage(String, Object)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addGlobalErrorMessage(FacesContext facesContext, String messageId, Object argument);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addGlobalErrorMessage(String, Object...)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addGlobalErrorMessage(FacesContext facesContext, String messageId, Object... arguments);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#addGlobalInfoMessage(String)} instead.
 	 */
 	@Deprecated
@@ -178,6 +237,27 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void addGlobalInfoMessage(String messageId, Object... arguments);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#addGlobalInfoMessage(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addGlobalInfoMessage(FacesContext facesContext, String messageId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addGlobalInfoMessage(String, Object)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addGlobalInfoMessage(FacesContext facesContext, String messageId, Object argument);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addGlobalInfoMessage(String, Object...)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addGlobalInfoMessage(FacesContext facesContext, String messageId, Object... arguments);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#addGlobalSuccessInfoMessage()} instead.
 	 */
 	@Deprecated
@@ -185,11 +265,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void addGlobalSuccessInfoMessage();
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#addGlobalSuccessInfoMessage()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addGlobalSuccessInfoMessage(FacesContext facesContext);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#addGlobalUnexpectedErrorMessage()} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract void addGlobalUnexpectedErrorMessage();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addGlobalUnexpectedErrorMessage()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addGlobalUnexpectedErrorMessage(FacesContext facesContext);
 
 	/**
 	 * @deprecated  Call {@link FacesContext#addMessage(String, FacesMessage)} instead.
@@ -213,6 +307,23 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Override
 	public abstract void addMessage(String clientId, FacesMessage.Severity severity, String messageId,
 		Object... arguments);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addMessage(String, FacesMessage.Severity, String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addMessage(FacesContext facesContext, String clientId, FacesMessage.Severity severity,
+		String messageId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#addMessage(String, FacesMessage.Severity, String, Object...)}
+	 *              instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void addMessage(FacesContext facesContext, String clientId, FacesMessage.Severity severity,
+		String messageId, Object... arguments);
 
 	/**
 	 * @deprecated  Call {@link LiferayPortletHelper#checkUserPortletPermission(String)} instead.
@@ -347,6 +458,13 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract Locale getLocale();
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#getLocale()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract Locale getLocale(FacesContext facesContext);
+
+	/**
 	 * @deprecated  Call {@link FacesContext#getMaximumSeverity()} instead.
 	 */
 	@Deprecated
@@ -375,11 +493,39 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract String getMessage(Locale locale, String messageId);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#getMessage(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getMessage(FacesContext facesContext, String messageId);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#getMessage(Locale, String, Object...)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract String getMessage(Locale locale, String messageId, Object... arguments);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getMessage(String, Object...)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getMessage(FacesContext facesContext, String messageId, Object... arguments);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getMessage(Locale, String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getMessage(FacesContext facesContext, Locale locale, String messageId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getMessage(Locale, String, Object...)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getMessage(FacesContext facesContext, Locale locale, String messageId, Object... arguments);
 
 	/**
 	 * @deprecated  Call {@link FacesContext#getMessageList()} instead.
@@ -415,6 +561,13 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract String getNamespace();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getNamespace()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getNamespace(FacesContext facesContext);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#getParentForm(UIComponent)} instead.
@@ -613,11 +766,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract Object getRequestAttribute(String name);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestAttribute(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract Object getRequestAttribute(FacesContext facesContext, String name);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestContextPath()} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract String getRequestContextPath();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestContextPath()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getRequestContextPath(FacesContext facesContext);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestParameter(String)} instead.
@@ -627,11 +794,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract String getRequestParameter(String name);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestParameter(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getRequestParameter(FacesContext facesContext, String name);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterAsBool(String, boolean)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract boolean getRequestParameterAsBool(String name, boolean defaultValue);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterAsBool(String, boolean)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract boolean getRequestParameterAsBool(FacesContext facesContext, String name, boolean defaultValue);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterAsInt(String, int)} instead.
@@ -641,11 +822,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract int getRequestParameterAsInt(String name, int defaultValue);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterAsInt(String, int)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract int getRequestParameterAsInt(FacesContext facesContext, String name, int defaultValue);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterAsLong(String, long)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract long getRequestParameterAsLong(String name, long defaultValue);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterAsLong(String, long)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract long getRequestParameterAsLong(FacesContext facesContext, String name, long defaultValue);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterFromMap(String)} instead.
@@ -655,11 +850,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract String getRequestParameterFromMap(String name);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterFromMap(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getRequestParameterFromMap(FacesContext facesContext, String name);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterMap()} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract Map<String, String> getRequestParameterMap();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestParameterMap()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract Map<String, String> getRequestParameterMap(FacesContext facesContext);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestQueryString()} instead.
@@ -669,11 +878,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract String getRequestQueryString();
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestQueryString()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getRequestQueryString(FacesContext facesContext);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#getRequestQueryStringParameter(String)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract String getRequestQueryStringParameter(String name);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getRequestQueryStringParameter(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract String getRequestQueryStringParameter(FacesContext facesContext, String name);
 
 	/**
 	 * @deprecated  Call {@link FacesContext#getResponseComplete()} instead.
@@ -732,11 +955,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract Object getSession(boolean create);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#getSession(boolean)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract Object getSession(FacesContext facesContext, boolean create);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#getSessionAttribute(String)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract Object getSessionAttribute(String name);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#getSessionAttribute(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract Object getSessionAttribute(FacesContext facesContext, String name);
 
 	/**
 	 * @deprecated  Call {@link PortletHelper#getSessionSharedAttribute(String)} instead.
@@ -872,11 +1109,26 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract UIComponent matchComponentInHierarchy(UIComponent parent, String partialClientId);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#matchComponentInHierarchy(UIComponent, String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract UIComponent matchComponentInHierarchy(FacesContext facesContext, UIComponent parent,
+		String partialClientId);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#matchComponentInViewRoot(String)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract UIComponent matchComponentInViewRoot(String partialClientId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#matchComponentInViewRoot(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract UIComponent matchComponentInViewRoot(FacesContext facesContext, String partialClientId);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#navigate(String, String)} instead.
@@ -886,6 +1138,13 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void navigate(String fromAction, String outcome);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#navigate(String, String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void navigate(FacesContext facesContext, String fromAction, String outcome);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#navigateTo(String)} instead.
 	 */
 	@Deprecated
@@ -893,11 +1152,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void navigateTo(String outcome);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#navigateTo(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void navigateTo(FacesContext facesContext, String outcome);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#recreateComponentTree()} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract void recreateComponentTree();
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#recreateComponentTree()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void recreateComponentTree(FacesContext facesContext);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#registerPhaseListener(PhaseListener)} instead.
@@ -921,11 +1194,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void removeChildrenFromComponentTree(String clientId);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeChildrenFromComponentTree(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeChildrenFromComponentTree(FacesContext facesContext, String clientId);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#removeMessages(String)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract void removeMessages(String clientId);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeMessages(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeMessages(FacesContext facesContext, String clientId);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#removeMessagesForImmediateComponents()} instead.
@@ -940,6 +1227,20 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract void removeMessagesForImmediateComponents(UIComponent uiComponent);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeMessagesForImmediateComponents()} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeMessagesForImmediateComponents(FacesContext facesContext);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#removeMessagesForImmediateComponents(UIComponent)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void removeMessagesForImmediateComponents(FacesContext facesContext, UIComponent uiComponent);
 
 	/**
 	 * @deprecated  Call {@link FacesContextHelper#removeParentFormFromComponentTree(UIComponent)} instead.
@@ -970,11 +1271,25 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	public abstract void resetView(boolean renderResponse);
 
 	/**
+	 * @deprecated  Call {@link FacesContextHelper#resetView(boolean)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void resetView(FacesContext facesContext, boolean renderResponse);
+
+	/**
 	 * @deprecated  Call {@link FacesContextHelper#resolveExpression(String)} instead.
 	 */
 	@Deprecated
 	@Override
 	public abstract Object resolveExpression(String elExpression);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#resolveExpression(String)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract Object resolveExpression(FacesContext facesContext, String elExpression);
 
 	/**
 	 * @deprecated  Call {@link FacesContext#responseComplete()} instead.
@@ -1038,6 +1353,13 @@ public abstract class LiferayFacesContext extends FacesContext implements FacesC
 	@Deprecated
 	@Override
 	public abstract void setSessionAttribute(String name, Object value);
+
+	/**
+	 * @deprecated  Call {@link FacesContextHelper#setSessionAttribute(String, Object)} instead.
+	 */
+	@Deprecated
+	@Override
+	public abstract void setSessionAttribute(FacesContext facesContext, String name, Object value);
 
 	/**
 	 * @deprecated  Call {@link PortletHelper#setSessionSharedAttribute(String, Object)} instead.

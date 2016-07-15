@@ -106,6 +106,23 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#addComponentErrorMessage(String, String)
+	 */
+	@Override
+	public void addComponentErrorMessage(FacesContext facesContext, String clientId, String messageId) {
+		FacesContextHelperUtil.addComponentErrorMessage(facesContext, clientId, messageId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addComponentErrorMessage(String, String, Object...)
+	 */
+	@Override
+	public void addComponentErrorMessage(FacesContext facesContext, String clientId, String messageId,
+		Object... arguments) {
+		FacesContextHelperUtil.addComponentErrorMessage(facesContext, clientId, messageId, arguments);
+	}
+
+	/**
 	 * @see  FacesContextHelper#addComponentInfoMessage(String, String)
 	 */
 	@Override
@@ -127,6 +144,31 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void addComponentInfoMessage(String clientId, String messageId, Object... arguments) {
 		FacesContextHelperUtil.addComponentInfoMessage(clientId, messageId, arguments);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addComponentInfoMessage(String, String)
+	 */
+	@Override
+	public void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId) {
+		FacesContextHelperUtil.addComponentInfoMessage(facesContext, clientId, messageId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addComponentInfoMessage(String, String, Object)
+	 */
+	@Override
+	public void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId, Object argument) {
+		FacesContextHelperUtil.addComponentInfoMessage(facesContext, clientId, messageId, argument);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addComponentInfoMessage(String, String, Object...)
+	 */
+	@Override
+	public void addComponentInfoMessage(FacesContext facesContext, String clientId, String messageId,
+		Object... arguments) {
+		FacesContextHelperUtil.addComponentInfoMessage(facesContext, clientId, messageId, arguments);
 	}
 
 	/**
@@ -154,6 +196,30 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#addGlobalErrorMessage(String)
+	 */
+	@Override
+	public void addGlobalErrorMessage(FacesContext facesContext, String messageId) {
+		FacesContextHelperUtil.addGlobalErrorMessage(facesContext, messageId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addGlobalErrorMessage(String, Object)
+	 */
+	@Override
+	public void addGlobalErrorMessage(FacesContext facesContext, String messageId, Object argument) {
+		FacesContextHelperUtil.addGlobalErrorMessage(facesContext, messageId, argument);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addGlobalErrorMessage(String, Object...)
+	 */
+	@Override
+	public void addGlobalErrorMessage(FacesContext facesContext, String messageId, Object... arguments) {
+		FacesContextHelperUtil.addGlobalErrorMessage(facesContext, messageId, arguments);
+	}
+
+	/**
 	 * @see  FacesContextHelper#addGlobalInfoMessage(String)
 	 */
 	@Override
@@ -178,6 +244,30 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#addGlobalInfoMessage(String)
+	 */
+	@Override
+	public void addGlobalInfoMessage(FacesContext facesContext, String messageId) {
+		FacesContextHelperUtil.addGlobalInfoMessage(facesContext, messageId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addGlobalInfoMessage(String, Object)
+	 */
+	@Override
+	public void addGlobalInfoMessage(FacesContext facesContext, String messageId, Object argument) {
+		FacesContextHelperUtil.addGlobalInfoMessage(facesContext, messageId, argument);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addGlobalInfoMessage(String, Object...)
+	 */
+	@Override
+	public void addGlobalInfoMessage(FacesContext facesContext, String messageId, Object... arguments) {
+		FacesContextHelperUtil.addGlobalInfoMessage(facesContext, messageId, arguments);
+	}
+
+	/**
 	 * @see  FacesContextHelper#addGlobalSuccessInfoMessage()
 	 */
 	@Override
@@ -186,11 +276,27 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#addGlobalSuccessInfoMessage()
+	 */
+	@Override
+	public void addGlobalSuccessInfoMessage(FacesContext facesContext) {
+		FacesContextHelperUtil.addGlobalSuccessInfoMessage(facesContext);
+	}
+
+	/**
 	 * @see  FacesContextHelper#addGlobalUnexpectedErrorMessage()
 	 */
 	@Override
 	public void addGlobalUnexpectedErrorMessage() {
 		FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
+	}
+
+	/**
+	 * @see  FacesContextHelper#addGlobalUnexpectedErrorMessage()
+	 */
+	@Override
+	public void addGlobalUnexpectedErrorMessage(FacesContext facesContext) {
+		FacesContextHelperUtil.addGlobalUnexpectedErrorMessage(facesContext);
 	}
 
 	/**
@@ -207,7 +313,6 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void addMessage(String clientId, Severity severity, String messageId) {
 		FacesContextHelperUtil.addMessage(clientId, severity, messageId);
-
 	}
 
 	/**
@@ -216,6 +321,23 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void addMessage(String clientId, Severity severity, String messageId, Object... arguments) {
 		FacesContextHelperUtil.addMessage(clientId, severity, messageId, arguments);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addMessage(String, Severity, String)
+	 */
+	@Override
+	public void addMessage(FacesContext facesContext, String clientId, Severity severity, String messageId) {
+		FacesContextHelperUtil.addMessage(facesContext, clientId, severity, messageId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#addMessage(String, Severity, String, Object...)
+	 */
+	@Override
+	public void addMessage(FacesContext facesContext, String clientId, Severity severity, String messageId,
+		Object... arguments) {
+		FacesContextHelperUtil.addMessage(facesContext, clientId, severity, messageId, arguments);
 	}
 
 	/**
@@ -376,9 +498,40 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 
 		// If Liferay didn't return a locale, then try and get the locale from the JSF ViewRoot.
 		if (locale == null) {
-
 			locale = getViewRoot().getLocale();
+		}
 
+		// If the JSF ViewRoot didn't return a locale, then try and get it from the JSF Application.
+		if (locale == null) {
+			locale = getApplication().getDefaultLocale();
+		}
+
+		// Otherwise, if we couldn't determine the locale, just use the server's default value.
+		if (locale == null) {
+			locale = Locale.getDefault();
+		}
+
+		return locale;
+	}
+
+	/**
+	 * @see  FacesContextHelper#getLocale()
+	 */
+	@Override
+	public Locale getLocale(FacesContext facesContext) {
+		Locale locale = null;
+
+		// Try and get the current user's locale from Liferay, since they can override the locale with the Liferay
+		// Language portlet.
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		if (themeDisplay != null) {
+			locale = themeDisplay.getLocale();
+		}
+
+		// If Liferay didn't return a locale, then try and get the locale from the JSF ViewRoot.
+		if (locale == null) {
+			locale = getViewRoot().getLocale();
 		}
 
 		// If the JSF ViewRoot didn't return a locale, then try and get it from the JSF Application.
@@ -427,11 +580,43 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#getMessage(String)
+	 */
+	@Override
+	public String getMessage(FacesContext facesContext, String messageId) {
+		return FacesContextHelperUtil.getMessage(facesContext, messageId);
+	}
+
+	/**
 	 * @see  FacesContextHelper#getMessage(Locale, String, Object...)
 	 */
 	@Override
 	public String getMessage(Locale locale, String messageId, Object... arguments) {
 		return FacesContextHelperUtil.getMessage(locale, messageId, arguments);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getMessage(String, Object...)
+	 */
+	@Override
+	public String getMessage(FacesContext facesContext, String messageId, Object... arguments) {
+		return FacesContextHelperUtil.getMessage(facesContext, messageId, arguments);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getMessage(Locale, String)
+	 */
+	@Override
+	public String getMessage(FacesContext facesContext, Locale locale, String messageId) {
+		return FacesContextHelperUtil.getMessage(facesContext, locale, messageId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getMessage(Locale, String, Object...)
+	 */
+	@Override
+	public String getMessage(FacesContext facesContext, Locale locale, String messageId, Object... arguments) {
+		return FacesContextHelperUtil.getMessage(facesContext, locale, messageId, arguments);
 	}
 
 	/**
@@ -475,11 +660,18 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#getNamespace()
+	 */
+	@Override
+	public String getNamespace(FacesContext facesContext) {
+		return FacesContextHelperUtil.getNamespace(facesContext);
+	}
+
+	/**
 	 * @see  FacesContextHelper#getParentForm(UIComponent)
 	 */
 	@Override
 	public UIForm getParentForm(UIComponent uiComponent) {
-
 		return FacesContextHelperUtil.getParentForm(uiComponent);
 	}
 
@@ -696,8 +888,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public Object getRequestAttribute(String name) {
-
 		return FacesContextHelperUtil.getRequestAttribute(name);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestAttribute(String)
+	 */
+	@Override
+	public Object getRequestAttribute(FacesContext facesContext, String name) {
+		return FacesContextHelperUtil.getRequestAttribute(facesContext, name);
 	}
 
 	/**
@@ -705,8 +904,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public String getRequestContextPath() {
-
 		return FacesContextHelperUtil.getRequestContextPath();
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestContextPath()
+	 */
+	@Override
+	public String getRequestContextPath(FacesContext facesContext) {
+		return FacesContextHelperUtil.getRequestContextPath(facesContext);
 	}
 
 	/**
@@ -714,8 +920,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public String getRequestParameter(String name) {
-
 		return FacesContextHelperUtil.getRequestParameter(name);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestParameter(String)
+	 */
+	@Override
+	public String getRequestParameter(FacesContext facesContext, String name) {
+		return FacesContextHelperUtil.getRequestParameter(facesContext, name);
 	}
 
 	/**
@@ -723,8 +936,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public boolean getRequestParameterAsBool(String name, boolean defaultValue) {
-
 		return FacesContextHelperUtil.getRequestParameterAsBool(name, defaultValue);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestParameterAsBool(String, boolean)
+	 */
+	@Override
+	public boolean getRequestParameterAsBool(FacesContext facesContext, String name, boolean defaultValue) {
+		return FacesContextHelperUtil.getRequestParameterAsBool(facesContext, name, defaultValue);
 	}
 
 	/**
@@ -732,8 +952,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public int getRequestParameterAsInt(String name, int defaultValue) {
-
 		return FacesContextHelperUtil.getRequestParameterAsInt(name, defaultValue);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestParameterAsInt(String, int)
+	 */
+	@Override
+	public int getRequestParameterAsInt(FacesContext facesContext, String name, int defaultValue) {
+		return FacesContextHelperUtil.getRequestParameterAsInt(facesContext, name, defaultValue);
 	}
 
 	/**
@@ -741,8 +968,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public long getRequestParameterAsLong(String name, long defaultValue) {
-
 		return FacesContextHelperUtil.getRequestParameterAsLong(name, defaultValue);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestParameterAsLong(String, long)
+	 */
+	@Override
+	public long getRequestParameterAsLong(FacesContext facesContext, String name, long defaultValue) {
+		return FacesContextHelperUtil.getRequestParameterAsLong(facesContext, name, defaultValue);
 	}
 
 	/**
@@ -750,8 +984,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public String getRequestParameterFromMap(String name) {
-
 		return FacesContextHelperUtil.getRequestParameterFromMap(name);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestParameterFromMap(String)
+	 */
+	@Override
+	public String getRequestParameterFromMap(FacesContext facesContext, String name) {
+		return FacesContextHelperUtil.getRequestParameterFromMap(facesContext, name);
 	}
 
 	/**
@@ -763,12 +1004,27 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#getRequestParameterMap()
+	 */
+	@Override
+	public Map<String, String> getRequestParameterMap(FacesContext facesContext) {
+		return FacesContextHelperUtil.getRequestParameterMap(facesContext);
+	}
+
+	/**
 	 * @see  FacesContextHelper#getRequestQueryString()
 	 */
 	@Override
 	public String getRequestQueryString() {
-
 		return FacesContextHelperUtil.getRequestQueryString();
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestQueryString()
+	 */
+	@Override
+	public String getRequestQueryString(FacesContext facesContext) {
+		return FacesContextHelperUtil.getRequestQueryString(facesContext);
 	}
 
 	/**
@@ -776,8 +1032,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public String getRequestQueryStringParameter(String name) {
-
 		return FacesContextHelperUtil.getRequestQueryStringParameter(name);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getRequestQueryStringParameter(String)
+	 */
+	@Override
+	public String getRequestQueryStringParameter(FacesContext facesContext, String name) {
+		return FacesContextHelperUtil.getRequestQueryStringParameter(facesContext, name);
 	}
 
 	/**
@@ -841,8 +1104,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public Object getSession(boolean create) {
-
 		return FacesContextHelperUtil.getSession(create);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getSession(boolean)
+	 */
+	@Override
+	public Object getSession(FacesContext facesContext, boolean create) {
+		return FacesContextHelperUtil.getSession(facesContext, create);
 	}
 
 	/**
@@ -850,8 +1120,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public Object getSessionAttribute(String name) {
-
 		return FacesContextHelperUtil.getSessionAttribute(name);
+	}
+
+	/**
+	 * @see  FacesContextHelper#getSessionAttribute(String)
+	 */
+	@Override
+	public Object getSessionAttribute(FacesContext facesContext, String name) {
+		return FacesContextHelperUtil.getSessionAttribute(facesContext, name);
 	}
 
 	/**
@@ -1007,11 +1284,28 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#matchComponentInHierarchy(UIComponent, String)
+	 */
+	@Override
+	public UIComponent matchComponentInHierarchy(FacesContext facesContext, UIComponent parent,
+		String partialClientId) {
+		return FacesContextHelperUtil.matchComponentInHierarchy(facesContext, parent, partialClientId);
+	}
+
+	/**
 	 * @see  FacesContextHelper#matchComponentInViewRoot(String)
 	 */
 	@Override
 	public UIComponent matchComponentInViewRoot(String partialClientId) {
 		return FacesContextHelperUtil.matchComponentInViewRoot(partialClientId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#matchComponentInViewRoot(String)
+	 */
+	@Override
+	public UIComponent matchComponentInViewRoot(FacesContext facesContext, String partialClientId) {
+		return FacesContextHelperUtil.matchComponentInViewRoot(facesContext, partialClientId);
 	}
 
 	/**
@@ -1023,6 +1317,14 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#navigate(String, String)
+	 */
+	@Override
+	public void navigate(FacesContext facesContext, String fromAction, String outcome) {
+		FacesContextHelperUtil.navigate(facesContext, fromAction, outcome);
+	}
+
+	/**
 	 * @see  FacesContextHelper#navigateTo(String)
 	 */
 	@Override
@@ -1031,11 +1333,27 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#navigateTo(String)
+	 */
+	@Override
+	public void navigateTo(FacesContext facesContext, String outcome) {
+		FacesContextHelperUtil.navigateTo(facesContext, outcome);
+	}
+
+	/**
 	 * @see  FacesContextHelper#recreateComponentTree()
 	 */
 	@Override
 	public void recreateComponentTree() {
 		FacesContextHelperUtil.recreateComponentTree();
+	}
+
+	/**
+	 * @see  FacesContextHelper#recreateComponentTree()
+	 */
+	@Override
+	public void recreateComponentTree(FacesContext facesContext) {
+		FacesContextHelperUtil.recreateComponentTree(facesContext);
 	}
 
 	/**
@@ -1063,11 +1381,27 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#removeChildrenFromComponentTree(String)
+	 */
+	@Override
+	public void removeChildrenFromComponentTree(FacesContext facesContext, String clientId) {
+		FacesContextHelperUtil.removeChildrenFromComponentTree(facesContext, clientId);
+	}
+
+	/**
 	 * @see  FacesContextHelper#removeMessages(String)
 	 */
 	@Override
 	public void removeMessages(String clientId) {
 		FacesContextHelperUtil.removeMessages(clientId);
+	}
+
+	/**
+	 * @see  FacesContextHelper#removeMessages(String)
+	 */
+	@Override
+	public void removeMessages(FacesContext facesContext, String clientId) {
+		FacesContextHelperUtil.removeMessages(facesContext, clientId);
 	}
 
 	/**
@@ -1084,6 +1418,22 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void removeMessagesForImmediateComponents(UIComponent uiComponent) {
 		FacesContextHelperUtil.removeMessagesForImmediateComponents(uiComponent);
+	}
+
+	/**
+	 * @see  FacesContextHelper#removeMessagesForImmediateComponents()
+	 */
+	@Override
+	public void removeMessagesForImmediateComponents(FacesContext facesContext) {
+		FacesContextHelperUtil.removeMessagesForImmediateComponents(facesContext);
+	}
+
+	/**
+	 * @see  FacesContextHelper#removeMessagesForImmediateComponents(UIComponent)
+	 */
+	@Override
+	public void removeMessagesForImmediateComponents(FacesContext facesContext, UIComponent uiComponent) {
+		FacesContextHelperUtil.removeMessagesForImmediateComponents(facesContext, uiComponent);
 	}
 
 	/**
@@ -1119,11 +1469,35 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	}
 
 	/**
+	 * @see  FacesContextHelper#resetView()
+	 */
+	@Override
+	public void resetView(FacesContext facesContext) {
+		FacesContextHelperUtil.resetView(facesContext);
+	}
+
+	/**
+	 * @see  FacesContextHelper#resetView(boolean)
+	 */
+	@Override
+	public void resetView(FacesContext facesContext, boolean renderResponse) {
+		FacesContextHelperUtil.resetView(facesContext);
+	}
+
+	/**
 	 * @see  FacesContextHelper#resolveExpression(String)
 	 */
 	@Override
 	public Object resolveExpression(String elExpression) {
 		return FacesContextHelperUtil.resolveExpression(elExpression);
+	}
+
+	/**
+	 * @see  FacesContextHelper#resolveExpression(String)
+	 */
+	@Override
+	public Object resolveExpression(FacesContext facesContext, String elExpression) {
+		return FacesContextHelperUtil.resolveExpression(facesContext, elExpression);
 	}
 
 	/**
@@ -1172,7 +1546,14 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public void setRequestAttribute(String name, Object value) {
 		FacesContextHelperUtil.setRequestAttribute(name, value);
+	}
 
+	/**
+	 * @see  FacesContextHelper#setRequestAttribute(String, Object)
+	 */
+	@Override
+	public void setRequestAttribute(FacesContext facesContext, String name, Object value) {
+		FacesContextHelperUtil.setRequestAttribute(facesContext, name, value);
 	}
 
 	/**
@@ -1196,8 +1577,15 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	 */
 	@Override
 	public void setSessionAttribute(String name, Object value) {
-
 		FacesContextHelperUtil.setSessionAttribute(name, value);
+	}
+
+	/**
+	 * @see  FacesContextHelper#setSessionAttribute(String, Object)
+	 */
+	@Override
+	public void setSessionAttribute(FacesContext facesContext, String name, Object value) {
+		FacesContextHelperUtil.setSessionAttribute(facesContext, name, value);
 	}
 
 	/**

@@ -15,6 +15,7 @@ package com.liferay.faces.portal.context.internal;
 
 import java.io.Serializable;
 
+import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.util.context.FacesContextHelper;
@@ -37,7 +38,7 @@ public class FacesContextHelperPortletImpl extends FacesContextHelperWrapper imp
 	}
 
 	@Override
-	public String getRequestQueryString() {
+	public String getRequestQueryString(FacesContext facesContext) {
 
 		// Some portlet bridges (like the ICEfaces bridge) wrap the portal's PortletRequest implementation instance
 		// (which prevents us from getting the query_string). As a workaround, we can still get it the original
@@ -46,7 +47,7 @@ public class FacesContextHelperPortletImpl extends FacesContextHelperWrapper imp
 		String queryString = null;
 
 		// JSR-168/286 request attribute that contains an instance of javax.portlet.PortletRequest
-		Object portletRequestAsObject = getRequestAttribute("javax.portlet.request");
+		Object portletRequestAsObject = getRequestAttribute(facesContext, "javax.portlet.request");
 
 		if ((portletRequestAsObject != null) && (portletRequestAsObject instanceof PortletRequest)) {
 			PortletRequest portletRequest = (PortletRequest) portletRequestAsObject;
