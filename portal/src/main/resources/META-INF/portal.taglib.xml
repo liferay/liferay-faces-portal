@@ -123,7 +123,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/captcha/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -177,7 +177,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/header/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -352,7 +352,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/inputrichtext/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -437,7 +437,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/inputsearch/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -509,7 +509,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/nav/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -551,7 +551,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/navbar/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -593,7 +593,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/navbarsearch/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -707,7 +707,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/navitem/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -827,7 +827,7 @@ java.lang.Object)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portal/runtime/general</vdldoc:example-url>
-			<vdldoc:since>1.0.0</vdldoc:since>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 </facelet-taglib>
