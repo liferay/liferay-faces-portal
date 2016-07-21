@@ -5,7 +5,7 @@
 		<taglib-xml-output-directory>${project.build.sourceDirectory}/../resources/META-INF</taglib-xml-output-directory>
 		<authors>Neil Griffin</authors>
 		<copyright-year>${copyright.year}</copyright-year>
-		<default-since>1.0.0</default-since>
+		<default-since>2.0.0</default-since>
 		<faces-spec-version>${faces.spec.version}</faces-spec-version>
 	</taglib-extension>
 	<description><![CDATA[The Liferay Faces Portal facelet component tags with the <code>portal:</code> tag name prefix.]]></description>
@@ -380,6 +380,7 @@
 		<tag-extension>
 			<parent-class><![CDATA[javax.faces.component.UIOutput]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer<com.liferay.faces.portal.component.permissionsurl.PermissionsURL, com.liferay.taglib.security.PermissionsURLTag>]]></renderer-parent-class>
+			<since>1.0.0</since>
 		</tag-extension>
 	</tag>
 	<tag>
