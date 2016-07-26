@@ -14,6 +14,7 @@
 package com.liferay.faces.portal.component.nav.internal;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
+import javax.faces.render.RenderKit;
 
 import com.liferay.faces.portal.component.nav.Nav;
 import com.liferay.faces.portal.component.navitem.NavItem;
@@ -91,26 +93,32 @@ public class NavRenderer extends NavRendererBase {
 
 		// Encode the content for each tab.
 		if ((iterateOverDataModel) && (prototypeChildNavItem != null)) {
+
+			ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
+			RenderKit renderKit = facesContext.getRenderKit();
+			StringWriter bufferedChildrenMarkupWriter = new StringWriter();
+			ResponseWriter stringResponseWriter = renderKit.createResponseWriter(bufferedChildrenMarkupWriter, null,
+					"UTF-8");
+			facesContext.setResponseWriter(stringResponseWriter);
+
 			int rowCount = nav.getRowCount();
 
 			for (int i = 0; i < rowCount; i++) {
 				nav.setRowIndex(i);
 				prototypeChildNavItem.encodeAll(facesContext);
 			}
+
+			nav.setRowIndex(-1);
+
+			facesContext.setResponseWriter(originalResponseWriter);
+
+			renderComponentMarkup(facesContext, uiComponent, bufferedChildrenMarkupWriter);
 		}
 		else {
-			List<UIComponent> children = nav.getChildren();
+			super.encodeChildren(facesContext, uiComponent);
 
-			for (int i = 0; i < children.size(); i++) {
-				UIComponent child = children.get(i);
-
-				if (child.isRendered()) {
-					child.encodeAll(facesContext);
-				}
-			}
+			nav.setRowIndex(-1);
 		}
-
-		nav.setRowIndex(-1);
 	}
 
 	@Override
@@ -166,5 +174,15 @@ public class NavRenderer extends NavRendererBase {
 	@Override
 	public NavTag newTag() {
 		return new NavTag();
+	}
+
+	@Override
+	public boolean writeBodyContent() {
+		return true;
+	}
+
+	@Override
+	public boolean writeChildrenMarkup() {
+		return false;
 	}
 }

@@ -15,6 +15,7 @@ package com.liferay.faces.portal.render.internal;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -70,14 +71,41 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 
 		facesContext.setResponseWriter(originalResponseWriter);
 
+		renderComponentMarkup(facesContext, uiComponent, bufferedChildrenMarkupWriter);
+	}
+
+	@Override
+	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+		uiComponent.getAttributes().remove(CORRESPONDING_JSP_TAG);
+	}
+
+	@Override
+	public boolean getRendersChildren() {
+		return true;
+	}
+
+	public boolean writeChildrenMarkup() {
+		return true;
+	}
+
+	protected StringBuilder getMarkup(UIComponent uiComponent, StringBuilder markup) throws Exception {
+		return markup;
+	}
+
+	protected String getScripts(UIComponent uiComponent, String scripts) throws Exception {
+		return scripts;
+	}
+
+	protected void renderComponentMarkup(FacesContext facesContext, UIComponent uiComponent, StringWriter stringWriter)
+		throws IOException {
+
 		// Get the output of the JSP tag (and all child JSP tags).
 		Map<String, Object> componentAttributes = uiComponent.getAttributes();
 		Tag tag = (Tag) componentAttributes.get(CORRESPONDING_JSP_TAG);
 		PortalTagOutput portalTagOutput;
 
 		try {
-			portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag,
-					bufferedChildrenMarkupWriter.toString());
+			portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag, stringWriter.toString());
 
 			String preChildMarkup = portalTagOutput.getMarkup();
 			String postChildMarkup = null;
@@ -117,7 +145,7 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 			if (writeChildrenMarkup()) {
 
 				// Encode the children markup.
-				String childrenMarkup = bufferedChildrenMarkupWriter.toString();
+				String childrenMarkup = stringWriter.toString();
 
 				if (childrenMarkup != null) {
 					markup.append(childrenMarkup);
@@ -139,27 +167,5 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 		catch (Exception e) {
 			throw new IOException(e);
 		}
-	}
-
-	@Override
-	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
-		uiComponent.getAttributes().remove(CORRESPONDING_JSP_TAG);
-	}
-
-	@Override
-	public boolean getRendersChildren() {
-		return true;
-	}
-
-	public boolean writeChildrenMarkup() {
-		return true;
-	}
-
-	protected StringBuilder getMarkup(UIComponent uiComponent, StringBuilder markup) throws Exception {
-		return markup;
-	}
-
-	protected String getScripts(UIComponent uiComponent, String scripts) throws Exception {
-		return scripts;
 	}
 }
