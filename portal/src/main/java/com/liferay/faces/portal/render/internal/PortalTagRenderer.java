@@ -31,12 +31,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTag;
 import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.util.context.FacesRequestContext;
-import com.liferay.faces.util.jsp.BodyContentStringImpl;
-import com.liferay.faces.util.jsp.JspWriterStringImpl;
 import com.liferay.faces.util.jsp.PageContextFactory;
 
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -204,7 +201,8 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 			BodyContent bodyContent = bodyTag.getBodyContent();
 
 			if (bodyContent == null) {
-				bodyContent = new BodyContentStringImpl(new JspWriterStringImpl());
+
+				bodyContent = stringPageContext.pushBody();
 				bodyTag.setBodyContent(bodyContent);
 			}
 
