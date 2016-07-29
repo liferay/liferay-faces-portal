@@ -33,8 +33,8 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.Tag;
 
+import com.liferay.faces.portal.jsp.internal.PageContextStringImpl;
 import com.liferay.faces.util.context.FacesRequestContext;
-import com.liferay.faces.util.jsp.PageContextFactory;
 
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.util.PortalUtil;
@@ -189,8 +189,7 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		HttpServletResponse httpServletResponse = getHttpServletResponse(portletResponse);
 		String contentType = httpServletResponse.getContentType();
 		ELContext elContext = facesContext.getELContext();
-		PageContext stringPageContext = PageContextFactory.getStringPageContextInstance(httpServletRequest,
-				httpServletResponse, elContext);
+		PageContext stringPageContext = new PageContextStringImpl(httpServletRequest, httpServletResponse, elContext);
 
 		// Invoke the JSP tag lifecycle directly (rather than using the tag from a JSP).
 		tag.setPageContext(stringPageContext);
