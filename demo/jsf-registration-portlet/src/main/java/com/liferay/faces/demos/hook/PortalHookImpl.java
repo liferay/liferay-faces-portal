@@ -64,7 +64,7 @@ public class PortalHookImpl extends PortalWrapper {
 
 		String portletName = "1_WAR_comliferayfacesdemojsfregistrationportlet";
 		PortletURL urlCreateAccount = PortletURLFactoryUtil.create(request, portletName, themeDisplay.getPlid(),
-				PortletRequest.ACTION_PHASE);
+				PortletRequest.RENDER_PHASE);
 
 		urlCreateAccount.setWindowState(WindowState.MAXIMIZED);
 		urlCreateAccount.setPortletMode(PortletMode.VIEW);
