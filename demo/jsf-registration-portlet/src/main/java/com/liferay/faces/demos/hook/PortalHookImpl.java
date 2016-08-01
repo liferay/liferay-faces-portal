@@ -62,7 +62,7 @@ public class PortalHookImpl extends PortalWrapper {
 
 	protected String getCreateAccountURL(HttpServletRequest request, ThemeDisplay themeDisplay) throws Exception {
 
-		String portletName = "1_WAR_jsfregistrationportlet";
+		String portletName = "1_WAR_comliferayfacesdemojsfregistrationportlet";
 		PortletURL urlCreateAccount = PortletURLFactoryUtil.create(request, portletName, themeDisplay.getPlid(),
 				PortletRequest.ACTION_PHASE);
 
@@ -70,7 +70,7 @@ public class PortalHookImpl extends PortalWrapper {
 		urlCreateAccount.setPortletMode(PortletMode.VIEW);
 
 		urlCreateAccount.setParameter("saveLastPath", "0");
-		urlCreateAccount.setParameter("struts_action", "/login/create_account");
+		urlCreateAccount.setParameter("mvcRenderCommandName", "/login/create_account");
 
 		return urlCreateAccount.toString();
 	}
