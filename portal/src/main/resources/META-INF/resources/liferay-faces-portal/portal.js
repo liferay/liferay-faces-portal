@@ -6,6 +6,9 @@ LFPI = {
 
 	inputRichTextBlur: function(clientId) {
 		var inputField = document.getElementById(clientId + '_input');
+		if (!inputField) {
+			return;
+		}
 		if ((inputField.onchange) && (inputField.title === 'valueChange')) {
 			inputField.onchange();
 		}
