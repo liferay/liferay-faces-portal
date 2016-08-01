@@ -320,10 +320,12 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 				// "timestamp" param (without this, a default toolbar will be loaded).
 				int customConfigIndex = scripts.indexOf("customConfig");
 
-				String configURL = scripts.substring(customConfigIndex, scripts.indexOf(",", customConfigIndex));
-				String[] configArray = configURL.split("'");
-				configURL = configArray[1];
-				scripts = StringUtil.replace(scripts, configURL, configURL.concat("&t=" + new Date().getTime()));
+				if (customConfigIndex != -1) {
+					String configURL = scripts.substring(customConfigIndex, scripts.indexOf(",", customConfigIndex));
+					String[] configArray = configURL.split("'");
+					configURL = configArray[1];
+					scripts = StringUtil.replace(scripts, configURL, configURL.concat("&t=" + new Date().getTime()));
+				}
 			}
 		}
 
