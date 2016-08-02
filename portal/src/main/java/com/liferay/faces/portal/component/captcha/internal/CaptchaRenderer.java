@@ -57,6 +57,10 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 			submittedValue = requestParameterMap.get("captchaText");
 		}
 
+		if (submittedValue == null) {
+			submittedValue = "";
+		}
+
 		captcha.setSubmittedValue(submittedValue);
 	}
 
