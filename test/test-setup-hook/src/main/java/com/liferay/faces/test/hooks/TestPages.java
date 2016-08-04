@@ -124,7 +124,8 @@ public class TestPages {
 				new Portlet("1", "com.liferay.faces.demo.metal.showcase.portlet", false));
 		portalPage.setLayoutTemplateId("1_column");
 		GUEST_PAGES.add(portalPage);
-		portalPage = new PortalPage("portal-showcase", new Portlet("1", "com.liferay.faces.demo.portal.showcase.portlet", false));
+		portalPage = new PortalPage("portal-showcase",
+				new Portlet("1", "com.liferay.faces.demo.portal.showcase.portlet", false));
 		portalPage.setLayoutTemplateId("1_column");
 		GUEST_PAGES.add(portalPage);
 	}
