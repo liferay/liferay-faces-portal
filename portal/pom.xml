@@ -226,7 +226,7 @@
 										<argument>-doctitle</argument>
 										<argument>Liferay Faces Portal View Description Language Documentation (VDLDoc)</argument>
 										<argument>-d</argument>
-										<argument>${project.build.directory}/vdldoc/${short.version}/</argument>
+										<argument>${project.build.directory}/vdldoc/${project.artifact.selectedVersion.majorVersion}.${project.artifact.selectedVersion.minorVersion}/</argument>
 										<argument>${project.basedir}/src/main/resources/META-INF/portal.taglib.xml</argument>
 									</arguments>
 									<executableDependency>
