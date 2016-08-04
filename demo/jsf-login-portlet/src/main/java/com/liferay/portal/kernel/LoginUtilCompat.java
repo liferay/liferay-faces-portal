@@ -29,7 +29,8 @@ import com.liferay.portal.kernel.util.PortalClassInvoker;
 public class LoginUtilCompat {
 
 	// Private Constants
-	private static final String LOGIN_UTIL_FQCN = "com.liferay.portlet.login.util.LoginUtil";
+	private static final String LOGIN_UTIL_FQCN =
+		"com.liferay.portal.kernel.security.auth.session.AuthenticatedSessionManagerUtil";
 	private static final String LOGIN_METHOD = "login";
 	private static final Class<?>[] LOGIN_PARAM_TYPES = new Class<?>[] {
 			HttpServletRequest.class, HttpServletResponse.class, String.class, String.class, boolean.class, String.class
@@ -41,7 +42,7 @@ public class LoginUtilCompat {
 		Class<?> loginUtilClass = ClassResolverUtil.resolveByPortalClassLoader(LOGIN_UTIL_FQCN);
 		MethodKey methodKey = new MethodKey(loginUtilClass, LOGIN_METHOD, LOGIN_PARAM_TYPES);
 
-		return PortalClassInvoker.invoke(false, methodKey, httpServletRequest, httpServletResponse, handle, password,
+		return PortalClassInvoker.invoke(methodKey, httpServletRequest, httpServletResponse, handle, password,
 				rememberMe, authType);
 	}
 }
