@@ -35,6 +35,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.ext</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.portal</artifactId>
 			<version>${project.version}</version>
 		</dependency>
