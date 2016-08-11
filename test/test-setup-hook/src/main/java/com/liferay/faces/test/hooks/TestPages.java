@@ -100,7 +100,7 @@ public class TestPages {
 
 	static {
 		PORTAL_ISSUE_PAGES = new ArrayList<PortalPage>();
-		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-257", new Portlet("1", "com.liferay.faces.issue.257.portlet")));
+		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-257", new Portlet("1", "com.liferay.faces.issue.257.portlet", false)));
 		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-1427", new Portlet("1", "com.liferay.faces.issue.1427.portlet")));
 		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-1439", new Portlet("1", "com.liferay.faces.issue.1439.portlet")));
 	}
