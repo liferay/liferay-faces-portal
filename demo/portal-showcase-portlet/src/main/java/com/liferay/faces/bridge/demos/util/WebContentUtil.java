@@ -24,11 +24,9 @@ import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.service.ServiceContext;
 
-/* TODO
 import com.liferay.portlet.journal.NoSuchArticleException;
 import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
-*/
 
 
 /**
@@ -39,36 +37,44 @@ public class WebContentUtil {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(WebContentUtil.class);
 
-// TODO public static JournalArticle getArticle(long companyId, long userId, long groupId, long folderId, Locale locale,
-
-	public static Object getArticle(long companyId, long userId, long groupId, long folderId, Locale locale,
+	public static JournalArticle getArticle(long companyId, long userId, long groupId, long folderId, Locale locale,
 		String title, String content) {
 
-		Object journalArticle = null;
-		/* TODO
-		 * JournalArticle journalArticle = null;
-		 *
-		 * try {
-		 *
-		 * try {     String urlTitle = getUrlTitle(title);     journalArticle =
-		 * JournalArticleLocalServiceUtil.getArticleByUrlTitle(groupId, urlTitle); } catch (NoSuchArticleException e) {
-		 *
-		 *   Map<Locale, String> titleMap = new HashMap<Locale, String>();     titleMap.put(locale, title);
-		 *
-		 *   Map<Locale, String> descriptionMap = Collections.emptyMap();     String ddmStructureKey = "";     String
-		 * ddmTemplateKey = "";
-		 *
-		 *   ServiceContext serviceContext = new ServiceContext();     serviceContext.setCompanyId(companyId);
-		 * serviceContext.setScopeGroupId(groupId);     serviceContext.setUserId(userId);
-		 * serviceContext.setAddGroupPermissions(true);     serviceContext.setAddGuestPermissions(true);
-		 *
-		 *   String defaultLanguageId = "";     content = LocalizationUtil.updateLocalization("", "static-content",
-		 * content, defaultLanguageId,             defaultLanguageId, true, false);
-		 *
-		 *   journalArticle = JournalArticleLocalServiceUtil.addArticle(userId, groupId, folderId, titleMap,
-		 * descriptionMap, content, ddmStructureKey, ddmTemplateKey, serviceContext); } } catch (Exception e) {
-		 * logger.error(e); }
-		 */
+		JournalArticle journalArticle = null;
+
+		try {
+
+			try {
+				String urlTitle = getUrlTitle(title);
+				journalArticle = JournalArticleLocalServiceUtil.getArticleByUrlTitle(groupId, urlTitle);
+			}
+			catch (NoSuchArticleException e) {
+
+				Map<Locale, String> titleMap = new HashMap<Locale, String>();
+				titleMap.put(locale, title);
+
+				Map<Locale, String> descriptionMap = Collections.emptyMap();
+				String ddmStructureKey = "";
+				String ddmTemplateKey = "";
+
+				ServiceContext serviceContext = new ServiceContext();
+				serviceContext.setCompanyId(companyId);
+				serviceContext.setScopeGroupId(groupId);
+				serviceContext.setUserId(userId);
+				serviceContext.setAddGroupPermissions(true);
+				serviceContext.setAddGuestPermissions(true);
+
+				String defaultLanguageId = "";
+				content = LocalizationUtil.updateLocalization("", "static-content", content, defaultLanguageId,
+						defaultLanguageId, true, false);
+
+				journalArticle = JournalArticleLocalServiceUtil.addArticle(userId, groupId, folderId, titleMap,
+						descriptionMap, content, ddmStructureKey, ddmTemplateKey, serviceContext);
+			}
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
 
 		return journalArticle;
 	}
