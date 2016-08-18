@@ -6,6 +6,7 @@
 		<portlet-name>1</portlet-name>
 		<icon>/images/login.png</icon>
 		<!-- JAVASERVERFACES-3031 -->
+		<action-url-redirect>true</action-url-redirect>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<render-weight>1</render-weight>
 		<ajaxable>false</ajaxable>
