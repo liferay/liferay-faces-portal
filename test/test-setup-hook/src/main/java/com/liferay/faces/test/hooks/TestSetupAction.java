@@ -133,6 +133,16 @@ public class TestSetupAction extends TestSetupCompatAction {
 		return site;
 	}
 
+	protected void setupArchetypesSite(long companyId, long userId, Bundle[] bundles) throws Exception {
+		Group site = getSiteForSetup(companyId, userId, "Archetypes");
+		long groupId = site.getGroupId();
+		addAllUsersToSite(groupId);
+
+		for (PortalPage portalPage : TestPages.ARCHETYPE_PAGES) {
+			setupPrivatePage(userId, groupId, portalPage, bundles);
+		}
+	}
+
 	protected void setupBridgeDemosSite(long companyId, long userId, Bundle[] bundles) throws Exception {
 		Group site = getSiteForSetup(companyId, userId, "Bridge Demos");
 		long groupId = site.getGroupId();
@@ -332,6 +342,7 @@ public class TestSetupAction extends TestSetupCompatAction {
 	protected void setupSites(long companyId, long userId) throws Exception {
 
 		Bundle[] bundles = BundleUtil.getBundles();
+		setupArchetypesSite(companyId, userId, bundles);
 		setupBridgeDemosSite(companyId, userId, bundles);
 		setupBridgeIssuesSite(companyId, userId, bundles);
 		setupLSVIssuesSite(companyId, userId, bundles);
