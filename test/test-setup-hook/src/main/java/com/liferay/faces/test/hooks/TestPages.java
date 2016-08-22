@@ -24,12 +24,27 @@ import java.util.List;
  */
 public class TestPages {
 
+	public static final List<PortalPage> ARCHETYPE_PAGES;
 	public static final List<PortalPage> BRIDGE_DEMO_PAGES;
 	public static final List<PortalPage> BRIDGE_ISSUE_PAGES;
 	public static final List<PortalPage> LSV_ISSUE_PAGES;
 	public static final List<PortalPage> PORTAL_DEMO_PAGES;
 	public static final List<PortalPage> PORTAL_ISSUE_PAGES;
 	public static final List<PortalPage> GUEST_PAGES;
+
+	static {
+		ARCHETYPE_PAGES = new ArrayList<PortalPage>();
+		ARCHETYPE_PAGES.add(new PortalPage("my-alloy",
+				new Portlet("commycompanymyalloyportlet", "com.mycompany.my.alloy.portlet", false)));
+		ARCHETYPE_PAGES.add(new PortalPage("my-icefaces",
+				new Portlet("commycompanymyicefacesportlet", "com.mycompany.my.icefaces.portlet", false)));
+		ARCHETYPE_PAGES.add(new PortalPage("my-jsf",
+				new Portlet("commycompanymyjsfportlet", "com.mycompany.my.jsf.portlet", false)));
+		ARCHETYPE_PAGES.add(new PortalPage("my-primefaces",
+				new Portlet("commycompanymyprimefacesportlet", "com.mycompany.my.primefaces.portlet", false)));
+		ARCHETYPE_PAGES.add(new PortalPage("my-richfaces",
+				new Portlet("commycompanymyrichfacesportlet", "com.mycompany.my.richfaces.portlet", false)));
+	}
 
 	static {
 		BRIDGE_DEMO_PAGES = new ArrayList<PortalPage>();
@@ -100,7 +115,8 @@ public class TestPages {
 
 	static {
 		PORTAL_ISSUE_PAGES = new ArrayList<PortalPage>();
-		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-257", new Portlet("1", "com.liferay.faces.issue.257.portlet", false)));
+		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-257",
+				new Portlet("1", "com.liferay.faces.issue.257.portlet", false)));
 		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-1427", new Portlet("1", "com.liferay.faces.issue.1427.portlet")));
 		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-1439", new Portlet("1", "com.liferay.faces.issue.1439.portlet")));
 	}
