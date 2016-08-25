@@ -28,9 +28,9 @@ import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.kernel.exception.DuplicateUserEmailAddressException;
-import com.liferay.portal.kernel.exception.DuplicateUserScreenNameException;
+import com.liferay.portal.kernel.exception.UserEmailAddressException;
 import com.liferay.portal.kernel.exception.UserPasswordException;
+import com.liferay.portal.kernel.exception.UserScreenNameException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.PasswordPolicy;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
@@ -101,103 +101,78 @@ public class RegistrantBackingBean implements Serializable {
 			FacesContextHelperUtil.addGlobalInfoMessage(key, submittedRegistrant.getEmailAddress());
 			submittedRegistrant.clearProperties();
 		}
-		catch (DuplicateUserScreenNameException e) {
+		catch (UserScreenNameException.MustNotBeDuplicate e1) {
 			FacesContextHelperUtil.addGlobalErrorMessage("the-screen-name-you-requested-is-already-taken");
 		}
-		catch (DuplicateUserEmailAddressException e) {
+		catch (UserEmailAddressException.MustNotBeDuplicate e2) {
 			FacesContextHelperUtil.addGlobalErrorMessage("the-email-address-you-requested-is-already-taken");
 		}
-		catch (UserPasswordException e) {
+		catch (UserPasswordException.MustNotBeRecentlyUsed e3) {
+			FacesContextHelperUtil.addGlobalErrorMessage(
+				"that-password-has-already-been-used-please-enter-in-a-different-password");
+		}
+		catch (UserPasswordException.MustNotContainDictionaryWords e4) {
+			FacesContextHelperUtil.addGlobalErrorMessage(
+				"that-password-uses-common-words-please-enter-in-a-password-that-is-harder-to-guess-i-e-contains-a-mix-of-numbers-and-letters");
+		}
+		catch (UserPasswordException.MustComplyWithModelListeners e5) {
+			FacesContextHelperUtil.addGlobalErrorMessage(
+				"that-password-is-invalid-please-enter-in-a-different-password");
+		}
+		catch (UserPasswordException.MustComplyWithRegex e6) {
+			FacesContextHelperUtil.addGlobalErrorMessage(
+				"that-password-is-invalid-please-enter-in-a-different-password");
+		}
+		catch (UserPasswordException.MustMatchCurrentPassword e7) {
+			FacesContextHelperUtil.addGlobalErrorMessage(
+				"that-password-is-invalid-please-enter-in-a-different-password");
+		}
+		catch (UserPasswordException.MustNotBeNull e8) {
+			FacesContextHelperUtil.addGlobalErrorMessage(
+				"that-password-is-invalid-please-enter-in-a-different-password");
+		}
+		catch (UserPasswordException.MustBeLonger e9) {
 
-			switch (e.getType()) {
-
-			case UserPasswordException.PASSWORD_ALREADY_USED: {
+			try {
+				Company company = CompanyLocalServiceUtil.getCompany(companyId);
+				PasswordPolicy passwordPolicy = company.getDefaultUser().getPasswordPolicy();
 				FacesContextHelperUtil.addGlobalErrorMessage(
-					"that-password-has-already-been-used-please-enter-in-a-different-password");
-
-				break;
+					"that-password-is-too-short-or-too-long-please-make-sure-your-password-is-between-x-and-512-characters",
+					new Object[] { String.valueOf(passwordPolicy.getMinLength()) });
 			}
+			catch (Exception e1) {
+				logger.error(e1.getMessage(), e1);
+				FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
+			}
+		}
+		catch (UserPasswordException.MustNotBeChanged e10) {
+			FacesContextHelperUtil.addGlobalErrorMessage("your-password-cannot-be-changed");
+		}
+		catch (UserPasswordException.MustNotBeEqualToCurrent e11) {
+			FacesContextHelperUtil.addGlobalErrorMessage(
+				"your-new-password-cannot-be-the-same-as-your-old-password-please-enter-in-a-different-password");
+		}
+		catch (UserPasswordException.MustNotBeTrivial e12) {
+			FacesContextHelperUtil.addGlobalErrorMessage("that-password-is-too-trivial");
+		}
+		catch (UserPasswordException.MustNotBeChangedYet e13) {
 
-			case UserPasswordException.PASSWORD_CONTAINS_TRIVIAL_WORDS: {
+			try {
+				Company company = CompanyLocalServiceUtil.getCompany(companyId);
+				PasswordPolicy passwordPolicy = company.getDefaultUser().getPasswordPolicy();
 				FacesContextHelperUtil.addGlobalErrorMessage(
-					"that-password-uses-common-words-please-enter-in-a-password-that-is-harder-to-guess-i-e-contains-a-mix-of-numbers-and-letters");
+					"you-cannot-change-your-password-yet-please-wait-at-least-x-before-changing-your-password-again",
+					new Object[] { String.valueOf(passwordPolicy.getMinAge() * 1000) });
 
-				break;
 			}
-
-			case UserPasswordException.PASSWORD_INVALID: {
-				FacesContextHelperUtil.addGlobalErrorMessage(
-					"that-password-is-invalid-please-enter-in-a-different-password");
-
-				break;
+			catch (Exception e1) {
+				logger.error(e1.getMessage(), e1);
+				FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 			}
-
-			case UserPasswordException.PASSWORD_LENGTH: {
-
-				try {
-					Company company = CompanyLocalServiceUtil.getCompany(companyId);
-					PasswordPolicy passwordPolicy = company.getDefaultUser().getPasswordPolicy();
-					FacesContextHelperUtil.addGlobalErrorMessage(
-						"that-password-is-too-short-or-too-long-please-make-sure-your-password-is-between-x-and-512-characters",
-						new Object[] { String.valueOf(passwordPolicy.getMinLength()) });
-
-				}
-				catch (Exception e1) {
-					logger.error(e.getMessage(), e);
-					FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
-				}
-
-				break;
-			}
-
-			case UserPasswordException.PASSWORD_NOT_CHANGEABLE: {
-				FacesContextHelperUtil.addGlobalErrorMessage("your-password-cannot-be-changed");
-
-				break;
-			}
-
-			case UserPasswordException.PASSWORD_SAME_AS_CURRENT: {
-				FacesContextHelperUtil.addGlobalErrorMessage(
-					"your-new-password-cannot-be-the-same-as-your-old-password-please-enter-in-a-different-password");
-
-				break;
-			}
-
-			case UserPasswordException.PASSWORD_TOO_TRIVIAL: {
-				FacesContextHelperUtil.addGlobalErrorMessage("that-password-is-too-trivial");
-
-				break;
-			}
-
-			case UserPasswordException.PASSWORD_TOO_YOUNG: {
-
-				try {
-					Company company = CompanyLocalServiceUtil.getCompany(companyId);
-					PasswordPolicy passwordPolicy = company.getDefaultUser().getPasswordPolicy();
-					FacesContextHelperUtil.addGlobalErrorMessage(
-						"you-cannot-change-your-password-yet-please-wait-at-least-x-before-changing-your-password-again",
-						new Object[] { String.valueOf(passwordPolicy.getMinAge() * 1000) });
-
-				}
-				catch (Exception e1) {
-					logger.error(e.getMessage(), e);
-					FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
-				}
-
-				break;
-			}
-
-			case UserPasswordException.PASSWORDS_DO_NOT_MATCH: {
-				FacesContextHelperUtil.addGlobalErrorMessage(
-					"the-passwords-you-entered-do-not-match-each-other-please-re-enter-your-password");
-
-				break;
-			}
-
-			default: {
-				break;
-			}
-			}
+		}
+		catch (UserPasswordException.MustMatch e14) {
+			FacesContextHelperUtil.addGlobalErrorMessage(
+				"the-passwords-you-entered-do-not-match-each-other-please-re-enter-your-password");
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
