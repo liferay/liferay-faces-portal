@@ -55,7 +55,7 @@ public class RegistrantServiceUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(RegistrantServiceUtil.class);
 
-	public static final String PHONE_CLASS_NAME = "com.liferay.portal.model.Contact.phone";
+	public static final String PHONE_CLASS_NAME = "com.liferay.portal.kernel.model.Contact.phone";
 
 	public static Registrant add(long creatorUserId, long companyId, Locale locale, Registrant registrant,
 		boolean active, boolean autoScreenName, boolean sendEmail) throws PortalException, SystemException {
