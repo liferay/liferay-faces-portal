@@ -4,7 +4,7 @@
 
 	<ui:define name="col1">
 		<showcase:example>
-			<portal:permissionsURL modelResource="com.liferay.portal.model.Group"
+			<portal:permissionsURL modelResource="com.liferay.portal.kernel.model.Group"
 				modelResourceDescription="#{liferay.themeDisplay.scopeGroup.name} #{i18n['top-level']}"
 				resourcePrimKey="#{liferay.themeDisplay.scopeGroupId}" var="permissionsURL" />
 			<pre>#{permissionsURL}</pre>

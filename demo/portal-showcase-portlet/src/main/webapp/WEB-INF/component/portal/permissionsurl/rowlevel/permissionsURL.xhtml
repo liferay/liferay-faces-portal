@@ -6,7 +6,7 @@
 	<ui:define name="col1">
 		<showcase:example>
 			<c:set var="group" value="#{liferay.themeDisplay.scopeGroup}" />
-			<portal:permissionsURL modelResource="com.liferay.portal.model.Group" modelResourceDescription="#{group.name}"
+			<portal:permissionsURL modelResource="com.liferay.portal.kernel.model.Group" modelResourceDescription="#{group.name}"
 				resourcePrimKey="#{group.groupId}" var="permissionsURL" />
 			<pre>#{permissionsURL}</pre>
 			<h:panelGroup rendered="#{liferay.userHasPortletPermission['PERMISSIONS']}">
