@@ -102,8 +102,9 @@
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.portal}-jsf-${faces.spec.version}</liferay.home>
 		<liferay.faces.alloy.version>1.0.0</liferay.faces.alloy.version>
-		<liferay.faces.bridge.version>2.0.0-SNAPSHOT</liferay.faces.bridge.version>
+		<liferay.faces.bridge.api.version>2.0.0</liferay.faces.bridge.api.version>
 		<liferay.faces.bridge.ext.version>1.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
+		<liferay.faces.bridge.impl.version>2.0.0-SNAPSHOT</liferay.faces.bridge.impl.version>
 		<liferay.faces.util.version>1.0.0</liferay.faces.util.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
@@ -607,13 +608,13 @@
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.api</artifactId>
-				<version>${liferay.faces.bridge.version}</version>
+				<version>${liferay.faces.bridge.api.version}</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.impl</artifactId>
-				<version>${liferay.faces.bridge.version}</version>
+				<version>${liferay.faces.bridge.impl.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
