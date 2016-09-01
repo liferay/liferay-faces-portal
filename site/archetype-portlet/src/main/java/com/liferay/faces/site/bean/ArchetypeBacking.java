@@ -131,12 +131,12 @@ public class ArchetypeBacking {
 
 	public void reinitializeListener(ActionEvent actionEvent) {
 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-
-		synchronized (facesContext) {
-			ExternalContext externalContext = facesContext.getExternalContext();
+		synchronized (archetypeService) {
 
 			logger.debug("Re-initializing archetype service");
+
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
 			@SuppressWarnings("unchecked")
 			Map<String, String> initParameterMap = (Map<String, String>) externalContext.getInitParameterMap();
 			archetypeService.init(initParameterMap);
@@ -168,7 +168,7 @@ public class ArchetypeBacking {
 		private static final long serialVersionUID = 755404467236586895L;
 
 		public UnsupportedArchetype() {
-			super(0, "", "", "", "", "N/A", null, "N/A");
+			super("", "", "", "N/A", "N/A");
 		}
 	}
 }

@@ -15,8 +15,6 @@ package com.liferay.faces.site.dto;
 
 import java.io.Serializable;
 
-import org.apache.maven.model.Model;
-
 
 /**
  * @author  Vernon Singleton
@@ -27,24 +25,17 @@ public class Archetype implements Serializable {
 	private static final long serialVersionUID = 4221259215512826105L;
 
 	// Private Data Members
-	private long id;
-	private String propertiesAndDependencies;
+	private String dependencies;
 	private String liferayVersion;
 	private String jsfVersion;
 	private String suite;
-	private String extVersion;
-	private Model model;
 	private String command;
 
-	public Archetype(long id, String liferayVersion, String jsfVersion, String suite, String extVersion,
-		String propertiesAndDependencies, Model pom, String command) {
-		this.id = id;
+	public Archetype(String liferayVersion, String jsfVersion, String suite, String dependencies, String command) {
 		this.liferayVersion = liferayVersion;
 		this.jsfVersion = jsfVersion;
 		this.suite = suite;
-		this.extVersion = extVersion;
-		this.propertiesAndDependencies = propertiesAndDependencies;
-		this.model = pom;
+		this.dependencies = dependencies;
 		this.command = command;
 	}
 
@@ -52,12 +43,8 @@ public class Archetype implements Serializable {
 		return command;
 	}
 
-	public String getExtVersion() {
-		return extVersion;
-	}
-
-	public long getId() {
-		return id;
+	public String getDependencies() {
+		return dependencies;
 	}
 
 	public String getJsfVersion() {
@@ -66,14 +53,6 @@ public class Archetype implements Serializable {
 
 	public String getLiferayVersion() {
 		return liferayVersion;
-	}
-
-	public Model getModel() {
-		return model;
-	}
-
-	public String getPropertiesAndDependencies() {
-		return propertiesAndDependencies;
 	}
 
 	public String getSuite() {

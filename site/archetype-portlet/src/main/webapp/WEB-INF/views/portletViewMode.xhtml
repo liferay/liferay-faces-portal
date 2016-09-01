@@ -13,14 +13,14 @@
 						<alloy:field label="Liferay Portal">
 							<alloy:selectOneMenu id="liferayVersion" style="display:block;" value="#{archetypeBacking.favoriteLiferayVersion}">
 								<f:selectItems value="#{archetypeBacking.liferayVersions}" var="liferayVersion"
-											   itemValue="#{liferayVersion.version}" itemLabel="#{liferayVersion.version}" />
+											   itemValue="#{liferayVersion}" itemLabel="#{liferayVersion}" />
 								<f:ajax execute="@form" listener="#{archetypeBacking.itemSelectionListener}" render="command :feedback pom" />
 							</alloy:selectOneMenu>
 						</alloy:field>
 						<alloy:field label="JSF">
 							<alloy:selectOneMenu id="jsfVersion" style="display:block;" value="#{archetypeBacking.favoriteJsfVersion}">
 								<f:selectItems value="#{archetypeBacking.jsfVersions}" var="jsfVersion"
-											   itemValue="#{jsfVersion.version}" itemLabel="#{jsfVersion.version}" />
+											   itemValue="#{jsfVersion}" itemLabel="#{jsfVersion}" />
 								<f:ajax execute="@form" listener="#{archetypeBacking.itemSelectionListener}" render="command :feedback pom" />
 							</alloy:selectOneMenu>
 						</alloy:field>
@@ -48,7 +48,7 @@
 					<alloy:fieldset>
 						<alloy:field id="pom" label="Dependencies">
 							<pre><alloy:outputText value="&lt;!-- #{archetypeBacking.selectedConfiguration} -->" /><br />
-								<alloy:outputText value="#{archetypeBacking.selectedArchetype.propertiesAndDependencies}" /></pre>
+								<alloy:outputText value="#{archetypeBacking.selectedArchetype.dependencies}" /></pre>
 						</alloy:field>
 					</alloy:fieldset>
 				</alloy:column>

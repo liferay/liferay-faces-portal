@@ -15,7 +15,6 @@ package com.liferay.faces.site.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -38,11 +37,6 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import org.jsoup.Jsoup;
 
@@ -159,10 +153,7 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 
 			String[] liferays = liferayVersionsMap.keySet().toArray(new String[liferayVersionsMap.keySet().size()]);
 			Arrays.sort(liferays, Collections.reverseOrder());
-
-			for (String liferayVersion : liferays) {
-				liferayVersions.add(liferayVersion);
-			}
+			Collections.addAll(liferayVersions, liferays);
 		}
 
 		if (jsfVersions == null) {
@@ -171,18 +162,13 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 
 			String[] jsfs = jsfVersionsMap.keySet().toArray(new String[jsfVersionsMap.keySet().size()]);
 			Arrays.sort(jsfs, Collections.reverseOrder());
-
-			for (String jsfVersion : jsfs) {
-				jsfVersions.add(jsfVersion);
-			}
+			Collections.addAll(jsfVersions, jsfs);
 		}
 
 		HashMap<String, String> suiteMap = new HashMap<String, String>();
 		suites = new ArrayList<Suite>();
 
 		archetypes = new ArrayList<Archetype>();
-
-		long archetypeId = 0;
 
 		String nextUrl;
 		String groupId = "com.liferay.faces.archetype";
@@ -314,13 +300,13 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 											fos.close();
 											is.close();
 
-											MavenXpp3Reader reader = new MavenXpp3Reader();
-											Model model = null;
+											// MavenXpp3Reader reader = new MavenXpp3Reader();
+											// Model model = null;
 											String dependencyLines = "";
 
 											try {
 												Map<String, String> propertyMap = new HashMap<String, String>();
-												model = reader.read(new FileReader(pom));
+												// model = reader.read(new FileReader(pom));
 
 												List<String> lines = Files.readAllLines(Paths.get(
 															pom.getCanonicalPath()), StandardCharsets.UTF_8);
@@ -410,15 +396,15 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 													}
 												}
 											}
-											catch (XmlPullParserException e) {
+											catch (Exception e) {
 												logger.error(e);
 											}
 
-											logger.debug("init: " + archetypeId + " " + liferayVersion + " " +
-												jsfVersion + " " + suite + " " + extVersion);
-											archetypes.add(new Archetype(archetypeId, liferayVersion, jsfVersion, suite,
-													extVersion, dependencyLines, model, mavenCommand));
-											++archetypeId;
+											logger.debug(
+												"init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",
+												liferayVersion, jsfVersion, suite, extVersion);
+											archetypes.add(new Archetype(liferayVersion, jsfVersion, suite,
+													dependencyLines, mavenCommand));
 										}
 									}
 
