@@ -9,36 +9,21 @@
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/WEB-INF/views/view.xhtml</value>
+			<value>/WEB-INF/views/portletViewMode.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>snapshot</name>
-			<value>false</value>
-		</init-param>
-		<init-param>
-			<name>liferay-7 2.2</name>
-			<value>5.0.0</value>
-		</init-param>
-		<init-param>
-			<name>liferay-7 2.1</name>
-			<value>4.0.0</value>
-		</init-param>
-		<init-param>
-			<name>liferay-6.2 2.2</name>
-			<value>3.0.0</value>
-		</init-param>
-		<init-param>
-			<name>liferay-6.2 2.1</name>
-			<value>2.0.0</value>
+			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<value>/WEB-INF/views/portletEditMode.xhtml</value>
 		</init-param>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
+			<portlet-mode>edit</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>Liferay Faces Dependencies</title>
-			<short-title>archetype-portlet</short-title>
-			<keywords>archetype-portlet</keywords>
+			<title>Archetype</title>
+			<short-title>Archetype</short-title>
+			<keywords>Archetype</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

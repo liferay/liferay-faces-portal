@@ -1,17 +1,15 @@
 /**
  * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  */
 package com.liferay.faces.site.service;
 
@@ -21,7 +19,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -33,6 +30,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -40,19 +38,18 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+
 import org.jsoup.Jsoup;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.liferay.faces.site.dto.Archetype;
-import com.liferay.faces.site.dto.JsfVersion;
-import com.liferay.faces.site.dto.LiferayVersion;
 import com.liferay.faces.site.dto.Suite;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -60,342 +57,429 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 /**
  * @author  Vernon Singleton
+ * @author  Neil Griffin
  */
 @ManagedBean(name = "archetypeService", eager = true)
 @ApplicationScoped
 public class ArchetypeServiceImpl implements ArchetypeService {
 
+	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ArchetypeServiceImpl.class);
-	
-	private List<LiferayVersion> liferayVersions;
-	private List<JsfVersion> jsfVersions;
-	private List<Suite> suites;
+
+	// Private Constants
+	private static final String ARCHETYPE_GENERATE_COMMAND = "mvn archetype:generate \\<br />" +
+		"  -DarchetypeGroupId=com.liferay.faces.archetype \\<br />" +
+		"  -DarchetypeArtifactId=com.liferay.faces.archetype.SUITE.portlet \\<br />" +
+		"  -DarchetypeVersion=VERSION \\<br />" + "  -DgroupId=com.mycompany \\<br />" +
+		"  -DartifactId=com.mycompany.my.SUITE.portlet";
+
+	// Private Data Members
 	private List<Archetype> archetypes;
-	
-	boolean snapshot = false;
-	
-	// my favorite url for now:
-	// https://oss.sonatype.org/content/repositories/snapshots/com/liferay/faces/archetype/
-	
-	// http://search.maven.org/remotecontent?filepath=com/liferay/faces/archetype/com.liferay.faces.archetype.richfaces.portlet/5.0.0/com.liferay.faces.archetype.richfaces.portlet-5.0.0.jar
-	// https://repo1.maven.org/maven2/com/liferay/faces/archetype/com.liferay.faces.archetype.alloy.portlet/5.0.0/com.liferay.faces.archetype.alloy.portlet-5.0.0.jar
-	
-	String archetypeContext = "https://repo1.maven.org/maven2/com/liferay/faces/archetype/";
-	String archetypeGenerate = "mvn archetype:generate -DarchetypeGroupId=com.liferay.faces.archetype -DarchetypeArtifactId=com.liferay.faces.archetype.SUITE.portlet -DarchetypeVersion=VERSION -DgroupId=com.mycompany -DartifactId=com.mycompany.my.SUITE.portlet";
-	
-	public void init() {
-		
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-		PortletConfig portletConfig = (PortletConfig) portletRequest.getAttribute("javax.portlet.config");
-		Enumeration<String> enumeratedNames = portletConfig.getInitParameterNames();
-		
+	private String archetypeContext = "https://repo1.maven.org/maven2/com/liferay/faces/archetype/";
+	private List<String> jsfVersions;
+	private List<String> liferayVersions;
+	private boolean snapshot = false;
+	private List<Suite> suites;
+
+	public ArchetypeServiceImpl() {
+		FacesContext startupFacesContext = FacesContext.getCurrentInstance();
+		ExternalContext startupExternalContext = startupFacesContext.getExternalContext();
+		@SuppressWarnings("unchecked")
+		Map<String, String> initParameterMap = (Map<String, String>) startupExternalContext.getInitParameterMap();
+		init(initParameterMap);
+	}
+
+	@Override
+	public List<Archetype> getArchetypes() {
+		return archetypes;
+	}
+
+	@Override
+	public List<String> getJsfVersions() {
+		return jsfVersions;
+	}
+
+	@Override
+	public List<String> getLiferayVersions() {
+		return liferayVersions;
+	}
+
+	@Override
+	public List<Suite> getSuites() {
+		return suites;
+	}
+
+	@Override
+	public void init(Map<String, String> contextParameterMap) {
+
 		ArrayList<String> namesList = new ArrayList<String>();
-		
-		HashMap<String,String> extVersionsMap = new HashMap<String,String>();
-		
-		HashMap<String,String> liferayVersionsMap = new HashMap<String,String>();
-		HashMap<String,String> jsfVersionsMap = new HashMap<String,String>();
-		
-		HashMap<String,String> extLiferayMap = new HashMap<String,String>();
-		HashMap<String,String> extJsfMap = new HashMap<String,String>();
-		
-		while (enumeratedNames.hasMoreElements()) {
-			String key = (String) enumeratedNames.nextElement();
+		HashMap<String, String> extVersionsMap = new HashMap<String, String>();
+		HashMap<String, String> liferayVersionsMap = new HashMap<String, String>();
+		HashMap<String, String> jsfVersionsMap = new HashMap<String, String>();
+		HashMap<String, String> extLiferayMap = new HashMap<String, String>();
+		HashMap<String, String> extJsfMap = new HashMap<String, String>();
+
+		Set<Map.Entry<String, String>> entrySet = contextParameterMap.entrySet();
+
+		for (Map.Entry<String, String> mapEntry : entrySet) {
+
+			String key = mapEntry.getKey();
+
 			if (key.matches("snapshot")) {
-				if ("true".equals(portletConfig.getInitParameter(key))) {
+
+				if ("true".equals(mapEntry.getValue())) {
 					snapshot = true;
 				}
 			}
+
 			if (key.matches("liferay-\\d+..*")) {
+
 				namesList.add(key);
+
 				String[] versions = key.split(" ");
-				
-				String extVersion = portletConfig.getInitParameter(key);
+				String extVersion = mapEntry.getValue();
 				String liferayVersion = versions[0].substring("liferay-".length());
 				String jsfVersion = versions[1];
-				
 				String qualifiedExt = extVersion + ((snapshot) ? "-SNAPSHOT" : "");
-				
+
 				extVersionsMap.put(qualifiedExt, "1");
 				extLiferayMap.put(qualifiedExt, liferayVersion);
 				extJsfMap.put(qualifiedExt, jsfVersion);
-				
 				liferayVersionsMap.put(liferayVersion, "1");
 				jsfVersionsMap.put(jsfVersion, "1");
-				
 			}
 		}
 
 		String[] names = namesList.toArray(new String[namesList.size()]);
 		Arrays.sort(names, Collections.reverseOrder());
-		
+
 		if (liferayVersions == null) {
-			
-			liferayVersions = new ArrayList<LiferayVersion>();
-			
+
+			liferayVersions = new ArrayList<String>();
+
 			String[] liferays = liferayVersionsMap.keySet().toArray(new String[liferayVersionsMap.keySet().size()]);
 			Arrays.sort(liferays, Collections.reverseOrder());
-			long id = 0;
+
 			for (String liferayVersion : liferays) {
-				liferayVersions.add(new LiferayVersion(id, liferayVersion, liferayVersion));
-				id++;
+				liferayVersions.add(liferayVersion);
 			}
 		}
-		
+
 		if (jsfVersions == null) {
-			
-			jsfVersions = new ArrayList<JsfVersion>();
-			
+
+			jsfVersions = new ArrayList<String>();
+
 			String[] jsfs = jsfVersionsMap.keySet().toArray(new String[jsfVersionsMap.keySet().size()]);
 			Arrays.sort(jsfs, Collections.reverseOrder());
-			long id = 0;
+
 			for (String jsfVersion : jsfs) {
-				jsfVersions.add(new JsfVersion(id, jsfVersion, jsfVersion));
-				id++;
+				jsfVersions.add(jsfVersion);
 			}
 		}
-		
-//		LinkedHashMap<String, String[]> exts = new LinkedHashMap<String, String[]>();
-//		for (String key : names) {
-//			String[] versions = portletConfig.getInitParameter(key).split(" ");
-//			exts.put(key, versions);
-//		}
-		
-		HashMap<String,String> suiteMap = new HashMap<String,String>();
+
+		HashMap<String, String> suiteMap = new HashMap<String, String>();
 		suites = new ArrayList<Suite>();
-		long suiteId = 0;
-		
+
 		archetypes = new ArrayList<Archetype>();
+
 		long archetypeId = 0;
-		
-		String nextUrl = archetypeContext;
+
+		String nextUrl;
 		String groupId = "com.liferay.faces.archetype";
-		
+
 		if (snapshot) {
 			archetypeContext = "https://oss.sonatype.org/content/repositories/snapshots/com/liferay/faces/archetype/";
 		}
-		logger.info("init: using archetypeContext = " + archetypeContext);
-		
+
+		logger.debug("init: using archetypeContext = " + archetypeContext);
+
 		Document suitesDocument;
+
 		try {
 			suitesDocument = Jsoup.connect(archetypeContext).get();
-//			logger.info("Jsoup: " + suitesDocument.html());
+
 			for (Element potentialSuite : suitesDocument.select("td,pre").select("a")) {
-//				logger.info("init: potentialSuite = " + potentialSuite.toString());
+
 				if (potentialSuite.attr("href").contains(groupId)) {
-//					logger.info("init: " + potentialSuite.attr("href").substring(archetypeContext.length()).replaceAll("/", ""));
-					
+
 					String suite;
-					
+
 					if (potentialSuite.attr("href").contains(archetypeContext)) {
-						suite = potentialSuite.attr("href")
-							.substring(archetypeContext.length())
-							.replaceAll("/", "")
-							.substring("com.liferay.faces.archetype.".length())
-							.replace(".portlet", "");
+						suite = potentialSuite.attr("href").substring(archetypeContext.length()).replaceAll("/", "")
+							.substring("com.liferay.faces.archetype.".length()).replace(".portlet", "");
 						nextUrl = potentialSuite.attr("href");
-					} else {
-						suite = potentialSuite.attr("href")
-							.replaceAll("/", "")
-							.substring("com.liferay.faces.archetype.".length())
-							.replace(".portlet", "");
+					}
+					else {
+						suite = potentialSuite.attr("href").replaceAll("/", "").substring("com.liferay.faces.archetype."
+								.length()).replace(".portlet", "");
 						nextUrl = archetypeContext + potentialSuite.attr("href");
 					}
-					
+
 					suiteMap.put(suite, "1");
-					
+
 					Document versionsDocument = Jsoup.connect(nextUrl).get();
-//					logger.info("init: " + versionsDocument.html());
+
 					for (Element potentialVersion : versionsDocument.select("td,pre").select("a")) {
-//						logger.info("init: potentialVersion = " + potentialVersion.toString());
-						
-						String version;
-						
+
+						String extVersion;
+
 						if (potentialVersion.attr("href").contains(potentialSuite.attr("href"))) {
-							version = potentialVersion.attr("href").substring(potentialSuite.attr("href").length()).replaceAll("/", "");
-						} else {
-							version = potentialVersion.attr("href").replaceAll("/", "");
+							extVersion = potentialVersion.attr("href").substring(potentialSuite.attr("href").length())
+								.replaceAll("/", "");
 						}
-						
+						else {
+							extVersion = potentialVersion.attr("href").replaceAll("/", "");
+						}
 
 						// check this potentialVersion against the exts in the init-params ...
-						if (extVersionsMap.containsKey(version)) {
-							logger.info("init: version = " + version);
+						if (extVersionsMap.containsKey(extVersion)) {
+							logger.debug("init: extVersion = " + extVersion);
 
-							String extVersion = version;
-							String jsfVersion = extJsfMap.get(version);
-							String liferayVersion = extLiferayMap.get(version);
-							String mavenCommand = archetypeGenerate.replace("VERSION", version).replaceAll("SUITE", suite);
+							String jsfVersion = extJsfMap.get(extVersion);
+							String liferayVersion = extLiferayMap.get(extVersion);
+							String mavenCommand = ARCHETYPE_GENERATE_COMMAND.replace("VERSION", extVersion).replaceAll(
+									"SUITE", suite);
 
 							if (potentialVersion.attr("href").contains(potentialSuite.attr("href"))) {
 								nextUrl = potentialVersion.attr("href");
-							} else {
-								nextUrl = archetypeContext + potentialSuite.attr("href") + potentialVersion.attr("href");
 							}
-							
+							else {
+								nextUrl = archetypeContext + potentialSuite.attr("href") +
+									potentialVersion.attr("href");
+							}
+
 							Document filesDocument = Jsoup.connect(nextUrl).get();
 
 							String fileName = "";
 							URL url = null;
 
 							for (Element potentialFile : filesDocument.select("td,pre").select("a")) {
-//								logger.info("init: potentialFile = " + potentialFile.toString());
 
 								if (potentialFile.attr("href").matches("..*.jar")) {
-									
+
 									if (potentialFile.attr("href").contains(potentialVersion.attr("href"))) {
-										fileName = potentialFile.attr("href")
-											.substring(potentialVersion.attr("href").length())
-											.replaceAll("/", "");
+										fileName = potentialFile.attr("href").substring(potentialVersion.attr("href")
+												.length()).replaceAll("/", "");
 										url = new URL(potentialFile.attr("href"));
-									} else {
+									}
+									else {
 										fileName = potentialFile.attr("href").replaceAll("/", "");
-										url = new URL(archetypeContext + potentialSuite.attr("href") + potentialVersion.attr("href") + potentialFile.attr("href"));
+										url = new URL(archetypeContext + potentialSuite.attr("href") +
+												potentialVersion.attr("href") + potentialFile.attr("href"));
 									}
 								}
 							}
 
 							// get the model, properties, and dependencies for the archetype
-							try {
+							if (url != null) {
 
-								HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-								urlConnection.setRequestMethod("GET");
-								urlConnection.setDoOutput(true);
-								urlConnection.connect();
+								try {
 
-								File file = new File(fileName);
+									HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+									urlConnection.setRequestMethod("GET");
+									urlConnection.setDoOutput(true);
+									urlConnection.connect();
 
-								FileOutputStream fileOutput = new FileOutputStream(file);
-								InputStream inputStream = urlConnection.getInputStream();
+									File file = new File(fileName);
 
-								byte[] buffer = new byte[1024];
-								int bufferLength = 0;
+									FileOutputStream fileOutput = new FileOutputStream(file);
+									InputStream inputStream = urlConnection.getInputStream();
 
-								while ((bufferLength = inputStream.read(buffer)) > 0) {
-									fileOutput.write(buffer, 0, bufferLength);
-								}
-								fileOutput.close();
+									byte[] buffer = new byte[1024];
+									int bufferLength;
 
-								JarFile jar = new JarFile(file);
-								Enumeration<JarEntry> entries = jar.entries();
-								while (entries.hasMoreElements()) {
-									JarEntry entry = (JarEntry) entries.nextElement();
-									if ("archetype-resources/pom.xml".equals(entry.getName())) {
+									while ((bufferLength = inputStream.read(buffer)) > 0) {
+										fileOutput.write(buffer, 0, bufferLength);
+									}
 
-										File pom = new File("pom.xml");
-										// logger.info("init: pom.getCanonicalPath() = " + pom.getCanonicalPath());
+									fileOutput.close();
 
-										InputStream is = jar.getInputStream(entry);
-										FileOutputStream fos = new FileOutputStream(pom);
-										while (is.available() > 0) {
-											fos.write(is.read());
-										}
-										fos.close();
-										is.close();
+									JarFile jar = new JarFile(file);
+									Enumeration<JarEntry> entries = jar.entries();
 
-										MavenXpp3Reader reader = new MavenXpp3Reader();
-										Model model = null;
-										String propertiesAndDependencies = "";
-										try {
-											model = reader.read(new FileReader(pom));
-											// logger.info("init: fileName = " + fileName);
-											// logger.info("init: model.getProperties() = " + model.getProperties());
-											// logger.info("init: model.getDependencies() = " + model.getDependencies());
+									while (entries.hasMoreElements()) {
+										JarEntry entry = entries.nextElement();
 
-											List<String> lines = Files.readAllLines(
-													Paths.get(pom.getCanonicalPath()), StandardCharsets.UTF_8);
-											boolean inProperties = false;
-											boolean inDependencies = false;
-											for (String line : lines) {
-												if (line.contains("<properties>")) {
-													inProperties = true;
-												}
-												if (line.contains("<dependencies>")) {
-													inDependencies = true;
-												}
-												if (inProperties || inDependencies) {
-													// logger.info("init: " + line);
-													propertiesAndDependencies += line;
-													propertiesAndDependencies += "\n";
-												}
-												if (line.contains("</properties>")) {
-													inProperties = false;
-												}
-												if (line.contains("</dependencies>")) {
-													inDependencies = false;
+										if ("archetype-resources/pom.xml".equals(entry.getName())) {
+
+											File pom = new File("pom.xml");
+
+											InputStream is = jar.getInputStream(entry);
+											FileOutputStream fos = new FileOutputStream(pom);
+
+											while (is.available() > 0) {
+												fos.write(is.read());
+											}
+
+											fos.close();
+											is.close();
+
+											MavenXpp3Reader reader = new MavenXpp3Reader();
+											Model model = null;
+											String dependencyLines = "";
+
+											try {
+												Map<String, String> propertyMap = new HashMap<String, String>();
+												model = reader.read(new FileReader(pom));
+
+												List<String> lines = Files.readAllLines(Paths.get(
+															pom.getCanonicalPath()), StandardCharsets.UTF_8);
+												boolean inProperties = false;
+												boolean inDependencies = false;
+												boolean inDependencyManagement = false;
+												boolean startTag;
+
+												for (String line : lines) {
+
+													startTag = false;
+
+													if (line.contains("<properties>")) {
+														inProperties = true;
+														startTag = true;
+													}
+													else if (line.contains("</properties>")) {
+														inProperties = false;
+													}
+													else if (line.contains("<dependencies>")) {
+														inDependencies = true;
+														startTag = true;
+													}
+													else if (line.contains("<dependencyManagement>")) {
+														inDependencyManagement = true;
+														startTag = true;
+													}
+
+													if (inProperties && !startTag) {
+
+														String propertyName = null;
+														String propertyValue = null;
+														String[] tokens = line.trim().split("[<>/]");
+
+														for (String token : tokens) {
+
+															if ((token != null) && (token.length() > 0)) {
+
+																if (propertyName == null) {
+																	propertyName = token;
+																}
+																else if (propertyValue == null) {
+																	propertyValue = token;
+																}
+															}
+														}
+
+														propertyMap.put(propertyName, propertyValue);
+													}
+
+													if (inDependencies) {
+
+														int startExpressionPos = line.indexOf("${");
+
+														if (startExpressionPos > 0) {
+															int finishExpresionPos = line.indexOf("}",
+																	startExpressionPos);
+
+															if (finishExpresionPos > 0) {
+																String propertyExpression = line.substring(
+																		startExpressionPos + 2, finishExpresionPos);
+																String propertyExpressionValue = propertyMap.get(
+																		propertyExpression);
+
+																if (propertyExpressionValue != null) {
+																	line = line.substring(0, startExpressionPos) +
+																		propertyExpressionValue +
+																		line.substring(finishExpresionPos + 1);
+																}
+															}
+														}
+													}
+
+													if (inDependencies || inDependencyManagement) {
+
+														line = line.replaceAll("^\\t", "");
+														line = line.replaceAll("\\t", "    ");
+														dependencyLines += line;
+														dependencyLines += "\n";
+													}
+
+													if (line.contains("</dependencies>")) {
+														inDependencies = false;
+													}
+													else if (line.contains("</dependencyManagement>")) {
+														inDependencyManagement = false;
+													}
 												}
 											}
-										} catch (XmlPullParserException e) {
-											e.printStackTrace();
-										}
+											catch (XmlPullParserException e) {
+												logger.error(e);
+											}
 
-										// logger.info("init: propertiesAndDependencies = " + propertiesAndDependencies);
-										logger.info("init: " + archetypeId + " " + liferayVersion + " " + jsfVersion
-												+ " " + suite + " " + extVersion);
-										archetypes.add(new Archetype(archetypeId, liferayVersion, jsfVersion, suite,
-												extVersion, propertiesAndDependencies, model, mavenCommand));
-										++archetypeId;
+											logger.debug("init: " + archetypeId + " " + liferayVersion + " " +
+												jsfVersion + " " + suite + " " + extVersion);
+											archetypes.add(new Archetype(archetypeId, liferayVersion, jsfVersion, suite,
+													extVersion, dependencyLines, model, mavenCommand));
+											++archetypeId;
+										}
+									}
+
+									jar.close();
+
+									boolean successfullyDeleted = file.delete();
+
+									if (!successfullyDeleted) {
+										logger.error("unable to delete file {0}", file.toString());
 									}
 								}
-								jar.close();
-								file.delete();
-
-							} catch (MalformedURLException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
+								catch (Exception e) {
+									logger.error(e);
+								}
 							}
-						} // end if (extVersionsMap.containsKey(version)) ... this checks to see if the extVersion is in our list of init-params
-					} //  end for (Element potentialVersion : versionsDocument.select("td a"))
-				} // end if (potentialSuite.attr("href").contains(groupId))
-	        } // for (Element potentialSuite : suitesDocument.select("td a"))
-		} catch (IOException e1) {
+							else {
+								logger.error("unable to determine url");
+							}
+						}
+					}
+				}
+			}
+		}
+		catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		for (Map.Entry<String, String> entry : suiteMap.entrySet()) {
-			suites.add(new Suite(suiteId, entry.getKey()));
-			++suiteId;
+			String suiteName = entry.getKey();
+			suites.add(new Suite(suiteName, getSuiteTitle(suiteName)));
 		}
 	}
-	
-	@Override
-	public List<Archetype> getArchetypes() {
-		
-		checkForUpdates();
-		logger.info("getArchetypes: archetypes.size() = " + archetypes.size());
-		return archetypes;
-	}
-	
-	@Override
-	public List<JsfVersion> getJsfVersions() {
-		
-		checkForUpdates();
-		return jsfVersions;
-	}
-	
-	@Override
-	public List<LiferayVersion> getLiferayVersions() {
-		
-		checkForUpdates();
-		return liferayVersions;
-	}
-	
-	@Override
-	public List<Suite> getSuites() {
 
-		checkForUpdates();
-		return suites;
-	}
-	
-	public void checkForUpdates() {
-		if (liferayVersions == null) { init(); }
-		if (jsfVersions == null) { init(); }
-		if (suites == null) { init(); }
-		if (archetypes == null) { init(); }
-	}
+	private String getSuiteTitle(String suiteName) {
 
+		if ("alloy".equals(suiteName)) {
+			return "Liferay Faces Alloy";
+		}
+		else if ("bootsfaces".equals(suiteName)) {
+			return "BootsFaces";
+		}
+		else if ("butterfaces".equals(suiteName)) {
+			return "ButterFaces";
+		}
+		else if ("icefaces".equals(suiteName)) {
+			return "ICEfaces";
+		}
+		else if ("jsf".equals(suiteName)) {
+			return "JSF Standard";
+		}
+		else if ("metal".equals(suiteName)) {
+			return "Liferay Faces Metal";
+		}
+		else if ("primefaces".equals(suiteName)) {
+			return "PrimeFaces";
+		}
+		else if ("richfaces".equals(suiteName)) {
+			return "RichFaces";
+		}
+		else {
+			return null;
+		}
+	}
 }

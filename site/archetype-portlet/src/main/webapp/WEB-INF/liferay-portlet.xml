@@ -8,7 +8,6 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<render-weight>1</render-weight>
 		<ajaxable>false</ajaxable>
-		<add-default-resource>true</add-default-resource>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

@@ -4,6 +4,26 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
 
 	<context-param>
+		<param-name>snapshot</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>liferay-7 2.2</param-name>
+		<param-value>5.0.0</param-value>
+	</context-param>
+	<context-param>
+		<param-name>liferay-7 2.1</param-name>
+		<param-value>4.0.0</param-value>
+	</context-param>
+	<context-param>
+		<param-name>liferay-6.2 2.2</param-name>
+		<param-value>3.0.0</param-value>
+	</context-param>
+	<context-param>
+		<param-name>liferay-6.2 2.1</param-name>
+		<param-value>2.0.0</param-value>
+	</context-param>
+	<context-param>
 		<param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
 		<param-value>/WEB-INF/resources</param-value>
 	</context-param>
