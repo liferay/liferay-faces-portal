@@ -17,8 +17,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,11 +36,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.eclipse.aether.resolution.ArtifactResolutionException;
+import org.eclipse.aether.version.Version;
 import org.jsoup.Jsoup;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import com.liferay.faces.aether.AetherClient;
 import com.liferay.faces.site.dto.Archetype;
 import com.liferay.faces.site.dto.Suite;
 import com.liferay.faces.util.logging.Logger;
@@ -60,16 +60,22 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ArchetypeServiceImpl.class);
 
+	private static String groupId = "com.liferay.faces.archetype";
+	private static String archetypeSuffix = "portlet";
+
 	// Private Constants
 	private static final String ARCHETYPE_GENERATE_COMMAND = "mvn archetype:generate \\<br />" +
-		"  -DarchetypeGroupId=com.liferay.faces.archetype \\<br />" +
-		"  -DarchetypeArtifactId=com.liferay.faces.archetype.SUITE.portlet \\<br />" +
+		"  -DarchetypeGroupId=" + groupId + " \\<br />" +
+		"  -DarchetypeArtifactId=" + groupId + ".SUITE." + archetypeSuffix + " \\<br />" +
 		"  -DarchetypeVersion=VERSION \\<br />" + "  -DgroupId=com.mycompany \\<br />" +
-		"  -DartifactId=com.mycompany.my.SUITE.portlet";
+		"  -DartifactId=com.mycompany.my.SUITE." + archetypeSuffix;
+
+	private static final String DEFAULT_CONTEXT = "https://repo1.maven.org/maven2/com/liferay/faces/archetype/";
+	private static final String SNAPSHOT_CONTEXT = "https://oss.sonatype.org/content/repositories/snapshots/com/liferay/faces/archetype/";
 
 	// Private Data Members
 	private List<Archetype> archetypes;
-	private String archetypeContext = "https://repo1.maven.org/maven2/com/liferay/faces/archetype/";
+	private String archetypeContext = DEFAULT_CONTEXT;
 	private List<String> jsfVersions;
 	private List<String> liferayVersions;
 	private boolean snapshot = false;
@@ -171,10 +177,11 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 		archetypes = new ArrayList<Archetype>();
 
 		String nextUrl;
-		String groupId = "com.liferay.faces.archetype";
 
+		String[] repository = new String[] { AetherClient.MAVEN_CENTRAL_URL };
 		if (snapshot) {
-			archetypeContext = "https://oss.sonatype.org/content/repositories/snapshots/com/liferay/faces/archetype/";
+			archetypeContext = SNAPSHOT_CONTEXT;
+			repository = new String[] { AetherClient.SONATYPE_SNAPSHOT_URL };
 		}
 
 		logger.debug("init: using archetypeContext = " + archetypeContext);
@@ -192,12 +199,10 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 
 					if (potentialSuite.attr("href").contains(archetypeContext)) {
 						suite = potentialSuite.attr("href").substring(archetypeContext.length()).replaceAll("/", "")
-							.substring("com.liferay.faces.archetype.".length()).replace(".portlet", "");
+							.substring((groupId + ".").length()).replace("." + archetypeSuffix, "");
 						nextUrl = potentialSuite.attr("href");
-					}
-					else {
-						suite = potentialSuite.attr("href").replaceAll("/", "").substring("com.liferay.faces.archetype."
-								.length()).replace(".portlet", "");
+					} else {
+						suite = potentialSuite.attr("href").replaceAll("/", "").substring((groupId + ".").length()).replace("." + archetypeSuffix, "");
 						nextUrl = archetypeContext + potentialSuite.attr("href");
 					}
 
@@ -212,12 +217,10 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 						if (potentialVersion.attr("href").contains(potentialSuite.attr("href"))) {
 							extVersion = potentialVersion.attr("href").substring(potentialSuite.attr("href").length())
 								.replaceAll("/", "");
-						}
-						else {
+						} else {
 							extVersion = potentialVersion.attr("href").replaceAll("/", "");
 						}
 
-						// check this potentialVersion against the exts in the init-params ...
 						if (extVersionsMap.containsKey(extVersion)) {
 							logger.debug("init: extVersion = " + extVersion);
 
@@ -228,200 +231,34 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 
 							if (potentialVersion.attr("href").contains(potentialSuite.attr("href"))) {
 								nextUrl = potentialVersion.attr("href");
-							}
-							else {
+							} else {
 								nextUrl = archetypeContext + potentialSuite.attr("href") +
 									potentialVersion.attr("href");
 							}
+							logger.info("nextUrl = " + nextUrl);
 
-							Document filesDocument = Jsoup.connect(nextUrl).get();
+							String groupIdArtifactId = groupId + ":" + groupId + "." + suite + "." + archetypeSuffix + ":jar";
+							String major = extVersion.replaceAll("\\...*", "");
 
-							String fileName = "";
-							URL url = null;
+							try {
 
-							for (Element potentialFile : filesDocument.select("td,pre").select("a")) {
+								// use the latest minor version (of the given major version number)
+								AetherClient client = new AetherClient(repository);
+								Version version = client.getVersionOfLatestMinor(groupIdArtifactId, new Long(major));
+								String groupIdArtifactIdVersion = groupId + ":" + groupId + "." + suite + "." + archetypeSuffix + ":jar:" + version;
+						        File artifact = client.getArtifact(groupIdArtifactIdVersion);
+								String dependencyLines = extractDependencies(artifact);
 
-								if (potentialFile.attr("href").matches("..*.jar")) {
+								logger.debug(
+									"init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",
+									liferayVersion, jsfVersion, suite, extVersion
+								);
+								archetypes.add(new Archetype(liferayVersion, jsfVersion, suite,
+									dependencyLines, mavenCommand)
+								);
 
-									if (potentialFile.attr("href").contains(potentialVersion.attr("href"))) {
-										fileName = potentialFile.attr("href").substring(potentialVersion.attr("href")
-												.length()).replaceAll("/", "");
-										url = new URL(potentialFile.attr("href"));
-									}
-									else {
-										fileName = potentialFile.attr("href").replaceAll("/", "");
-										url = new URL(archetypeContext + potentialSuite.attr("href") +
-												potentialVersion.attr("href") + potentialFile.attr("href"));
-									}
-								}
-							}
-
-							// get the model, properties, and dependencies for the archetype
-							if (url != null) {
-
-								try {
-
-									HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-									urlConnection.setRequestMethod("GET");
-									urlConnection.setDoOutput(true);
-									urlConnection.connect();
-
-									File file = new File(fileName);
-
-									FileOutputStream fileOutput = new FileOutputStream(file);
-									InputStream inputStream = urlConnection.getInputStream();
-
-									byte[] buffer = new byte[1024];
-									int bufferLength;
-
-									while ((bufferLength = inputStream.read(buffer)) > 0) {
-										fileOutput.write(buffer, 0, bufferLength);
-									}
-
-									fileOutput.close();
-
-									JarFile jar = new JarFile(file);
-									Enumeration<JarEntry> entries = jar.entries();
-
-									while (entries.hasMoreElements()) {
-										JarEntry entry = entries.nextElement();
-
-										if ("archetype-resources/pom.xml".equals(entry.getName())) {
-
-											File pom = new File("pom.xml");
-
-											InputStream is = jar.getInputStream(entry);
-											FileOutputStream fos = new FileOutputStream(pom);
-
-											while (is.available() > 0) {
-												fos.write(is.read());
-											}
-
-											fos.close();
-											is.close();
-
-											// MavenXpp3Reader reader = new MavenXpp3Reader();
-											// Model model = null;
-											String dependencyLines = "";
-
-											try {
-												Map<String, String> propertyMap = new HashMap<String, String>();
-												// model = reader.read(new FileReader(pom));
-
-												List<String> lines = Files.readAllLines(Paths.get(
-															pom.getCanonicalPath()), StandardCharsets.UTF_8);
-												boolean inProperties = false;
-												boolean inDependencies = false;
-												boolean inDependencyManagement = false;
-												boolean startTag;
-
-												for (String line : lines) {
-
-													startTag = false;
-
-													if (line.contains("<properties>")) {
-														inProperties = true;
-														startTag = true;
-													}
-													else if (line.contains("</properties>")) {
-														inProperties = false;
-													}
-													else if (line.contains("<dependencies>")) {
-														inDependencies = true;
-														startTag = true;
-													}
-													else if (line.contains("<dependencyManagement>")) {
-														inDependencyManagement = true;
-														startTag = true;
-													}
-
-													if (inProperties && !startTag) {
-
-														String propertyName = null;
-														String propertyValue = null;
-														String[] tokens = line.trim().split("[<>/]");
-
-														for (String token : tokens) {
-
-															if ((token != null) && (token.length() > 0)) {
-
-																if (propertyName == null) {
-																	propertyName = token;
-																}
-																else if (propertyValue == null) {
-																	propertyValue = token;
-																}
-															}
-														}
-
-														propertyMap.put(propertyName, propertyValue);
-													}
-
-													if (inDependencies) {
-
-														int startExpressionPos = line.indexOf("${");
-
-														if (startExpressionPos > 0) {
-															int finishExpresionPos = line.indexOf("}",
-																	startExpressionPos);
-
-															if (finishExpresionPos > 0) {
-																String propertyExpression = line.substring(
-																		startExpressionPos + 2, finishExpresionPos);
-																String propertyExpressionValue = propertyMap.get(
-																		propertyExpression);
-
-																if (propertyExpressionValue != null) {
-																	line = line.substring(0, startExpressionPos) +
-																		propertyExpressionValue +
-																		line.substring(finishExpresionPos + 1);
-																}
-															}
-														}
-													}
-
-													if (inDependencies || inDependencyManagement) {
-
-														line = line.replaceAll("^\\t", "");
-														line = line.replaceAll("\\t", "    ");
-														dependencyLines += line;
-														dependencyLines += "\n";
-													}
-
-													if (line.contains("</dependencies>")) {
-														inDependencies = false;
-													}
-													else if (line.contains("</dependencyManagement>")) {
-														inDependencyManagement = false;
-													}
-												}
-											}
-											catch (Exception e) {
-												logger.error(e);
-											}
-
-											logger.debug(
-												"init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",
-												liferayVersion, jsfVersion, suite, extVersion);
-											archetypes.add(new Archetype(liferayVersion, jsfVersion, suite,
-													dependencyLines, mavenCommand));
-										}
-									}
-
-									jar.close();
-
-									boolean successfullyDeleted = file.delete();
-
-									if (!successfullyDeleted) {
-										logger.error("unable to delete file {0}", file.toString());
-									}
-								}
-								catch (Exception e) {
-									logger.error(e);
-								}
-							}
-							else {
-								logger.error("unable to determine url");
+							} catch(ArtifactResolutionException e) {
+								logger.error(e);
 							}
 						}
 					}
@@ -436,6 +273,137 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 			String suiteName = entry.getKey();
 			suites.add(new Suite(suiteName, getSuiteTitle(suiteName)));
 		}
+	}
+
+	public String extractDependencies(File file) {
+
+		JarFile jar;
+		String dependencyLines = "";
+
+		try {
+			jar = new JarFile(file);
+
+			Enumeration<JarEntry> entries = jar.entries();
+
+			while (entries.hasMoreElements()) {
+				JarEntry entry = entries.nextElement();
+
+				if ("archetype-resources/pom.xml".equals(entry.getName())) {
+
+					File pom = new File("pom.xml");
+
+					InputStream is;
+					is = jar.getInputStream(entry);
+
+					FileOutputStream fos = new FileOutputStream(pom);
+
+					while (is.available() > 0) {
+						fos.write(is.read());
+					}
+
+					fos.close();
+					is.close();
+
+					Map<String, String> propertyMap = new HashMap<String, String>();
+
+					List<String> lines = Files.readAllLines(Paths.get(
+								pom.getCanonicalPath()), StandardCharsets.UTF_8);
+					boolean inProperties = false;
+					boolean inDependencies = false;
+					boolean inDependencyManagement = false;
+					boolean startTag;
+
+					for (String line : lines) {
+
+						startTag = false;
+
+						if (line.contains("<properties>")) {
+							inProperties = true;
+							startTag = true;
+						}
+						else if (line.contains("</properties>")) {
+							inProperties = false;
+						}
+						else if (line.contains("<dependencies>")) {
+							inDependencies = true;
+							startTag = true;
+						}
+						else if (line.contains("<dependencyManagement>")) {
+							inDependencyManagement = true;
+							startTag = true;
+						}
+
+						if (inProperties && !startTag) {
+
+							String propertyName = null;
+							String propertyValue = null;
+							String[] tokens = line.trim().split("[<>/]");
+
+							for (String token : tokens) {
+
+								if ((token != null) && (token.length() > 0)) {
+
+									if (propertyName == null) {
+										propertyName = token;
+									}
+									else if (propertyValue == null) {
+										propertyValue = token;
+									}
+								}
+							}
+
+							propertyMap.put(propertyName, propertyValue);
+						}
+
+						if (inDependencies) {
+
+							int startExpressionPos = line.indexOf("${");
+
+							if (startExpressionPos > 0) {
+								int finishExpresionPos = line.indexOf("}",
+										startExpressionPos);
+
+								if (finishExpresionPos > 0) {
+									String propertyExpression = line.substring(
+											startExpressionPos + 2, finishExpresionPos);
+									String propertyExpressionValue = propertyMap.get(
+											propertyExpression);
+
+									if (propertyExpressionValue != null) {
+										line = line.substring(0, startExpressionPos) +
+											propertyExpressionValue +
+											line.substring(finishExpresionPos + 1);
+									}
+								}
+							}
+						}
+
+						if (inDependencies || inDependencyManagement) {
+
+							line = line.replaceAll("^\\t", "");
+							line = line.replaceAll("\\t", "    ");
+							dependencyLines += line;
+							dependencyLines += "\n";
+						}
+
+						if (line.contains("</dependencies>")) {
+							inDependencies = false;
+						}
+						else if (line.contains("</dependencyManagement>")) {
+							inDependencyManagement = false;
+						}
+					}
+				}
+			}
+
+			jar.close();
+
+		} catch (IOException e1) {
+			logger.error(e1);
+		}
+
+		return dependencyLines;
+
 	}
 
 	private String getSuiteTitle(String suiteName) {
