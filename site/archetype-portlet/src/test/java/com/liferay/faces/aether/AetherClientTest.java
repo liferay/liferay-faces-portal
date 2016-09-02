@@ -5,10 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-<<<<<<< HEAD
-=======
 import org.eclipse.aether.resolution.ArtifactResolutionException;
->>>>>>> FACES-2919 use latest minor version when discovering archetypes
 import org.eclipse.aether.version.Version;
 import org.junit.Test;
 
@@ -54,7 +51,7 @@ public class AetherClientTest {
 
 		File artifact = null;
 		try {
-			artifact = client.getArtifact(groupIdArtifactIdVersion);	
+			artifact = client.getArtifact(groupIdArtifactIdVersion);
 		} catch(ArtifactResolutionException e) {
 			logger.info("testMissingArtifact: e.getMessage() = " + e.getMessage());
 		}
