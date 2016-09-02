@@ -5,6 +5,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+<<<<<<< HEAD
+=======
+import org.eclipse.aether.resolution.ArtifactResolutionException;
+>>>>>>> FACES-2919 use latest minor version when discovering archetypes
 import org.eclipse.aether.version.Version;
 import org.junit.Test;
 
@@ -40,19 +44,22 @@ public class AetherClientTest {
 	@Test
 	public void testMissingArtifact() throws Exception {
 
-		String extVersion = "4.0.0";
-		String major = extVersion.replaceAll("\\...*", "");
+		String version = "0.0.0";
 
 		String groupId = "com.liferay.faces.archetype";
 		String suite = "primefaces";
-		String groupIdArtifactId = groupId + ":" + groupId + "." + suite + ".portlet:jar";
+		String groupIdArtifactIdVersion = groupId + ":" + groupId + "." + suite + ".portlet:jar:" + version;
 
 		AetherClient client = new AetherClient();
 
-		Version version = client.getVersionOfLatestMinor(groupIdArtifactId, new Long(major));
-
-		assertTrue(version == null);
-		logger.info("testMissingArtifact: version = " + version);
+		File artifact = null;
+		try {
+			artifact = client.getArtifact(groupIdArtifactIdVersion);	
+		} catch(ArtifactResolutionException e) {
+			logger.info("testMissingArtifact: e.getMessage() = " + e.getMessage());
+		}
+		assertTrue(artifact == null);
+		logger.info("testMissingArtifact: artifact = " + artifact);
 	}
 
 	@Test
