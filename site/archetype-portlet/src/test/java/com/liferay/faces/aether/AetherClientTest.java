@@ -87,17 +87,6 @@ public class AetherClientTest {
 		logger.info("testGetVersionOfLatestMinorFromCentral: version = " + version);
 	}
 
-	@Test
-	public void testGetLatestAvailableArtifactOnline() throws Exception {
-		File artifact = new AetherClient().getLatestAvailableArtifact("com.liferay:com.liferay.gradle.plugins.workspace:jar:sources");
-
-		assertNotNull(artifact);
-		assertTrue(artifact.exists());
-		assertTrue(artifact.getName().startsWith("com.liferay.gradle.plugins.workspace"));
-		assertTrue(artifact.getName().endsWith("sources.jar"));
-		assertTrue(artifact.getName().contains("1.0.40"));
-	}
-
 	// If you would like to test the use of another local repository in your file system, just
 	// copy the repository into the root of this project and name it "test-localrepo".
 	//
