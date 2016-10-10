@@ -20,7 +20,7 @@ import com.liferay.faces.test.selenium.applicant.ApplicantTesterBase;
 /**
  * @author  Liferay Faces Team
  */
-public class ApplicantTester extends ApplicantTesterBase {
+public class JSF_DSApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getContext() {
