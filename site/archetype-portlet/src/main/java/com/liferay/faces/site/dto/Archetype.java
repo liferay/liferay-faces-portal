@@ -26,16 +26,18 @@ public class Archetype implements Serializable {
 
 	// Private Data Members
 	private String dependencies;
+	private String gradle;
 	private String liferayVersion;
 	private String jsfVersion;
 	private String suite;
 	private String command;
 
-	public Archetype(String liferayVersion, String jsfVersion, String suite, String dependencies, String command) {
+	public Archetype(String liferayVersion, String jsfVersion, String suite, String dependencies, String gradle, String command) {
 		this.liferayVersion = liferayVersion;
 		this.jsfVersion = jsfVersion;
 		this.suite = suite;
 		this.dependencies = dependencies;
+		this.gradle = gradle;
 		this.command = command;
 	}
 
@@ -45,6 +47,10 @@ public class Archetype implements Serializable {
 
 	public String getDependencies() {
 		return dependencies;
+	}
+
+	public String getGradle() {
+		return gradle;
 	}
 
 	public String getJsfVersion() {
