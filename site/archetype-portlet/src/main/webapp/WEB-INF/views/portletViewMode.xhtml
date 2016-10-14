@@ -32,6 +32,14 @@
 							</alloy:selectOneMenu>
 							<h:message for="suite" />
 						</alloy:field>
+						<alloy:field label="Build Framework">
+							<alloy:selectOneMenu id="build" style="display:block;" value="#{archetypeBacking.favoriteBuild}">
+								<f:selectItems value="#{archetypeBacking.builds}" var="build"
+											   itemValue="#{build.name}" itemLabel="#{build.title}" />
+								<f:ajax execute="@form" listener="#{archetypeBacking.itemSelectionListener}" render="command :feedback pom" />
+							</alloy:selectOneMenu>
+							<h:message for="suite" />
+						</alloy:field>
 					</alloy:fieldset>
 				</alloy:column>
 				<alloy:column width="70">
@@ -46,9 +54,8 @@
 			<alloy:row>
 				<alloy:column>
 					<alloy:fieldset>
-						<alloy:field id="pom" label="Dependencies">
-							<pre><alloy:outputText value="&lt;!-- #{archetypeBacking.selectedConfiguration} -->" /><br />
-								<alloy:outputText value="#{archetypeBacking.selectedArchetype.dependencies}" /></pre>
+						<alloy:field id="pom" label="Dependencies for #{archetypeBacking.selectedConfiguration}">
+							<pre><alloy:outputText value="#{archetypeBacking.selectedBuild}" /></pre>
 						</alloy:field>
 					</alloy:fieldset>
 				</alloy:column>
