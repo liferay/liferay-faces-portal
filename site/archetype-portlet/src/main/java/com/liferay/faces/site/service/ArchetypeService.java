@@ -28,13 +28,13 @@ public interface ArchetypeService {
 
 	public List<Archetype> getArchetypes();
 
+	public List<Build> getBuilds();
+
 	public List<String> getJsfVersions();
 
 	public List<String> getLiferayVersions();
 
 	public List<Suite> getSuites();
-
-	public List<Build> getBuilds();
 
 	public void init(Map<String, String> contextParameterMap);
 }

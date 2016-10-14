@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class Build implements Serializable {
 
 	// serialVersionUID
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2111354455544826105L;
 
 	// Private Data Members
 	private String name;
