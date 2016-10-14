@@ -11,30 +11,33 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.site.service;
+package com.liferay.faces.site.dto;
 
-import java.util.List;
-import java.util.Map;
-
-import com.liferay.faces.site.dto.Archetype;
-import com.liferay.faces.site.dto.Build;
-import com.liferay.faces.site.dto.Suite;
+import java.io.Serializable;
 
 
 /**
  * @author  Vernon Singleton
  */
-public interface ArchetypeService {
+public class Build implements Serializable {
 
-	public List<Archetype> getArchetypes();
+	// serialVersionUID
+	private static final long serialVersionUID = 1L;
 
-	public List<String> getJsfVersions();
+	// Private Data Members
+	private String name;
+	private String title;
 
-	public List<String> getLiferayVersions();
+	public Build(String name, String title) {
+		this.name = name;
+		this.title = title;
+	}
 
-	public List<Suite> getSuites();
+	public String getName() {
+		return name;
+	}
 
-	public List<Build> getBuilds();
-
-	public void init(Map<String, String> contextParameterMap);
+	public String getTitle() {
+		return title;
+	}
 }

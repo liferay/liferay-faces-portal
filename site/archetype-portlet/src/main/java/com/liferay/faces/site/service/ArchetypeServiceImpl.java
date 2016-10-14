@@ -44,6 +44,7 @@ import org.jsoup.nodes.Element;
 
 import com.liferay.faces.aether.AetherClient;
 import com.liferay.faces.site.dto.Archetype;
+import com.liferay.faces.site.dto.Build;
 import com.liferay.faces.site.dto.Suite;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -80,6 +81,7 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 	private List<String> liferayVersions;
 	private boolean snapshot = false;
 	private List<Suite> suites;
+	private List<Build> builds;
 
 	public ArchetypeServiceImpl() {
 		FacesContext startupFacesContext = FacesContext.getCurrentInstance();
@@ -105,6 +107,11 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 	}
 
 	@Override
+	public List<Build> getBuilds() {
+		return builds;
+	}
+
+	@Override
 	public List<Suite> getSuites() {
 		return suites;
 	}
@@ -121,16 +128,20 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 
 		Set<Map.Entry<String, String>> entrySet = contextParameterMap.entrySet();
 
+		// check for snapshot first, since it qualifies the versions
 		for (Map.Entry<String, String> mapEntry : entrySet) {
-
 			String key = mapEntry.getKey();
-
 			if (key.matches("snapshot")) {
 
 				if ("true".equals(mapEntry.getValue())) {
 					snapshot = true;
 				}
 			}
+		}
+
+		for (Map.Entry<String, String> mapEntry : entrySet) {
+
+			String key = mapEntry.getKey();
 
 			if (key.matches("liferay-\\d+..*")) {
 
@@ -184,7 +195,7 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 			repository = new String[] { AetherClient.SONATYPE_SNAPSHOT_URL };
 		}
 
-		logger.debug("init: using archetypeContext = " + archetypeContext);
+		logger.info("init: using archetypeContext = " + archetypeContext);
 
 		Document suitesDocument;
 
@@ -248,13 +259,14 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 								String groupIdArtifactIdVersion = groupId + ":" + groupId + "." + suite + "." + archetypeSuffix + ":jar:" + version;
 						        File artifact = client.getArtifact(groupIdArtifactIdVersion);
 								String dependencyLines = extractDependencies(artifact);
+								String gradleLines = extractGradle(artifact);
 
 								logger.debug(
 									"init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",
 									liferayVersion, jsfVersion, suite, extVersion
 								);
 								archetypes.add(new Archetype(liferayVersion, jsfVersion, suite,
-									dependencyLines, mavenCommand)
+									dependencyLines, gradleLines, mavenCommand)
 								);
 
 							} catch(ArtifactResolutionException e) {
@@ -269,10 +281,65 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 			e1.printStackTrace();
 		}
 
+		builds = new ArrayList<Build>();
+		builds.add(new Build("maven", "maven"));
+		builds.add(new Build("gradle", "gradle"));
+
 		for (Map.Entry<String, String> entry : suiteMap.entrySet()) {
 			String suiteName = entry.getKey();
 			suites.add(new Suite(suiteName, getSuiteTitle(suiteName)));
 		}
+	}
+
+	public String extractGradle(File file) {
+
+		JarFile jar;
+		String dependencyLines = "";
+
+		try {
+			jar = new JarFile(file);
+
+			Enumeration<JarEntry> entries = jar.entries();
+
+			while (entries.hasMoreElements()) {
+				JarEntry entry = entries.nextElement();
+
+				if ("archetype-resources/build.gradle".equals(entry.getName())) {
+
+					File build = new File("build.gradle");
+
+					InputStream is;
+					is = jar.getInputStream(entry);
+
+					FileOutputStream fos = new FileOutputStream(build);
+
+					while (is.available() > 0) {
+						fos.write(is.read());
+					}
+
+					fos.close();
+					is.close();
+
+					Map<String, String> propertyMap = new HashMap<String, String>();
+
+					List<String> lines = Files.readAllLines(Paths.get(
+								build.getCanonicalPath()), StandardCharsets.UTF_8);
+
+					for (String line : lines) {
+							dependencyLines += line;
+							dependencyLines += "\n";
+					}
+				}
+			}
+
+			jar.close();
+
+		} catch (IOException e1) {
+			logger.error(e1);
+		}
+
+		return dependencyLines;
+
 	}
 
 	public String extractDependencies(File file) {

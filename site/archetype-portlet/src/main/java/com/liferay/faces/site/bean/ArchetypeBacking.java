@@ -25,6 +25,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import com.liferay.faces.site.dto.Archetype;
+import com.liferay.faces.site.dto.Build;
 import com.liferay.faces.site.dto.Suite;
 import com.liferay.faces.site.service.ArchetypeService;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
@@ -44,14 +45,20 @@ public class ArchetypeBacking {
 	private static final Logger logger = LoggerFactory.getLogger(ArchetypeBacking.class);
 
 	// Private Data Members
+	private String favoriteBuild = "maven";
 	private String favoriteSuite = "jsf";
 	private String favoriteLiferayVersion = "7";
 	private String favoriteJsfVersion = "2.2";
+	private String selectedBuild;
 	private Archetype selectedArchetype;
 	private String selectedConfiguration;
 
 	@ManagedProperty(name = "archetypeService", value = "#{archetypeService}")
 	private ArchetypeService archetypeService;
+
+	public String getFavoriteBuild() {
+		return favoriteBuild;
+	}
 
 	public String getFavoriteJsfVersion() {
 		return favoriteJsfVersion;
@@ -71,6 +78,23 @@ public class ArchetypeBacking {
 
 	public List<String> getLiferayVersions() {
 		return archetypeService.getLiferayVersions();
+	}
+
+	public String getSelectedBuild() {
+
+		Archetype archetype = getSelectedArchetype();
+
+		if ("maven".equals(favoriteBuild)) {
+			selectedBuild = archetype.getDependencies();
+		} else {
+			selectedBuild = archetype.getGradle();
+		}
+
+		if (selectedBuild == null) {
+			selectedBuild = "N/A";
+		}
+
+		return selectedBuild;
 	}
 
 	public Archetype getSelectedArchetype() {
@@ -122,6 +146,10 @@ public class ArchetypeBacking {
 		return archetypeService.getSuites();
 	}
 
+	public List<Build> getBuilds() {
+		return archetypeService.getBuilds();
+	}
+
 	public void itemSelectionListener(AjaxBehaviorEvent ajaxBehaviorEvent) {
 
 		if (getSelectedArchetype() instanceof UnsupportedArchetype) {
@@ -158,6 +186,10 @@ public class ArchetypeBacking {
 		this.favoriteLiferayVersion = liferayVersion;
 	}
 
+	public void setFavoriteBuild(String favoriteBuild) {
+		this.favoriteBuild = favoriteBuild;
+	}
+
 	public void setFavoriteSuite(String favoriteSuite) {
 		this.favoriteSuite = favoriteSuite;
 	}
@@ -168,7 +200,7 @@ public class ArchetypeBacking {
 		private static final long serialVersionUID = 755404467236586895L;
 
 		public UnsupportedArchetype() {
-			super("", "", "", "N/A", "N/A");
+			super("", "", "", "N/A", "N/A", "N/A");
 		}
 	}
 }
