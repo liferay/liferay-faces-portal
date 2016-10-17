@@ -45,7 +45,7 @@
 			<artifactId>commons-io</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>${faces.group.id}</groupId>
+			<groupId>${faces.impl.group.id}</groupId>
 			<artifactId>${faces.impl.artifact.id}</artifactId>
 			<scope>runtime</scope>
 		</dependency>
