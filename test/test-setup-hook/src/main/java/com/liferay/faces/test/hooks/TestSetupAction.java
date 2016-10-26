@@ -191,25 +191,6 @@ public class TestSetupAction extends TestSetupCompatAction {
 			new PortalPage("Lifecycle Set",
 				new Portlet("chapter3TestslifecycleTestportlet",
 					"com.liferay.faces.test.bridge.tck.lifecycle.set.portlet")), bundles);
-		setupPrivatePage(userId, groupId,
-			new PortalPage("Render Policy Always Delegate",
-				new Portlet("chapter3TestsrenderPolicyTestportlet",
-					"com.liferay.faces.test.bridge.tck.render.policy1.portlet")), bundles);
-		setupPrivatePage(userId, groupId,
-			new PortalPage("Render Policy Default",
-				new Portlet("chapter3TestsrenderPolicyTestportlet",
-					"com.liferay.faces.test.bridge.tck.render.policy2.portlet")), bundles);
-		setupPrivatePage(userId, groupId,
-			new PortalPage("Render Policy Never Delegate",
-				new Portlet("chapter3TestsrenderPolicyTestportlet",
-					"com.liferay.faces.test.bridge.tck.render.policy3.portlet")), bundles);
-		setupPrivatePage(userId, groupId,
-			new PortalPage("Render Response Wrapper",
-				new Portlet("chapter6_2_1TestsusesConfiguredRenderResponseWrapperTestportlet", "")), bundles);
-		setupPrivatePage(userId, groupId,
-			new PortalPage("Resource Response Wrapper",
-				new Portlet("chapter6_2_1TestsusesConfiguredResourceResponseWrapperTestportlet",
-					"bridge-tck-response-wrapper-portlet")), bundles);
 	}
 
 	protected void setupGuestSite(long companyId, long userId, Bundle[] bundles) throws Exception {
