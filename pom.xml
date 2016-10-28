@@ -108,7 +108,7 @@
 		<liferay.faces.bridge.api.version>3.0.0</liferay.faces.bridge.api.version>
 		<liferay.faces.bridge.ext.version>2.0.0</liferay.faces.bridge.ext.version>
 		<liferay.faces.bridge.impl.version>3.0.0</liferay.faces.bridge.impl.version>
-		<liferay.faces.showcase.version>2.0.0</liferay.faces.showcase.version>
+		<liferay.faces.showcase.version>2.0.1-SNAPSHOT</liferay.faces.showcase.version>
 		<liferay.faces.util.version>2.0.0</liferay.faces.util.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
