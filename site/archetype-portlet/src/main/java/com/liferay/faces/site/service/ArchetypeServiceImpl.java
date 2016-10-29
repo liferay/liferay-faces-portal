@@ -300,11 +300,11 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 	public void init(Map<String, String> contextParameterMap) {
 
 		ArrayList<String> namesList = new ArrayList<String>();
-		Map<String, String> extVersionsMap = new HashMap<String, String>();
 		Map<String, String> liferayVersionsMap = new HashMap<String, String>();
 		Map<String, String> jsfVersionsMap = new HashMap<String, String>();
-		Map<String, String> extLiferayMap = new HashMap<String, String>();
-		Map<String, String> extJsfMap = new HashMap<String, String>();
+		Map<String, String> liferayMap = new HashMap<String, String>();
+		Map<String, String> jsfMap = new HashMap<String, String>();
+		Map<String, String> latestMinorMap = new HashMap<String, String>();
 
 		Set<Map.Entry<String, String>> entrySet = contextParameterMap.entrySet();
 
@@ -329,14 +329,13 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 				namesList.add(key);
 
 				String[] versions = key.split(" ");
-				String extVersion = mapEntry.getValue();
+				String archMajorVersion = mapEntry.getValue();
 				String liferayVersion = versions[0].substring("liferay-".length());
 				String jsfVersion = versions[1];
-				String qualifiedExt = extVersion + ((snapshot) ? "-SNAPSHOT" : "");
+				String qualifiedMajor = archMajorVersion + ((snapshot) ? "-SNAPSHOT" : "");
 
-				extVersionsMap.put(qualifiedExt, "1");
-				extLiferayMap.put(qualifiedExt, liferayVersion);
-				extJsfMap.put(qualifiedExt, jsfVersion);
+				liferayMap.put(qualifiedMajor, liferayVersion);
+				jsfMap.put(qualifiedMajor, jsfVersion);
 				liferayVersionsMap.put(liferayVersion, "1");
 				jsfVersionsMap.put(jsfVersion, "1");
 			}
@@ -405,59 +404,77 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 
 					Document versionsDocument = Jsoup.connect(nextUrl).get();
 
+					AetherClient client = new AetherClient(repository);
+					latestMinorMap = new HashMap<String, String>();
+					Version latestMinorVersion = null;
+
 					for (Element potentialVersion : versionsDocument.select("td,pre").select("a")) {
 
-						String extVersion;
+						String archVersion;
 
 						if (potentialVersion.attr("href").contains(potentialSuite.attr("href"))) {
-							extVersion = potentialVersion.attr("href").substring(potentialSuite.attr("href").length())
+							archVersion = potentialVersion.attr("href").substring(potentialSuite.attr("href").length())
 								.replaceAll("/", "");
 						}
 						else {
-							extVersion = potentialVersion.attr("href").replaceAll("/", "");
+							archVersion = potentialVersion.attr("href").replaceAll("/", "");
 						}
 
-						if (extVersionsMap.containsKey(extVersion)) {
-							logger.debug("init: extVersion = " + extVersion);
+						logger.debug("init: suite = " + suite);
+						logger.debug("init: extVersion = " + archVersion);
 
-							String jsfVersion = extJsfMap.get(extVersion);
-							String liferayVersion = extLiferayMap.get(extVersion);
-							String mavenCommand = ARCHETYPE_GENERATE_COMMAND.replace("VERSION", extVersion).replaceAll(
-									"SUITE", suite);
-
-							if (potentialVersion.attr("href").contains(potentialSuite.attr("href"))) {
-								nextUrl = potentialVersion.attr("href");
-							}
-							else {
-								nextUrl = archetypeContext + potentialSuite.attr("href") +
-									potentialVersion.attr("href");
-							}
-
-							logger.info("nextUrl = " + nextUrl);
-
-							String groupIdArtifactId = groupId + ":" + groupId + "." + suite + "." + archetypeSuffix +
+						String groupIdArtifactId = groupId + ":" + groupId + "." + suite + "." + archetypeSuffix +
 								":jar";
-							String major = extVersion.replaceAll("\\...*", "");
 
-							try {
+						if (archVersion.matches("\\d+\\..*")) {
 
-								// use the latest minor version (of the given major version number)
-								AetherClient client = new AetherClient(repository);
-								Version version = client.getVersionOfLatestMinor(groupIdArtifactId, new Long(major));
-								String groupIdArtifactIdVersion = groupId + ":" + groupId + "." + suite + "." +
-									archetypeSuffix + ":jar:" + version;
-								File artifact = client.getArtifact(groupIdArtifactIdVersion);
-								String dependencyLines = extractDependencies(artifact);
-								String gradleLines = extractGradle(artifact);
+							String major = archVersion.replaceAll("\\...*", "");
+							String qualifiedMajor = major + ((snapshot) ? "-SNAPSHOT" : "");
+							logger.debug("init: major = " + major);
 
-								logger.debug("init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",
-									liferayVersion, jsfVersion, suite, extVersion);
-								archetypes.add(new Archetype(liferayVersion, jsfVersion, suite, dependencyLines,
-										gradleLines, mavenCommand));
-
+							if (latestMinorMap.get(major) == null) {
+								try {
+									// use the latest minor version (of the given major version number)
+									latestMinorVersion = client.getVersionOfLatestMinor(groupIdArtifactId, new Long(major));
+								} catch(ArtifactResolutionException e) {
+									logger.error(e);
+								}
+								if (latestMinorVersion != null) {
+									latestMinorMap.put(major, latestMinorVersion.toString());
+								}
+								logger.debug("init: latestMinorVersion = " + latestMinorVersion);
 							}
-							catch (ArtifactResolutionException e) {
-								logger.error(e);
+
+							if (latestMinorVersion != null) {
+								if (latestMinorVersion.toString().equals(archVersion)) {
+
+									logger.debug("init: >" + latestMinorVersion + "< eq >" + archVersion + "<");
+
+									String jsfVersion = jsfMap.get(qualifiedMajor);
+									String liferayVersion = liferayMap.get(qualifiedMajor);
+
+									String mavenCommand = ARCHETYPE_GENERATE_COMMAND.replace("VERSION", archVersion).replaceAll(
+											"SUITE", suite);
+
+									try {
+
+										// use the latest minor version (of the given major version number)
+										String groupIdArtifactIdVersion = groupId + ":" + groupId + "." + suite + "." +
+											archetypeSuffix + ":jar:" + latestMinorVersion;
+										File artifact = client.getArtifact(groupIdArtifactIdVersion);
+										String dependencyLines = extractDependencies(artifact);
+										String gradleLines = extractGradle(artifact);
+
+										logger.debug("init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",
+											liferayVersion, jsfVersion, suite, archVersion);
+										archetypes.add(new Archetype(liferayVersion, jsfVersion, suite, dependencyLines,
+												gradleLines, mavenCommand));
+
+									}
+									catch (ArtifactResolutionException e) {
+										logger.error(e);
+									}
+								}
 							}
 						}
 					}
