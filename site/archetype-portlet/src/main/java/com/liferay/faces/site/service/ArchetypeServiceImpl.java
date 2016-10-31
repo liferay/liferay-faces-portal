@@ -93,10 +93,14 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 		init(initParameterMap);
 	}
 
-	public String extractDependencies(File file) {
+	public String extractMavenDependencies(File file) {
 
 		JarFile jar;
 		String dependencyLines = "";
+
+		Map<String, String> propertyMap = new HashMap<String, String>();
+
+		List<String> lines = new ArrayList<String>();
 
 		try {
 			jar = new JarFile(file);
@@ -122,99 +126,97 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 					fos.close();
 					is.close();
 
-					Map<String, String> propertyMap = new HashMap<String, String>();
+					lines = Files.readAllLines(Paths.get(pom.getCanonicalPath()), StandardCharsets.UTF_8);
+					pom.delete();
+				}
+			}
+			jar.close();
 
-					List<String> lines = Files.readAllLines(Paths.get(pom.getCanonicalPath()), StandardCharsets.UTF_8);
-					boolean inProperties = false;
-					boolean inDependencies = false;
-					boolean inDependencyManagement = false;
-					boolean startTag;
+		} catch (IOException e) {
+			logger.error(e);
+		}
 
-					for (String line : lines) {
+		boolean inProperties = false;
+		boolean inDependencies = false;
+		boolean inDependencyManagement = false;
+		boolean startTag;
 
-						startTag = false;
+		for (String line : lines) {
 
-						if (line.contains("<properties>")) {
-							inProperties = true;
-							startTag = true;
+			startTag = false;
+
+			if (line.contains("<properties>")) {
+				inProperties = true;
+				startTag = true;
+			}
+			else if (line.contains("</properties>")) {
+				inProperties = false;
+			}
+			else if (line.contains("<dependencies>")) {
+				inDependencies = true;
+				startTag = true;
+			}
+			else if (line.contains("<dependencyManagement>")) {
+				inDependencyManagement = true;
+				startTag = true;
+			}
+
+			if (inProperties && !startTag) {
+
+				String propertyName = null;
+				String propertyValue = null;
+				String[] tokens = line.trim().split("[<>/]");
+
+				for (String token : tokens) {
+
+					if ((token != null) && (token.length() > 0)) {
+
+						if (propertyName == null) {
+							propertyName = token;
 						}
-						else if (line.contains("</properties>")) {
-							inProperties = false;
+						else if (propertyValue == null) {
+							propertyValue = token;
 						}
-						else if (line.contains("<dependencies>")) {
-							inDependencies = true;
-							startTag = true;
-						}
-						else if (line.contains("<dependencyManagement>")) {
-							inDependencyManagement = true;
-							startTag = true;
-						}
+					}
+				}
 
-						if (inProperties && !startTag) {
+				propertyMap.put(propertyName, propertyValue);
+			}
 
-							String propertyName = null;
-							String propertyValue = null;
-							String[] tokens = line.trim().split("[<>/]");
+			if (inDependencies) {
 
-							for (String token : tokens) {
+				int startExpressionPos = line.indexOf("${");
 
-								if ((token != null) && (token.length() > 0)) {
+				if (startExpressionPos > 0) {
+					int finishExpresionPos = line.indexOf("}", startExpressionPos);
 
-									if (propertyName == null) {
-										propertyName = token;
-									}
-									else if (propertyValue == null) {
-										propertyValue = token;
-									}
-								}
-							}
+					if (finishExpresionPos > 0) {
+						String propertyExpression = line.substring(startExpressionPos + 2,
+								finishExpresionPos);
+						String propertyExpressionValue = propertyMap.get(propertyExpression);
 
-							propertyMap.put(propertyName, propertyValue);
-						}
-
-						if (inDependencies) {
-
-							int startExpressionPos = line.indexOf("${");
-
-							if (startExpressionPos > 0) {
-								int finishExpresionPos = line.indexOf("}", startExpressionPos);
-
-								if (finishExpresionPos > 0) {
-									String propertyExpression = line.substring(startExpressionPos + 2,
-											finishExpresionPos);
-									String propertyExpressionValue = propertyMap.get(propertyExpression);
-
-									if (propertyExpressionValue != null) {
-										line = line.substring(0, startExpressionPos) + propertyExpressionValue +
-											line.substring(finishExpresionPos + 1);
-									}
-								}
-							}
-						}
-
-						if (inDependencies || inDependencyManagement) {
-
-							line = line.replaceAll("^\\t", "");
-							line = line.replaceAll("\\t", "    ");
-							dependencyLines += line;
-							dependencyLines += "\n";
-						}
-
-						if (line.contains("</dependencies>")) {
-							inDependencies = false;
-						}
-						else if (line.contains("</dependencyManagement>")) {
-							inDependencyManagement = false;
+						if (propertyExpressionValue != null) {
+							line = line.substring(0, startExpressionPos) + propertyExpressionValue +
+								line.substring(finishExpresionPos + 1);
 						}
 					}
 				}
 			}
 
-			jar.close();
+			if (inDependencies || inDependencyManagement) {
 
-		}
-		catch (IOException e1) {
-			logger.error(e1);
+				line = line.replaceAll("^\\t", "");
+				line = line.replaceAll("\\t", "    ");
+				dependencyLines += line;
+				dependencyLines += "\n";
+			}
+
+			if (line.contains("</dependencies>")) {
+				inDependencies = false;
+			}
+			else if (line.contains("</dependencyManagement>")) {
+				inDependencyManagement = false;
+			}
 		}
 
 		return dependencyLines;
@@ -257,14 +259,16 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 						dependencyLines += line;
 						dependencyLines += "\n";
 					}
+
+					build.delete();
 				}
 			}
 
 			jar.close();
 
 		}
-		catch (IOException e1) {
-			logger.error(e1);
+		catch (IOException e) {
+			logger.error(e);
 		}
 
 		return dependencyLines;
@@ -462,7 +466,7 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 										String groupIdArtifactIdVersion = groupId + ":" + groupId + "." + suite + "." +
 											archetypeSuffix + ":jar:" + latestMinorVersion;
 										File artifact = client.getArtifact(groupIdArtifactIdVersion);
-										String dependencyLines = extractDependencies(artifact);
+										String dependencyLines = extractMavenDependencies(artifact);
 										String gradleLines = extractGradle(artifact);
 
 										logger.debug("init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",

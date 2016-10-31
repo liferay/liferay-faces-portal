@@ -154,6 +154,10 @@ public class ArchetypeBacking {
 
 		if (getSelectedArchetype() instanceof UnsupportedArchetype) {
 			FacesContextHelperUtil.addGlobalErrorMessage("You have selected an unsupported configuration.");
+		} else {
+			if ("gradle".equals(favoriteBuild)) {
+				FacesContextHelperUtil.addGlobalInfoMessage("Gradle developers can also use the archetype:generate command because it generates a build.gradle file for you to use, if you like.");
+			}
 		}
 	}
 
