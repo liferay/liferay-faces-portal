@@ -106,7 +106,7 @@
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.portal}-jsf-${faces.spec.version}</liferay.home>
 		<liferay.faces.alloy.version>2.0.1-SNAPSHOT</liferay.faces.alloy.version>
 		<liferay.faces.bridge.api.version>3.0.0</liferay.faces.bridge.api.version>
-		<liferay.faces.bridge.ext.version>2.0.0</liferay.faces.bridge.ext.version>
+		<liferay.faces.bridge.ext.version>2.0.1-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.bridge.impl.version>3.0.0</liferay.faces.bridge.impl.version>
 		<liferay.faces.showcase.version>2.0.1-SNAPSHOT</liferay.faces.showcase.version>
 		<liferay.faces.util.version>2.0.0</liferay.faces.util.version>
@@ -383,7 +383,7 @@
 			<properties>
 				<faces.spec.version>2.2</faces.spec.version>
 				<liferay.faces.bridge.api.version>4.0.0</liferay.faces.bridge.api.version>
-				<liferay.faces.bridge.ext.version>3.0.0</liferay.faces.bridge.ext.version>
+				<liferay.faces.bridge.ext.version>3.0.1-SNAPSHOT</liferay.faces.bridge.ext.version>
 				<liferay.faces.bridge.impl.version>4.0.0</liferay.faces.bridge.impl.version>
 				<liferay.faces.showcase.version>3.0.1-SNAPSHOT</liferay.faces.showcase.version>
 				<liferay.faces.util.version>3.0.0</liferay.faces.util.version>
