@@ -97,7 +97,7 @@ public class AetherClient {
 		try {
 			version = system.resolveVersionRange(session, rangeRequest).getHighestVersion();
 		} catch (Exception e) {
-			System.err.println("getVersionOfLatestMinorAvailable: e.getMessage() + " + e.getMessage());
+			logger.error("getVersionOfLatestMinorAvailable: e.getMessage() + " + e.getMessage());
 		}
 
 		logger.info(groupIdArtifactId + ":" + range + " => " + version);
