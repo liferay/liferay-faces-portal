@@ -64,6 +64,7 @@ public class AetherClientTest {
 
 		String extVersion = "5.0.0";
 		String major = extVersion.replaceAll("\\...*", "");
+		logger.info("testGetVersionOfLatestMinorWithMajorFromString: major = " + major);
 
 		String groupId = "com.liferay.faces.archetype";
 		String suite = "primefaces";
@@ -81,7 +82,7 @@ public class AetherClientTest {
 	public void testGetVersionOfLatestMinorFromCentral() throws Exception {
 		AetherClient client = new AetherClient(new String[] { "https://repo1.maven.org/maven2/" });
 
-		Version version = client.getVersionOfLatestMinor("com.liferay.faces.archetype:com.liferay.faces.archetype.alloy.portlet:jar", 3L);
+		Version version = client.getVersionOfLatestMinor("com.liferay.faces.archetype:com.liferay.faces.archetype.primefaces.portlet:jar", 5L);
 
 		assertNotNull(version);
 		logger.info("testGetVersionOfLatestMinorFromCentral: version = " + version);
