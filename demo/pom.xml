@@ -64,6 +64,7 @@
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
 										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
 										<integration.browser>${integration.browser}</integration.browser>
+										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
 										<integration.log.level>${integration.log.level}</integration.log.level>
 										<integration.container>liferay</integration.container>
 										<integration.host>${integration.host}</integration.host>
@@ -97,18 +98,101 @@
 			<properties>
 				<integration.browser>phantomjs</integration.browser>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+					<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
+					version we specify. -->
+					<exclusions>
+						<exclusion>
+							<artifactId>org.seleniumhq.selenium</artifactId>
+							<groupId>selenium-java</groupId>
+						</exclusion>
+						<exclusion>
+							<artifactId>org.seleniumhq.selenium</artifactId>
+							<groupId>selenium-server</groupId>
+						</exclusion>
+						<exclusion>
+							<artifactId>org.seleniumhq.selenium</artifactId>
+							<groupId>selenium-remote-driver</groupId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>firefox</id>
 			<properties>
 				<integration.browser>firefox</integration.browser>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-firefox-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>chrome</id>
 			<properties>
 				<integration.browser>chrome</integration.browser>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-chrome-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>htmlunit</id>
+			<properties>
+				<integration.browser>htmlunit</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>htmlunit-driver</artifactId>
+					<version>2.23.2</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+					<version>1.4.01</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty.websocket</groupId>
+					<artifactId>websocket-client</artifactId>
+					<version>9.2.18.v20160721</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpclient</artifactId>
+					<version>4.5.2</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>jbrowser</id>
+			<properties>
+				<integration.browser>jbrowser</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.machinepublishers</groupId>
+					<artifactId>jbrowserdriver</artifactId>
+					<version>0.17.3</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>licenses</id>
@@ -319,37 +403,6 @@
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-support</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-firefox-driver</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-chrome-driver</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.codeborne</groupId>
-			<artifactId>phantomjsdriver</artifactId>
-			<scope>test</scope>
-			<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
-			version we specify. -->
-			<exclusions>
-				<exclusion>
-					<artifactId>org.seleniumhq.selenium</artifactId>
-					<groupId>selenium-java</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>org.seleniumhq.selenium</artifactId>
-					<groupId>selenium-server</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>org.seleniumhq.selenium</artifactId>
-					<groupId>selenium-remote-driver</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
