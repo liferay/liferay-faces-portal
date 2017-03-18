@@ -47,7 +47,8 @@ public class LiferayPortalResource extends Resource {
 	@Override
 	public String getRequestPath() {
 
-		String portalURL = LiferayPortletHelperUtil.getPortalURL();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		String portalURL = LiferayPortletHelperUtil.getPortalURL(facesContext);
 
 		return portalURL + resourceName;
 	}

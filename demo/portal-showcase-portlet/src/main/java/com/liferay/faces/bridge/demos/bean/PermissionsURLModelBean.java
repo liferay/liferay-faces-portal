@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
@@ -44,8 +45,9 @@ public class PermissionsURLModelBean {
 	public String getPortletResourcePrimaryKey() {
 
 		if (portletResourcePrimaryKey == null) {
-			long plid = LiferayPortletHelperUtil.getPlid();
-			Portlet portlet = LiferayPortletHelperUtil.getPortlet();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			long plid = LiferayPortletHelperUtil.getPlid(facesContext);
+			Portlet portlet = LiferayPortletHelperUtil.getPortlet(facesContext);
 			String portletId = portlet.getPortletId();
 			portletResourcePrimaryKey = PortletPermissionUtil.getPrimaryKey(plid, portletId);
 		}
