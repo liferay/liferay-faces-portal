@@ -15,6 +15,8 @@ package com.liferay.faces.portal.context;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import com.liferay.faces.portal.security.AuthorizationException;
 
 import com.liferay.portal.kernel.exception.SystemException;
@@ -47,58 +49,162 @@ public class LiferayPortletHelperUtil {
 	 * @see     {@link LiferayPortletHelper#userHasPortletPermission(String)}
 	 */
 	public static void checkUserPortletPermission(String actionId) throws AuthorizationException {
-		LiferayPortletHelperFactory.getLiferayPortletHelperInstance().checkUserPortletPermission(actionId);
+		checkUserPortletPermission(FacesContext.getCurrentInstance(), actionId);
+	}
+
+	/**
+	 * Checks to see if the current user has permission to execute the specified actionId (which, in turn, is assumed to
+	 * be an action defined for the current portlet). If the authorization fails, a PrincipalException is thrown. Any
+	 * other errors that occur will be caught and re-thrown, wrapped in a PortletRuntimeException.
+	 *
+	 * @throws  AuthorizationException
+	 *
+	 * @see     {@link LiferayPortletHelper#userHasPortletPermission(String)}
+	 * @since   3.1
+	 * @since   2.1
+	 * @since   1.1
+	 */
+	public static void checkUserPortletPermission(FacesContext facesContext, String actionId)
+		throws AuthorizationException {
+		LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.checkUserPortletPermission(actionId);
 	}
 
 	/**
 	 * Returns the build identifier for the running version of Liferay Portal.
 	 */
 	public static int getBuildNumber() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getBuildNumber();
+		return getBuildNumber(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Returns the company Id associated with the community that is hosting the portlet associated with the current JSF
-	 * FacesContext.
+	 * Returns the build identifier for the running version of Liferay Portal.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static int getBuildNumber(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getBuildNumber();
+	}
+
+	/**
+	 * Returns the company Id associated with the community that is hosting the portlet associated with the current
+	 * faces context.
 	 */
 	public static long getCompanyId() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getCompanyId();
+		return getCompanyId(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the company Id associated with the community that is hosting the portlet associated with the current
+	 * faces context.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static long getCompanyId(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getCompanyId();
 	}
 
 	/**
 	 * Returns an absolute URL to the Liferay document library, which is the main part of different struts action paths.
 	 */
 	public static String getDocumentLibraryURL() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getDocumentLibraryURL();
+		return getDocumentLibraryURL(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Returns the "group Id" associated with the community that is hosting the portlet associated with the current JSF
-	 * FacesContext.
+	 * Returns an absolute URL to the Liferay document library, which is the main part of different struts action paths.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static String getDocumentLibraryURL(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getDocumentLibraryURL();
+	}
+
+	/**
+	 * Returns the "group Id" associated with the community that is hosting the portlet associated with the current
+	 * faces context.
 	 */
 	public static long getHostGroupId() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getHostGroupId();
+		return getHostGroupId(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the "group Id" associated with the community that is hosting the portlet associated with the current
+	 * faces context.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static long getHostGroupId(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getHostGroupId();
 	}
 
 	/**
 	 * Returns an absolute URL to the Liferay image gallery, which is the main part of different struts action paths.
 	 */
 	public static String getImageGalleryURL() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getImageGalleryURL();
+		return getImageGalleryURL(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns an absolute URL to the Liferay image gallery, which is the main part of different struts action paths.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static String getImageGalleryURL(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getImageGalleryURL();
 	}
 
 	/**
 	 * Returns the layout being displayed in the current context.
 	 */
 	public static Layout getLayout() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getLayout();
+		return getLayout(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the layout being displayed in the current context.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static Layout getLayout(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getLayout();
 	}
 
 	/**
 	 * Returns the Liferay PermissionChecker associated with the request.
 	 */
 	public static PermissionChecker getPermissionChecker() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getPermissionChecker();
+		return getPermissionChecker(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the Liferay PermissionChecker associated with the request.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static PermissionChecker getPermissionChecker(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getPermissionChecker();
 	}
 
 	/**
@@ -106,14 +212,38 @@ public class LiferayPortletHelperUtil {
 	 * on. Plid is the primary key of the "Layout" table.
 	 */
 	public static long getPlid() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getPlid();
+		return getPlid(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the "Plid" (the "portal layout id"), which is the identifier of the specific "page" the portlet exists
+	 * on. Plid is the primary key of the "Layout" table.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static long getPlid(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext()).getPlid();
 	}
 
 	/**
 	 * Returns an absolute URL which is the context-path of the portal webapp.
 	 */
 	public static String getPortalURL() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getPortalURL();
+		return getPortalURL(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns an absolute URL which is the context-path of the portal webapp.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static String getPortalURL(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getPortalURL();
 	}
 
 	/**
@@ -121,7 +251,20 @@ public class LiferayPortletHelperUtil {
 	 * request.
 	 */
 	public static Portlet getPortlet() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getPortlet();
+		return getPortlet(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the <code>com.liferay.portal.model.Portlet</code> object for the portlet associated with the current
+	 * request.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static Portlet getPortlet(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getPortlet();
 	}
 
 	/**
@@ -133,7 +276,23 @@ public class LiferayPortletHelperUtil {
 	 * @see  {@link PortletHelper#getPortletName()}
 	 */
 	public static String getPortletInstanceId() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getPortletInstanceId();
+		return getPortletInstanceId(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the "portlet instance Id" of the currently running portlet. This id is an internal identifier used by the
+	 * Liferay API. Note that the Liferay API for getPorletId() is not exposed as getPortletId() in this API -- instead
+	 * it is exposed as getPortletInstanceId(). This is because the Liferay API getPortletId() actually returns the
+	 * "instance id" of the portlet, whereas most of the time developers really want the "root id" instead.
+	 *
+	 * @see    {@link PortletHelper#getPortletName()}
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static String getPortletInstanceId(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getPortletInstanceId();
 	}
 
 	/**
@@ -145,14 +304,42 @@ public class LiferayPortletHelperUtil {
 	 * @see  {@link PortletHelper#getPortletName()}
 	 */
 	public static String getPortletRootId() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getPortletRootId();
+		return getPortletRootId(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the "portlet root Id" of the currently running portlet. This id is an internal identifier used by the
+	 * Liferay API. Note that the Liferay API for getPorletId() is not exposed as getPortletId() in this API -- instead
+	 * it is exposed as getPortletInstanceId(). This is because the Liferay API getPortletId() actually returns the
+	 * "instance id" of the portlet, whereas most of the time developers really want the "root id" instead.
+	 *
+	 * @see    {@link PortletHelper#getPortletName()}
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static String getPortletRootId(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getPortletRootId();
 	}
 
 	/**
 	 * Returns the group (Liferay community) associated with the layout (portal page) that the portlet resides on.
 	 */
 	public static Group getScopeGroup() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getScopeGroup();
+		return getScopeGroup(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the group (Liferay community) associated with the layout (portal page) that the portlet resides on.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static Group getScopeGroup(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getScopeGroup();
 	}
 
 	/**
@@ -160,7 +347,20 @@ public class LiferayPortletHelperUtil {
 	 * resides on.
 	 */
 	public static long getScopeGroupId() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getScopeGroupId();
+		return getScopeGroupId(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the unique id of the group (Liferay community) associated with the layout (portal page) that the portlet
+	 * resides on.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static long getScopeGroupId(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getScopeGroupId();
 	}
 
 	/**
@@ -168,21 +368,58 @@ public class LiferayPortletHelperUtil {
 	 * portlet resides on.
 	 */
 	public static User getScopeGroupUser() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getScopeGroupUser();
+		return getScopeGroupUser(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the user associated with the group (Liferay community) associated with the layout (portal page) that the
+	 * portlet resides on.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static User getScopeGroupUser(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getScopeGroupUser();
 	}
 
 	/**
 	 * Returns an instance of a ServiceContext associated with the specified className.
 	 */
 	public static ServiceContext getServiceContext() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getServiceContext();
+		return getServiceContext(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns an instance of a ServiceContext associated with the specified className.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static ServiceContext getServiceContext(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getServiceContext();
 	}
 
 	/**
 	 * Returns the theme being displayed in the current context.
 	 */
 	public static Theme getTheme() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getTheme();
+		return getTheme(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the theme being displayed in the current context.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static Theme getTheme(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getTheme();
 	}
 
 	/**
@@ -190,35 +427,95 @@ public class LiferayPortletHelperUtil {
 	 * for rendering theme specific look and feels.
 	 */
 	public static ThemeDisplay getThemeDisplay() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getThemeDisplay();
+		return getThemeDisplay(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns the <code>com.liferay.portal.kernel.theme.ThemeDisplay</code> object, which contains a variety methods
+	 * for rendering theme specific look and feels.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static ThemeDisplay getThemeDisplay(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getThemeDisplay();
 	}
 
 	/**
 	 * Returns an absolute URL which is the path to the images of the theme associated with the current Layout.
 	 */
 	public static String getThemeImagesURL() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getThemeImagesURL();
+		return getThemeImagesURL(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Returns the user record of the user associated with the current JSF FacesContext.
+	 * Returns an absolute URL which is the path to the images of the theme associated with the current Layout.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static String getThemeImagesURL(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getThemeImagesURL();
+	}
+
+	/**
+	 * Returns the user record of the user associated with the current faces context.
 	 */
 	public static User getUser() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getUser();
+		return getUser(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Returns the user Id of the user associated with the current JSF FacesContext
+	 * Returns the user record of the user associated with the specified faces context.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static User getUser(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext()).getUser();
+	}
+
+	/**
+	 * Returns the user Id of the user associated with the current faces context.
 	 */
 	public static long getUserId() {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getUserId();
+		return getUserId(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Returns a list of all of the roles played by the user associated with the current JSF FacesContext.
+	 * Returns the user Id of the user associated with the specified faces context.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static long getUserId(FacesContext facesContext) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getUserId();
+	}
+
+	/**
+	 * Returns a list of all of the roles played by the user associated with the current faces context.
 	 */
 	public static List<Role> getUserRoles() throws SystemException {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().getUserRoles();
+		return getUserRoles(FacesContext.getCurrentInstance());
+	}
+
+	/**
+	 * Returns a list of all of the roles played by the user associated with the specified faces context.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static List<Role> getUserRoles(FacesContext facesContext) throws SystemException {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.getUserRoles();
 	}
 
 	/**
@@ -229,13 +526,40 @@ public class LiferayPortletHelperUtil {
 	 * @see  {@link LiferayPortletHelper#checkUserPortletPermission(String)}
 	 */
 	public static boolean userHasPortletPermission(String actionId) {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().userHasPortletPermission(actionId);
+		return userHasPortletPermission(FacesContext.getCurrentInstance(), actionId);
+	}
+
+	/**
+	 * Returns <code>true</code> if the current user has permission to execute the specified actionId (which, in turn,
+	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
+	 * wrapped in a PortletRuntimeException.
+	 *
+	 * @see    {@link LiferayPortletHelper#checkUserPortletPermission(String)}
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static boolean userHasPortletPermission(FacesContext facesContext, String actionId) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.userHasPortletPermission(actionId);
 	}
 
 	/**
 	 * Returns <code>true</code> if the current user has the specified role name.
 	 */
 	public static boolean userHasRole(String roleName) {
-		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance().userHasRole(roleName);
+		return userHasRole(FacesContext.getCurrentInstance(), roleName);
+	}
+
+	/**
+	 * Returns <code>true</code> if the current user has the specified role name.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
+	 */
+	public static boolean userHasRole(FacesContext facesContext, String roleName) {
+		return LiferayPortletHelperFactory.getLiferayPortletHelperInstance(facesContext.getExternalContext())
+			.userHasRole(roleName);
 	}
 }

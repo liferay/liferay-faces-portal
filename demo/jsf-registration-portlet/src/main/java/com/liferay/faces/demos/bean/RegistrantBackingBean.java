@@ -19,6 +19,7 @@ import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import com.liferay.faces.demos.model.Registrant;
@@ -86,9 +87,10 @@ public class RegistrantBackingBean implements Serializable {
 				submittedRegistrant.getEmailAddress(), submittedRegistrant.getCaptchaText()
 			});
 
-		long creatorUserId = LiferayPortletHelperUtil.getUserId();
-		long companyId = LiferayPortletHelperUtil.getCompanyId();
-		Locale locale = FacesContextHelperUtil.getLocale();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		long creatorUserId = LiferayPortletHelperUtil.getUserId(facesContext);
+		long companyId = LiferayPortletHelperUtil.getCompanyId(facesContext);
+		Locale locale = FacesContextHelperUtil.getLocale(facesContext);
 
 		try {
 			boolean active = true;

@@ -77,9 +77,10 @@ public class LoginBackingBean {
 
 	public void authenticate() {
 
-		PortletRequest portletRequest = PortletHelperUtil.getPortletRequest();
-		ActionResponse actionResponse = PortletHelperUtil.getActionResponse();
-		ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		PortletRequest portletRequest = PortletHelperUtil.getPortletRequest(facesContext);
+		ActionResponse actionResponse = PortletHelperUtil.getActionResponse(facesContext);
+		ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay(facesContext);
 		HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 
 		// If the request object is a wrapper that handles special namespacing considerations for portlet session
@@ -143,7 +144,6 @@ public class LoginBackingBean {
 		if (authenticated) {
 
 			try {
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 
 				if (PropsValuesCompat.PORTAL_JAAS_ENABLE) {
@@ -193,7 +193,8 @@ public class LoginBackingBean {
 		if (authType == null) {
 
 			try {
-				ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay();
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay(facesContext);
 				Company company = themeDisplay.getCompany();
 
 				authType = company.getAuthType();
