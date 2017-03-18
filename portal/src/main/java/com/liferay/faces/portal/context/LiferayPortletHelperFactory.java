@@ -14,6 +14,8 @@
 package com.liferay.faces.portal.context;
 
 import javax.faces.FacesWrapper;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 
@@ -24,13 +26,31 @@ import com.liferay.faces.util.factory.FactoryExtensionFinder;
 public abstract class LiferayPortletHelperFactory implements FacesWrapper<LiferayPortletHelperFactory> {
 
 	/**
+	 * @deprecated  Call {@link #getLiferayPortletHelperInstance(ExternalContext)} instead.
+	 *
+	 *              <p>Returns a stateless, thread-safe singleton instance of {@link LiferayPortletHelper} from the
+	 *              {@link LiferayPortletHelperFactory} found by the {@link FactoryExtensionFinder}.</p>
+	 */
+	@Deprecated
+	public static LiferayPortletHelper getLiferayPortletHelperInstance() {
+		return getLiferayPortletHelperInstance(FacesContext.getCurrentInstance().getExternalContext());
+	}
+
+	/**
 	 * Returns a stateless, thread-safe singleton instance of {@link LiferayPortletHelper} from the {@link
 	 * LiferayPortletHelperFactory} found by the {@link FactoryExtensionFinder}.
+	 *
+	 * @param  externalContext  The external context associated with the current faces context. It is needed in order
+	 *                          for the {@link FactoryExtensionFinder} to be able to find the factory.
+	 *
+	 * @since  3.1
+	 * @since  2.1
+	 * @since  1.1
 	 */
-	public static LiferayPortletHelper getLiferayPortletHelperInstance() {
+	public static LiferayPortletHelper getLiferayPortletHelperInstance(ExternalContext externalContext) {
 
 		LiferayPortletHelperFactory liferayPortletHelperFactory = (LiferayPortletHelperFactory) FactoryExtensionFinder
-			.getFactory(LiferayPortletHelperFactory.class);
+			.getFactory(externalContext, LiferayPortletHelperFactory.class);
 
 		return liferayPortletHelperFactory.getLiferayPortletHelper();
 	}

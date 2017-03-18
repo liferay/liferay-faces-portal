@@ -86,16 +86,19 @@ public class UsersModelBean implements Serializable {
 
 		if (userDataModel == null) {
 
-			int rowsPerPage = PortletHelperUtil.getPortletPreferenceAsInt("rowsPerPage", SearchContainer.DEFAULT_DELTA);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			int rowsPerPage = PortletHelperUtil.getPortletPreferenceAsInt(facesContext, "rowsPerPage",
+					SearchContainer.DEFAULT_DELTA);
 
 			if (!userLocalServiceTracker.isEmpty()) {
 
 				UserLocalService userLocalService = userLocalServiceTracker.getService();
-				userDataModel = new UserLazyDataModel(userLocalService, LiferayPortletHelperUtil.getCompanyId(),
-						rowsPerPage);
+				userDataModel = new UserLazyDataModel(userLocalService,
+						LiferayPortletHelperUtil.getCompanyId(facesContext), rowsPerPage);
 			}
 			else {
-				userDataModel = new UserLazyDataModel(null, LiferayPortletHelperUtil.getCompanyId(), rowsPerPage);
+				userDataModel = new UserLazyDataModel(null, LiferayPortletHelperUtil.getCompanyId(facesContext),
+						rowsPerPage);
 				FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
 			}
 		}

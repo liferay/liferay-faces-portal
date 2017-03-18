@@ -15,6 +15,8 @@ package com.liferay.faces.portal.el.internal;
 
 import java.util.HashMap;
 
+import javax.faces.context.FacesContext;
+
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 
 
@@ -41,7 +43,8 @@ public class UserPermissionMap extends HashMap<String, Boolean> {
 			String actionId = (String) actionIdAsObject;
 
 			if (actionId != null) {
-				value = LiferayPortletHelperUtil.userHasPortletPermission(actionId);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				value = LiferayPortletHelperUtil.userHasPortletPermission(facesContext, actionId);
 			}
 
 			put(actionId, value);
