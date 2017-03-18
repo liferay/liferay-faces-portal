@@ -44,6 +44,7 @@ public class LiferayLocalePhaseListener implements PhaseListener {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(LiferayLocalePhaseListener.class);
 
+	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		if (phaseEvent.getPhaseId() == PhaseId.RESTORE_VIEW) {
@@ -51,6 +52,7 @@ public class LiferayLocalePhaseListener implements PhaseListener {
 		}
 	}
 
+	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 
 		if (phaseEvent.getPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -58,6 +60,7 @@ public class LiferayLocalePhaseListener implements PhaseListener {
 		}
 	}
 
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}
@@ -69,14 +72,15 @@ public class LiferayLocalePhaseListener implements PhaseListener {
 			// It's possible that the FacesServlet was invoked directly, and so this PhaseListener
 			// needs to check to see if the request/response is part of a portlet environment before
 			// proceeding further.
-			if (PortletHelperUtil.isPortletEnvironment()) {
-				ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+
+			if (PortletHelperUtil.isPortletEnvironment(facesContext)) {
+				ThemeDisplay themeDisplay = LiferayPortletHelperUtil.getThemeDisplay(facesContext);
 
 				if (themeDisplay != null) {
 					Locale locale = themeDisplay.getLocale();
 
 					if (locale != null) {
-						FacesContext facesContext = FacesContext.getCurrentInstance();
 						UIViewRoot viewRoot = facesContext.getViewRoot();
 
 						if (viewRoot != null) {

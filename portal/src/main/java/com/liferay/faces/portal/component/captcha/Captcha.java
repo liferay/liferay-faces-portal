@@ -47,19 +47,18 @@ public class Captcha extends CaptchaBase {
 	private static final Logger logger = LoggerFactory.getLogger(Captcha.class);
 
 	@Override
-	protected void validateValue(FacesContext context, Object value) {
+	protected void validateValue(FacesContext facesContext, Object value) {
 
-		super.validateValue(context, value);
+		super.validateValue(facesContext, value);
 
 		if (isValid() && (value != null)) {
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			UIViewRoot viewRoot = facesContext.getViewRoot();
 			Locale locale = viewRoot.getLocale();
-			I18n i18n = I18nFactory.getI18nInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			I18n i18n = I18nFactory.getI18nInstance(externalContext);
 
 			try {
-				ExternalContext externalContext = facesContext.getExternalContext();
 				Map<String, Object> sessionMap = externalContext.getSessionMap();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 				String userCaptchaTextValue = value.toString();
@@ -81,13 +80,13 @@ public class Captcha extends CaptchaBase {
 			catch (CaptchaTextException e) {
 				String summary = i18n.getMessage(facesContext, locale, "text-verification-failed");
 				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
-				context.addMessage(getClientId(context), facesMessage);
+				facesContext.addMessage(getClientId(facesContext), facesMessage);
 				setValid(false);
 			}
 			catch (CaptchaMaxChallengesException e) {
 				String summary = i18n.getMessage(facesContext, locale, "maximum-number-of-captcha-attempts-exceeded");
 				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
-				context.addMessage(getClientId(context), facesMessage);
+				facesContext.addMessage(getClientId(facesContext), facesMessage);
 				setValid(false);
 			}
 			catch (Exception e) {
@@ -95,7 +94,7 @@ public class Captcha extends CaptchaBase {
 
 				String summary = i18n.getMessage(facesContext, locale, "an-unexpected-error-occurred");
 				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
-				context.addMessage(getClientId(context), facesMessage);
+				facesContext.addMessage(getClientId(facesContext), facesMessage);
 				setValid(false);
 			}
 		}

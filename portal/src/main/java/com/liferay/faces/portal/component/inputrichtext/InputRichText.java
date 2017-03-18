@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 
@@ -96,7 +97,8 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 
 				Object label = getAttributes().get("label");
 				Locale locale = facesContext.getViewRoot().getLocale();
-				I18n i18n = I18nFactory.getI18nInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				I18n i18n = I18nFactory.getI18nInstance(externalContext);
 				FacesMessage facesMessage = i18n.getFacesMessage(facesContext, locale, FacesMessage.SEVERITY_ERROR,
 						LengthValidator.MINIMUM_MESSAGE_ID, minimum, label);
 				facesContext.addMessage(getClientId(), facesMessage);
@@ -107,7 +109,8 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 
 				Object label = getAttributes().get("label");
 				Locale locale = facesContext.getViewRoot().getLocale();
-				I18n i18n = I18nFactory.getI18nInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				I18n i18n = I18nFactory.getI18nInstance(externalContext);
 				FacesMessage facesMessage = i18n.getFacesMessage(facesContext, locale, FacesMessage.SEVERITY_ERROR,
 						LengthValidator.MAXIMUM_MESSAGE_ID, maximum, label);
 				facesContext.addMessage(getClientId(), facesMessage);
