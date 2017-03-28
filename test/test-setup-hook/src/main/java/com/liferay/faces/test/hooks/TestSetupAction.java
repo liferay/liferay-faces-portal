@@ -28,6 +28,8 @@ import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.xml.Attribute;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
+import com.liferay.portal.kernel.xml.Namespace;
+import com.liferay.portal.kernel.xml.QName;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
@@ -46,7 +48,14 @@ import com.liferay.portal.service.UserLocalServiceUtil;
  */
 public class TestSetupAction extends TestSetupCompatAction {
 
+	// Logger
 	private static final Log logger = LogFactory.getLog(TestSetupAction.class);
+
+	// Private Constants
+	private static final String BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME =
+		"com.liferay.faces.test.bridge.tck.main.portlet";
+	private static final Namespace PLUTO_PORTAL_DRIVER_CONFIG_NAMESPACE = SAXReaderUtil.createNamespace(
+			"http://portals.apache.org/pluto/xsd/pluto-portal-driver-config.xsd");
 
 	@Override
 	public void run(String[] companyIds) throws ActionException {
@@ -169,20 +178,27 @@ public class TestSetupAction extends TestSetupCompatAction {
 		URL configFileURL = getClass().getClassLoader().getResource("pluto-portal-driver-config.xml");
 		Document document = SAXReaderUtil.read(configFileURL);
 		Element rootElement = document.getRootElement();
-		Element renderConfigElement = rootElement.element("render-config");
-		Iterator<Element> pageElementIterator = renderConfigElement.elementIterator("page");
+		Element renderConfigElement = rootElement.element(getPlutoElementQName("render-config"));
+		Iterator<Element> pageElementIterator = renderConfigElement.elementIterator(getPlutoElementQName("page"));
 
 		while (pageElementIterator.hasNext()) {
+
 			Element pageElement = pageElementIterator.next();
 			Attribute nameAttribute = pageElement.attribute("name");
 			String pageName = nameAttribute.getValue();
-			Element portletElement = pageElement.element("portlet");
-			nameAttribute = portletElement.attribute("name");
+			Element portletElement = pageElement.element(getPlutoElementQName("portlet"));
+			Attribute contextAttribute = portletElement.attribute("context");
+			String context = contextAttribute.getValue();
 
-			String portletName = nameAttribute.getValue();
-			PortalPage portalPage = new PortalPage(pageName,
-					new Portlet(portletName, "com.liferay.faces.test.bridge.tck.main.portlet", false));
-			setupPrivatePage(userId, groupId, portalPage, bundles);
+			if (context.endsWith(BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME)) {
+
+				nameAttribute = portletElement.attribute("name");
+
+				String portletName = nameAttribute.getValue();
+				PortalPage portalPage = new PortalPage(pageName,
+						new Portlet(portletName, BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME, false));
+				setupPrivatePage(userId, groupId, portalPage, bundles);
+			}
 		}
 
 		setupPrivatePage(userId, groupId,
@@ -355,5 +371,9 @@ public class TestSetupAction extends TestSetupCompatAction {
 		ServiceUtil.addUser(userId, companyId, "John", "Witherspoon");
 		ServiceUtil.addUser(userId, companyId, "Oliver", "Wolcott");
 		ServiceUtil.addUser(userId, companyId, "George", "Wythe");
+	}
+
+	private QName getPlutoElementQName(String name) {
+		return SAXReaderUtil.createQName(name, PLUTO_PORTAL_DRIVER_CONFIG_NAMESPACE);
 	}
 }
