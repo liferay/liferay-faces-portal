@@ -12,30 +12,6 @@
 	<packaging>war</packaging>
 	<name>Test Setup Hook</name>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.googlecode.maven-download-plugin</groupId>
-				<artifactId>download-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-						<id>download-pluto-page-xml</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>wget</goal>
-						</goals>
-						<configuration>
-							<url>https://raw.githubusercontent.com/liferay/liferay-faces-bridge-impl/551459f8942cc7d7cbe2bc4c1b1614a67258f88b/tck/bridge-tck-harness/src/main/resources/tomcat_pluto/pluto-portal-driver-config.xml</url>
-							<outputDirectory>${project.build.directory}/classes</outputDirectory>
-							<sha1>660c5bb5bbd18ef9693c104ae1ce34d205869c09</sha1>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
