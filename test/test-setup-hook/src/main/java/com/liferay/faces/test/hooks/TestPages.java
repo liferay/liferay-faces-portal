@@ -92,6 +92,8 @@ public class TestPages {
 				new Portlet("1", "com.liferay.faces.demo.jsf.applicant.portlet"),
 				new Portlet("1", "com.liferay.faces.demo.primefaces.applicant.portlet")));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1638", new Portlet("1", "com.liferay.faces.issue.1638.portlet")));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-2921",
+				new Portlet("FACES-2921", "com.liferay.faces.issue.primefaces.portlet")));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3031",
 				new Portlet("FACES-3031", "com.liferay.faces.issue.primefaces.portlet")));
 	}
