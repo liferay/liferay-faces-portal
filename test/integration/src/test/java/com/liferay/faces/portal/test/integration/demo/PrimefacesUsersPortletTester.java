@@ -19,10 +19,10 @@ import com.liferay.faces.portal.test.integration.PortalTestUtil;
 import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.TestUtil;
 
+
 /**
- * @author	Liferay Faces Team
+ * @author  Liferay Faces Team
  */
 public class PrimefacesUsersPortletTester {
 
 }
-
