@@ -10,48 +10,97 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>com.liferay.faces.test.portal.integration.parent</artifactId>
-	<packaging>pom</packaging>
+	<artifactId>com.liferay.faces.test.portal.integration</artifactId>
+	<packaging>jar</packaging>
 	<name>Liferay Faces Portal Test Integration</name>
 
-	<modules>
-		<module>util</module>
-		<module>demos</module>
-		<module>issues</module>
-	</modules>
-
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.junit</groupId>
-			<artifactId>arquillian-junit-container</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.graphene</groupId>
-			<artifactId>graphene-webdriver</artifactId>
-			<type>pom</type>
-		</dependency>
-	</dependencies>
-
 	<properties>
-		<integration.portal>liferay62</integration.portal>
-		<integration.host>localhost</integration.host>
-		<integration.port>8080</integration.port>
-		<integration.url>http://${integration.host}:${integration.port}</integration.url>
-		<integration.context>/group/bridge-demos</integration.context>
-		<integration.signin>/web/guest/home</integration.signin>
+		<integration.browser>phantomjs</integration.browser>
+		<integration.container>liferay</integration.container>
 	</properties>
 
 	<profiles>
 		<profile>
+			<id>chrome</id>
+			<properties>
+				<integration.browser>chrome</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-chrome-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>firefox</id>
+			<properties>
+				<integration.browser>firefox</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-firefox-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>htmlunit</id>
+			<properties>
+				<integration.browser>htmlunit</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>htmlunit-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+					<version>1.4.01</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty.websocket</groupId>
+					<artifactId>websocket-client</artifactId>
+					<version>9.2.18.v20160721</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpclient</artifactId>
+					<version>4.5.2</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>jbrowser</id>
+			<properties>
+				<integration.browser>jbrowser</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.machinepublishers</groupId>
+					<artifactId>jbrowserdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>liferay62</id>
+			<properties>
+				<integration.container>liferay62</integration.container>
+			</properties>
+		</profile>
+		<profile>
 			<id>pluto</id>
 			<properties>
-				<integration.portal>pluto</integration.portal>
-				<integration.context>/pluto/portal</integration.context>
-				<integration.signin>/pluto/portal</integration.signin>
+				<integration.container>pluto</integration.container>
+				<integration.alloy.showcase.context>/pluto/portal/alloy-showcase</integration.alloy.showcase.context>
 			</properties>
 		</profile>
 		<profile>
@@ -60,67 +109,98 @@
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<skipTests>false</skipTests>
-						</configuration>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.19.1</version>
+						<executions>
+							<execution>
+								<id>selenium-tests</id>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+								<configuration>
+									<systemPropertyVariables>
+										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
+										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
+										<integration.browser>${integration.browser}</integration.browser>
+										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
+										<integration.log.level>${integration.log.level}</integration.log.level>
+										<integration.container>${integration.container}</integration.container>
+										<integration.host>${integration.host}</integration.host>
+										<integration.port>${integration.port}</integration.port>
+										<integration.demo.context>${integration.demo.context}</integration.demo.context>
+										<integration.issue.context>${integration.issue.context}</integration.issue.context>
+										<integration.showcase.context>${integration.showcase.context}</integration.showcase.context>
+										<integration.sign.in.context>${integration.sign.in.context}</integration.sign.in.context>
+										<integration.login.xpath>${integration.login.xpath}</integration.login.xpath>
+										<integration.password.xpath>${integration.password.xpath}</integration.password.xpath>
+										<integration.sign.in.button.xpath>${integration.sign.in.button.xpath}</integration.sign.in.button.xpath>
+										<integration.login>${integration.login}</integration.login>
+										<integration.password>${integration.password}</integration.password>
+									</systemPropertyVariables>
+									<properties>
+										<property>
+											<name>listener</name>
+											<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
+										</property>
+									</properties>
+									<excludes>
+										<exclude>**/showcase/**</exclude>
+									</excludes>
+									<includes>
+										<include>**/*Test.java,**/Test*.java,**/*TestCase.java,**/*Tester.java</include>
+									</includes>
+									<trimStackTrace>false</trimStackTrace>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<id>weblogic</id>
-			<properties>
-				<integration.port>7001</integration.port>
-			</properties>
-		</profile>
-		<profile>
-			<id>websphere</id>
-			<properties>
-				<integration.port>9080</integration.port>
-			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 	</profiles>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skipTests>true</skipTests>
-				</configuration>
-			</plugin>
-		</plugins>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<configuration>
-						<systemProperties>
-							<property>
-								<name>integration.portal</name>
-								<value>${integration.portal}</value>
-							</property>
-							<property>
-								<name>integration.url</name>
-								<value>${integration.url}</value>
-							</property>
-							<property>
-								<name>integration.context</name>
-								<value>${integration.context}</value>
-							</property>
-							<property>
-								<name>integration.signin</name>
-								<value>${integration.signin}</value>
-							</property>
-						</systemProperties>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+	<dependencies>
+		<!-- Integration test dependencies. -->
+		<dependency>
+			<groupId>com.liferay.faces.test</groupId>
+			<artifactId>com.liferay.faces.test.selenium</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-remote-driver</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-support</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- End integration test dependencies. -->
+	</dependencies>
 
 </project>
 
