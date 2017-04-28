@@ -125,7 +125,7 @@
 		<primefaces.version>6.1</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.stage>Production</project.stage>
-		<selenium.version>2.46.0</selenium.version>
+		<selenium.version>2.53.0</selenium.version>
 		<short.version>3.0</short.version>
 		<surefire.version>2.12</surefire.version>
 		<war.packaging.excludes>
@@ -774,39 +774,39 @@
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-java</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-api</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-remote-driver</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-support</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<!-- Note: the tests require that Firefox 46.0 is installed on the system. -->
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-firefox-driver</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<!-- Note: the tests require that chromedriver 2.24 is installed on the system. -->
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-chrome-driver</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
