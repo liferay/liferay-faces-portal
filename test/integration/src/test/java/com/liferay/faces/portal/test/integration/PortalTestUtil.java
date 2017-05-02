@@ -24,6 +24,7 @@ public final class PortalTestUtil {
 
 	// Private Constants
 	private static final String DEFAULT_DEMO_CONTEXT = "/group/portal-demos";
+	private static final String DEFAULT_GUEST_CONTEXT = "/web/guest";
 	private static final String DEFAULT_ISSUE_CONTEXT = "/web/portal-issues";
 
 	private PortalTestUtil() {
@@ -37,6 +38,15 @@ public final class PortalTestUtil {
 
 	public static String getDemoPageURL(String portletPageName) {
 		return TestUtil.DEFAULT_BASE_URL + getDemoContext(portletPageName);
+	}
+
+	public static String getGuestContext(String portletPageName) {
+		return TestUtil.getSystemPropertyOrDefault("integration.demo.context", DEFAULT_GUEST_CONTEXT) + "/" +
+			portletPageName;
+	}
+
+	public static String getGuestPageURL(String portletPageName) {
+		return TestUtil.DEFAULT_BASE_URL + getGuestContext(portletPageName);
 	}
 
 	public static String getIssueContext(String portletPageName) {
