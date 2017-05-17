@@ -13,13 +13,6 @@
  */
 package com.liferay.faces.portal.test.integration.demo;
 
-import org.junit.Test;
-
-import com.liferay.faces.portal.test.integration.PortalTestUtil;
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.TestUtil;
-
-
 /**
  * @author  Liferay Faces Team
  */

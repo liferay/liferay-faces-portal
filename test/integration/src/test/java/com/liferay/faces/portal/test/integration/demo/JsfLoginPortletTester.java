@@ -13,65 +13,94 @@
  */
 package com.liferay.faces.portal.test.integration.demo;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import com.liferay.faces.portal.test.integration.PortalTestUtil;
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.IntegrationTesterBase;
+import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
  * @author  Vernon Singleton
  * @author  Philip White
  */
-public class JsfLoginPortletTester {
+public class JsfLoginPortletTester extends IntegrationTesterBase {
 
 	@Test
 	public void runJsfLoginPortletTester() {
 
 		// Navigate the browser to the portal page that contains the jsf-sign-in portlet.
-		Browser browser = Browser.getInstance();
+		BrowserDriver browserDriver = getBrowserDriver();
 		String jsfLoginPageURL = PortalTestUtil.getGuestPageURL("jsf-sign-in");
-		browser.get(jsfLoginPageURL);
+		browserDriver.navigateWindowTo(jsfLoginPageURL);
 
-		// Wait for a visible element to start the test.
+		// Wait for a displayed element to start the test.
 		String emailFieldXpath = "//input[contains(@id,':handle')]";
-		browser.waitForElementVisible(emailFieldXpath);
-		SeleniumAssert.assertElementVisible(browser, emailFieldXpath);
+		browserDriver.waitForElementDisplayed(emailFieldXpath);
+
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertElementDisplayed(emailFieldXpath);
 
 		// Clear the email field text box since Liferay Portal will sometimes pre-populate the text box with a value.
-		browser.clear(emailFieldXpath);
+		browserDriver.clearElement(emailFieldXpath);
 
 		// Test an invalid 'Sign In' by submitting an invalid password.
-		browser.sendKeys(emailFieldXpath, "test@liferay.com");
+		browserDriver.sendKeysToElement(emailFieldXpath, "test@liferay.com");
 
 		String passwordFieldXpath = "//input[contains(@id,':password')]";
-		browser.sendKeys(passwordFieldXpath, "invalid_password");
+		browserDriver.sendKeysToElement(passwordFieldXpath, "invalid_password");
 
 		String signInButtonXpath = "//input[@type='submit' and @value='Sign In']";
-		browser.clickAndWaitForAjaxRerender(signInButtonXpath);
+		browserDriver.clickElementAndWaitForRerender(signInButtonXpath);
 
-		// Verify that the error message is visible.
+		// Verify that the error message is displayed.
 		String messageErrorXpath = "//form[@method='post']/ul/li";
-		browser.waitForElementTextVisible(messageErrorXpath, "Authentication failed");
-		SeleniumAssert.assertElementTextVisible(browser, messageErrorXpath, "Authentication failed");
+		browserStateAsserter.assertTextPresentInElement("Authentication failed", messageErrorXpath);
 
 		// Test a valid 'Sign In'. Verify that the email field value still contains "test@liferay.com" since h:inputText
 		// should retain its text box value even if form submission fails validation.
-		SeleniumAssert.assertElementValue(browser, emailFieldXpath, "test@liferay.com");
+		browserStateAsserter.assertTextPresentInElementValue("test@liferay.com", emailFieldXpath);
 
 		// Verify that the password field value contains an empty value since h:inputSecret should not retain its text
 		// box value when form submission fails validation.
-		SeleniumAssert.assertElementValue(browser, passwordFieldXpath, "");
+		ExpectedCondition<Boolean> valueEmpty = ExpectedConditions.attributeToBe(By.xpath(passwordFieldXpath), "value",
+				"");
+		browserStateAsserter.assertTrue(valueEmpty);
 
 		// Enter a valid password and sign in.
-		browser.sendKeys(passwordFieldXpath, "test");
-		browser.click(signInButtonXpath);
+		browserDriver.sendKeysToElement(passwordFieldXpath, "test");
+		browserDriver.clickElement(signInButtonXpath);
 
 		// Verify that the 'Sign In' was successful.
 		String portletBodyXpath = "//div[contains(text(),'You are signed in as')]";
-		browser.waitForElementTextVisible(portletBodyXpath, "You are signed in");
-		SeleniumAssert.assertElementTextVisible(browser, portletBodyXpath, "You are signed in");
+		browserStateAsserter.assertTextPresentInElement("You are signed in", portletBodyXpath);
 	}
 
+	@After
+	public void signIn() {
+
+		// Sign out and in again in case any tests run after this one expect to be signed in.
+		signOut();
+		signIn(getBrowserDriver());
+	}
+
+	@Before
+	public void signOut() {
+
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + "/c/portal/logout");
+	}
+
+	@Override
+	protected void doSetUp() {
+		// Avoid signing in in the initial setup.
+	}
 }
