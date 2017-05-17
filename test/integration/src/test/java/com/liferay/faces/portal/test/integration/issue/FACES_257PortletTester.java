@@ -17,83 +17,90 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.liferay.faces.portal.test.integration.PortalTestUtil;
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.IntegrationTesterBase;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
  * @author  Vernon Singleton
  * @author  Philip White
  */
-public class FACES_257PortletTester {
+public class FACES_257PortletTester extends IntegrationTesterBase {
 
 	@Test
 	public void runFACES_257PortletTest() {
 
 		// Navigate the browser to the portal page that contains the FACES-257 portlet.
-		Browser browser = Browser.getInstance();
+		BrowserDriver browserDriver = getBrowserDriver();
 		String issuePageURL = PortalTestUtil.getIssuePageURL("faces-257");
-		browser.get(issuePageURL);
+		browserDriver.navigateWindowTo(issuePageURL);
 
-		// Verify that the <span> that contains "requestedURL=..." is visible
-		String requestedUrlXpath = "//span[contains(@id, ':requestedURL')]";
-		browser.waitForElementVisible(requestedUrlXpath);
+		// Verify that the <span> that contains "requestedURL=..." is displayed
+		browserDriver.waitForElementDisplayed("//span[contains(@id, ':requestedURL')]");
 
 		// STEP 1: alpha=1 beta=2 gamma=0
 		// Click on the link in step 1 in order to cause the browser to navigate to a friendly Liferay RenderURL via
 		// HTTP GET.
-		browser.clickAndWaitForAjaxRerender("//a[contains(text(), 'alpha=1 beta=2 gamma=0')]");
+		browserDriver.clickElementAndWaitForRerender("//a[contains(text(), 'alpha=1 beta=2 gamma=0')]");
 
 		// Verify that the current URL of the browser ends with the expected friendly URL mapping.
-		Assert.assertTrue(browser.getCurrentUrl().endsWith("/-/my-friendly-url-mapping/1/my-friendly-action/2"));
+		Assert.assertTrue(browserDriver.getCurrentWindowUrl().endsWith(
+				"/-/my-friendly-url-mapping/1/my-friendly-action/2"));
 
 		// Verify that the alpha, beta, and gamma parameter values appear in the markup
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		String alphaXpath = "//span[contains(@id, ':alpha')]";
-		SeleniumAssert.assertElementTextVisible(browser, alphaXpath, "1");
+		browserStateAsserter.assertTextPresentInElement("1", alphaXpath);
 
 		String betaXpath = "//span[contains(@id, ':beta')]";
-		SeleniumAssert.assertElementTextVisible(browser, betaXpath, "2");
+		browserStateAsserter.assertTextPresentInElement("2", betaXpath);
 
 		String gammaXpath = "//span[contains(@id, ':gamma')]";
-		SeleniumAssert.assertElementTextVisible(browser, gammaXpath, "0");
+		browserStateAsserter.assertTextPresentInElement("0", gammaXpath);
 
 		// STEP 2: alpha=1 beta=2 gamma=3
 		// Click on the link in step 2 in order to cause the browser to navigate to a friendly Liferay RenderURL via
 		// HTTP GET.
-		browser.clickAndWaitForAjaxRerender("//a[contains(text(), 'alpha=1 beta=2 gamma=3')]");
+		browserDriver.clickElementAndWaitForRerender("//a[contains(text(), 'alpha=1 beta=2 gamma=3')]");
 
 		// Verify that the current URL of the browser ends with the expected friendly URL mapping.
-		Assert.assertTrue(browser.getCurrentUrl().endsWith("/-/my-friendly-url-mapping/1/my-friendly-action/2/3"));
+		Assert.assertTrue(browserDriver.getCurrentWindowUrl().endsWith(
+				"/-/my-friendly-url-mapping/1/my-friendly-action/2/3"));
 
 		// Verify that the alpha, beta, and gamma parameter values appear in the markup
-		SeleniumAssert.assertElementTextVisible(browser, alphaXpath, "1");
-		SeleniumAssert.assertElementTextVisible(browser, betaXpath, "2");
-		SeleniumAssert.assertElementTextVisible(browser, gammaXpath, "3");
+		browserStateAsserter.assertTextPresentInElement("1", alphaXpath);
+		browserStateAsserter.assertTextPresentInElement("2", betaXpath);
+		browserStateAsserter.assertTextPresentInElement("3", gammaXpath);
 
 		// STEP 3: alpha=4 beta=5 gamma=0
 		// Click on the button in step 3 in order to cause the browser to navigate to a friendly Liferay RenderURL via
 		// HTTP GET.
-		browser.clickAndWaitForAjaxRerender("//input[@type='button' and contains(@value, 'alpha=4 beta=5 gamma=0')]");
+		browserDriver.clickElementAndWaitForRerender(
+			"//input[@type='button' and contains(@value, 'alpha=4 beta=5 gamma=0')]");
 
 		// Verify that the current URL of the browser ends with the expected friendly URL mapping.
-		Assert.assertTrue(browser.getCurrentUrl().endsWith("/-/my-friendly-url-mapping/4/my-friendly-action/5"));
+		Assert.assertTrue(browserDriver.getCurrentWindowUrl().endsWith(
+				"/-/my-friendly-url-mapping/4/my-friendly-action/5"));
 
 		// Verify that the alpha, beta, and gamma parameter values appear in the markup
-		SeleniumAssert.assertElementTextVisible(browser, alphaXpath, "4");
-		SeleniumAssert.assertElementTextVisible(browser, betaXpath, "5");
-		SeleniumAssert.assertElementTextVisible(browser, gammaXpath, "0");
+		browserStateAsserter.assertTextPresentInElement("4", alphaXpath);
+		browserStateAsserter.assertTextPresentInElement("5", betaXpath);
+		browserStateAsserter.assertTextPresentInElement("0", gammaXpath);
 
 		// STEP 4: alpha=4 beta=5 gamma=6
 		// Click on the button in step 4 in order to cause the browser to navigate to a friendly Liferay RenderURL via
 		// HTTP GET.
-		browser.clickAndWaitForAjaxRerender("//input[@type='button' and contains(@value, 'alpha=4 beta=5 gamma=6')]");
+		browserDriver.clickElementAndWaitForRerender(
+			"//input[@type='button' and contains(@value, 'alpha=4 beta=5 gamma=6')]");
 
 		// Verify that the current URL of the browser ends with the expected friendly URL mapping.
-		Assert.assertTrue(browser.getCurrentUrl().endsWith("/-/my-friendly-url-mapping/4/my-friendly-action/5/6"));
+		Assert.assertTrue(browserDriver.getCurrentWindowUrl().endsWith(
+				"/-/my-friendly-url-mapping/4/my-friendly-action/5/6"));
 
 		// Verify that the alpha, beta, and gamma parameter values appear in the markup
-		SeleniumAssert.assertElementTextVisible(browser, alphaXpath, "4");
-		SeleniumAssert.assertElementTextVisible(browser, betaXpath, "5");
-		SeleniumAssert.assertElementTextVisible(browser, gammaXpath, "6");
+		browserStateAsserter.assertTextPresentInElement("4", alphaXpath);
+		browserStateAsserter.assertTextPresentInElement("5", betaXpath);
+		browserStateAsserter.assertTextPresentInElement("6", gammaXpath);
 	}
 }

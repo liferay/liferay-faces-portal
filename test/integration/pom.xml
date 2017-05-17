@@ -15,28 +15,23 @@
 	<name>Liferay Faces Portal Test Integration</name>
 
 	<properties>
-		<integration.browser>phantomjs</integration.browser>
 		<integration.container>liferay</integration.container>
 	</properties>
 
 	<profiles>
+		<!-- containers -->
 		<profile>
-			<id>chrome</id>
+			<id>liferay62</id>
 			<properties>
-				<integration.browser>chrome</integration.browser>
+				<integration.container>liferay62</integration.container>
 			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>selenium-chrome-driver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
+		<!-- /containers -->
+		<!-- browsers -->
 		<profile>
 			<id>firefox</id>
 			<properties>
-				<integration.browser>firefox</integration.browser>
+				<integration.browser.name>firefox</integration.browser.name>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -49,7 +44,7 @@
 		<profile>
 			<id>htmlunit</id>
 			<properties>
-				<integration.browser>htmlunit</integration.browser>
+				<integration.browser.name>htmlunit</integration.browser.name>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -80,7 +75,7 @@
 		<profile>
 			<id>jbrowser</id>
 			<properties>
-				<integration.browser>jbrowser</integration.browser>
+				<integration.browser.name>jbrowser</integration.browser.name>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -91,18 +86,19 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>liferay62</id>
+			<id>phantomjs</id>
 			<properties>
-				<integration.container>liferay62</integration.container>
+				<integration.browser.name>phantomjs</integration.browser.name>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
-		<profile>
-			<id>pluto</id>
-			<properties>
-				<integration.container>pluto</integration.container>
-				<integration.alloy.showcase.context>/pluto/portal/alloy-showcase</integration.alloy.showcase.context>
-			</properties>
-		</profile>
+		<!-- /browsers -->
 		<profile>
 			<id>selenium</id>
 			<build>
@@ -121,10 +117,11 @@
 								<configuration>
 									<systemPropertyVariables>
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
-										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
-										<integration.browser>${integration.browser}</integration.browser>
-										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
-										<integration.log.level>${integration.log.level}</integration.log.level>
+										<!-- Specify a property like so: -Dintegration.browser.name=phantomjs -->
+										<integration.browser.name>${integration.browser.name}</integration.browser.name>
+										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
+										<integration.browser.simulate.mobile>${integration.browser.simulate.mobile}</integration.browser.simulate.mobile>
+										<integration.browser.driver.wait.time.out>${integration.browser.driver.wait.time.out}</integration.browser.driver.wait.time.out>
 										<integration.container>${integration.container}</integration.container>
 										<integration.host>${integration.host}</integration.host>
 										<integration.port>${integration.port}</integration.port>
@@ -157,18 +154,16 @@
 					</plugin>
 				</plugins>
 			</build>
-			<dependencies>
-				<dependency>
-					<groupId>com.codeborne</groupId>
-					<artifactId>phantomjsdriver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 	</profiles>
 
 	<dependencies>
 		<!-- Integration test dependencies. -->
+		<dependency>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.util</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces.test</groupId>
 			<artifactId>com.liferay.faces.test.selenium</artifactId>
