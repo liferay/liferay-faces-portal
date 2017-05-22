@@ -97,6 +97,7 @@ public class JsfLoginPortletTester extends IntegrationTesterBase {
 
 		BrowserDriver browserDriver = getBrowserDriver();
 		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + "/c/portal/logout");
+		browserDriver.clearBrowserCookies();
 	}
 
 	@Override
