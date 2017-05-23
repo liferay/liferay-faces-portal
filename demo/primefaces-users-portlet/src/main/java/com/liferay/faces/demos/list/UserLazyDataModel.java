@@ -19,13 +19,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.naming.ServiceUnavailableException;
-
-import org.osgi.framework.ServiceException;
-
-import org.osgi.util.tracker.ServiceTracker;
 
 import org.primefaces.component.datatable.DataTable;
 
@@ -35,7 +28,6 @@ import org.primefaces.model.SortOrder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Document;
@@ -80,6 +72,11 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 	}
 
 	public int countRows() {
+		return countRows(null, null, null, null, null);
+	}
+
+	public int countRows(String firstNameFilter, String middleNameFilter, String lastNameFilter,
+		String screenNameFilter, String emailAddressFilter) {
 
 		int totalCount = 0;
 
@@ -92,20 +89,10 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 				LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
 				params.put("expandoAttributes", null);
 
-				Sort sort = SortFactoryUtil.getSort(User.class, DEFAULT_SORT_CRITERIA, "asc");
-
 				boolean andSearch = true;
 				int status = WorkflowConstants.STATUS_ANY;
-
-				String firstName = null;
-				String middleName = null;
-				String lastName = null;
-				String screenName = null;
-				String emailAddress = null;
-
-				Hits hits = userLocalService.search(companyId, firstName, middleName, lastName, screenName,
-						emailAddress, status, params, andSearch, QueryUtil.ALL_POS, QueryUtil.ALL_POS, sort);
-				totalCount = hits.getLength();
+				totalCount = userLocalService.searchCount(companyId, firstNameFilter, middleNameFilter, lastNameFilter,
+						screenNameFilter, emailAddressFilter, status, params, andSearch);
 			}
 			catch (Exception e) {
 				logger.error(e.getMessage(), e);
@@ -151,6 +138,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		Map<String, Object> filters) {
 
 		List<User> users = null;
+		int rowCount = 0;
 
 		Sort sort;
 
@@ -175,24 +163,25 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 			boolean andSearch = true;
 			int status = WorkflowConstants.STATUS_ANY;
 
-			String firstName = trimExpresssion((String) filters.get("firstName"));
-			String middleName = trimExpresssion((String) filters.get("middleName"));
-			String lastName = trimExpresssion((String) filters.get("lastName"));
-			String screenName = trimExpresssion((String) filters.get("screenName"));
-			String emailAddress = trimExpresssion((String) filters.get("emailAddress"));
+			String firstNameFilter = trimExpresssion((String) filters.get("firstName"));
+			String middleNameFilter = trimExpresssion((String) filters.get("middleName"));
+			String lastNameFilter = trimExpresssion((String) filters.get("lastName"));
+			String screenNameFilter = trimExpresssion((String) filters.get("screenName"));
+			String emailAddressFilter = trimExpresssion((String) filters.get("emailAddress"));
 
 			// For the sake of speed, search for users in the index rather than
 			// querying the database directly.
 
-			Hits hits = userLocalService.search(companyId, firstName, middleName, lastName, screenName, emailAddress,
-					status, params, andSearch, first, liferayOneRelativeFinishRow, sort);
+			Hits hits = userLocalService.search(companyId, firstNameFilter, middleNameFilter, lastNameFilter,
+					screenNameFilter, emailAddressFilter, status, params, andSearch, first, liferayOneRelativeFinishRow,
+					sort);
 
 			List<Document> documentHits = hits.toList();
 
 			logger.debug(
-				("filters firstName=[{0}] middleName=[{1}] lastName=[{2}] screenName=[{3}] emailAddress=[{4}] active=[{5}] andSearch=[{6}] startRow=[{7}] liferayOneRelativeFinishRow=[{8}] sortColumn=[{9}] reverseOrder=[{10}] hitCount=[{11}]"),
-				firstName, middleName, lastName, screenName, emailAddress, status, andSearch, first,
-				liferayOneRelativeFinishRow, sortField, sort.isReverse(), documentHits.size());
+				("filters firstNameFilter=[{0}] middleNameFilter=[{1}] lastNameFilter=[{2}] screenNameFilter=[{3}] emailAddressFilter=[{4}] active=[{5}] andSearch=[{6}] startRow=[{7}] liferayOneRelativeFinishRow=[{8}] sortColumn=[{9}] reverseOrder=[{10}] hitCount=[{11}]"),
+				firstNameFilter, middleNameFilter, lastNameFilter, screenNameFilter, emailAddressFilter, status,
+				andSearch, first, liferayOneRelativeFinishRow, sortField, sort.isReverse(), documentHits.size());
 
 			// Convert the results from the search index into a list of user
 			// objects.
@@ -210,10 +199,15 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 					logger.error("User with userId=[{0}] does not exist in the search index. Please reindex.");
 				}
 			}
+
+			rowCount = countRows(firstNameFilter, middleNameFilter, lastNameFilter, screenNameFilter,
+					emailAddressFilter);
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
+
+		setRowCount(rowCount);
 
 		return users;
 
