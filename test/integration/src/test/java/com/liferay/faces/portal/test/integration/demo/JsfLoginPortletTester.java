@@ -85,11 +85,11 @@ public class JsfLoginPortletTester extends IntegrationTesterBase {
 	}
 
 	@After
-	public void signIn() {
+	public void reset() {
 
-		// Sign out and in again in case any tests run after this one expect to be signed in.
+		// Sign out and set up for the next test.
 		signOut();
-		signIn(getBrowserDriver());
+		super.doSetUp();
 	}
 
 	@Before
