@@ -110,10 +110,10 @@ public class TestSetupBackingBean {
 			}
 
 			if (addUser) {
-				userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
-						autoScreenName, screenName, emailAddress, facebookId, openId, locale, firstName, middleName,
-						lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle,
-						groupIds, organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
+				userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2, autoScreenName,
+					screenName, emailAddress, facebookId, openId, locale, firstName, middleName, lastName, prefixId,
+					suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds,
+					roleIds, userGroupIds, sendEmail, serviceContext);
 				logger.debug("Added user=[{0}]", screenName);
 			}
 		}
