@@ -19,7 +19,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.primefaces.component.datatable.DataTable;
 
 import org.primefaces.model.LazyDataModel;
@@ -158,7 +157,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 		try {
 			LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
-			int liferayOneRelativeFinishRow = first + pageSize + 1;
+			int nonInclusiveFinishRow = first + pageSize;
 
 			boolean andSearch = true;
 			int status = WorkflowConstants.STATUS_ANY;
@@ -173,15 +172,15 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 			// querying the database directly.
 
 			Hits hits = userLocalService.search(companyId, firstNameFilter, middleNameFilter, lastNameFilter,
-					screenNameFilter, emailAddressFilter, status, params, andSearch, first, liferayOneRelativeFinishRow,
+					screenNameFilter, emailAddressFilter, status, params, andSearch, first, nonInclusiveFinishRow,
 					sort);
 
 			List<Document> documentHits = hits.toList();
 
 			logger.debug(
-				("filters firstNameFilter=[{0}] middleNameFilter=[{1}] lastNameFilter=[{2}] screenNameFilter=[{3}] emailAddressFilter=[{4}] active=[{5}] andSearch=[{6}] startRow=[{7}] liferayOneRelativeFinishRow=[{8}] sortColumn=[{9}] reverseOrder=[{10}] hitCount=[{11}]"),
+				"filters firstNameFilter=[{0}] middleNameFilter=[{1}] lastNameFilter=[{2}] screenNameFilter=[{3}] emailAddressFilter=[{4}] active=[{5}] andSearch=[{6}] startRow=[{7}] nonInclusiveFinishRow=[{8}] sortColumn=[{9}] reverseOrder=[{10}] hitCount=[{11}]",
 				firstNameFilter, middleNameFilter, lastNameFilter, screenNameFilter, emailAddressFilter, status,
-				andSearch, first, liferayOneRelativeFinishRow, sortField, sort.isReverse(), documentHits.size());
+				andSearch, first, nonInclusiveFinishRow, sortField, sort.isReverse(), documentHits.size());
 
 			// Convert the results from the search index into a list of user
 			// objects.
