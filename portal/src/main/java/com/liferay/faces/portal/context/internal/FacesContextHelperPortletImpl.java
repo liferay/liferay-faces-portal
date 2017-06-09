@@ -14,7 +14,9 @@
 package com.liferay.faces.portal.context.internal;
 
 import java.io.Serializable;
+import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
@@ -38,6 +40,25 @@ public class FacesContextHelperPortletImpl extends FacesContextHelperWrapper imp
 	}
 
 	@Override
+	public Object getRequestAttribute(String name) {
+		return getRequestAttribute(FacesContext.getCurrentInstance(), name);
+	}
+
+	@Override
+	public Object getRequestAttribute(FacesContext facesContext, String name) {
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
+
+		return requestMap.get(name);
+	}
+
+	@Override
+	public String getRequestQueryString() {
+		return getRequestQueryString(FacesContext.getCurrentInstance());
+	}
+
+	@Override
 	public String getRequestQueryString(FacesContext facesContext) {
 
 		// Some portlet bridges (like the ICEfaces bridge) wrap the portal's PortletRequest implementation instance
@@ -55,6 +76,35 @@ public class FacesContextHelperPortletImpl extends FacesContextHelperWrapper imp
 		}
 
 		return queryString;
+	}
+
+	@Override
+	public String getRequestQueryStringParameter(String name) {
+		return getRequestQueryStringParameter(FacesContext.getCurrentInstance(), name);
+	}
+
+	@Override
+	public String getRequestQueryStringParameter(FacesContext facesContext, String name) {
+
+		String value = null;
+		String queryString = getRequestQueryString(facesContext);
+
+		if (queryString != null) {
+			String[] queryStringTokens = queryString.split("&");
+			boolean found = false;
+
+			for (int i = 0; (!found && (i < queryStringTokens.length)); i++) {
+				String nameValuePair = queryStringTokens[i];
+				String[] nameValuePairArray = nameValuePair.split("=");
+				found = nameValuePairArray[0].equals(name);
+
+				if (found && (nameValuePairArray.length > 1)) {
+					value = nameValuePairArray[1];
+				}
+			}
+		}
+
+		return value;
 	}
 
 	@Override
