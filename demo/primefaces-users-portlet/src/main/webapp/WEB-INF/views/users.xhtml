@@ -99,6 +99,10 @@
 					<h:outputText value="#{i18n['there-are-no-results']}" rendered="#{usersModelBean.dataModel.rowCount == 0}" />
 				</alloy:column>
 			</alloy:row>
+			<alloy:buttonRow>
+				<p:commandButton actionListener="#{testSetupBackingBean.resetUsers}" id="hiddenButtonResetUsers" style="display:none;" value="Reset Users"
+				update=":f1" />
+			</alloy:buttonRow>
 		</h:panelGroup>
 	</h:form>
 

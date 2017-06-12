@@ -36,7 +36,7 @@ import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.service.UserLocalService;
 
 
 /**
@@ -59,10 +59,12 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 	// Private Data Members
 	private long companyId;
+	private UserLocalService userLocalService;
 
-	public UserLazyDataModel(long companyId, int pageSize) {
-
+	public UserLazyDataModel(UserLocalService userLocalService, long companyId, int pageSize) {
 		this.companyId = companyId;
+		this.userLocalService = userLocalService;
+
 		setPageSize(pageSize);
 		setRowCount(countRows());
 	}
@@ -76,17 +78,20 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 		int totalCount = 0;
 
-		try {
-			LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
-			params.put("expandoAttributes", null);
+		if (userLocalService != null) {
 
-			boolean andSearch = true;
-			int status = WorkflowConstants.STATUS_ANY;
-			totalCount = UserLocalServiceUtil.searchCount(companyId, firstNameFilter, middleNameFilter, lastNameFilter,
-					screenNameFilter, emailAddressFilter, status, params, andSearch);
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
+			try {
+				LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
+				params.put("expandoAttributes", null);
+
+				boolean andSearch = true;
+				int status = WorkflowConstants.STATUS_ANY;
+				totalCount = userLocalService.searchCount(companyId, firstNameFilter, middleNameFilter, lastNameFilter,
+						screenNameFilter, emailAddressFilter, status, params, andSearch);
+			}
+			catch (Exception e) {
+				logger.error(e.getMessage(), e);
+			}
 		}
 
 		return totalCount;
@@ -97,7 +102,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		User user = null;
 
 		try {
-			user = UserLocalServiceUtil.getUserById(Long.parseLong(rowKey));
+			user = userLocalService.getUserById(Long.parseLong(rowKey));
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -161,7 +166,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 			// For the sake of speed, search for users in the index rather than
 			// querying the database directly.
-			Hits hits = UserLocalServiceUtil.search(companyId, firstNameFilter, middleNameFilter, lastNameFilter,
+			Hits hits = userLocalService.search(companyId, firstNameFilter, middleNameFilter, lastNameFilter,
 					screenNameFilter, emailAddressFilter, status, params, andSearch, first, nonInclusiveFinishRow,
 					sort);
 
@@ -181,7 +186,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 				long userId = GetterUtil.getLong(document.get(Field.USER_ID));
 
 				try {
-					User user = UserLocalServiceUtil.getUserById(userId);
+					User user = userLocalService.getUserById(userId);
 					users.add(user);
 				}
 				catch (NoSuchUserException nsue) {
