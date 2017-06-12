@@ -30,10 +30,9 @@ import com.liferay.portal.NoSuchCompanyException;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.CompanyLocalService;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.UserLocalService;
+import com.liferay.portal.service.UserLocalServiceUtil;
 
 
 /**
@@ -46,13 +45,11 @@ public class TestSetupBackingBean {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(TestSetupBackingBean.class);
 
-	protected transient CompanyLocalServiceUtil companyLocalServiceUtil = new CompanyLocalServiceUtil();
-
 	// Injections
 	@ManagedProperty(name = "usersModelBean", value = "#{usersModelBean}")
 	private UsersModelBean usersModelBean;
 
-	public User addUser(long creatorUserId, long companyId, String firstName, String lastName) throws Exception {
+	public void addUser(long creatorUserId, long companyId, String firstName, String lastName) throws Exception {
 
 		boolean autoPassword = false;
 		String password1 = "test";
@@ -77,63 +74,44 @@ public class TestSetupBackingBean {
 		long[] userGroupIds = new long[] {};
 		boolean sendEmail = false;
 		ServiceContext serviceContext = new ServiceContext();
-		User user = null;
-		UserLocalService userLocalService;
 
-		if (usersModelBean.userLocalServiceUtil.equals(null)) {
-			FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
-		}
-		else {
-			userLocalService = usersModelBean.userLocalServiceUtil.getService();
+		boolean addUser = false;
 
-			boolean shouldAddUser = false;
+		try {
+			User user = UserLocalServiceUtil.getUserByScreenName(companyId, screenName);
 
-			try {
-				user = userLocalService.getUserByScreenName(companyId, screenName);
-
-				if ("john.adams".equals(screenName)) {
-					userLocalService.deleteUser(user);
-					shouldAddUser = true;
-				}
-			}
-			catch (NoSuchUserException e) {
-				shouldAddUser = true;
-			}
-
-			if (shouldAddUser) {
-				user = userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
-						autoScreenName, screenName, emailAddress, facebookId, openId, locale, firstName, middleName,
-						lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle,
-						groupIds, organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
-				logger.debug("Added user=[{0}]", screenName);
+			if ("john.adams".equals(screenName)) {
+				UserLocalServiceUtil.deleteUser(user);
+				addUser = true;
 			}
 		}
+		catch (NoSuchUserException e) {
+			addUser = true;
+		}
 
-		return user;
+		if (addUser) {
+			UserLocalServiceUtil.addUser(creatorUserId, companyId, autoPassword, password1, password2, autoScreenName,
+				screenName, emailAddress, facebookId, openId, locale, firstName, middleName, lastName, prefixId,
+				suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds, roleIds,
+				userGroupIds, sendEmail, serviceContext);
+			logger.debug("Added user=[{0}]", screenName);
+		}
 	}
 
 	public void resetUsers(ActionEvent actionEvent) throws Exception {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		if (companyLocalServiceUtil.equals(null)) {
-			FacesContextHelperUtil.addGlobalErrorMessage(facesContext, "is-temporarily-unavailable", "Company service");
+		try {
+			long companyId = LiferayPortletHelperUtil.getCompanyId(facesContext);
+			Company company = CompanyLocalServiceUtil.getCompanyById(companyId);
+			long userId = company.getDefaultUser().getUserId();
+			setupUsers(companyId, userId);
+			usersModelBean.forceListReload();
 		}
-		else {
-			CompanyLocalService companyLocalService = companyLocalServiceUtil.getService();
-
-			try {
-				long companyId = LiferayPortletHelperUtil.getCompanyId(facesContext);
-				Company company = companyLocalService.getCompanyById(companyId);
-				long userId = company.getDefaultUser().getUserId();
-				setupUsers(companyId, userId);
-				usersModelBean.forceListReload();
-			}
-			catch (NoSuchCompanyException e) {
-				FacesContextHelperUtil.addGlobalErrorMessage(facesContext, "is-temporarily-unavailable",
-					"Company service");
-				logger.error(e);
-			}
+		catch (NoSuchCompanyException e) {
+			FacesContextHelperUtil.addGlobalErrorMessage(facesContext, "is-temporarily-unavailable", "Company service");
+			logger.error(e);
 		}
 	}
 

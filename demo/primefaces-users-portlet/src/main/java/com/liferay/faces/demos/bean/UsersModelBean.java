@@ -37,8 +37,6 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 
 
@@ -64,7 +62,6 @@ public class UsersModelBean implements Serializable {
 	private transient List<SelectItem> statusSelectItems;
 	private transient UploadedFile uploadedFile;
 	private transient String selectedUserPortraitURL;
-	protected transient UserLocalServiceUtil userLocalServiceUtil = new UserLocalServiceUtil();
 
 	public void forceListReload() {
 
@@ -80,17 +77,7 @@ public class UsersModelBean implements Serializable {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			int rowsPerPage = PortletHelperUtil.getPortletPreferenceAsInt(facesContext, "rowsPerPage",
 					SearchContainer.DEFAULT_DELTA);
-
-			if (userLocalServiceUtil.equals(null)) {
-				userDataModel = new UserLazyDataModel(null, LiferayPortletHelperUtil.getCompanyId(facesContext),
-						rowsPerPage);
-				FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
-			}
-			else {
-				UserLocalService userLocalService = userLocalServiceUtil.getService();
-				userDataModel = new UserLazyDataModel(userLocalService,
-						LiferayPortletHelperUtil.getCompanyId(facesContext), rowsPerPage);
-			}
+			userDataModel = new UserLazyDataModel(LiferayPortletHelperUtil.getCompanyId(facesContext), rowsPerPage);
 		}
 
 		return userDataModel;
