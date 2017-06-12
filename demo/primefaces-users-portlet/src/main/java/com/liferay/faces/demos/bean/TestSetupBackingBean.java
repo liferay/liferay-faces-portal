@@ -28,6 +28,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
 import com.liferay.faces.demos.service.CompanyLocalServiceTracker;
+import com.liferay.faces.demos.service.UserLocalServiceTracker;
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -53,11 +54,13 @@ public class TestSetupBackingBean {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(TestSetupBackingBean.class);
 
-	protected transient CompanyLocalServiceTracker companyLocalServiceTracker;
-
 	// Injections
 	@ManagedProperty(name = "usersModelBean", value = "#{usersModelBean}")
 	private UsersModelBean usersModelBean;
+
+	// Private Data Members
+	private CompanyLocalServiceTracker companyLocalServiceTracker;
+	private UserLocalServiceTracker userLocalServiceTracker;
 
 	public User addUser(long creatorUserId, long companyId, String firstName, String lastName) throws PortalException {
 
@@ -87,27 +90,27 @@ public class TestSetupBackingBean {
 		User user = null;
 		UserLocalService userLocalService;
 
-		if (usersModelBean.userLocalServiceTracker.isEmpty()) {
+		if (userLocalServiceTracker.isEmpty()) {
 			FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
 		}
 		else {
-			userLocalService = usersModelBean.userLocalServiceTracker.getService();
+			userLocalService = userLocalServiceTracker.getService();
 
-			boolean shouldAddUser = false;
+			boolean addUser = false;
 
 			try {
 				user = userLocalService.getUserByScreenName(companyId, screenName);
 
 				if ("john.adams".equals(screenName)) {
 					userLocalService.deleteUser(user);
-					shouldAddUser = true;
+					addUser = true;
 				}
 			}
 			catch (NoSuchUserException e) {
-				shouldAddUser = true;
+				addUser = true;
 			}
 
-			if (shouldAddUser) {
+			if (addUser) {
 				user = userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
 						autoScreenName, screenName, emailAddress, facebookId, openId, locale, firstName, middleName,
 						lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle,
@@ -125,21 +128,22 @@ public class TestSetupBackingBean {
 		BundleContext bundleContext = bundle.getBundleContext();
 		companyLocalServiceTracker = new CompanyLocalServiceTracker(bundleContext);
 		companyLocalServiceTracker.open();
+		userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
+		userLocalServiceTracker.open();
 	}
 
 	@PreDestroy
 	public void preDestroy() {
 		companyLocalServiceTracker.close();
+		userLocalServiceTracker.close();
 	}
 
 	public void resetUsers(ActionEvent actionEvent) throws PortalException {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		if (companyLocalServiceTracker.isEmpty()) {
-			FacesContextHelperUtil.addGlobalErrorMessage(facesContext, "is-temporarily-unavailable", "Company service");
-		}
-		else {
+		if (!companyLocalServiceTracker.isEmpty()) {
+
 			CompanyLocalService companyLocalService = companyLocalServiceTracker.getService();
 
 			try {
@@ -154,6 +158,9 @@ public class TestSetupBackingBean {
 					"Company service");
 				logger.error(e);
 			}
+		}
+		else {
+			FacesContextHelperUtil.addGlobalErrorMessage(facesContext, "is-temporarily-unavailable", "Company service");
 		}
 	}
 
