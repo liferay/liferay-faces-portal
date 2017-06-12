@@ -27,8 +27,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
-import org.osgi.util.tracker.ServiceTracker;
-
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -67,8 +65,7 @@ public class UsersBackingBean {
 
 	// Private Data Members
 	private String fileUploadAbsolutePath;
-	private String uploadedFileId;
-	private UploadedFile uploadedFile;
+	private UserLocalServiceTracker userLocalServiceTracker;
 
 	public void cancel(ActionEvent actionEvent) {
 		usersViewBean.setFormRendered(false);
@@ -97,14 +94,6 @@ public class UsersBackingBean {
 		return fileUploadAbsolutePath;
 	}
 
-	public UploadedFile getUploadedFile() {
-		return uploadedFile;
-	}
-
-	public String getUploadedFileId() {
-		return uploadedFileId;
-	}
-
 	public void handleFileUpload(FileUploadEvent fileUploadEvent) {
 
 		try {
@@ -126,13 +115,26 @@ public class UsersBackingBean {
 		}
 	}
 
+	@PostConstruct
+	public void postConstruct() {
+		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+		BundleContext bundleContext = bundle.getBundleContext();
+		userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
+		userLocalServiceTracker.open();
+	}
+
+	@PreDestroy
+	public void preDestroy() {
+		userLocalServiceTracker.close();
+	}
+
 	public void save(ActionEvent actionEvent) {
 
 		try {
 
-			if (!usersModelBean.userLocalServiceTracker.isEmpty()) {
+			if (!userLocalServiceTracker.isEmpty()) {
 
-				UserLocalService userLocalService = usersModelBean.userLocalServiceTracker.getService();
+				UserLocalService userLocalService = userLocalServiceTracker.getService();
 
 				// Update the selected user in the Liferay database.
 				User user = usersModelBean.getSelectedUser();
@@ -177,10 +179,6 @@ public class UsersBackingBean {
 
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
-	}
-
-	public void setUploadedFileId(String uploadedFileId) {
-		this.uploadedFileId = uploadedFileId;
 	}
 
 	public void setUsersModelBean(UsersModelBean usersModelBean) {

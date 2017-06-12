@@ -72,7 +72,7 @@ public class UsersModelBean implements Serializable {
 	private transient List<SelectItem> statusSelectItems;
 	private transient UploadedFile uploadedFile;
 	private transient String selectedUserPortraitURL;
-	protected transient UserLocalServiceTracker userLocalServiceTracker;
+	private transient UserLocalServiceTracker userLocalServiceTracker;
 
 	public void forceListReload() {
 
@@ -90,15 +90,16 @@ public class UsersModelBean implements Serializable {
 			int rowsPerPage = PortletHelperUtil.getPortletPreferenceAsInt(facesContext, "rowsPerPage",
 					SearchContainer.DEFAULT_DELTA);
 
-			if (userLocalServiceTracker.isEmpty()) {
-				userDataModel = new UserLazyDataModel(null, LiferayPortletHelperUtil.getCompanyId(facesContext),
-						rowsPerPage);
-				FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
-			}
-			else {
+			if (!userLocalServiceTracker.isEmpty()) {
+
 				UserLocalService userLocalService = userLocalServiceTracker.getService();
 				userDataModel = new UserLazyDataModel(userLocalService,
 						LiferayPortletHelperUtil.getCompanyId(facesContext), rowsPerPage);
+			}
+			else {
+				userDataModel = new UserLazyDataModel(null, LiferayPortletHelperUtil.getCompanyId(facesContext),
+						rowsPerPage);
+				FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
 			}
 		}
 
