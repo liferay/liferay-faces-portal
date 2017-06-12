@@ -62,7 +62,7 @@ public class TestSetupBackingBean {
 	private CompanyLocalServiceTracker companyLocalServiceTracker;
 	private UserLocalServiceTracker userLocalServiceTracker;
 
-	public User addUser(long creatorUserId, long companyId, String firstName, String lastName) throws PortalException {
+	public void addUser(long creatorUserId, long companyId, String firstName, String lastName) throws PortalException {
 
 		boolean autoPassword = false;
 		String password1 = "test";
@@ -87,7 +87,6 @@ public class TestSetupBackingBean {
 		long[] userGroupIds = new long[] {};
 		boolean sendEmail = false;
 		ServiceContext serviceContext = new ServiceContext();
-		User user = null;
 		UserLocalService userLocalService;
 
 		if (userLocalServiceTracker.isEmpty()) {
@@ -99,7 +98,7 @@ public class TestSetupBackingBean {
 			boolean addUser = false;
 
 			try {
-				user = userLocalService.getUserByScreenName(companyId, screenName);
+				User user = userLocalService.getUserByScreenName(companyId, screenName);
 
 				if ("john.adams".equals(screenName)) {
 					userLocalService.deleteUser(user);
@@ -111,15 +110,13 @@ public class TestSetupBackingBean {
 			}
 
 			if (addUser) {
-				user = userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
+				userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
 						autoScreenName, screenName, emailAddress, facebookId, openId, locale, firstName, middleName,
 						lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle,
 						groupIds, organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
 				logger.debug("Added user=[{0}]", screenName);
 			}
 		}
-
-		return user;
 	}
 
 	@PostConstruct
