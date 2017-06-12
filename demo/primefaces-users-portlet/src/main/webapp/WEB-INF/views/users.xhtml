@@ -99,6 +99,8 @@
 					<h:messages globalOnly="true" layout="table" />
 				</alloy:column>
 			</alloy:row>
+			<p:commandButton actionListener="#{testSetupBackingBean.resetUsers}" id="hiddenButtonResetUsers" style="display:none;" value="Reset Users"
+				update=":f1" />
 		</h:panelGroup>
 	</h:form>
 
