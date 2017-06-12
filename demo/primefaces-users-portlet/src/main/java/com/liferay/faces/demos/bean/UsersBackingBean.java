@@ -69,7 +69,6 @@ public class UsersBackingBean {
 	private String fileUploadAbsolutePath;
 	private String uploadedFileId;
 	private UploadedFile uploadedFile;
-	private UserLocalServiceTracker userLocalServiceTracker;
 
 	public void cancel(ActionEvent actionEvent) {
 		usersViewBean.setFormRendered(false);
@@ -127,26 +126,13 @@ public class UsersBackingBean {
 		}
 	}
 
-	@PostConstruct
-	public void postConstruct() {
-		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
-		BundleContext bundleContext = bundle.getBundleContext();
-		userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
-		userLocalServiceTracker.open();
-	}
-
-	@PreDestroy
-	public void preDestroy() {
-		userLocalServiceTracker.close();
-	}
-
 	public void save(ActionEvent actionEvent) {
 
 		try {
 
-			if (!userLocalServiceTracker.isEmpty()) {
+			if (!usersModelBean.userLocalServiceTracker.isEmpty()) {
 
-				UserLocalService userLocalService = userLocalServiceTracker.getService();
+				UserLocalService userLocalService = usersModelBean.userLocalServiceTracker.getService();
 
 				// Update the selected user in the Liferay database.
 				User user = usersModelBean.getSelectedUser();
