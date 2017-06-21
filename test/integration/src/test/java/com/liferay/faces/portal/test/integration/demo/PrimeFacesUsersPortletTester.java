@@ -57,10 +57,8 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Sign into the Liferay Portal and navigate to the PrimeFaces Users portlet.
 		BrowserDriver browserDriver = getBrowserDriver();
-
 		browserDriver.navigateWindowTo(
 			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
-
 		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
 
 		WebElement hiddenButtonResetUsers = browserDriver.findElementByXpath(
@@ -68,7 +66,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		browserDriver.executeScriptInCurrentWindow("arguments[0].click();", hiddenButtonResetUsers);
 
 		WebElement firstUserScreenNameCell = browserDriver.findElementByXpath(firstUserScreenNameXpath);
-
 		browserDriver.waitFor(ExpectedConditions.stalenessOf(firstUserScreenNameCell));
 		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
 	}
@@ -81,42 +78,32 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Navigate to user "John Adams".
 		BrowserDriver browserDriver = getBrowserDriver();
-
 		browserDriver.navigateWindowTo(
 			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
-
 		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
 
 		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		verifyFirstUser(browserDriver, browserStateAsserter, "john.adams");
 		browserDriver.clickElement(firstUserScreenNameXpath);
-
 		browserDriver.waitForElementDisplayed(firstNameFieldXpath);
 
 		// TODO: placed Thread.sleep(); here to see why staleElement reference failure, and then failure magically went
 		// away.
-
 		// TODO: change key word into the i18n value for that key.
-
 		// Enter an invalid email address by removing the "@" symbol and verify that the error message
 		// "invalid-email-address" is displayed.
 		browserDriver.clearElement(emailAddressFieldXpath);
-
 		browserDriver.sendKeysToElement(emailAddressFieldXpath, "john.adamsliferay.com");
 
 		String submitButtonXpath = "//button[contains(@id, ':pushButtonSubmit') and @type='submit']";
 		browserDriver.clickElement(submitButtonXpath);
-
 		browserStateAsserter.assertElementDisplayed(
 			"//input[contains(@id,':emailAddress')]/../span[@class='portlet-msg-error' and text()='invalid-email-address']");
 
 		// Clear values for John Adams to assert required values
 		browserDriver.clearElement(firstNameFieldXpath);
-
 		browserDriver.clearElement(lastNameFieldXpath);
-
 		browserDriver.clearElement(emailAddressFieldXpath);
-
 		browserDriver.clickElement(submitButtonXpath);
 
 		// Verify that the error message "Value is required" is displayed above required values.
@@ -135,7 +122,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		// Click on the "Cancel" button to go back to the list of users.
 		browserDriver.clickElement("//button[contains(@id, ':pushButtonCancel') and @type='submit']");
 		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
-
 		verifyFirstUser(browserDriver, browserStateAsserter, "john.adams");
 
 		// Clear the filter so that we see the list of all the users again.
@@ -149,11 +135,8 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		String thirdUserScreenNameCellXpath = "(//span[contains(@id,':screenNameCell')])[3]";
 		browserStateAsserter.assertElementNotDisplayed(thirdUserScreenNameCellXpath);
-
 		browserStateAsserter.assertElementDisplayed(firstUserScreenNameXpath);
-
 		browserStateAsserter.assertElementDisplayed(secondUserScreenNameCellXpath);
-
 		assertElementCount(browserDriver, "//tbody//tr", 2);
 
 		// Clear the filter so that we see the list of all the users again.
@@ -170,13 +153,11 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		BrowserDriver browserDriver = getBrowserDriver();
 		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-
 		browserDriver.navigateWindowTo(
 			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
 
 		// Take note of the screen name of the first user in the list on page 1.
 		String firstUserPageOne = browserDriver.findElementByXpath(firstUserScreenNameXpath).getText();
-
 		System.out.println("firstUserPageOne = " + firstUserPageOne);
 
 		// Click on the 'Next Page' button and verify that the page 2 button is highlighted.
@@ -189,7 +170,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Take note of the screen name of the first user in the list on page 2.
 		String firstUserPageTwo = browserDriver.findElementByXpath(firstUserScreenNameXpath).getText();
-
 		System.out.println("firstUserPageTwo = " + firstUserPageTwo);
 
 		// Click on the '3' button and verify that it is highlighted.
@@ -202,7 +182,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Take note of the screen name of the first user in the list on page 3.
 		String firstUserPageThree = browserDriver.findElementByXpath(firstUserScreenNameXpath).getText();
-
 		System.out.println("firstUserPageThree = " + firstUserPageThree);
 
 		// Click on 'Previous Page' button and verify that the page 2 button is highlighted.
@@ -232,7 +211,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Take note of the screen name of the first user in the list on the last page.
 		String firstUserLastPage = browserDriver.findElementByXpath(firstUserScreenNameXpath).getText();
-
 		System.out.println("firstUserLastPage = " + firstUserLastPage);
 
 		// Click on 'First Page' button and verify that the page 1 button is highlighted and the 'First Page' and
@@ -258,7 +236,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 	public void runPrimeFacesUsersPortletTest_D_Sort() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-
 		browserDriver.navigateWindowTo(
 			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
 
@@ -275,9 +252,7 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Verify that the list of screen names are in alphabetical order.
 		List<String> sortedScreenNames = new ArrayList<String>(screenNames);
-
 		Collections.sort(sortedScreenNames);
-
 		System.out.println("screen names after sorting:");
 
 		for (String sortedScreenName : sortedScreenNames) {
@@ -302,9 +277,7 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Verify that the list of screen names are in reverse alphabetical order.
 		sortedScreenNames = new ArrayList<String>(screenNames);
-
 		Collections.sort(sortedScreenNames, Collections.reverseOrder());
-
 		System.out.println("screen names after sorting:");
 
 		for (String sortedScreenName : sortedScreenNames) {
@@ -322,7 +295,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 	public void runPrimeFacesUsersPortletTest_E_FirstNameColumnTextFilter() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-
 		browserDriver.navigateWindowTo(
 			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
 
@@ -342,7 +314,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		Actions filterActions = browserDriver.createActions(firstNameColumnFilterXpath);
 		filterActions.sendKeys(firstNameFilterElement, "O");
 		browserDriver.performAndWaitForRerender(filterActions.build(), "(//span[contains(@id,':firstNameCell')])[1]");
-
 		assertElementCount(browserDriver, "//tbody//tr", 5);
 
 		// Take note of each first name in the third column of the table, clicking on the Next Button until all the
@@ -351,9 +322,7 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Verify that the list of first names are in alphabetical order.
 		List<String> sortedFirstNames = new ArrayList<String>(firstNames);
-
 		Collections.sort(sortedFirstNames);
-
 		System.out.println("first names after sorting:");
 
 		for (String sortedFirstName : sortedFirstNames) {
@@ -379,9 +348,7 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Verify that the list of first names are in reverse alphabetical order.
 		sortedFirstNames = new ArrayList<String>(firstNames);
-
 		Collections.sort(sortedFirstNames, Collections.reverseOrder());
-
 		System.out.println("first names after sorting:");
 
 		for (String sortedFirstName : sortedFirstNames) {
@@ -397,7 +364,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		browserStateAsserter.assertElementDisplayed(
 			"//span[contains(@id,':firstNameCell') and contains(text(), 'Thomas')]");
-
 		browserDriver.clickElement("//th[contains(@id,'users:lastName')]/child::span[1]");
 		browserDriver.waitForElementDisplayed("(//span[contains(@class,'ui-icon-triangle-1-n')])");
 	}
@@ -410,10 +376,8 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Navigate to user "John Adams".
 		BrowserDriver browserDriver = getBrowserDriver();
-
 		browserDriver.navigateWindowTo(
 			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
-
 		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
 
 		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
@@ -441,7 +405,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		// Click on the "Submit" button and go back to the list of users.
 		browserDriver.clickElement("//button[contains(@id, ':pushButtonSubmit') and @type='submit']");
 		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
-
 		verifyFirstUser(browserDriver, browserStateAsserter, "john.adams");
 
 		// Verify that user "John Adams"' last name, first name, and email address attributes have been changed to
@@ -462,7 +425,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 	public void runPrimeFacesUsersPortletTest_G_FileUpload() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-
 		browserDriver.navigateWindowTo(
 			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
 
@@ -474,7 +436,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		browserDriver.waitForElementDisplayed(firstNameFieldXpath);
 
 		String fileUploadChooserXpath = "//input[@type='file']";
-
 		browserStateAsserter.assertElementDisplayed(fileUploadChooserXpath + "/..");
 
 		String portraitXpath = "//div[contains(@class,'has-success')]/img[contains(@id,':portrait')]";
@@ -486,12 +447,9 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		// Set PrimeFaces p:fileUpload transform style to "none" since it causes the element to not be displayed
 		// according to Selenium (although the element is visible to users).
 		browserDriver.executeScriptInCurrentWindow("arguments[0].style.transform = 'none';", fileUploadChooser);
-
 		fileUploadChooser.sendKeys(TestUtil.JAVA_IO_TMPDIR + "liferay-jsf-jersey.png");
-
 		browserDriver.waitFor(ExpectedConditions.stalenessOf(imgWebElement));
 		browserStateAsserter.assertElementDisplayed(portraitXpath);
-
 		imgWebElement = browserDriver.findElementByXpath(portraitXpath);
 
 		Dimension imageSizeAfter = imgWebElement.getSize();
@@ -507,6 +465,7 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 	 * @param  expecteds
 	 */
 	protected final void assertElementCount(BrowserDriver browserDriver, String xpath, int expecteds) {
+
 		List<WebElement> elements = browserDriver.findElementsByXpath(xpath);
 		Assert.assertNotNull("Element " + elements + " is not present in the DOM.", elements);
 
@@ -522,6 +481,7 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 	 * @param  columnName
 	 */
 	protected final List<String> extractColumnValuesFromDataTable(BrowserDriver browserDriver, String columnName) {
+
 		List<String> columnValues = new ArrayList<String>();
 
 		System.out.println("--------------");
@@ -531,7 +491,6 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		while (browserDriver.findElementsByXpath(
 					"//a[contains(@class,'ui-state-disabled') and contains(@aria-label,'Last Page')]").isEmpty()) {
-
 			List<WebElement> columnElements = browserDriver.findElementsByXpath(columnElementsXpath);
 
 			for (WebElement columnElement : columnElements) {
@@ -564,9 +523,9 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 	 */
 	protected final void verifyFirstUser(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter,
 		String screenName) {
+
 		browserDriver.clearElement(screenNameColumnFilterXpath);
 		browserDriver.sendKeysToElement(screenNameColumnFilterXpath, screenName);
-
 		browserStateAsserter.assertElementNotDisplayed(secondUserScreenNameCellXpath);
 		browserStateAsserter.assertElementDisplayed(firstUserScreenNameXpath);
 
