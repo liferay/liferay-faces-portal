@@ -28,169 +28,189 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
- * @author  Vernon Singleton
  * @author  Philip White
+ * @author  Kyle Stiemann
+ * @author  Vernon Singleton
+ * @author  Neil Griffin
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
+public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCompat {
 
-	private static final String firstNameFieldXpath = "//input[contains(@id,':firstName')]";
-	private static final String lastNameFieldXpath = "//input[contains(@id,':lastName')]";
-	private static final String emailAddressFieldXpath = "//input[contains(@id,':emailAddress')]";
-	private static final String firstUserScreenNameXpath = "//span[contains(@id,':screenNameCell')]";
-	private static final String secondUserScreenNameCellXpath = "(//span[contains(@id,':screenNameCell')])[2]";
-	private static final String firstNameColumnFilterXpath = "//input[contains(@id,'users:firstName:filter')]";
-	private static final String screenNameColumnFilterXpath = "//input[contains(@id,'users:screenName:filter')]";
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(PrimeFacesUsersPortletTester.class);
+
+	// Private Constants
+	private static final String FIRST_NAME_FIELD_XPATH = "//input[contains(@id,':firstName')]";
+	private static final String LAST_NAME_FIELD_XPATH = "//input[contains(@id,':lastName')]";
+	private static final String EMAIL_ADDRESS_FIELD_XPATH = "//input[contains(@id,':emailAddress')]";
+	private static final String FIRST_USER_SCREEN_NAME_XPATH = "//span[contains(@id,':screenNameCell')]";
+	private static final String SECOND_USER_SCREEN_NAME_CELL_XPATH = "(//span[contains(@id,':screenNameCell')])[2]";
+	private static final String FIRST_NAME_COLUMN_FILTER_XPATH = "//input[contains(@id,'users:firstName:filter')]";
+	private static final String SCREEN_NAME_COLUMN_FILTER_XPATH = "//input[contains(@id,'users:screenName:filter')]";
 
 	/**
-	 * Reset user John Adams and retrieve other users from database if not already there.
+	 * This test ensures that the state of the UI and data are reset before testing.
 	 */
 	@Test
 	public void runPrimeFacesUsersPortletTest_A_Reset_User_Data() {
 
-		// Sign into the Liferay Portal and navigate to the PrimeFaces Users portlet.
+		// Sign into Liferay Portal and navigate to the PrimeFaces Users portlet.
 		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(
-			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
-		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
+		browserDriver.navigateWindowTo(getURL());
+		browserDriver.waitForElementDisplayed(FIRST_USER_SCREEN_NAME_XPATH);
 
+		// Click on the hidden "Reset Users" button in order to reset the state of the user data in preparation for
+		// testing.
 		WebElement hiddenButtonResetUsers = browserDriver.findElementByXpath(
 				"(//button[contains(@id,':hiddenButtonResetUsers')]/span)");
 		browserDriver.executeScriptInCurrentWindow("arguments[0].click();", hiddenButtonResetUsers);
 
-		WebElement firstUserScreenNameCell = browserDriver.findElementByXpath(firstUserScreenNameXpath);
+		WebElement firstUserScreenNameCell = browserDriver.findElementByXpath(FIRST_USER_SCREEN_NAME_XPATH);
 		browserDriver.waitFor(ExpectedConditions.stalenessOf(firstUserScreenNameCell));
-		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
+		browserDriver.waitForElementDisplayed(FIRST_USER_SCREEN_NAME_XPATH);
+
+		// Click on the "Preferences" button in order to navigate to edit mode.
+		String preferencesLinkXpath = "//a[contains(@id,':preferences')]";
+		browserDriver.clickElement(preferencesLinkXpath);
+
+		// Enter "5" for the number of rows-per-page so that the pagination can be better tested with a small data set.
+		String rowsPerPageInputXpath = "//input[contains(@id,':rowsPerPage')]";
+		browserDriver.waitForElementEnabled(rowsPerPageInputXpath);
+		browserDriver.clearElement(rowsPerPageInputXpath);
+		browserDriver.sendKeysToElement(rowsPerPageInputXpath, "5");
+
+		// Click on the Submit button in order to save the rows-per-page preference.
+		browserDriver.clickElement("//input[contains(@id,':submit')]");
+		browserDriver.waitForElementDisplayed(preferencesLinkXpath);
 	}
 
-	/**
-	 * Verify that every title and field is visible on the portlet.
-	 */
 	@Test
 	public void runPrimeFacesUsersPortletTest_B_DetailView() {
 
-		// Navigate to user "John Adams".
+		// Enter "john.adams" in the Screen Name filter in order so that "John Adams" appears as the only user in the
+		// list. This is helpful in case there have been many users added to the database and "John Adams" is no longer
+		// conveniently present as the first user.
 		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(
-			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
-		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
+		browserDriver.navigateWindowTo(getURL());
+		browserDriver.waitForElementDisplayed(FIRST_USER_SCREEN_NAME_XPATH);
 
 		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		verifyFirstUser(browserDriver, browserStateAsserter, "john.adams");
-		browserDriver.clickElement(firstUserScreenNameXpath);
-		browserDriver.waitForElementDisplayed(firstNameFieldXpath);
+		filterByScreenNameAndVerifySingleUserDisplayed(browserDriver, browserStateAsserter, "john.adams");
 
-		// TODO: placed Thread.sleep(); here to see why staleElement reference failure, and then failure magically went
-		// away.
-		// TODO: change key word into the i18n value for that key.
-		// Enter an invalid email address by removing the "@" symbol and verify that the error message
-		// "invalid-email-address" is displayed.
-		browserDriver.clearElement(emailAddressFieldXpath);
-		browserDriver.sendKeysToElement(emailAddressFieldXpath, "john.adamsliferay.com");
+		// Select "John Adams" from the list of users so that the corresponding user's data is displayed in an
+		// editable form.
+		browserDriver.clickElement(FIRST_USER_SCREEN_NAME_XPATH);
+		browserDriver.waitForElementDisplayed(FIRST_NAME_FIELD_XPATH);
+
+		// Enter an invalid email address by removing the "@" symbol and click the "Submit" button.
+		browserDriver.clearElement(EMAIL_ADDRESS_FIELD_XPATH);
+		browserDriver.sendKeysToElement(EMAIL_ADDRESS_FIELD_XPATH, "john.adamsliferay.com");
 
 		String submitButtonXpath = "//button[contains(@id, ':pushButtonSubmit') and @type='submit']";
 		browserDriver.clickElement(submitButtonXpath);
-		browserStateAsserter.assertElementDisplayed(
-			"//input[contains(@id,':emailAddress')]/../span[@class='portlet-msg-error' and text()='invalid-email-address']");
 
-		// Clear values for John Adams to assert required values
-		browserDriver.clearElement(firstNameFieldXpath);
-		browserDriver.clearElement(lastNameFieldXpath);
-		browserDriver.clearElement(emailAddressFieldXpath);
+		// Verify that the error message "Invalid Email Address" is displayed since only valid email addresses are
+		// permitted.
+		browserStateAsserter.assertElementDisplayed(
+			"//input[contains(@id,':emailAddress')]/../span[@class='portlet-msg-error' and text()='Invalid Email Address']");
+
+		// Clear the "First Name", "Last Name", and "Email Address" fields and click the "Submit" button.
+		browserDriver.clearElement(FIRST_NAME_FIELD_XPATH);
+		browserDriver.clearElement(LAST_NAME_FIELD_XPATH);
+		browserDriver.clearElement(EMAIL_ADDRESS_FIELD_XPATH);
 		browserDriver.clickElement(submitButtonXpath);
 
-		// Verify that the error message "Value is required" is displayed above required values.
+		// Verify that the error message "Value is required" is displayed for "First Name", "Last Name", and "Email
+		// Address" since they are all required fields.
 		browserStateAsserter.assertElementDisplayed(
 			"//input[contains(@id,':firstName')]/../span[@class='portlet-msg-error' and text()='Value is required']");
-
 		browserStateAsserter.assertElementDisplayed(
 			"//input[contains(@id,':lastName')]/../span[@class='portlet-msg-error' and text()='Value is required']");
-
 		browserStateAsserter.assertElementDisplayed(
 			"//input[contains(@id,':emailAddress')]/../span[@class='portlet-msg-error' and text()='Value is required']");
 
-		// TODO talk to Neil, should we assert that the cancelled button has returned us to the correct view.  In
-		// other words, are we testing the cancel button functionality?
-
-		// Click on the "Cancel" button to go back to the list of users.
+		// Click on the "Cancel" button in order to return to the list of users.
 		browserDriver.clickElement("//button[contains(@id, ':pushButtonCancel') and @type='submit']");
-		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
-		verifyFirstUser(browserDriver, browserStateAsserter, "john.adams");
+		browserDriver.waitForElementDisplayed(FIRST_USER_SCREEN_NAME_XPATH);
 
-		// Clear the filter so that we see the list of all the users again.
-		browserDriver.clearElement(screenNameColumnFilterXpath);
-		browserStateAsserter.assertElementDisplayed(secondUserScreenNameCellXpath);
+		// TODO: It should not be necessary to re-enter "john.adams" into the Screen Name filter but if not done, then
+		// the test has subsequent assertion failures.
+		filterByScreenNameAndVerifySingleUserDisplayed(browserDriver, browserStateAsserter, "john.adams");
 
-		// Verify that when "Adams" is entered into the last name filter that only "Samuel Adams" and "John Adams" are
-		// still present in the user list.
+		// Clear the Screen Name filter and verify that the list contains more than one user.
+		browserDriver.clearElement(SCREEN_NAME_COLUMN_FILTER_XPATH);
+		browserStateAsserter.assertElementDisplayed(SECOND_USER_SCREEN_NAME_CELL_XPATH);
+
+		// Verify that when "Adams" is entered into the last name filter that only users with the last name "Adams"
+		// are present in the list.
 		String lastNameColumnFilterXpath = "//input[contains(@id,'users:lastName:filter')]";
-		browserDriver.sendKeysToElement(lastNameColumnFilterXpath, "Adams");
+		Actions filterActions = browserDriver.createActions(lastNameColumnFilterXpath);
+		WebElement lastNameColumnFilterElement = browserDriver.findElementByXpath(lastNameColumnFilterXpath);
+		filterActions.sendKeys(lastNameColumnFilterElement, "Adams");
+		browserDriver.performAndWaitForRerender(filterActions.build(), "(//span[contains(@id,':firstNameCell')])[1]");
 
-		String thirdUserScreenNameCellXpath = "(//span[contains(@id,':screenNameCell')])[3]";
-		browserStateAsserter.assertElementNotDisplayed(thirdUserScreenNameCellXpath);
-		browserStateAsserter.assertElementDisplayed(firstUserScreenNameXpath);
-		browserStateAsserter.assertElementDisplayed(secondUserScreenNameCellXpath);
-		assertElementCount(browserDriver, "//tbody//tr", 2);
+		List<String> lastNames = extractColumnValuesFromDataTable(browserDriver, "lastName");
+		Assert.assertTrue(lastNames.size() > 1);
 
-		// Clear the filter so that we see the list of all the users again.
+		for (String lastName : lastNames) {
+			Assert.assertTrue("Adams".equals(lastName));
+		}
+
+		// Clear the filter and verify that more than one user is present in the list of users.
 		browserDriver.clearElement(lastNameColumnFilterXpath);
-		browserStateAsserter.assertElementDisplayed(thirdUserScreenNameCellXpath);
+		browserStateAsserter.assertElementDisplayed(SECOND_USER_SCREEN_NAME_CELL_XPATH);
 	}
 
-	/**
-	 * Click on the navigation buttons and verify that the pages' list of users are properly displayed to test
-	 * paginator.
-	 */
 	@Test
 	public void runPrimeFacesUsersPortletTest_C_Paginator() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserDriver.navigateWindowTo(
-			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+		browserDriver.navigateWindowTo(getURL());
 
 		// Take note of the screen name of the first user in the list on page 1.
-		String firstUserPageOne = browserDriver.findElementByXpath(firstUserScreenNameXpath).getText();
-		System.out.println("firstUserPageOne = " + firstUserPageOne);
+		String firstUserPageOne = browserDriver.findElementByXpath(FIRST_USER_SCREEN_NAME_XPATH).getText();
+		logger.debug("firstUserPageOne=[{0}]", firstUserPageOne);
 
 		// Click on the 'Next Page' button and verify that the page 2 button is highlighted.
 		browserDriver.clickElement("//a[contains(@aria-label,'Next Page')]");
 		browserDriver.waitForElementDisplayed("//span/a[contains(@class,'ui-state-active') and text()='2']");
 
 		// Verify that the screen name noted from page 1 is not present on page 2.
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		browserStateAsserter.assertElementNotDisplayed(firstUserPageOne);
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageOne, firstUserScreenNameXpath);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageOne, FIRST_USER_SCREEN_NAME_XPATH);
 
 		// Take note of the screen name of the first user in the list on page 2.
-		String firstUserPageTwo = browserDriver.findElementByXpath(firstUserScreenNameXpath).getText();
-		System.out.println("firstUserPageTwo = " + firstUserPageTwo);
+		String firstUserPageTwo = browserDriver.findElementByXpath(FIRST_USER_SCREEN_NAME_XPATH).getText();
+		logger.debug("firstUserPageTwo=[{1}]", firstUserPageTwo);
 
 		// Click on the '3' button and verify that it is highlighted.
 		browserDriver.clickElement("//a[contains(@aria-label,'Page 3')]");
 		browserDriver.waitForElementDisplayed("//span/a[contains(@class,'ui-state-active') and text()='3']");
 
 		// Verify that the screen names noted from page 1 and 2 are not present on page 3.
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageOne, firstUserScreenNameXpath);
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageTwo, firstUserScreenNameXpath);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageOne, FIRST_USER_SCREEN_NAME_XPATH);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageTwo, FIRST_USER_SCREEN_NAME_XPATH);
 
 		// Take note of the screen name of the first user in the list on page 3.
-		String firstUserPageThree = browserDriver.findElementByXpath(firstUserScreenNameXpath).getText();
-		System.out.println("firstUserPageThree = " + firstUserPageThree);
+		String firstUserPageThree = browserDriver.findElementByXpath(FIRST_USER_SCREEN_NAME_XPATH).getText();
+		logger.debug("firstUserPageThree=[{0}]", firstUserPageThree);
 
 		// Click on 'Previous Page' button and verify that the page 2 button is highlighted.
 		browserDriver.clickElement("//a[contains(@aria-label,'Previous Page')]");
 		browserDriver.waitForElementDisplayed("//span/a[contains(@class,'ui-state-active') and text()='2']");
 
 		// Verify that the screen names noted from page 1 and 3 are not present on page 2.
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageOne, firstUserScreenNameXpath);
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageThree, firstUserScreenNameXpath);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageOne, FIRST_USER_SCREEN_NAME_XPATH);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageThree, FIRST_USER_SCREEN_NAME_XPATH);
 
 		// Take note of the screen name of the first user in the list on page 2. Click on 'Last Page' button and verify
 		// that the last button is highlighted and the 'Next Page' and 'Last Page' buttons are disabled.
@@ -205,13 +225,13 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 			"//a[contains(@class,'ui-state-disabled') and contains(@aria-label,'Last Page')]");
 
 		// Verify that the screen names noted from page 1, 2 and 3 are not present on the last page.
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageOne, firstUserScreenNameXpath);
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageTwo, firstUserScreenNameXpath);
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageThree, firstUserScreenNameXpath);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageOne, FIRST_USER_SCREEN_NAME_XPATH);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageTwo, FIRST_USER_SCREEN_NAME_XPATH);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageThree, FIRST_USER_SCREEN_NAME_XPATH);
 
 		// Take note of the screen name of the first user in the list on the last page.
-		String firstUserLastPage = browserDriver.findElementByXpath(firstUserScreenNameXpath).getText();
-		System.out.println("firstUserLastPage = " + firstUserLastPage);
+		String firstUserLastPage = browserDriver.findElementByXpath(FIRST_USER_SCREEN_NAME_XPATH).getText();
+		logger.debug("firstUserLastPage[{0}]", firstUserLastPage);
 
 		// Click on 'First Page' button and verify that the page 1 button is highlighted and the 'First Page' and
 		// 'Previous Page' buttons are disabled.
@@ -224,20 +244,16 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 			"//a[contains(@class,'ui-state-disabled') and contains(@aria-label,'Previous Page')]");
 
 		// Verify that the screen names noted from page 2, 3 and the last page are not present on the first page.
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageTwo, firstUserScreenNameXpath);
-		browserStateAsserter.assertTextNotPresentInElement(firstUserPageThree, firstUserScreenNameXpath);
-		browserStateAsserter.assertTextNotPresentInElement(firstUserLastPage, firstUserScreenNameXpath);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageTwo, FIRST_USER_SCREEN_NAME_XPATH);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserPageThree, FIRST_USER_SCREEN_NAME_XPATH);
+		browserStateAsserter.assertTextNotPresentInElement(firstUserLastPage, FIRST_USER_SCREEN_NAME_XPATH);
 	}
 
-	/**
-	 * Verify that the pages' list of users are properly displayed and sorted from clicking the screen name header.
-	 */
 	@Test
 	public void runPrimeFacesUsersPortletTest_D_Sort() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(
-			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+		browserDriver.navigateWindowTo(getURL());
 
 		// Click on the Screen Name header to sort screen names into ascending order and verify that the triangle icon
 		// is pointed up.
@@ -246,22 +262,27 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 
 		// Take note of each screen name in the first column of the table, clicking on the Next Button until all the
 		// screen names have been noted.
-		System.out.println("Sorted ascending");
-
 		List<String> screenNames = extractColumnValuesFromDataTable(browserDriver, "screenName");
+		logger.debug(Logger.SEPARATOR);
+		logger.debug("Screen names extracted from the UI after sorting by ascending order:");
+
+		for (String screenName : screenNames) {
+			logger.debug(screenName);
+		}
 
 		// Verify that the list of screen names are in alphabetical order.
 		List<String> sortedScreenNames = new ArrayList<String>(screenNames);
 		Collections.sort(sortedScreenNames);
-		System.out.println("screen names after sorting:");
+		logger.debug(Logger.SEPARATOR);
+		logger.debug("Same list of screen names, except guaranteed to be sorted in ascending order:");
 
 		for (String sortedScreenName : sortedScreenNames) {
-			System.out.println(sortedScreenName);
+			logger.debug(sortedScreenName);
 		}
 
 		Assert.assertTrue(screenNames.equals(sortedScreenNames));
 
-		// Start the sort test in descending order on Page 1.
+		// Click on the First Page icon in order to go back to the first page of users.
 		browserDriver.clickElement("//a[contains(@aria-label,'First Page')]");
 		browserDriver.waitForElementDisplayed(
 			"(//span[contains(@class,'ui-paginator-pages')]/a[contains(@class,'ui-state-active')])[1]");
@@ -274,31 +295,33 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		// Take note of each screen name in the first column of the table, clicking on the Next Button until all the
 		// screen names have been noted.
 		screenNames = extractColumnValuesFromDataTable(browserDriver, "screenName");
+		logger.debug(Logger.SEPARATOR);
+		logger.debug("Screen names extracted from the UI after sorting by descending order:");
+
+		for (String screenName : screenNames) {
+			logger.debug(screenName);
+		}
 
 		// Verify that the list of screen names are in reverse alphabetical order.
 		sortedScreenNames = new ArrayList<String>(screenNames);
 		Collections.sort(sortedScreenNames, Collections.reverseOrder());
-		System.out.println("screen names after sorting:");
+		logger.debug(Logger.SEPARATOR);
+		logger.debug("Same list of screen names, except guaranteed to be sorted in descending order:");
 
 		for (String sortedScreenName : sortedScreenNames) {
-			System.out.println(sortedScreenName);
+			logger.debug(sortedScreenName);
 		}
 
 		Assert.assertTrue(screenNames.equals(sortedScreenNames));
 	}
 
-	/**
-	 * Type the letter "O" into the First Name Column Text Filter and verify that the pages' list of users are properly
-	 * displayed.
-	 */
 	@Test
 	public void runPrimeFacesUsersPortletTest_E_FirstNameColumnTextFilter() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(
-			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+		browserDriver.navigateWindowTo(getURL());
 
-		// Start the sort test of First Name filtering in ascending order on Page 1.
+		// Click on the First Page icon in order to go back to the first page of users.
 		browserDriver.clickElement("//a[contains(@aria-label,'First Page')]");
 		browserDriver.waitForElementDisplayed(
 			"(//span[contains(@class,'ui-paginator-pages')]/a[contains(@class,'ui-state-active')])[1]");
@@ -308,31 +331,40 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		browserDriver.clickElement("//th[contains(@id,'users:firstName')]/child::span[1]");
 		browserDriver.waitForElementDisplayed("(//span[contains(@class,'ui-icon-triangle-1-n')])");
 
-		// Verify that when "O" is entered into the first name filter that only users with the letter "O" are still
-		// present in the user list.
-		WebElement firstNameFilterElement = browserDriver.findElementByXpath(firstNameColumnFilterXpath);
-		Actions filterActions = browserDriver.createActions(firstNameColumnFilterXpath);
-		filterActions.sendKeys(firstNameFilterElement, "O");
+		// If testing Liferay Portal 7.x, enter "J" into the first name filter since partial matching is supported.
+		// Otherwise, if testing on Liferay Portal 6.2, enter "John" into the first name filter since only exact
+		// matching is supported.
+		WebElement firstNameFilterElement = browserDriver.findElementByXpath(FIRST_NAME_COLUMN_FILTER_XPATH);
+		Actions filterActions = browserDriver.createActions(FIRST_NAME_COLUMN_FILTER_XPATH);
+		filterActions.sendKeys(firstNameFilterElement, getFirstNameFilterText());
 		browserDriver.performAndWaitForRerender(filterActions.build(), "(//span[contains(@id,':firstNameCell')])[1]");
-		assertElementCount(browserDriver, "//tbody//tr", 5);
 
-		// Take note of each first name in the third column of the table, clicking on the Next Button until all the
+		// Take note of each first name in the third column of the table, clicking on the Next button until all the
 		// first names have been noted.
 		List<String> firstNames = extractColumnValuesFromDataTable(browserDriver, "firstName");
+		logger.debug(Logger.SEPARATOR);
+		logger.debug("First names extracted from the UI after sorting by ascending order and filtering by 'O':");
 
-		// Verify that the list of first names are in alphabetical order.
+		for (String firstName : firstNames) {
+			logger.debug(firstName);
+		}
+
+		// If testing Liferay Portal 7.0, verify that the list of first names start with the letter "J" and are in
+		// alphabetical order. Otherwise, if testing Liferay Portal 6.2, verify that the list of first names are all
+		// "John".
 		List<String> sortedFirstNames = new ArrayList<String>(firstNames);
 		Collections.sort(sortedFirstNames);
-		System.out.println("first names after sorting:");
+		logger.debug(Logger.SEPARATOR);
+		logger.debug("Same list of first names, except guaranteed to be sorted in ascending order:");
 
 		for (String sortedFirstName : sortedFirstNames) {
-			System.out.println(sortedFirstName);
-			Assert.assertTrue(sortedFirstName.contains("o") || sortedFirstName.contains("O")); // Thomas or Oliver
+			logger.debug(sortedFirstName);
+			Assert.assertTrue(isFirstNameMatch(sortedFirstName));
 		}
 
 		Assert.assertTrue(firstNames.equals(sortedFirstNames));
 
-		// Start the sort test of First Name filtering in descending order on Page 1.
+		// Click on the First Page icon in order to go back to the first page of users.
 		browserDriver.clickElement("//a[contains(@aria-label,'First Page')]");
 		browserDriver.waitForElementDisplayed(
 			"(//span[contains(@class,'ui-paginator-pages')]/a[contains(@class,'ui-state-active')])[1]");
@@ -342,24 +374,29 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		browserDriver.clickElement("//th[contains(@id,'users:firstName')]/child::span[1]");
 		browserDriver.waitForElementDisplayed("(//span[contains(@class,'ui-icon-triangle-1-s')])");
 
-		// Take note of each first name in the third column of the table, clicking on the Next Button until all the
-		// first names have been noted.
+		// Take note of each first name in the list, clicking on the Next Button until all the first names have been
+		// noted.
 		firstNames = extractColumnValuesFromDataTable(browserDriver, "firstName");
+		logger.debug(Logger.SEPARATOR);
+		logger.debug("First names extracted from the UI after sorting by descending order and filtering by 'J':");
 
-		// Verify that the list of first names are in reverse alphabetical order.
+		// If testing Liferay Portal 7.0, verify that the list of first names start with the letter "J" and are in
+		// reverse alphabetical order. Otherwise, if testing Liferay Portal 6.2, verify that the list of first names are
+		// all "John".
 		sortedFirstNames = new ArrayList<String>(firstNames);
 		Collections.sort(sortedFirstNames, Collections.reverseOrder());
-		System.out.println("first names after sorting:");
+		logger.debug(Logger.SEPARATOR);
+		logger.debug("Same list of first names, except guaranteed to be sorted in descending order:");
 
 		for (String sortedFirstName : sortedFirstNames) {
-			System.out.println(sortedFirstName);
-			Assert.assertTrue(sortedFirstName.contains("o") || sortedFirstName.contains("O")); // Thomas or Oliver
+			logger.debug(sortedFirstName);
+			Assert.assertTrue(isFirstNameMatch(sortedFirstName));
 		}
 
 		Assert.assertTrue(firstNames.equals(sortedFirstNames));
 
-		// Clear the filter so that we see the list of all the users again.
-		browserDriver.clearElement(firstNameColumnFilterXpath);
+		// Clear the filter so that the first page of the entire list of users is displayed again.
+		browserDriver.clearElement(FIRST_NAME_COLUMN_FILTER_XPATH);
 
 		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		browserStateAsserter.assertElementDisplayed(
@@ -368,79 +405,83 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		browserDriver.waitForElementDisplayed("(//span[contains(@class,'ui-icon-triangle-1-n')])");
 	}
 
-	/**
-	 * Verify that changing user "John Adams"' attributes are visible on the portlet.
-	 */
 	@Test
 	public void runPrimeFacesUsersPortletTest_F_ChangeUserAttributes() {
 
-		// Navigate to user "John Adams".
 		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(
-			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
-		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
+		browserDriver.navigateWindowTo(getURL());
+		browserDriver.waitForElementDisplayed(FIRST_USER_SCREEN_NAME_XPATH);
 
+		// Enter "john.adams" in the Screen Name filter in order so that "John Adams" appears as the only user in the
+		// list. This is helpful in case there have been many users added to the database and "John Adams" is no longer
+		// conveniently present as the first user.
 		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		verifyFirstUser(browserDriver, browserStateAsserter, "john.adams");
-		browserDriver.clickElement(firstUserScreenNameXpath);
+		filterByScreenNameAndVerifySingleUserDisplayed(browserDriver, browserStateAsserter, "john.adams");
 
-		// Change user's Last Name to "Adamsy"
-		browserDriver.waitForElementDisplayed(lastNameFieldXpath);
-		browserDriver.clearElement(lastNameFieldXpath);
+		// Select "John Adams" from the list of users so that the corresponding user's data is displayed in an
+		// editable form.
+		browserDriver.clickElement(FIRST_USER_SCREEN_NAME_XPATH);
 
-		String lastName = "Adamsy";
-		browserDriver.sendKeysToElement(lastNameFieldXpath, lastName);
+		// Change the user's Last Name from "Adams" to "Adamsy"
+		browserDriver.waitForElementDisplayed(LAST_NAME_FIELD_XPATH);
+		browserDriver.clearElement(LAST_NAME_FIELD_XPATH);
+		browserDriver.sendKeysToElement(LAST_NAME_FIELD_XPATH, "Adamsy");
 
-		// Change user's First Name to "Johnny"
-		browserDriver.clearElement(firstNameFieldXpath);
-		browserDriver.clearElement(firstNameFieldXpath);
+		// Change the user's First Name from "John" to "Johnny"
+		browserDriver.clearElement(FIRST_NAME_FIELD_XPATH);
+		browserDriver.sendKeysToElement(FIRST_NAME_FIELD_XPATH, "Johnny");
 
-		String firstName = "Johnny";
-		browserDriver.sendKeysToElement(firstNameFieldXpath, firstName);
+		// Change the user's Email Address to "johnny.adamsy@liferay.com"
+		browserDriver.clearElement(EMAIL_ADDRESS_FIELD_XPATH);
+		browserDriver.sendKeysToElement(EMAIL_ADDRESS_FIELD_XPATH, "johnny.adamsy@liferay.com");
 
-		// Change user's Email Address to "johnny.adamsy@liferay.com"
-		browserDriver.clearElement(emailAddressFieldXpath);
-		browserDriver.sendKeysToElement(emailAddressFieldXpath, "johnny.adamsy@liferay.com");
-
-		// Click on the "Submit" button and go back to the list of users.
+		// Click on the "Submit" button in order to go back to the list of users.
 		browserDriver.clickElement("//button[contains(@id, ':pushButtonSubmit') and @type='submit']");
-		browserDriver.waitForElementDisplayed(firstUserScreenNameXpath);
-		verifyFirstUser(browserDriver, browserStateAsserter, "john.adams");
+		browserDriver.waitForElementDisplayed(FIRST_USER_SCREEN_NAME_XPATH);
 
-		// Verify that user "John Adams"' last name, first name, and email address attributes have been changed to
-		// "Adams", "Johnny", and "johnny.adamsy@liferay.com", respectively.
-		browserStateAsserter.assertTextPresentInElement(lastName, "//span[contains(@id,':lastNameCell')]");
-		browserStateAsserter.assertTextPresentInElement(firstName, "//span[contains(@id,':firstNameCell')]");
+		// Enter "john.adams" in the Screen Name filter in order so that "John Adams" appears as the only user in the
+		// list. This is helpful in case there have been many users added to the database and "John Adams" is no longer
+		// conveniently present as the first user.
+		filterByScreenNameAndVerifySingleUserDisplayed(browserDriver, browserStateAsserter, "john.adams");
+
+		// Verify that the list contains "Adamsy" in the last name column, "Johnny" in the first name column, and
+		// "johnny.adamsy@liferay.com" in the email address column.
+		browserStateAsserter.assertTextPresentInElement("Adamsy", "//span[contains(@id,':lastNameCell')]");
+		browserStateAsserter.assertTextPresentInElement("Johnny", "//span[contains(@id,':firstNameCell')]");
 		browserStateAsserter.assertElementDisplayed("//a[contains(.,'johnny.adamsy@liferay.com')]");
 
-		// Clear the filter so that we see the list of all the users again.
-		browserDriver.clearElement(screenNameColumnFilterXpath);
-		browserStateAsserter.assertElementDisplayed(secondUserScreenNameCellXpath);
+		// Clear the filter in order to see the list of all the users again.
+		browserDriver.clearElement(SCREEN_NAME_COLUMN_FILTER_XPATH);
+		browserStateAsserter.assertElementDisplayed(SECOND_USER_SCREEN_NAME_CELL_XPATH);
 	}
 
-	/**
-	 * Verify that when a picture file is uploaded that it is visible.
-	 */
 	@Test
 	public void runPrimeFacesUsersPortletTest_G_FileUpload() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(
-			"http://localhost:8080/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+		browserDriver.navigateWindowTo(getURL());
 
-		// Navigate to first user.
+		// Enter "john.adams" in the Screen Name filter in order so that "John Adams" appears as the only user in the
+		// list. This is helpful in case there have been many users added to the database and "John Adams" is no longer
+		// conveniently present as the first user.
 		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		verifyFirstUser(browserDriver, browserStateAsserter, "john.adams");
+		filterByScreenNameAndVerifySingleUserDisplayed(browserDriver, browserStateAsserter, "john.adams");
 
-		browserDriver.clickElement(firstUserScreenNameXpath);
-		browserDriver.waitForElementDisplayed(firstNameFieldXpath);
+		// Select "John Adams" from the list of users so that the corresponding user's data is displayed in an
+		// editable form.
+		browserDriver.clickElement(FIRST_USER_SCREEN_NAME_XPATH);
+		browserDriver.waitForElementDisplayed(FIRST_NAME_FIELD_XPATH);
 
+		// Verify that the file upload chooser is displayed.
 		String fileUploadChooserXpath = "//input[@type='file']";
 		browserStateAsserter.assertElementDisplayed(fileUploadChooserXpath + "/..");
 
+		// Prior to attempting to upload an image, note the height of the photo that is displayed.
 		String portraitXpath = "//div[contains(@class,'has-success')]/img[contains(@id,':portrait')]";
 		WebElement imgWebElement = browserDriver.findElementByXpath(portraitXpath);
 		Dimension imageSizeBefore = imgWebElement.getSize();
+
+		// Click on the "Choose" button and select the file named "liferay-jsf-jersey.png" for upload.
 		WebElement fileUploadChooser = browserDriver.findElementByXpath(fileUploadChooserXpath);
 
 		// TECHNICAL NOTE:
@@ -452,84 +493,65 @@ public class PrimeFacesUsersPortletTester extends IntegrationTesterBase {
 		browserStateAsserter.assertElementDisplayed(portraitXpath);
 		imgWebElement = browserDriver.findElementByXpath(portraitXpath);
 
+		// Verify that the height of the displayed photo is different than the height noted earlier.
 		Dimension imageSizeAfter = imgWebElement.getSize();
 		Assert.assertNotEquals(imageSizeBefore.getHeight(), imageSizeAfter.getHeight());
 	}
 
 	/**
-	 * Verifying that the number of elements present in the DOM associated with the specified xpath is equal to the
-	 * specified value.
-	 *
-	 * @param  browserDriver
-	 * @param  xpath
-	 * @param  expecteds
+	 * Extract the column values from the dataTable associated with the specified column name.
 	 */
-	protected final void assertElementCount(BrowserDriver browserDriver, String xpath, int expecteds) {
+	private List<String> extractColumnValuesFromDataTable(BrowserDriver browserDriver, String columnName) {
 
-		List<WebElement> elements = browserDriver.findElementsByXpath(xpath);
-		Assert.assertNotNull("Element " + elements + " is not present in the DOM.", elements);
-
-		int elementsSize = elements.size();
-		Assert.assertEquals("Element " + elements + " does not equal \"" + expecteds + "\". Instead it equals \"" +
-			elementsSize + "\".", expecteds, elementsSize);
-	}
-
-	/**
-	 * Exctract the column values from the dataTable associated with the specified column name.
-	 *
-	 * @param  browserDriver
-	 * @param  columnName
-	 */
-	protected final List<String> extractColumnValuesFromDataTable(BrowserDriver browserDriver, String columnName) {
-
+		// While the "Last Page" icon is still active:
 		List<String> columnValues = new ArrayList<String>();
-
-		System.out.println("--------------");
-		System.out.println(columnName + " values:");
-
 		String columnElementsXpath = "//span[contains(@id,':" + columnName + "Cell')]";
 
 		while (browserDriver.findElementsByXpath(
 					"//a[contains(@class,'ui-state-disabled') and contains(@aria-label,'Last Page')]").isEmpty()) {
+
+			// Extract the column values from the current page of the dataTable.
 			List<WebElement> columnElements = browserDriver.findElementsByXpath(columnElementsXpath);
 
 			for (WebElement columnElement : columnElements) {
 				String columnValue = columnElement.getText();
 				columnValues.add(columnValue);
-				System.out.println(columnValue);
 			}
 
+			// Click on the "Next Page" icon.
 			browserDriver.performAndWaitForRerender(browserDriver.createClickElementAction(
 					"//a[contains(@aria-label,'Next Page')]"), "(//span[contains(@id,':" + columnName + "Cell')])[1]");
 		}
 
+		// Extract column values from the last page of the dataTable.
 		List<WebElement> screenNameElements = browserDriver.findElementsByXpath(columnElementsXpath);
 
 		for (WebElement screenNameElement : screenNameElements) {
 			String screenName = screenNameElement.getText();
-			columnValues.add(screenNameElement.getText());
-			System.out.println(screenName);
+			columnValues.add(screenName);
 		}
 
 		return columnValues;
 	}
 
 	/**
-	 * Verify that when a user's screen name is entered into the screen name filter that only "john.adams" is still
-	 * present in the list of users.
-	 *
-	 * @param  browserDriver
-	 * @param  browserStateAsserter
+	 * Enters the specified screen name into the "Screen Name" filter and verifies that afterwards the list contains
+	 * only the specified user.
 	 */
-	protected final void verifyFirstUser(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter,
-		String screenName) {
+	private void filterByScreenNameAndVerifySingleUserDisplayed(BrowserDriver browserDriver,
+		BrowserStateAsserter browserStateAsserter, String screenName) {
 
-		browserDriver.clearElement(screenNameColumnFilterXpath);
-		browserDriver.sendKeysToElement(screenNameColumnFilterXpath, screenName);
-		browserStateAsserter.assertElementNotDisplayed(secondUserScreenNameCellXpath);
-		browserStateAsserter.assertElementDisplayed(firstUserScreenNameXpath);
+		browserDriver.clearElement(SCREEN_NAME_COLUMN_FILTER_XPATH);
+		browserDriver.sendKeysToElement(SCREEN_NAME_COLUMN_FILTER_XPATH, screenName);
+		browserStateAsserter.assertElementNotDisplayed(SECOND_USER_SCREEN_NAME_CELL_XPATH);
+		browserStateAsserter.assertElementDisplayed(FIRST_USER_SCREEN_NAME_XPATH);
 
-		String rowsXpath = "//tbody//tr";
-		assertElementCount(browserDriver, rowsXpath, 1);
+		List<String> screenNames = extractColumnValuesFromDataTable(browserDriver, "screenName");
+		Assert.assertTrue(screenNames.size() == 1);
+		Assert.assertTrue(screenNames.get(0).equals(screenName));
+	}
+
+	private String getURL() {
+		return TestUtil.DEFAULT_BASE_URL + "/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet";
 	}
 }
