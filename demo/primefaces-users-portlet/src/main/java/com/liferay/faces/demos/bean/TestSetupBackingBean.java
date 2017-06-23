@@ -175,12 +175,14 @@ public class TestSetupBackingBean {
 		addUser(userId, companyId, "Charles", "Carroll");
 		addUser(userId, companyId, "Benjamin", "Franklin");
 		addUser(userId, companyId, "Elbridge", "Gerry");
+		addUser(userId, companyId, "John", "Dickinson");
 		addUser(userId, companyId, "John", "Hancock");
 		addUser(userId, companyId, "Thomas", "Jefferson");
 		addUser(userId, companyId, "Francis", "Lewis");
 		addUser(userId, companyId, "Philip", "Livingston");
 		addUser(userId, companyId, "Thomas", "McKean");
 		addUser(userId, companyId, "Arthur", "Middleton");
+		addUser(userId, companyId, "John", "Morton");
 		addUser(userId, companyId, "John", "Penn");
 		addUser(userId, companyId, "George", "Read");
 		addUser(userId, companyId, "John", "Rutledge");
