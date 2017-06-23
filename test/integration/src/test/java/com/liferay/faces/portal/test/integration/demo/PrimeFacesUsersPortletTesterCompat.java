@@ -14,6 +14,7 @@
 package com.liferay.faces.portal.test.integration.demo;
 
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
+import com.liferay.faces.test.selenium.TestUtil;
 
 
 /**
@@ -29,6 +30,10 @@ public abstract class PrimeFacesUsersPortletTesterCompat extends IntegrationTest
 		// start with "J" like "John" and "Josiah". Liferay Portal 6.2 can only do exact matches. For example, "J" would
 		// match zero users, but "John" would match all users named "John" but not "Jonathan".
 		return "J";
+	}
+
+	protected String getURL() {
+		return TestUtil.DEFAULT_BASE_URL + "/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet";
 	}
 
 	protected boolean isFirstNameMatch(String firstName) {

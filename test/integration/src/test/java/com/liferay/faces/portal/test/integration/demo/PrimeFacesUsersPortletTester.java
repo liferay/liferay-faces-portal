@@ -550,8 +550,4 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		Assert.assertTrue(screenNames.size() == 1);
 		Assert.assertTrue(screenNames.get(0).equals(screenName));
 	}
-
-	private String getURL() {
-		return TestUtil.DEFAULT_BASE_URL + "/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet";
-	}
 }
