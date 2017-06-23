@@ -477,7 +477,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		browserStateAsserter.assertElementDisplayed(fileUploadChooserXpath + "/..");
 
 		// Prior to attempting to upload an image, note the height of the photo that is displayed.
-		String portraitXpath = "//div[contains(@class,'has-success')]/img[contains(@id,':portrait')]";
+		String portraitXpath = "//div/img[contains(@id,':portrait')]";
 		WebElement imgWebElement = browserDriver.findElementByXpath(portraitXpath);
 		Dimension imageSizeBefore = imgWebElement.getSize();
 
