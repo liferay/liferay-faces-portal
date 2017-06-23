@@ -29,14 +29,14 @@ public abstract class PrimeFacesUsersPortletTesterCompat extends IntegrationTest
 		// Liferay Portal 7.x has the ability to perform partial matches. For example, "J" would match first names that
 		// start with "J" like "John" and "Josiah". Liferay Portal 6.2 can only do exact matches. For example, "J" would
 		// match zero users, but "John" would match all users named "John" but not "Jonathan".
-		return "J";
+		return "John";
 	}
 
 	protected String getURL() {
-		return TestUtil.DEFAULT_BASE_URL + "/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet";
+		return TestUtil.DEFAULT_BASE_URL + "/group/control_panel/manage?p_p_id=1_WAR_comliferayfacesdemoprimefacesusersportlet";
 	}
 
 	protected boolean isFirstNameMatch(String firstName) {
-		return firstName.startsWith(getFirstNameFilterText());
+		return firstName.equals(getFirstNameFilterText());
 	}
 }
