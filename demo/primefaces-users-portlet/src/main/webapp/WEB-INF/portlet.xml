@@ -11,9 +11,14 @@
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/portletViewMode.xhtml</value>
 		</init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<value>/WEB-INF/views/portletEditMode.xhtml</value>
+		</init-param>
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
+			<portlet-mode>edit</portlet-mode>
 		</supports>
 		<portlet-info>
 			<title>PrimeFaces Users</title>

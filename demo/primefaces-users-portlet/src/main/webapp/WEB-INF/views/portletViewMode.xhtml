@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:portlet="http://java.sun.com/portlet_2_0" xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:head />
 	<h:body>
 		<ui:include src="styling.xhtml" />
+		<portlet:renderURL escapeXml="false" portletMode="edit" var="editModeRenderURL" />
+		<h:outputLink id="preferences" value="#{editModeRenderURL}">
+			<h:outputText value="#{i18n['preferences']}" />
+		</h:outputLink>
 		<ui:include src="users.xhtml" />
 	</h:body>
 </f:view>

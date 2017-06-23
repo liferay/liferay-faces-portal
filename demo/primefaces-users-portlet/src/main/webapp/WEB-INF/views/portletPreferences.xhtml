@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+
+		<h:messages globalOnly="true" />
+
+		<table>
+			<tr>
+				<td><h:outputLabel for="rowsPerPage" value="#{i18n['rows-per-page']}" /></td>
+				<td><h:inputText id="rowsPerPage" value="#{mutablePortletPreferencesValues['rowsPerPage'].value}" /></td>
+				<td><h:message for="rowsPerPage" /></td>
+			</tr>
+		</table>
+
+		<hr />
+
+		<h:commandButton id="submit" actionListener="#{portletPreferencesBackingBean.submit}" value="#{i18n['submit']}" />
+		<h:commandButton id="reset" actionListener="#{portletPreferencesBackingBean.reset}" value="#{i18n['reset']}" />
+
+	</h:form>
+
+</ui:composition>
