@@ -32,8 +32,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
-import org.osgi.util.tracker.ServiceTracker;
-
 import com.liferay.faces.demos.list.UserLazyDataModel;
 import com.liferay.faces.demos.resource.UserPortraitResource;
 import com.liferay.faces.demos.service.UserLocalServiceTracker;

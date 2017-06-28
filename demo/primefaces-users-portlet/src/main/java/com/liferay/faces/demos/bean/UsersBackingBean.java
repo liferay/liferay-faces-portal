@@ -32,7 +32,6 @@ import org.primefaces.event.SelectEvent;
 
 import com.liferay.faces.demos.dto.UploadedFileWrapper;
 import com.liferay.faces.demos.service.UserLocalServiceTracker;
-import com.liferay.faces.demos.util.UploadedFileUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -64,7 +63,6 @@ public class UsersBackingBean {
 	private UsersViewBean usersViewBean;
 
 	// Private Data Members
-	private String fileUploadAbsolutePath;
 	private UserLocalServiceTracker userLocalServiceTracker;
 
 	public void cancel(ActionEvent actionEvent) {
@@ -83,15 +81,6 @@ public class UsersBackingBean {
 
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
-	}
-
-	public String getFileUploadAbsolutePath() {
-
-		if (fileUploadAbsolutePath == null) {
-			fileUploadAbsolutePath = UploadedFileUtil.getTempDir();
-		}
-
-		return fileUploadAbsolutePath;
 	}
 
 	public void handleFileUpload(FileUploadEvent fileUploadEvent) {

@@ -12,7 +12,7 @@
 
 	<artifactId>com.liferay.faces.test.portal.integration</artifactId>
 	<packaging>jar</packaging>
-	<name>Liferay Faces Portal Test Integration</name>
+	<name>Liferay Faces Portal Integration Tests</name>
 
 	<properties>
 		<integration.container>liferay</integration.container>

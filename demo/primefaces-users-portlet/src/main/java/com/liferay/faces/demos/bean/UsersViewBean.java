@@ -34,13 +34,66 @@ public class UsersViewBean implements Serializable {
 
 	// Private Data Members
 	private boolean formRendered = false;
+	private String emailAddressFilterValue;
+	private String firstNameFilterValue;
+	private String jobTitleFilterValue;
+	private String lastNameFilterValue;
+	private String middleNameFilterValue;
+	private String screenNameFilterValue;
+
+	public String getEmailAddressFilterValue() {
+		return emailAddressFilterValue;
+	}
+
+	public String getFirstNameFilterValue() {
+		return firstNameFilterValue;
+	}
+
+	public String getJobTitleFilterValue() {
+		return jobTitleFilterValue;
+	}
+
+	public String getLastNameFilterValue() {
+		return lastNameFilterValue;
+	}
+
+	public String getMiddleNameFilterValue() {
+		return middleNameFilterValue;
+	}
+
+	public String getScreenNameFilterValue() {
+		return screenNameFilterValue;
+	}
 
 	public boolean isFormRendered() {
 		return formRendered;
+	}
+
+	public void setEmailAddressFilterValue(String emailAddressFilterValue) {
+		this.emailAddressFilterValue = emailAddressFilterValue;
+	}
+
+	public void setFirstNameFilterValue(String firstNameFilterValue) {
+		this.firstNameFilterValue = firstNameFilterValue;
 	}
 
 	public void setFormRendered(boolean formRendered) {
 		this.formRendered = formRendered;
 	}
 
+	public void setJobTitleFilterValue(String jobTitleFilterValue) {
+		this.jobTitleFilterValue = jobTitleFilterValue;
+	}
+
+	public void setLastNameFilterValue(String lastNameFilterValue) {
+		this.lastNameFilterValue = lastNameFilterValue;
+	}
+
+	public void setMiddleNameFilterValue(String middleNameFilterValue) {
+		this.middleNameFilterValue = middleNameFilterValue;
+	}
+
+	public void setScreenNameFilterValue(String screenNameFilterValue) {
+		this.screenNameFilterValue = screenNameFilterValue;
+	}
 }
