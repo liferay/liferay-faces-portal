@@ -27,8 +27,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
-import org.osgi.util.tracker.ServiceTracker;
-
 import com.liferay.faces.demos.service.UserLocalServiceTracker;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

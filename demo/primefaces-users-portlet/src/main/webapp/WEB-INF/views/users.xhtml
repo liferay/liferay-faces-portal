@@ -8,7 +8,7 @@
 			<h:messages globalOnly="true" layout="table" />
 			<alloy:row>
 				<alloy:column width="15">
-					<alloy:fieldset label="#{i18n['personal']}">
+					<alloy:fieldset legend="#{i18n['personal']}">
 						<alloy:field id="firstNameField" label="#{i18n['first-name']}">
 							<p:inputText id="firstName" required="true" value="#{usersModelBean.selectedUser.firstName}" />
 							<h:message for="firstName" />
@@ -21,21 +21,22 @@
 							<h:message for="lastName" />
 						</alloy:field>
 						<alloy:field id="emailAddressField" label="#{i18n['email-address']}">
-							<p:inputText id="emailAddress" inlineMessage="true" label="#{i18n['email-address']}" required="true"
-								validatorMessage="#{i18n['invalid-email-address']}" value="#{usersModelBean.selectedUser.emailAddress}">
+							<p:inputText id="emailAddress" label="#{i18n['email-address']}" required="true"
+								validatorMessage="#{i18n['invalid-email-address']}"
+								value="#{usersModelBean.selectedUser.emailAddress}">
 								<f:validateRegex pattern=".+[@].+[.].+" />
 							</p:inputText>
 							<h:message for="emailAddress" />
 						</alloy:field>
 						<alloy:field id="jobTitleField" label="#{i18n['job-title']}">
-							<p:inputText id="jobTitle" inlineMessage="true" label="#{i18n['job-title']}" required="false"
+							<p:inputText id="jobTitle" label="#{i18n['job-title']}" required="false"
 								value="#{usersModelBean.selectedUser.jobTitle}" />
 							<h:message for="jobTitle" />
 						</alloy:field>
 					</alloy:fieldset>
 				</alloy:column>
 				<alloy:column width="15">
-					<alloy:fieldset label="#{i18n['administration']}">
+					<alloy:fieldset legend="#{i18n['administration']}">
 						<h:selectOneMenu id="status" label="#{i18n['status']}" required="true"
 							value="#{usersModelBean.selectedUser.status}">
 							<f:selectItems value="#{usersModelBean.statusSelectItems}" />
@@ -45,11 +46,12 @@
 					</alloy:fieldset>
 				</alloy:column>
 				<alloy:column width="20">
-					<alloy:fieldset label="#{i18n['portrait']}">
+					<alloy:fieldset legend="#{i18n['portrait']}">
 						<alloy:field>
-							<h:graphicImage id="portrait" value="#{usersModelBean.selectedUserPortraitURL}" style="width:100px;" />
-							<p:fileUpload id="fileEntryComp" absolutePath="#{usersBackingBean.fileUploadAbsolutePath}" auto="true"
-								update="portrait" fileUploadListener="#{usersBackingBean.handleFileUpload}" />
+							<h:graphicImage id="portrait" value="#{usersModelBean.selectedUserPortraitURL}"
+								style="width:100px;" />
+							<p:fileUpload id="fileEntryComp" auto="true" update="portrait"
+								fileUploadListener="#{usersBackingBean.handleFileUpload}" />
 						</alloy:field>
 					</alloy:fieldset>
 				</alloy:column>
@@ -67,40 +69,49 @@
 				<alloy:column styleClass="aui-w100 pfusers">
 					<div class="separator" />
 					<p:dataTable id="users" lazy="true" paginator="true" paginatorPosition="top" rowKey="#{user.userId}"
-						rows="#{usersModelBean.dataModel.pageSize}" selectionMode="single" selection="#{usersModelBean.selectedUser}"
-						value="#{usersModelBean.dataModel}" var="user">
+						rows="#{usersModelBean.dataModel.pageSize}" selectionMode="single"
+						selection="#{usersModelBean.selectedUser}" value="#{usersModelBean.dataModel}" var="user">
 						<p:ajax event="rowSelect" listener="#{usersBackingBean.selectUser}" update=":f1" />
-						<p:column id="screenName" filterBy="#{user.screenName}" headerText="#{i18n['screen-name']}"
+						<p:column id="screenName" filterBy="#{user.screenName}"
+							filterValue="#{usersViewBean.screenNameFilterValue}" headerText="#{i18n['screen-name']}"
 							sortBy="#{user.screenName}">
 							<h:outputText id="screenNameCell" value="#{user.screenName}" />
 						</p:column>
-						<p:column id="lastName" filterBy="#{user.lastName}" headerText="#{i18n['last-name']}" sortBy="#{user.lastName}">
+						<p:column id="lastName" filterBy="#{user.lastName}"
+							filterValue="#{usersViewBean.lastNameFilterValue}" headerText="#{i18n['last-name']}"
+							sortBy="#{user.lastName}">
 							<h:outputText id="lastNameCell" value="#{user.lastName}" />
 						</p:column>
-						<p:column id="firstName" filterBy="#{user.firstName}" headerText="#{i18n['first-name']}"
+						<p:column id="firstName" filterBy="#{user.firstName}"
+							filterValue="#{usersViewBean.firstNameFilterValue}" headerText="#{i18n['first-name']}"
 							sortBy="#{user.firstName}">
 							<h:outputText id="firstNameCell" value="#{user.firstName}" />
 						</p:column>
-						<p:column id="middleName" filterBy="#{user.middleName}" headerText="#{i18n['middle-name']}"
+						<p:column id="middleName" filterBy="#{user.middleName}"
+							filterValue="#{usersViewBean.middleNameFilterValue}" headerText="#{i18n['middle-name']}"
 							sortBy="#{user.middleName}">
 							<h:outputText id="middleNameCell" value="#{user.middleName}" />
 						</p:column>
-						<p:column id="emailAddress" filterBy="#{user.emailAddress}" headerText="#{i18n['email-address']}"
+						<p:column id="emailAddress" filterBy="#{user.emailAddress}"
+							filterValue="#{usersViewBean.emailAddressFilterValue}" headerText="#{i18n['email-address']}"
 							sortBy="#{user.emailAddress}">
-							<h:outputLink value="mailto:#{user.emailAddress}">
+							<h:outputLink id="email" value="mailto:#{user.emailAddress}">
 								<h:outputText value="#{user.emailAddress}" />
 							</h:outputLink>
 						</p:column>
-						<p:column id="jobTitle" filterBy="#{user.jobTitle}" headerText="#{i18n['job-title']}" sortBy="#{user.jobTitle}">
+						<p:column id="jobTitle" filterBy="#{user.jobTitle}"
+							filterValue="#{usersViewBean.jobTitleFilterValue}" headerText="#{i18n['job-title']}"
+							sortBy="#{user.jobTitle}">
 							<h:outputText id="jobTitleCell" value="#{user.jobTitle}" />
 						</p:column>
 					</p:dataTable>
-					<h:outputText value="#{i18n['there-are-no-results']}" rendered="#{usersModelBean.dataModel.rowCount == 0}" />
+					<h:outputText value="#{i18n['there-are-no-results']}"
+						rendered="#{usersModelBean.dataModel.rowCount == 0}" />
 					<h:messages globalOnly="true" layout="table" />
 				</alloy:column>
 			</alloy:row>
-			<p:commandButton actionListener="#{testSetupBackingBean.resetUsers}" id="hiddenButtonResetUsers" style="display:none;" value="Reset Users"
-				update=":f1" />
+			<p:commandButton actionListener="#{testSetupBackingBean.resetUsers}" id="hiddenResetUsersButton"
+				style="display:none;" value="Reset Users" update=":f1" />
 		</h:panelGroup>
 	</h:form>
 
