@@ -57,7 +57,6 @@ public class UsersBackingBean {
 	private UsersViewBean usersViewBean;
 
 	// Private Data Members
-	private String fileUploadAbsolutePath;
 	private String uploadedFileId;
 	private UploadedFile uploadedFile;
 
@@ -77,15 +76,6 @@ public class UsersBackingBean {
 
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
-	}
-
-	public String getFileUploadAbsolutePath() {
-
-		if (fileUploadAbsolutePath == null) {
-			fileUploadAbsolutePath = UploadedFileUtil.getTempDir();
-		}
-
-		return fileUploadAbsolutePath;
 	}
 
 	public UploadedFile getUploadedFile() {

@@ -49,7 +49,8 @@ public class TestSetupBackingBean {
 	@ManagedProperty(name = "usersModelBean", value = "#{usersModelBean}")
 	private UsersModelBean usersModelBean;
 
-	public void addUser(long creatorUserId, long companyId, String firstName, String lastName) throws Exception {
+	public void addUser(long creatorUserId, long groupId, long companyId, String firstName, String lastName)
+		throws Exception {
 
 		boolean autoPassword = false;
 		String password1 = "test";
@@ -68,7 +69,7 @@ public class TestSetupBackingBean {
 		int birthdayDay = 1;
 		int birthdayYear = 1970;
 		String jobTitle = "";
-		long[] groupIds = new long[] {};
+		long[] groupIds = new long[] { groupId };
 		long[] organizationIds = new long[] {};
 		long[] roleIds = new long[] {};
 		long[] userGroupIds = new long[] {};
@@ -104,9 +105,14 @@ public class TestSetupBackingBean {
 
 		try {
 			long companyId = LiferayPortletHelperUtil.getCompanyId(facesContext);
+			long groupId = LiferayPortletHelperUtil.getLayout(facesContext).getGroupId();
 			Company company = CompanyLocalServiceUtil.getCompanyById(companyId);
-			long userId = company.getDefaultUser().getUserId();
-			setupUsers(companyId, userId);
+			User defaultUser = company.getDefaultUser();
+			User testUser = UserLocalServiceUtil.getUserByEmailAddress(companyId, "test@liferay.com");
+			UserLocalServiceUtil.addGroupUser(groupId, testUser);
+
+			long userId = defaultUser.getUserId();
+			setupNewUsers(companyId, groupId, userId);
 			usersModelBean.forceListReload();
 		}
 		catch (NoSuchCompanyException e) {
@@ -121,31 +127,31 @@ public class TestSetupBackingBean {
 		this.usersModelBean = usersModelBean;
 	}
 
-	protected void setupUsers(long companyId, long userId) throws Exception {
-		addUser(userId, companyId, "John", "Adams");
-		addUser(userId, companyId, "Samuel", "Adams");
-		addUser(userId, companyId, "Josiah", "Bartlett");
-		addUser(userId, companyId, "Carter", "Braxton");
-		addUser(userId, companyId, "Charles", "Carroll");
-		addUser(userId, companyId, "Benjamin", "Franklin");
-		addUser(userId, companyId, "Elbridge", "Gerry");
-		addUser(userId, companyId, "John", "Dickinson");
-		addUser(userId, companyId, "John", "Hancock");
-		addUser(userId, companyId, "Thomas", "Jefferson");
-		addUser(userId, companyId, "Francis", "Lewis");
-		addUser(userId, companyId, "Philip", "Livingston");
-		addUser(userId, companyId, "Thomas", "McKean");
-		addUser(userId, companyId, "Arthur", "Middleton");
-		addUser(userId, companyId, "John", "Morton");
-		addUser(userId, companyId, "John", "Penn");
-		addUser(userId, companyId, "George", "Read");
-		addUser(userId, companyId, "John", "Rutledge");
-		addUser(userId, companyId, "Roger", "Sherman");
-		addUser(userId, companyId, "Thomas", "Stone");
-		addUser(userId, companyId, "George", "Taylor");
-		addUser(userId, companyId, "George", "Washington");
-		addUser(userId, companyId, "John", "Witherspoon");
-		addUser(userId, companyId, "Oliver", "Wolcott");
-		addUser(userId, companyId, "George", "Wythe");
+	protected void setupNewUsers(long companyId, long groupId, long userId) throws Exception {
+		addUser(userId, groupId, companyId, "John", "Adams");
+		addUser(userId, groupId, companyId, "Samuel", "Adams");
+		addUser(userId, groupId, companyId, "Josiah", "Bartlett");
+		addUser(userId, groupId, companyId, "Carter", "Braxton");
+		addUser(userId, groupId, companyId, "Charles", "Carroll");
+		addUser(userId, groupId, companyId, "Benjamin", "Franklin");
+		addUser(userId, groupId, companyId, "Elbridge", "Gerry");
+		addUser(userId, groupId, companyId, "John", "Dickinson");
+		addUser(userId, groupId, companyId, "John", "Hancock");
+		addUser(userId, groupId, companyId, "Thomas", "Jefferson");
+		addUser(userId, groupId, companyId, "Francis", "Lewis");
+		addUser(userId, groupId, companyId, "Philip", "Livingston");
+		addUser(userId, groupId, companyId, "Thomas", "McKean");
+		addUser(userId, groupId, companyId, "Arthur", "Middleton");
+		addUser(userId, groupId, companyId, "John", "Morton");
+		addUser(userId, groupId, companyId, "John", "Penn");
+		addUser(userId, groupId, companyId, "George", "Read");
+		addUser(userId, groupId, companyId, "John", "Rutledge");
+		addUser(userId, groupId, companyId, "Roger", "Sherman");
+		addUser(userId, groupId, companyId, "Thomas", "Stone");
+		addUser(userId, groupId, companyId, "George", "Taylor");
+		addUser(userId, groupId, companyId, "George", "Washington");
+		addUser(userId, groupId, companyId, "John", "Witherspoon");
+		addUser(userId, groupId, companyId, "Oliver", "Wolcott");
+		addUser(userId, groupId, companyId, "George", "Wythe");
 	}
 }
