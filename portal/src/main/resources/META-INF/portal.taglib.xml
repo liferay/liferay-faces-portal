@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <facelet-taglib xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:vdldoc="http://vdldoc.omnifaces.org"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd http://vdldoc.omnifaces.org https://raw.githubusercontent.com/omnifaces/vdldoc/master/src/main/resources/org/omnifaces/vdldoc/resources/vdldoc.taglib.xml.xsd"
-	version="2.2">
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_3.xsd http://vdldoc.omnifaces.org https://raw.githubusercontent.com/omnifaces/vdldoc/master/src/main/resources/org/omnifaces/vdldoc/resources/vdldoc.taglib.xml.xsd"
+	version="2.3">
 	<description><![CDATA[The Liferay Faces Portal facelet component tags with the <code>portal:</code> tag name prefix.]]></description>
 	<namespace>http://liferay.com/faces/portal</namespace>
 	<function>
@@ -320,7 +320,7 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The name of the set of toolbars that are to be displayed above the rich text input area. Valid values are "bbcode", "creole", "editInPlace", "email", "liferay", "liferayArticle", "phone", "simple", and "tablet". The default value depends on the value of the editorKey attribute. If editorKey's property evaluates to "ckeditor" then the default value is "liferay". If editorKey's property evaluates to "ckeditor_bbcode" then the default value is "bbcode". If editorKey's property evaluates to "ckeditor_creole" then the default value is "creole".]]></description>
+			<description><![CDATA[The name of the set of toolbars that are to be displayed above the rich text input area. Valid values include:<ul><li>bbcode</li><li>creole</li><li>editInPlace</li><li>email</li><li>liferay</li><li>liferayArticle</li><li>phone</li><li>simple</li><li>tablet</li></ul>The default value depends on the value of the editorKey attribute. If editorKey's property evaluates to "ckeditor" then the default value is "liferay". If editorKey's property evaluates to "ckeditor_bbcode" then the default value is "bbcode". If editorKey's property evaluates to "ckeditor_creole" then the default value is "creole".]]></description>
 			<name>toolbarSet</name>
 			<required>false</required>
 			<type>java.lang.String</type>
@@ -784,7 +784,7 @@ java.lang.Object)</method-signature>
 			<type>javax.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[XML markup in the form <preferences><preference><name></name><value></value></preference></preferences>. This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.]]></description>
+			<description><![CDATA[XML markup in the form:<pre>&lt;preferences&gt;&lt;preference&gt;&lt;name&gt;&lt;/name&gt;&lt;value&gt;&lt;/value&gt;&lt;/preference&gt;&lt;/preferences&gt;</pre>This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.]]></description>
 			<name>defaultPreferences</name>
 			<required>false</required>
 			<type>java.lang.String</type>
