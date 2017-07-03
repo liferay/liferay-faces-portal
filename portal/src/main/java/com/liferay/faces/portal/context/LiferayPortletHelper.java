@@ -43,7 +43,7 @@ public interface LiferayPortletHelper {
 	 *
 	 * @throws  AuthorizationException
 	 *
-	 * @see     {@link #userHasPortletPermission(String)}
+	 * @see     #userHasPortletPermission(String)
 	 */
 	public void checkUserPortletPermission(String actionId) throws AuthorizationException;
 
@@ -107,7 +107,7 @@ public interface LiferayPortletHelper {
 	 * it is exposed as getPortletInstanceId(). This is because the Liferay API getPortletId() actually returns the
 	 * "instance id" of the portlet, whereas most of the time developers really want the "root id" instead.
 	 *
-	 * @see  {@link PortletHelper#getPortletName()}
+	 * @see  PortletHelper#getPortletName()
 	 */
 	public String getPortletInstanceId();
 
@@ -117,7 +117,7 @@ public interface LiferayPortletHelper {
 	 * it is exposed as getPortletInstanceId(). This is because the Liferay API getPortletId() actually returns the
 	 * "instance id" of the portlet, whereas most of the time developers really want the "root id" instead.
 	 *
-	 * @see  {@link PortletHelper#getPortletName()}
+	 * @see  PortletHelper#getPortletName()
 	 */
 	public String getPortletRootId();
 
@@ -179,7 +179,7 @@ public interface LiferayPortletHelper {
 	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
 	 * wrapped in a PortletRuntimeException.
 	 *
-	 * @see  {@link #checkUserPortletPermission(String)}
+	 * @see  #checkUserPortletPermission(String)
 	 */
 	public boolean userHasPortletPermission(String actionId);
 

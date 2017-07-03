@@ -45,63 +45,63 @@ public abstract class NavBase extends UIData implements Styleable {
 	}
 
 	/**
-	 * <code>ariaLabel</code> attribute description:
-	 * <br /><br />
-	 * The WAI-ARIA label which can help users with disabilities when a text label is not visible.
+	 * <p><code>ariaLabel</code> attribute description:</p>
+	 *
+	 * <div>The WAI-ARIA label which can help users with disabilities when a text label is not visible.</div>
 	 */
 	public String getAriaLabel() {
 		return (String) getStateHelper().eval(NavPropertyKeys.ariaLabel, null);
 	}
 
 	/**
-	 * <code>ariaLabel</code> attribute description:
-	 * <br /><br />
-	 * The WAI-ARIA label which can help users with disabilities when a text label is not visible.
+	 * <p><code>ariaLabel</code> attribute description:</p>
+	 *
+	 * <div>The WAI-ARIA label which can help users with disabilities when a text label is not visible.</div>
 	 */
 	public void setAriaLabel(String ariaLabel) {
 		getStateHelper().put(NavPropertyKeys.ariaLabel, ariaLabel);
 	}
 
 	/**
-	 * <code>ariaRole</code> attribute description:
-	 * <br /><br />
-	 * The WAI-ARIA role which can help users with disabilities understand the purpose of an element, such as whether it is a menu, progress indicator, or some other type of component.
+	 * <p><code>ariaRole</code> attribute description:</p>
+	 *
+	 * <div>The WAI-ARIA role which can help users with disabilities understand the purpose of an element, such as whether it is a menu, progress indicator, or some other type of component.</div>
 	 */
 	public String getAriaRole() {
 		return (String) getStateHelper().eval(NavPropertyKeys.ariaRole, null);
 	}
 
 	/**
-	 * <code>ariaRole</code> attribute description:
-	 * <br /><br />
-	 * The WAI-ARIA role which can help users with disabilities understand the purpose of an element, such as whether it is a menu, progress indicator, or some other type of component.
+	 * <p><code>ariaRole</code> attribute description:</p>
+	 *
+	 * <div>The WAI-ARIA role which can help users with disabilities understand the purpose of an element, such as whether it is a menu, progress indicator, or some other type of component.</div>
 	 */
 	public void setAriaRole(String ariaRole) {
 		getStateHelper().put(NavPropertyKeys.ariaRole, ariaRole);
 	}
 
 	/**
-	 * <code>responsive</code> attribute description:
-	 * <br /><br />
-	 * When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu.
+	 * <p><code>responsive</code> attribute description:</p>
+	 *
+	 * <div>When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu.</div>
 	 */
 	public boolean isResponsive() {
 		return (Boolean) getStateHelper().eval(NavPropertyKeys.responsive, true);
 	}
 
 	/**
-	 * <code>responsive</code> attribute description:
-	 * <br /><br />
-	 * When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu.
+	 * <p><code>responsive</code> attribute description:</p>
+	 *
+	 * <div>When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu.</div>
 	 */
 	public void setResponsive(boolean responsive) {
 		getStateHelper().put(NavPropertyKeys.responsive, responsive);
 	}
 
 	/**
-	 * <code>style</code> attribute description:
-	 * <br /><br />
-	 * HTML passthrough attribute specifying the css style of the element.
+	 * <p><code>style</code> attribute description:</p>
+	 *
+	 * <div>HTML passthrough attribute specifying the css style of the element.</div>
 	 */
 	@Override
 	public String getStyle() {
@@ -109,9 +109,9 @@ public abstract class NavBase extends UIData implements Styleable {
 	}
 
 	/**
-	 * <code>style</code> attribute description:
-	 * <br /><br />
-	 * HTML passthrough attribute specifying the css style of the element.
+	 * <p><code>style</code> attribute description:</p>
+	 *
+	 * <div>HTML passthrough attribute specifying the css style of the element.</div>
 	 */
 	@Override
 	public void setStyle(String style) {
@@ -119,9 +119,9 @@ public abstract class NavBase extends UIData implements Styleable {
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public String getStyleClass() {
@@ -134,9 +134,9 @@ public abstract class NavBase extends UIData implements Styleable {
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public void setStyleClass(String styleClass) {

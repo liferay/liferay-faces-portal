@@ -45,63 +45,63 @@ public abstract class RuntimeBase extends UIPanel implements Styleable {
 	}
 
 	/**
-	 * <code>defaultPreferences</code> attribute description:
-	 * <br /><br />
-	 * XML markup in the form <preferences><preference><name></name><value></value></preference></preferences>. This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.
+	 * <p><code>defaultPreferences</code> attribute description:</p>
+	 *
+	 * <div>XML markup in the form:<pre>&lt;preferences&gt;&lt;preference&gt;&lt;name&gt;&lt;/name&gt;&lt;value&gt;&lt;/value&gt;&lt;/preference&gt;&lt;/preferences&gt;</pre>This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.</div>
 	 */
 	public String getDefaultPreferences() {
 		return (String) getStateHelper().eval(RuntimePropertyKeys.defaultPreferences, null);
 	}
 
 	/**
-	 * <code>defaultPreferences</code> attribute description:
-	 * <br /><br />
-	 * XML markup in the form <preferences><preference><name></name><value></value></preference></preferences>. This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.
+	 * <p><code>defaultPreferences</code> attribute description:</p>
+	 *
+	 * <div>XML markup in the form:<pre>&lt;preferences&gt;&lt;preference&gt;&lt;name&gt;&lt;/name&gt;&lt;value&gt;&lt;/value&gt;&lt;/preference&gt;&lt;/preferences&gt;</pre>This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.</div>
 	 */
 	public void setDefaultPreferences(String defaultPreferences) {
 		getStateHelper().put(RuntimePropertyKeys.defaultPreferences, defaultPreferences);
 	}
 
 	/**
-	 * <code>portletName</code> attribute description:
-	 * <br /><br />
-	 * The name of the portlet. For out-of-the-box portlets, refer to the portlet-name element of the <a href="https://github.com/liferay/liferay-portal/blob/6.2.2-ga3/portal-web/docroot/WEB-INF/liferay-portlet.xml">liferay-portlet.xml</a> descriptor.
+	 * <p><code>portletName</code> attribute description:</p>
+	 *
+	 * <div>The name of the portlet. For out-of-the-box portlets, refer to the portlet-name element of the <a href="https://github.com/liferay/liferay-portal/blob/6.2.2-ga3/portal-web/docroot/WEB-INF/liferay-portlet.xml">liferay-portlet.xml</a> descriptor.</div>
 	 */
 	public String getPortletName() {
 		return (String) getStateHelper().eval(RuntimePropertyKeys.portletName, null);
 	}
 
 	/**
-	 * <code>portletName</code> attribute description:
-	 * <br /><br />
-	 * The name of the portlet. For out-of-the-box portlets, refer to the portlet-name element of the <a href="https://github.com/liferay/liferay-portal/blob/6.2.2-ga3/portal-web/docroot/WEB-INF/liferay-portlet.xml">liferay-portlet.xml</a> descriptor.
+	 * <p><code>portletName</code> attribute description:</p>
+	 *
+	 * <div>The name of the portlet. For out-of-the-box portlets, refer to the portlet-name element of the <a href="https://github.com/liferay/liferay-portal/blob/6.2.2-ga3/portal-web/docroot/WEB-INF/liferay-portlet.xml">liferay-portlet.xml</a> descriptor.</div>
 	 */
 	public void setPortletName(String portletName) {
 		getStateHelper().put(RuntimePropertyKeys.portletName, portletName);
 	}
 
 	/**
-	 * <code>queryString</code> attribute description:
-	 * <br /><br />
-	 * Optional query string parameters that will be added to the request dispatcher that invokes the portlet's RENDER_PHASE.
+	 * <p><code>queryString</code> attribute description:</p>
+	 *
+	 * <div>Optional query string parameters that will be added to the request dispatcher that invokes the portlet's RENDER_PHASE.</div>
 	 */
 	public String getQueryString() {
 		return (String) getStateHelper().eval(RuntimePropertyKeys.queryString, null);
 	}
 
 	/**
-	 * <code>queryString</code> attribute description:
-	 * <br /><br />
-	 * Optional query string parameters that will be added to the request dispatcher that invokes the portlet's RENDER_PHASE.
+	 * <p><code>queryString</code> attribute description:</p>
+	 *
+	 * <div>Optional query string parameters that will be added to the request dispatcher that invokes the portlet's RENDER_PHASE.</div>
 	 */
 	public void setQueryString(String queryString) {
 		getStateHelper().put(RuntimePropertyKeys.queryString, queryString);
 	}
 
 	/**
-	 * <code>style</code> attribute description:
-	 * <br /><br />
-	 * HTML passthrough attribute specifying the css style of the element.
+	 * <p><code>style</code> attribute description:</p>
+	 *
+	 * <div>HTML passthrough attribute specifying the css style of the element.</div>
 	 */
 	@Override
 	public String getStyle() {
@@ -109,9 +109,9 @@ public abstract class RuntimeBase extends UIPanel implements Styleable {
 	}
 
 	/**
-	 * <code>style</code> attribute description:
-	 * <br /><br />
-	 * HTML passthrough attribute specifying the css style of the element.
+	 * <p><code>style</code> attribute description:</p>
+	 *
+	 * <div>HTML passthrough attribute specifying the css style of the element.</div>
 	 */
 	@Override
 	public void setStyle(String style) {
@@ -119,9 +119,9 @@ public abstract class RuntimeBase extends UIPanel implements Styleable {
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public String getStyleClass() {
@@ -134,9 +134,9 @@ public abstract class RuntimeBase extends UIPanel implements Styleable {
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public void setStyleClass(String styleClass) {

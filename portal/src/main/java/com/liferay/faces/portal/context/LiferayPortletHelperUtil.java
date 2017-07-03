@@ -46,7 +46,7 @@ public class LiferayPortletHelperUtil {
 	 *
 	 * @throws  AuthorizationException
 	 *
-	 * @see     {@link LiferayPortletHelper#userHasPortletPermission(String)}
+	 * @see     LiferayPortletHelper#userHasPortletPermission(String)
 	 */
 	public static void checkUserPortletPermission(String actionId) throws AuthorizationException {
 		checkUserPortletPermission(FacesContext.getCurrentInstance(), actionId);
@@ -59,7 +59,7 @@ public class LiferayPortletHelperUtil {
 	 *
 	 * @throws  AuthorizationException
 	 *
-	 * @see     {@link LiferayPortletHelper#userHasPortletPermission(String)}
+	 * @see     LiferayPortletHelper#userHasPortletPermission(String)
 	 * @since   3.1
 	 * @since   2.1
 	 * @since   1.1
@@ -273,7 +273,7 @@ public class LiferayPortletHelperUtil {
 	 * it is exposed as getPortletInstanceId(). This is because the Liferay API getPortletId() actually returns the
 	 * "instance id" of the portlet, whereas most of the time developers really want the "root id" instead.
 	 *
-	 * @see  {@link PortletHelper#getPortletName()}
+	 * @see  PortletHelper#getPortletName()
 	 */
 	public static String getPortletInstanceId() {
 		return getPortletInstanceId(FacesContext.getCurrentInstance());
@@ -285,7 +285,7 @@ public class LiferayPortletHelperUtil {
 	 * it is exposed as getPortletInstanceId(). This is because the Liferay API getPortletId() actually returns the
 	 * "instance id" of the portlet, whereas most of the time developers really want the "root id" instead.
 	 *
-	 * @see    {@link PortletHelper#getPortletName()}
+	 * @see    PortletHelper#getPortletName()
 	 * @since  3.1
 	 * @since  2.1
 	 * @since  1.1
@@ -301,7 +301,7 @@ public class LiferayPortletHelperUtil {
 	 * it is exposed as getPortletInstanceId(). This is because the Liferay API getPortletId() actually returns the
 	 * "instance id" of the portlet, whereas most of the time developers really want the "root id" instead.
 	 *
-	 * @see  {@link PortletHelper#getPortletName()}
+	 * @see  PortletHelper#getPortletName()
 	 */
 	public static String getPortletRootId() {
 		return getPortletRootId(FacesContext.getCurrentInstance());
@@ -313,7 +313,7 @@ public class LiferayPortletHelperUtil {
 	 * it is exposed as getPortletInstanceId(). This is because the Liferay API getPortletId() actually returns the
 	 * "instance id" of the portlet, whereas most of the time developers really want the "root id" instead.
 	 *
-	 * @see    {@link PortletHelper#getPortletName()}
+	 * @see    PortletHelper#getPortletName()
 	 * @since  3.1
 	 * @since  2.1
 	 * @since  1.1
@@ -523,7 +523,7 @@ public class LiferayPortletHelperUtil {
 	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
 	 * wrapped in a PortletRuntimeException.
 	 *
-	 * @see  {@link LiferayPortletHelper#checkUserPortletPermission(String)}
+	 * @see  LiferayPortletHelper#checkUserPortletPermission(String)
 	 */
 	public static boolean userHasPortletPermission(String actionId) {
 		return userHasPortletPermission(FacesContext.getCurrentInstance(), actionId);
@@ -534,7 +534,7 @@ public class LiferayPortletHelperUtil {
 	 * is assumed to be an action defined for the current portlet). Any errors that occur will be caught and re-thrown,
 	 * wrapped in a PortletRuntimeException.
 	 *
-	 * @see    {@link LiferayPortletHelper#checkUserPortletPermission(String)}
+	 * @see    LiferayPortletHelper#checkUserPortletPermission(String)
 	 * @since  3.1
 	 * @since  2.1
 	 * @since  1.1

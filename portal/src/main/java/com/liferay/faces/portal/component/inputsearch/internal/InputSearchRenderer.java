@@ -55,7 +55,7 @@ import com.liferay.taglib.ui.InputSearchTag;
 /**
  * This class is a renderer for the {@link com.liferay.faces.portal.component.inputsearch.InputSearch} component. The
  * component has unique requirements in the sense that the corresponding JSP-based {@link
- * com.liferay.taglib.ui.InputSearchTag} renders an <input type="text">...</input> and also a <button></button> for
+ * com.liferay.taglib.ui.InputSearchTag} renders an &lt;input type="text"&gt;...&lt;/input&gt; and also a &lt;button&gt;&lt;/button&gt; for
  * submission. From a JSF perspective, this creates a multiple-inheritance dilemma. For example, should the component
  * component extend {@link javax.faces.component.UIInput} or {@link javax.faces.component.UICommand}? The solution is to
  * have the component extend {@link javax.faces.component.UIInput}, but to dynamically create an {@link

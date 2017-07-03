@@ -44,9 +44,9 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>label</code> attribute description:
-	 * <br /><br />
-	 * A localized label for this component that is typically only rendered in a FacesMessage when validation fails.
+	 * <p><code>label</code> attribute description:</p>
+	 *
+	 * <div>A localized label for this component that is typically only rendered in a FacesMessage when validation fails.</div>
 	 */
 	public String getLabel() {
 
@@ -65,18 +65,18 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>label</code> attribute description:
-	 * <br /><br />
-	 * A localized label for this component that is typically only rendered in a FacesMessage when validation fails.
+	 * <p><code>label</code> attribute description:</p>
+	 *
+	 * <div>A localized label for this component that is typically only rendered in a FacesMessage when validation fails.</div>
 	 */
 	public void setLabel(String label) {
 		getStateHelper().put(CaptchaPropertyKeys.label, label);
 	}
 
 	/**
-	 * <code>style</code> attribute description:
-	 * <br /><br />
-	 * HTML passthrough attribute specifying the css style of the element.
+	 * <p><code>style</code> attribute description:</p>
+	 *
+	 * <div>HTML passthrough attribute specifying the css style of the element.</div>
 	 */
 	@Override
 	public String getStyle() {
@@ -84,9 +84,9 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>style</code> attribute description:
-	 * <br /><br />
-	 * HTML passthrough attribute specifying the css style of the element.
+	 * <p><code>style</code> attribute description:</p>
+	 *
+	 * <div>HTML passthrough attribute specifying the css style of the element.</div>
 	 */
 	@Override
 	public void setStyle(String style) {
@@ -94,9 +94,9 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public String getStyleClass() {
@@ -109,9 +109,9 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public void setStyleClass(String styleClass) {
@@ -119,18 +119,18 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>url</code> attribute description:
-	 * <br /><br />
-	 * Specifies a custom captcha image URL. If the value is empty (the default), then the image will be obtained from Liferay Portal's built-in captcha feature.
+	 * <p><code>url</code> attribute description:</p>
+	 *
+	 * <div>Specifies a custom captcha image URL. If the value is empty (the default), then the image will be obtained from Liferay Portal's built-in captcha feature.</div>
 	 */
 	public String getUrl() {
 		return (String) getStateHelper().eval(CaptchaPropertyKeys.url, null);
 	}
 
 	/**
-	 * <code>url</code> attribute description:
-	 * <br /><br />
-	 * Specifies a custom captcha image URL. If the value is empty (the default), then the image will be obtained from Liferay Portal's built-in captcha feature.
+	 * <p><code>url</code> attribute description:</p>
+	 *
+	 * <div>Specifies a custom captcha image URL. If the value is empty (the default), then the image will be obtained from Liferay Portal's built-in captcha feature.</div>
 	 */
 	public void setUrl(String url) {
 		getStateHelper().put(CaptchaPropertyKeys.url, url);
