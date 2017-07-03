@@ -45,81 +45,81 @@ public abstract class HeaderBase extends HtmlPanelGroup implements Styleable {
 	}
 
 	/**
-	 * <code>backLabel</code> attribute description:
-	 * <br /><br />
-	 * This value will be used to populate the title attribute of the back icon.
+	 * <p><code>backLabel</code> attribute description:</p>
+	 *
+	 * <div>This value will be used to populate the title attribute of the back icon.</div>
 	 */
 	public String getBackLabel() {
 		return (String) getStateHelper().eval(HeaderPropertyKeys.backLabel, null);
 	}
 
 	/**
-	 * <code>backLabel</code> attribute description:
-	 * <br /><br />
-	 * This value will be used to populate the title attribute of the back icon.
+	 * <p><code>backLabel</code> attribute description:</p>
+	 *
+	 * <div>This value will be used to populate the title attribute of the back icon.</div>
 	 */
 	public void setBackLabel(String backLabel) {
 		getStateHelper().put(HeaderPropertyKeys.backLabel, backLabel);
 	}
 
 	/**
-	 * <code>backURL</code> attribute description:
-	 * <br /><br />
-	 * The URL of the anchor tag rendered for the back icon.  The back icon is not rendered unless this is specified.
+	 * <p><code>backURL</code> attribute description:</p>
+	 *
+	 * <div>The URL of the anchor tag rendered for the back icon.  The back icon is not rendered unless this is specified.</div>
 	 */
 	public String getBackURL() {
 		return (String) getStateHelper().eval(HeaderPropertyKeys.backURL, null);
 	}
 
 	/**
-	 * <code>backURL</code> attribute description:
-	 * <br /><br />
-	 * The URL of the anchor tag rendered for the back icon.  The back icon is not rendered unless this is specified.
+	 * <p><code>backURL</code> attribute description:</p>
+	 *
+	 * <div>The URL of the anchor tag rendered for the back icon.  The back icon is not rendered unless this is specified.</div>
 	 */
 	public void setBackURL(String backURL) {
 		getStateHelper().put(HeaderPropertyKeys.backURL, backURL);
 	}
 
 	/**
-	 * <code>escapeXml</code> attribute description:
-	 * <br /><br />
-	 * When false, markup will not be escaped.
+	 * <p><code>escapeXml</code> attribute description:</p>
+	 *
+	 * <div>When false, markup will not be escaped.</div>
 	 */
 	public boolean isEscapeXml() {
 		return (Boolean) getStateHelper().eval(HeaderPropertyKeys.escapeXml, true);
 	}
 
 	/**
-	 * <code>escapeXml</code> attribute description:
-	 * <br /><br />
-	 * When false, markup will not be escaped.
+	 * <p><code>escapeXml</code> attribute description:</p>
+	 *
+	 * <div>When false, markup will not be escaped.</div>
 	 */
 	public void setEscapeXml(boolean escapeXml) {
 		getStateHelper().put(HeaderPropertyKeys.escapeXml, escapeXml);
 	}
 
 	/**
-	 * <code>showBackURL</code> attribute description:
-	 * <br /><br />
-	 * When false, the back icon is not rendered.
+	 * <p><code>showBackURL</code> attribute description:</p>
+	 *
+	 * <div>When false, the back icon is not rendered.</div>
 	 */
 	public boolean isShowBackURL() {
 		return (Boolean) getStateHelper().eval(HeaderPropertyKeys.showBackURL, true);
 	}
 
 	/**
-	 * <code>showBackURL</code> attribute description:
-	 * <br /><br />
-	 * When false, the back icon is not rendered.
+	 * <p><code>showBackURL</code> attribute description:</p>
+	 *
+	 * <div>When false, the back icon is not rendered.</div>
 	 */
 	public void setShowBackURL(boolean showBackURL) {
 		getStateHelper().put(HeaderPropertyKeys.showBackURL, showBackURL);
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public String getStyleClass() {
@@ -132,18 +132,18 @@ public abstract class HeaderBase extends HtmlPanelGroup implements Styleable {
 	}
 
 	/**
-	 * <code>title</code> attribute description:
-	 * <br /><br />
-	 * This value will be used as the header text for the component.
+	 * <p><code>title</code> attribute description:</p>
+	 *
+	 * <div>This value will be used as the header text for the component.</div>
 	 */
 	public String getTitle() {
 		return (String) getStateHelper().eval(HeaderPropertyKeys.title, null);
 	}
 
 	/**
-	 * <code>title</code> attribute description:
-	 * <br /><br />
-	 * This value will be used as the header text for the component.
+	 * <p><code>title</code> attribute description:</p>
+	 *
+	 * <div>This value will be used as the header text for the component.</div>
 	 */
 	public void setTitle(String title) {
 		getStateHelper().put(HeaderPropertyKeys.title, title);

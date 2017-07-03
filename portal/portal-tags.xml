@@ -167,7 +167,19 @@
 			<type><![CDATA[boolean]]></type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The name of the set of toolbars that are to be displayed above the rich text input area. Valid values are "bbcode", "creole", "editInPlace", "email", "liferay", "liferayArticle", "phone", "simple", and "tablet". The default value depends on the value of the editorKey attribute. If editorKey's property evaluates to "ckeditor" then the default value is "liferay". If editorKey's property evaluates to "ckeditor_bbcode" then the default value is "bbcode". If editorKey's property evaluates to "ckeditor_creole" then the default value is "creole".]]></description>
+			<description><![CDATA[The name of the set of toolbars that are to be displayed above the rich text input area. Valid values include:
+				<ul>
+					<li>bbcode</li>
+					<li>creole</li>
+					<li>editInPlace</li>
+					<li>email</li>
+					<li>liferay</li>
+					<li>liferayArticle</li>
+					<li>phone</li>
+					<li>simple</li>
+					<li>tablet</li>
+				</ul>
+				The default value depends on the value of the editorKey attribute. If editorKey's property evaluates to "ckeditor" then the default value is "liferay". If editorKey's property evaluates to "ckeditor_bbcode" then the default value is "bbcode". If editorKey's property evaluates to "ckeditor_creole" then the default value is "creole".]]></description>
 			<name>toolbarSet</name>
 			<type><![CDATA[java.lang.String]]></type>
 		</attribute>
@@ -387,7 +399,16 @@
 		<description><![CDATA[Runtime is a UIPanel component that embeds the markup of a different portlet within the current portlet.]]></description>
 		<tag-name>runtime</tag-name>
 		<attribute>
-			<description><![CDATA[XML markup in the form <preferences><preference><name></name><value></value></preference></preferences>. This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.]]></description>
+			<description><![CDATA[XML markup in the form:
+				<pre>
+				&lt;preferences&gt;
+					&lt;preference&gt;
+						&lt;name&gt;&lt;/name&gt;
+						&lt;value&gt;&lt;/value&gt;
+					&lt;/preference&gt;
+				&lt;/preferences&gt;
+				</pre>
+				This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.]]></description>
 			<name>defaultPreferences</name>
 			<type><![CDATA[java.lang.String]]></type>
 		</attribute>

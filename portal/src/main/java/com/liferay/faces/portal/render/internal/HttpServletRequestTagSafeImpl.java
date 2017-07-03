@@ -25,10 +25,12 @@ import com.liferay.taglib.ui.InputEditorTag;
 
 
 /**
- * This class wraps the Liferay {@link NamespaceServletRequest} class, so that calls to {@link #setAttribute(String,
- * Object)} do not cause attribute names to be prefixed with the response namespace. This is necessary so that Liferay
- * Portal JSP tag classes will be able to set request attributes that can be picked up by JSPs. For example, the {@link
- * InputEditorTag} sets attributes that are picked up by the portal-web/docroot/html/js/editor/ckeditor.jsp page.
+ * This class wraps the Liferay <a
+ * href="https://github.com/liferay/liferay-portal/blob/6.2.5-ga6/portal-impl/src/com/liferay/portal/servlet/NamespaceServletRequest.java#L41">
+ * NamespaceServletRequest</a> class, so that calls to {@link #setAttribute(String, Object)} do not cause attribute
+ * names to be prefixed with the response namespace. This is necessary so that Liferay Portal JSP tag classes will be
+ * able to set request attributes that can be picked up by JSPs. For example, the {@link InputEditorTag} sets attributes
+ * that are picked up by the portal-web/docroot/html/js/editor/ckeditor.jsp page.
  *
  * @author  Neil Griffin
  */

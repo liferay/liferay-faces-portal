@@ -49,117 +49,117 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>action</code> attribute description:
-	 * <br /><br />
-	 * A method that is executed when this component is clicked. The method must be <code>public</code>, return an <code>Object</code>, and take no arguments. The <code>toString()</code> method of the returned object is used to determine where to navigate (if at all) after the action has been performed.
+	 * <p><code>action</code> attribute description:</p>
+	 *
+	 * <div>A method that is executed when this component is clicked. The method must be <code>public</code>, return an <code>Object</code>, and take no arguments. The <code>toString()</code> method of the returned object is used to determine where to navigate (if at all) after the action has been performed.</div>
 	 */
 	public javax.el.MethodExpression getAction() {
 		return (javax.el.MethodExpression) getStateHelper().eval(InputSearchPropertyKeys.action, null);
 	}
 
 	/**
-	 * <code>action</code> attribute description:
-	 * <br /><br />
-	 * A method that is executed when this component is clicked. The method must be <code>public</code>, return an <code>Object</code>, and take no arguments. The <code>toString()</code> method of the returned object is used to determine where to navigate (if at all) after the action has been performed.
+	 * <p><code>action</code> attribute description:</p>
+	 *
+	 * <div>A method that is executed when this component is clicked. The method must be <code>public</code>, return an <code>Object</code>, and take no arguments. The <code>toString()</code> method of the returned object is used to determine where to navigate (if at all) after the action has been performed.</div>
 	 */
 	public void setAction(javax.el.MethodExpression action) {
 		getStateHelper().put(InputSearchPropertyKeys.action, action);
 	}
 
 	/**
-	 * <code>actionListener</code> attribute description:
-	 * <br /><br />
-	 * A method that is executed when this component is clicked. The method must be <code>public</code>, return <code>void</code>, and take either no arguments or one <code>ActionEvent</code> argument.
+	 * <p><code>actionListener</code> attribute description:</p>
+	 *
+	 * <div>A method that is executed when this component is clicked. The method must be <code>public</code>, return <code>void</code>, and take either no arguments or one <code>ActionEvent</code> argument.</div>
 	 */
 	public javax.el.MethodExpression getActionListener() {
 		return (javax.el.MethodExpression) getStateHelper().eval(InputSearchPropertyKeys.actionListener, null);
 	}
 
 	/**
-	 * <code>actionListener</code> attribute description:
-	 * <br /><br />
-	 * A method that is executed when this component is clicked. The method must be <code>public</code>, return <code>void</code>, and take either no arguments or one <code>ActionEvent</code> argument.
+	 * <p><code>actionListener</code> attribute description:</p>
+	 *
+	 * <div>A method that is executed when this component is clicked. The method must be <code>public</code>, return <code>void</code>, and take either no arguments or one <code>ActionEvent</code> argument.</div>
 	 */
 	public void setActionListener(javax.el.MethodExpression actionListener) {
 		getStateHelper().put(InputSearchPropertyKeys.actionListener, actionListener);
 	}
 
 	/**
-	 * <code>autoFocus</code> attribute description:
-	 * <br /><br />
-	 * Sets whether the search field gets focus by default. The default value is <code>false</code>.
+	 * <p><code>autoFocus</code> attribute description:</p>
+	 *
+	 * <div>Sets whether the search field gets focus by default. The default value is <code>false</code>.</div>
 	 */
 	public boolean isAutoFocus() {
 		return (Boolean) getStateHelper().eval(InputSearchPropertyKeys.autoFocus, false);
 	}
 
 	/**
-	 * <code>autoFocus</code> attribute description:
-	 * <br /><br />
-	 * Sets whether the search field gets focus by default. The default value is <code>false</code>.
+	 * <p><code>autoFocus</code> attribute description:</p>
+	 *
+	 * <div>Sets whether the search field gets focus by default. The default value is <code>false</code>.</div>
 	 */
 	public void setAutoFocus(boolean autoFocus) {
 		getStateHelper().put(InputSearchPropertyKeys.autoFocus, autoFocus);
 	}
 
 	/**
-	 * <code>buttonLabel</code> attribute description:
-	 * <br /><br />
-	 * Sets the text value for the search button's label. The default value is <code>Search</code>.
+	 * <p><code>buttonLabel</code> attribute description:</p>
+	 *
+	 * <div>Sets the text value for the search button's label. The default value is <code>Search</code>.</div>
 	 */
 	public String getButtonLabel() {
 		return (String) getStateHelper().eval(InputSearchPropertyKeys.buttonLabel, null);
 	}
 
 	/**
-	 * <code>buttonLabel</code> attribute description:
-	 * <br /><br />
-	 * Sets the text value for the search button's label. The default value is <code>Search</code>.
+	 * <p><code>buttonLabel</code> attribute description:</p>
+	 *
+	 * <div>Sets the text value for the search button's label. The default value is <code>Search</code>.</div>
 	 */
 	public void setButtonLabel(String buttonLabel) {
 		getStateHelper().put(InputSearchPropertyKeys.buttonLabel, buttonLabel);
 	}
 
 	/**
-	 * <code>placeholder</code> attribute description:
-	 * <br /><br />
-	 * Sets the placeholder text for the search field. The default value is the value of the <code>buttonLabel</code> attribute.
+	 * <p><code>placeholder</code> attribute description:</p>
+	 *
+	 * <div>Sets the placeholder text for the search field. The default value is the value of the <code>buttonLabel</code> attribute.</div>
 	 */
 	public String getPlaceholder() {
 		return (String) getStateHelper().eval(InputSearchPropertyKeys.placeholder, null);
 	}
 
 	/**
-	 * <code>placeholder</code> attribute description:
-	 * <br /><br />
-	 * Sets the placeholder text for the search field. The default value is the value of the <code>buttonLabel</code> attribute.
+	 * <p><code>placeholder</code> attribute description:</p>
+	 *
+	 * <div>Sets the placeholder text for the search field. The default value is the value of the <code>buttonLabel</code> attribute.</div>
 	 */
 	public void setPlaceholder(String placeholder) {
 		getStateHelper().put(InputSearchPropertyKeys.placeholder, placeholder);
 	}
 
 	/**
-	 * <code>showButton</code> attribute description:
-	 * <br /><br />
-	 * Sets whether to show the search button.
+	 * <p><code>showButton</code> attribute description:</p>
+	 *
+	 * <div>Sets whether to show the search button.</div>
 	 */
 	public boolean isShowButton() {
 		return (Boolean) getStateHelper().eval(InputSearchPropertyKeys.showButton, true);
 	}
 
 	/**
-	 * <code>showButton</code> attribute description:
-	 * <br /><br />
-	 * Sets whether to show the search button.
+	 * <p><code>showButton</code> attribute description:</p>
+	 *
+	 * <div>Sets whether to show the search button.</div>
 	 */
 	public void setShowButton(boolean showButton) {
 		getStateHelper().put(InputSearchPropertyKeys.showButton, showButton);
 	}
 
 	/**
-	 * <code>style</code> attribute description:
-	 * <br /><br />
-	 * HTML passthrough attribute specifying the css style of the element.
+	 * <p><code>style</code> attribute description:</p>
+	 *
+	 * <div>HTML passthrough attribute specifying the css style of the element.</div>
 	 */
 	@Override
 	public String getStyle() {
@@ -167,9 +167,9 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>style</code> attribute description:
-	 * <br /><br />
-	 * HTML passthrough attribute specifying the css style of the element.
+	 * <p><code>style</code> attribute description:</p>
+	 *
+	 * <div>HTML passthrough attribute specifying the css style of the element.</div>
 	 */
 	@Override
 	public void setStyle(String style) {
@@ -177,9 +177,9 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public String getStyleClass() {
@@ -192,9 +192,9 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>styleClass</code> attribute description:
-	 * <br /><br />
-	 * List of CSS class names (separated by spaces) that are to be rendered within the class attribute.
+	 * <p><code>styleClass</code> attribute description:</p>
+	 *
+	 * <div>List of CSS class names (separated by spaces) that are to be rendered within the class attribute.</div>
 	 */
 	@Override
 	public void setStyleClass(String styleClass) {
@@ -202,18 +202,18 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	}
 
 	/**
-	 * <code>title</code> attribute description:
-	 * <br /><br />
-	 * Sets the search box's title.
+	 * <p><code>title</code> attribute description:</p>
+	 *
+	 * <div>Sets the search box's title.</div>
 	 */
 	public String getTitle() {
 		return (String) getStateHelper().eval(InputSearchPropertyKeys.title, null);
 	}
 
 	/**
-	 * <code>title</code> attribute description:
-	 * <br /><br />
-	 * Sets the search box's title.
+	 * <p><code>title</code> attribute description:</p>
+	 *
+	 * <div>Sets the search box's title.</div>
 	 */
 	public void setTitle(String title) {
 		getStateHelper().put(InputSearchPropertyKeys.title, title);
