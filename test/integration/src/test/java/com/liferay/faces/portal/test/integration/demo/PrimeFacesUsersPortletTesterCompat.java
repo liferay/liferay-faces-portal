@@ -13,8 +13,8 @@
  */
 package com.liferay.faces.portal.test.integration.demo;
 
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
 /**
@@ -22,7 +22,7 @@ import com.liferay.faces.test.selenium.TestUtil;
  *
  * @author  Neil Griffin
  */
-public abstract class PrimeFacesUsersPortletTesterCompat extends IntegrationTesterBase {
+public abstract class PrimeFacesUsersPortletTesterCompat extends BrowserDriverManagingTesterBase {
 
 	protected String getFirstNameFilterText() {
 

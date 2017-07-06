@@ -17,16 +17,16 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.liferay.faces.portal.test.integration.PortalTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
  * @author  Vernon Singleton
  * @author  Philip White
  */
-public class FACES_257PortletTester extends IntegrationTesterBase {
+public class FACES_257PortletTester extends BrowserDriverManagingTesterBase {
 
 	@Test
 	public void runFACES_257PortletTest() {
@@ -49,15 +49,15 @@ public class FACES_257PortletTester extends IntegrationTesterBase {
 				"/-/my-friendly-url-mapping/1/my-friendly-action/2"));
 
 		// Verify that the alpha, beta, and gamma parameter values appear in the markup
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String alphaXpath = "//span[contains(@id, ':alpha')]";
-		browserStateAsserter.assertTextPresentInElement("1", alphaXpath);
+		waitingAsserter.assertTextPresentInElement("1", alphaXpath);
 
 		String betaXpath = "//span[contains(@id, ':beta')]";
-		browserStateAsserter.assertTextPresentInElement("2", betaXpath);
+		waitingAsserter.assertTextPresentInElement("2", betaXpath);
 
 		String gammaXpath = "//span[contains(@id, ':gamma')]";
-		browserStateAsserter.assertTextPresentInElement("0", gammaXpath);
+		waitingAsserter.assertTextPresentInElement("0", gammaXpath);
 
 		// STEP 2: alpha=1 beta=2 gamma=3
 		// Click on the link in step 2 in order to cause the browser to navigate to a friendly Liferay RenderURL via
@@ -69,9 +69,9 @@ public class FACES_257PortletTester extends IntegrationTesterBase {
 				"/-/my-friendly-url-mapping/1/my-friendly-action/2/3"));
 
 		// Verify that the alpha, beta, and gamma parameter values appear in the markup
-		browserStateAsserter.assertTextPresentInElement("1", alphaXpath);
-		browserStateAsserter.assertTextPresentInElement("2", betaXpath);
-		browserStateAsserter.assertTextPresentInElement("3", gammaXpath);
+		waitingAsserter.assertTextPresentInElement("1", alphaXpath);
+		waitingAsserter.assertTextPresentInElement("2", betaXpath);
+		waitingAsserter.assertTextPresentInElement("3", gammaXpath);
 
 		// STEP 3: alpha=4 beta=5 gamma=0
 		// Click on the button in step 3 in order to cause the browser to navigate to a friendly Liferay RenderURL via
@@ -84,9 +84,9 @@ public class FACES_257PortletTester extends IntegrationTesterBase {
 				"/-/my-friendly-url-mapping/4/my-friendly-action/5"));
 
 		// Verify that the alpha, beta, and gamma parameter values appear in the markup
-		browserStateAsserter.assertTextPresentInElement("4", alphaXpath);
-		browserStateAsserter.assertTextPresentInElement("5", betaXpath);
-		browserStateAsserter.assertTextPresentInElement("0", gammaXpath);
+		waitingAsserter.assertTextPresentInElement("4", alphaXpath);
+		waitingAsserter.assertTextPresentInElement("5", betaXpath);
+		waitingAsserter.assertTextPresentInElement("0", gammaXpath);
 
 		// STEP 4: alpha=4 beta=5 gamma=6
 		// Click on the button in step 4 in order to cause the browser to navigate to a friendly Liferay RenderURL via
@@ -99,8 +99,8 @@ public class FACES_257PortletTester extends IntegrationTesterBase {
 				"/-/my-friendly-url-mapping/4/my-friendly-action/5/6"));
 
 		// Verify that the alpha, beta, and gamma parameter values appear in the markup
-		browserStateAsserter.assertTextPresentInElement("4", alphaXpath);
-		browserStateAsserter.assertTextPresentInElement("5", betaXpath);
-		browserStateAsserter.assertTextPresentInElement("6", gammaXpath);
+		waitingAsserter.assertTextPresentInElement("4", alphaXpath);
+		waitingAsserter.assertTextPresentInElement("5", betaXpath);
+		waitingAsserter.assertTextPresentInElement("6", gammaXpath);
 	}
 }
