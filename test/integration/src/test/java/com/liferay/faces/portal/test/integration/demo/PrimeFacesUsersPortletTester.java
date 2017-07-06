@@ -32,11 +32,12 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import com.liferay.faces.test.selenium.TestUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
@@ -83,69 +84,68 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 		// 1. Take note of the screen name of the first user in the list on page 1.
 		String firstScreenNameOnPageOne = browserDriver.findElementByXpath(SCREEN_NAME_CELL_XPATH).getText();
-		logger.debug("firstUserOnPageOne=[{0}]", firstScreenNameOnPageOne);
+		logger.debug("firstUserOnPageOne=[{}]", firstScreenNameOnPageOne);
 
 		// 2. Click the *Next Page* button and verify that the page 2 button is highlighted.
 		browserDriver.clickElement(getNavigationButtonXpath("Next"));
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertTrue(pageButtonClassActive(2));
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertTrue(pageButtonClassActive(2));
 
 		// 3. Verify that the screen name noted from page 1 is not present on page 2.
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageOne, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageOne, SCREEN_NAME_CELL_XPATH);
 
 		// 4. Take note of the screen name of the first user in the list on page 2.
 		String firstScreenNameOnPageTwo = browserDriver.findElementByXpath(SCREEN_NAME_CELL_XPATH).getText();
-		logger.debug("firstUserOnPageTwo=[{1}]", firstScreenNameOnPageTwo);
+		logger.debug("firstUserOnPageTwo=[{}]", firstScreenNameOnPageTwo);
 
 		// 5. Click on *3* button and verify that the page 3 button is highlighted.
 		browserDriver.clickElement(getPageButtonXpath(3));
-		browserStateAsserter.assertTrue(pageButtonClassActive(3));
+		waitingAsserter.assertTrue(pageButtonClassActive(3));
 
 		// 6. Verify that the screen names noted from page 1 and 2 are not present on page 3.
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageOne, SCREEN_NAME_CELL_XPATH);
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageTwo, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageOne, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageTwo, SCREEN_NAME_CELL_XPATH);
 
 		// 7. Take note of the screen name of the first user in the list on page 3.
 		String firstScreenNameOnPageThree = browserDriver.findElementByXpath(SCREEN_NAME_CELL_XPATH).getText();
-		logger.debug("firstUserOnPageThree=[{0}]", firstScreenNameOnPageThree);
+		logger.debug("firstUserOnPageThree=[{}]", firstScreenNameOnPageThree);
 
 		// 8. Click on *Previous Page* button and verify that the page 2 button is highlighted.
 		browserDriver.clickElement(getNavigationButtonXpath("Previous"));
-		browserStateAsserter.assertTrue(pageButtonClassActive(2));
+		waitingAsserter.assertTrue(pageButtonClassActive(2));
 
 		// 9. Verify that the screen names noted from page 1 and 3 are not present on page 2.
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageOne, SCREEN_NAME_CELL_XPATH);
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageThree, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageOne, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageThree, SCREEN_NAME_CELL_XPATH);
 
 		// 9. Click on *Last Page* button and verify that the last button is highlighted and that the *Next Page* and
 		// *Last Page* buttons are disabled.
 		browserDriver.clickElement(getNavigationButtonXpath("Last"));
-		browserStateAsserter.assertTrue(textPresentInElementClass("ui-state-active",
-				PAGE_BUTTON_XPATH_PREFIX + "[last()]"));
-		browserStateAsserter.assertTrue(navigationButtonClassDisabled("Next"));
-		browserStateAsserter.assertTrue(navigationButtonClassDisabled("Last"));
+		waitingAsserter.assertTrue(textPresentInElementClass("ui-state-active", PAGE_BUTTON_XPATH_PREFIX + "[last()]"));
+		waitingAsserter.assertTrue(navigationButtonClassDisabled("Next"));
+		waitingAsserter.assertTrue(navigationButtonClassDisabled("Last"));
 
 		// 10. Verify that the screen names noted from page 1, 2 and 3 are not present on the last page.
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageOne, SCREEN_NAME_CELL_XPATH);
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageTwo, SCREEN_NAME_CELL_XPATH);
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageThree, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageOne, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageTwo, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageThree, SCREEN_NAME_CELL_XPATH);
 
 		// 11. Take note of the screen name of the first user in the list on the last page.
 		String firstScreenNameOnLastPage = browserDriver.findElementByXpath(SCREEN_NAME_CELL_XPATH).getText();
-		logger.debug("firstScreenNameOnLastPage[{0}]", firstScreenNameOnLastPage);
+		logger.debug("firstScreenNameOnLastPage[{}]", firstScreenNameOnLastPage);
 
 		// 12. Click on *First Page* button and verify that the page 1 button is highlighted and the *First Page* and
 		// *Previous Page* buttons are disabled.
 		browserDriver.clickElement(getNavigationButtonXpath("First"));
-		browserStateAsserter.assertTrue(pageButtonClassActive(1));
-		browserStateAsserter.assertTrue(navigationButtonClassDisabled("First"));
-		browserStateAsserter.assertTrue(navigationButtonClassDisabled("Previous"));
+		waitingAsserter.assertTrue(pageButtonClassActive(1));
+		waitingAsserter.assertTrue(navigationButtonClassDisabled("First"));
+		waitingAsserter.assertTrue(navigationButtonClassDisabled("Previous"));
 
 		// 13. Verify that the screen names noted from page 2, 3 and the last page are not present on the first page.
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageTwo, SCREEN_NAME_CELL_XPATH);
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnPageThree, SCREEN_NAME_CELL_XPATH);
-		browserStateAsserter.assertTextNotPresentInElement(firstScreenNameOnLastPage, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageTwo, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnPageThree, SCREEN_NAME_CELL_XPATH);
+		waitingAsserter.assertTextNotPresentInElement(firstScreenNameOnLastPage, SCREEN_NAME_CELL_XPATH);
 	}
 
 	@Test
@@ -167,8 +167,8 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		// indication icon is pointed up.
 		browserDriver.clickElement(SCREEN_NAME_SORT_BUTTON_XPATH);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertElementDisplayed(SORTED_ASCENDING_ICON_XPATH);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertElementDisplayed(SORTED_ASCENDING_ICON_XPATH);
 
 		// 4. Take note of each screen name in the first column of the table, clicking the *Next Page* button until
 		// all the screen names have been noted.
@@ -187,7 +187,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		// 7. Click the *Screen Name* header to sort screen names into descending order  and verify that the sort
 		// indication icon is pointed down.
 		browserDriver.clickElement(SCREEN_NAME_SORT_BUTTON_XPATH);
-		browserStateAsserter.assertElementDisplayed(SORTED_DESCENDING_ICON_XPATH);
+		waitingAsserter.assertElementDisplayed(SORTED_DESCENDING_ICON_XPATH);
 
 		// 8. Take note of each screen name in the first column of the table, clicking the *Next Page* button until
 		// all the screen names have been noted.
@@ -356,9 +356,9 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 		// 4. Verify that the error message "Invalid Email Address" is displayed since only valid email addresses are
 		// permitted.
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String errorMessageXpathSuffix = "/../span[@class='portlet-msg-error']";
-		browserStateAsserter.assertTextPresentInElement("Invalid Email Address",
+		waitingAsserter.assertTextPresentInElement("Invalid Email Address",
 			"//input[contains(@id,':emailAddress')]" + errorMessageXpathSuffix);
 
 		// 5. Clear the *First Name*, *Last Name*, and *Email Address* fields and click the "Submit" button.
@@ -369,11 +369,11 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 		// 6. Verify that the error message "Value is required" is displayed for *First Name*, *Last Name*, and *Email
 		// Address* since they are all required fields.
-		browserStateAsserter.assertTextPresentInElement("Value is required",
+		waitingAsserter.assertTextPresentInElement("Value is required",
 			"//input[contains(@id,':firstName')]" + errorMessageXpathSuffix);
-		browserStateAsserter.assertTextPresentInElement("Value is required",
+		waitingAsserter.assertTextPresentInElement("Value is required",
 			"//input[contains(@id,':lastName')]" + errorMessageXpathSuffix);
-		browserStateAsserter.assertTextPresentInElement("Value is required",
+		waitingAsserter.assertTextPresentInElement("Value is required",
 			"//input[contains(@id,':emailAddress')]" + errorMessageXpathSuffix);
 
 		// 7. Click the *Cancel* button to return to the list of users.
@@ -414,8 +414,8 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		fileUploadChooser.sendKeys(TestUtil.JAVA_IO_TMPDIR + "liferay-jsf-jersey.png");
 		browserDriver.waitFor(ExpectedConditions.stalenessOf(portraitElement));
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertElementDisplayed(portraitXpath);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertElementDisplayed(portraitXpath);
 		portraitElement = browserDriver.findElementByXpath(portraitXpath);
 
 		// 6. Verify that the displayed portrait is different than the original placeholder portrait, and note the
@@ -486,10 +486,10 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 		// 8. Verify that the list contains "Adamsy" in the last name column, "Johnny" in the first name column, and
 		// "johnny.adamsy@liferay.com" in the email address column.
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertTextPresentInElement("Adamsy", "//span[contains(@id,':lastNameCell')]");
-		browserStateAsserter.assertTextPresentInElement("Johnny", FIRST_NAME_CELL_XPATH);
-		browserStateAsserter.assertTextPresentInElement("johnny.adamsy@liferay.com", "//td//a[contains(@id,':email')]");
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertTextPresentInElement("Adamsy", "//span[contains(@id,':lastNameCell')]");
+		waitingAsserter.assertTextPresentInElement("Johnny", FIRST_NAME_CELL_XPATH);
+		waitingAsserter.assertTextPresentInElement("johnny.adamsy@liferay.com", "//td//a[contains(@id,':email')]");
 	}
 
 	/**
@@ -639,7 +639,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 	private void logList(List<String> list, String message, Object... arguments) {
 
-		logger.debug(Logger.SEPARATOR);
+		logger.debug("----------------------------------------------------------------------");
 		logger.debug(message, arguments);
 
 		for (String firstName : list) {
