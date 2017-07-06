@@ -22,17 +22,25 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.liferay.faces.portal.test.integration.PortalTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
  * @author  Vernon Singleton
  * @author  Philip White
  */
-public class JsfLoginPortletTester extends IntegrationTesterBase {
+public class JsfLoginPortletTester extends BrowserDriverManagingTesterBase {
+
+	@After
+	public void reset() {
+
+		// Sign out and set up for the next test.
+		signOut();
+		super.doSetUp();
+	}
 
 	@Test
 	public void runJsfLoginPortletTester() {
@@ -46,8 +54,8 @@ public class JsfLoginPortletTester extends IntegrationTesterBase {
 		String emailFieldXpath = "//input[contains(@id,':handle')]";
 		browserDriver.waitForElementDisplayed(emailFieldXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertElementDisplayed(emailFieldXpath);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertElementDisplayed(emailFieldXpath);
 
 		// Clear the email field text box since Liferay Portal will sometimes pre-populate the text box with a value.
 		browserDriver.clearElement(emailFieldXpath);
@@ -63,17 +71,17 @@ public class JsfLoginPortletTester extends IntegrationTesterBase {
 
 		// Verify that the error message is displayed.
 		String messageErrorXpath = "//form[@method='post']/ul/li";
-		browserStateAsserter.assertTextPresentInElement("Authentication failed", messageErrorXpath);
+		waitingAsserter.assertTextPresentInElement("Authentication failed", messageErrorXpath);
 
 		// Test a valid 'Sign In'. Verify that the email field value still contains "test@liferay.com" since h:inputText
 		// should retain its text box value even if form submission fails validation.
-		browserStateAsserter.assertTextPresentInElementValue("test@liferay.com", emailFieldXpath);
+		waitingAsserter.assertTextPresentInElementValue("test@liferay.com", emailFieldXpath);
 
 		// Verify that the password field value contains an empty value since h:inputSecret should not retain its text
 		// box value when form submission fails validation.
 		ExpectedCondition<Boolean> valueEmpty = ExpectedConditions.attributeToBe(By.xpath(passwordFieldXpath), "value",
 				"");
-		browserStateAsserter.assertTrue(valueEmpty);
+		waitingAsserter.assertTrue(valueEmpty);
 
 		// Enter a valid password and sign in.
 		browserDriver.sendKeysToElement(passwordFieldXpath, "test");
@@ -81,15 +89,7 @@ public class JsfLoginPortletTester extends IntegrationTesterBase {
 
 		// Verify that the 'Sign In' was successful.
 		String portletBodyXpath = "//div[contains(text(),'You are signed in as')]";
-		browserStateAsserter.assertTextPresentInElement("You are signed in", portletBodyXpath);
-	}
-
-	@After
-	public void reset() {
-
-		// Sign out and set up for the next test.
-		signOut();
-		super.doSetUp();
+		waitingAsserter.assertTextPresentInElement("You are signed in", portletBodyXpath);
 	}
 
 	@Before
