@@ -14,6 +14,7 @@
 package com.liferay.portal.kernel;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.portal.kernel.util.ClassResolverUtil;
@@ -34,9 +35,21 @@ public class LoginUtilCompat {
 	private static final Class<?>[] LOGIN_PARAM_TYPES = new Class<?>[] {
 			HttpServletRequest.class, HttpServletResponse.class, String.class, String.class, boolean.class, String.class
 		};
+	private static final String NAMESPACE_SERVLET_REQUEST_FQCN = "com.liferay.portal.servlet.NamespaceServletRequest";
 
-	public static Object invokeLogin(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+	public static Object login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
 		String handle, String password, boolean rememberMe, String authType) throws Exception {
+
+		// If the request object is a wrapper that handles special namespacing considerations for portlet session
+		// attributes, then get the inner-most wrapped request. This will ensure that the following call to
+		// LoginUtil.login(...) will be able to work with a session that has an attribute map shared by the portal.
+		if (httpServletRequest.getClass().getName().equals(NAMESPACE_SERVLET_REQUEST_FQCN)) {
+
+			while (httpServletRequest instanceof HttpServletRequestWrapper) {
+				HttpServletRequestWrapper httpServletRequestWrapper = (HttpServletRequestWrapper) httpServletRequest;
+				httpServletRequest = (HttpServletRequest) httpServletRequestWrapper.getRequest();
+			}
+		}
 
 		Class<?> loginUtilClass = ClassResolverUtil.resolveByPortalClassLoader(LOGIN_UTIL_FQCN);
 		MethodKey methodKey = new MethodKey(loginUtilClass, LOGIN_METHOD, LOGIN_PARAM_TYPES);
