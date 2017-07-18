@@ -15,6 +15,7 @@
 	<name>Liferay Faces Portal Integration Tests</name>
 
 	<properties>
+		<faces.impl.name>Mojarra</faces.impl.name>
 		<integration.container>liferay</integration.container>
 	</properties>
 
@@ -118,6 +119,7 @@
 									<systemPropertyVariables>
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
 										<!-- Specify a property like so: -Dintegration.browser.name=phantomjs -->
+										<faces.impl.name>${faces.impl.name}</faces.impl.name>
 										<integration.browser.name>${integration.browser.name}</integration.browser.name>
 										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
 										<integration.browser.simulate.mobile>${integration.browser.simulate.mobile}</integration.browser.simulate.mobile>
@@ -154,6 +156,19 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>weblogic</id>
+			<properties>
+				<integration.port>7001</integration.port>
+				<faces.impl.name>JavaServer Faces Reference Implementation</faces.impl.name>
+			</properties>
+		</profile>
+		<profile>
+			<id>websphere</id>
+			<properties>
+				<integration.port>9080</integration.port>
+			</properties>
 		</profile>
 	</profiles>
 
