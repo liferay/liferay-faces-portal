@@ -84,6 +84,11 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 		String clientId = uiComponent.getClientId();
 		String submittedValue = requestParameterMap.get(clientId);
 		InputSearch inputSearch = cast(uiComponent);
+
+		if (submittedValue == null) {
+			submittedValue = "";
+		}
+
 		inputSearch.setSubmittedValue(submittedValue);
 	}
 
