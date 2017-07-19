@@ -117,6 +117,10 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 		String submittedValue = requestParameterMap.get(escapedEditorName);
 		InputRichText inputRichText = (InputRichText) uiComponent;
 
+		if (submittedValue == null) {
+			submittedValue = "";
+		}
+
 		inputRichText.setSubmittedValue(submittedValue);
 	}
 
