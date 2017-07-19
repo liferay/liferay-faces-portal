@@ -67,6 +67,7 @@ public class TestPages {
 				new Portlet("1", "com.liferay.faces.lsv.158.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Non-Dispatch",
 				new Portlet("2", "com.liferay.faces.lsv.158.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-169", new Portlet("1", "com.liferay.faces.lsv.169.portlet", false)));
 	}
 
 	static {
