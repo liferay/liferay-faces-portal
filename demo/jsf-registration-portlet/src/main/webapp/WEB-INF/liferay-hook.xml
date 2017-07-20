@@ -3,5 +3,4 @@
 
 <hook>
 	<portal-properties>portal.properties</portal-properties>
-	<language-properties>Language_en_US.properties</language-properties>
 </hook>
