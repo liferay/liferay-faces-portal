@@ -4,6 +4,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
 
 	<context-param>
+		<param-name>VALIDATE_CAPTCHA_FOR_TEST</param-name>
+		<param-value>${validate.captcha.for.test}</param-value>
+	</context-param>
+	<context-param>
 		<param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
 		<param-value>/WEB-INF/resources</param-value>
 	</context-param>
