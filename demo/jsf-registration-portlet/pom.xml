@@ -13,6 +13,19 @@
 	<name>jsf-registration-portlet</name>
 	<description>This plugin is an alternate JSF 2 portlet for the Liferay Create-Account feature.</description>
 
+	<properties>
+		<validate.captcha.for.test>false</validate.captcha.for.test>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>validateCaptchaForTest</id>
+			<properties>
+				<validate.captcha.for.test>true</validate.captcha.for.test>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>

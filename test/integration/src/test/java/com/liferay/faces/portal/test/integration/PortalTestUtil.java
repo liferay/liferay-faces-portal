@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.portal.test.integration;
 
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
@@ -56,5 +57,11 @@ public final class PortalTestUtil {
 
 	public static String getIssuePageURL(String portletPageName) {
 		return TestUtil.DEFAULT_BASE_URL + getIssueContext(portletPageName);
+	}
+
+	public static void signOut(BrowserDriver browserDriver) {
+
+		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + "/c/portal/logout");
+		browserDriver.clearBrowserCookies();
 	}
 }
