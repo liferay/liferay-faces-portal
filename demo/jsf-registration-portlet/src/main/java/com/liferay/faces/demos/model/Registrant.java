@@ -28,7 +28,6 @@ public class Registrant extends UserWrapper {
 	private static final long serialVersionUID = 8086195839473515324L;
 
 	// Private Data Members
-	private String captchaText;
 	private String companyName;
 	private String emailAddress;
 	private String favoriteColor;
@@ -47,7 +46,6 @@ public class Registrant extends UserWrapper {
 	}
 
 	public void clearProperties() {
-		captchaText = null;
 		companyName = null;
 		emailAddress = null;
 		favoriteColor = null;
@@ -58,10 +56,6 @@ public class Registrant extends UserWrapper {
 		password2 = null;
 		mobilePhone = null;
 		screenName = null;
-	}
-
-	public String getCaptchaText() {
-		return captchaText;
 	}
 
 	public String getCompanyName() {
@@ -107,10 +101,6 @@ public class Registrant extends UserWrapper {
 	@Override
 	public String getScreenName() {
 		return screenName;
-	}
-
-	public void setCaptchaText(String captchaText) {
-		this.captchaText = captchaText;
 	}
 
 	public void setCompanyName(String companyName) {

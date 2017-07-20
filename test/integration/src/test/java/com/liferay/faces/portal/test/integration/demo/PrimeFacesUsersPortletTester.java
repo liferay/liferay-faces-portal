@@ -77,6 +77,29 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 	// Private Static Data Members
 	private static boolean isStateReset = false;
 
+	public static void resetTestUsers(BrowserDriver browserDriver) {
+
+		// Navigate to the PrimeFaces Users portlet.
+		browserDriver.navigateWindowTo(getURL());
+		browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut(10));
+		browserDriver.waitForElementDisplayed(SCREEN_NAME_COLUMN_FILTER_XPATH);
+
+		List<WebElement> screenNameCells = browserDriver.findElementsByXpath(SCREEN_NAME_CELL_XPATH);
+
+		// Click the hidden *Reset Users* button to reset the state of the user data in preparation
+		// for testing.
+		WebElement hiddenResetUsersButton = browserDriver.findElementByXpath(
+				"//button[contains(@id,':hiddenResetUsersButton')]");
+		browserDriver.executeScriptInCurrentWindow("arguments[0].click();", hiddenResetUsersButton);
+
+		if (!screenNameCells.isEmpty()) {
+			browserDriver.waitFor(ExpectedConditions.stalenessOf(screenNameCells.get(0)));
+		}
+
+		browserDriver.waitForElementDisplayed(SCREEN_NAME_CELL_XPATH);
+		browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut());
+	}
+
 	@Test
 	public void runPrimeFacesUsersPortletTest_A_UsersPagination() {
 
@@ -500,25 +523,13 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 		if (!isStateReset) {
 
+			//J-
 			// 1. Navigate to the PrimeFaces Users portlet.
-			BrowserDriver browserDriver = getBrowserDriver();
-			browserDriver.navigateWindowTo(getURL());
-			browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut(10));
-			browserDriver.waitForElementDisplayed(SCREEN_NAME_COLUMN_FILTER_XPATH);
-
-			List<WebElement> screenNameCells = browserDriver.findElementsByXpath(SCREEN_NAME_CELL_XPATH);
-
 			// 2. Click the hidden *Reset Users* button to reset the state of the user data in preparation
 			// for testing.
-			WebElement hiddenResetUsersButton = browserDriver.findElementByXpath(
-					"//button[contains(@id,':hiddenResetUsersButton')]");
-			browserDriver.executeScriptInCurrentWindow("arguments[0].click();", hiddenResetUsersButton);
-
-			if (!screenNameCells.isEmpty()) {
-				browserDriver.waitFor(ExpectedConditions.stalenessOf(screenNameCells.get(0)));
-			}
-
-			browserDriver.waitForElementDisplayed(SCREEN_NAME_CELL_XPATH);
+			//J+
+			BrowserDriver browserDriver = getBrowserDriver();
+			resetTestUsers(browserDriver);
 
 			// 3. Click the *Preferences* link to navigate to edit mode.
 			String preferencesLinkXpath = "//a[contains(@id,':preferences')]";
@@ -534,7 +545,6 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 			// 5. Click the *Submit* button to save the rows-per-page preference.
 			browserDriver.clickElement("//input[contains(@id,':submit')]");
 			browserDriver.waitForElementDisplayed(SCREEN_NAME_CELL_XPATH);
-			browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut());
 			isStateReset = true;
 		}
 	}

@@ -6,48 +6,58 @@
 		<alloy:messages globalOnly="true" layout="table" />
 		<alloy:row>
 			<alloy:column width="20">
-				<alloy:fieldset label="#{i18n['identification']}">
+				<alloy:fieldset legend="#{i18n['identification']}">
 					<alloy:field label="#{i18n['first-name']}">
-						<alloy:inputText value="#{registrantModelBean.registrant.firstName}" required="true" />
+						<alloy:inputText id="firstName" value="#{registrantModelBean.registrant.firstName}"
+							required="true" />
 					</alloy:field>
 					<alloy:field label="#{i18n['middle-name']}">
-						<alloy:inputText value="#{registrantModelBean.registrant.middleName}" required="true" />
+						<alloy:inputText id="middleName" value="#{registrantModelBean.registrant.middleName}"
+							required="true" />
 					</alloy:field>
 					<alloy:field label="#{i18n['last-name']}">
-						<alloy:inputText value="#{registrantModelBean.registrant.lastName}"	required="true" />
+						<alloy:inputText id="lastName" value="#{registrantModelBean.registrant.lastName}"
+							required="true" />
 					</alloy:field>
 					<alloy:field label="#{i18n['email-address']}">
-						<alloy:inputText value="#{registrantModelBean.registrant.emailAddress}" required="true" />
+						<alloy:inputText id="emailAddress" value="#{registrantModelBean.registrant.emailAddress}"
+							required="true" />
 					</alloy:field>
 					<alloy:field label="#{i18n['screen-name']}">
-						<alloy:inputText value="#{registrantModelBean.registrant.screenName}" required="true" />
+						<alloy:inputText id="screenName" value="#{registrantModelBean.registrant.screenName}"
+							required="true" />
 					</alloy:field>
 				</alloy:fieldset>
 			</alloy:column>
 			<alloy:column width="20">
-				<alloy:fieldset label="#{i18n['additional-info']}">
+				<alloy:fieldset legend="#{i18n['additional-info']}">
 					<alloy:field label="#{i18n['company-name']}">
-						<alloy:inputText value="#{registrantModelBean.registrant.companyName}" required="true" />
+						<alloy:inputText id="companyName" value="#{registrantModelBean.registrant.companyName}"
+							required="true" />
 					</alloy:field>
 					<alloy:field label="#{i18n['mobile-phone']}">
-						<alloy:inputText value="#{registrantModelBean.registrant.mobilePhone}" required="true" />
+						<alloy:inputText id="mobilePhone" value="#{registrantModelBean.registrant.mobilePhone}"
+							required="true" />
 					</alloy:field>
 					<alloy:field label="#{i18n['favorite-color']}">
-						<alloy:inputText value="#{registrantModelBean.registrant.favoriteColor}" required="false" />
+						<alloy:inputText id="favoriteColor" value="#{registrantModelBean.registrant.favoriteColor}"
+							required="false" />
 					</alloy:field>
 				</alloy:fieldset>
 			</alloy:column>
 			<alloy:column width="20">
-				<alloy:fieldset label="#{i18n['security']}">
+				<alloy:fieldset legend="#{i18n['security']}">
 					<alloy:field label="#{i18n['password']}">
-						<alloy:inputSecret required="true" value="#{registrantModelBean.registrant.password1}" />
+						<alloy:inputSecret id="password1" value="#{registrantModelBean.registrant.password1}"
+							required="true" />
 					</alloy:field>
 					<alloy:field label="#{i18n['confirm-password']}">
-						<alloy:inputSecret required="true" value="#{registrantModelBean.registrant.password2}" />
+						<alloy:inputSecret id="password2" value="#{registrantModelBean.registrant.password2}"
+							required="true"/>
 					</alloy:field>
-					<alloy:field label="#{i18n['text-verification']}">
-						<portal:captcha rendered="#{registrantBackingBean.captchaRendered}" required="true"
-							value="#{registrantModelBean.registrant.captchaText}" />
+					<alloy:field label="#{i18n['text-verification']}"
+						rendered="#{registrantBackingBean.captchaRendered}">
+						<portal:captcha id="captcha" />
 					</alloy:field>
 				</alloy:fieldset>
 			</alloy:column>

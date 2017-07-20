@@ -24,16 +24,17 @@ import com.liferay.faces.test.selenium.browser.TestUtil;
  */
 public abstract class PrimeFacesUsersPortletTesterCompat extends BrowserDriverManagingTesterBase {
 
+	protected static String getURL() {
+		return TestUtil.DEFAULT_BASE_URL +
+			"/group/control_panel/manage?p_p_id=1_WAR_comliferayfacesdemoprimefacesusersportlet";
+	}
+
 	protected String getFirstNameFilterText() {
 
 		// Liferay Portal 7.x has the ability to perform partial matches. For example, "J" would match first names that
 		// start with "J" like "John" and "Josiah". Liferay Portal 6.2 can only do exact matches. For example, "J" would
 		// match zero users, but "John" would match all users named "John" but not "Jonathan".
 		return "John";
-	}
-
-	protected String getURL() {
-		return TestUtil.DEFAULT_BASE_URL + "/group/control_panel/manage?p_p_id=1_WAR_comliferayfacesdemoprimefacesusersportlet";
 	}
 
 	protected boolean isFirstNameMatch(String firstName) {

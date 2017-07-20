@@ -33,7 +33,12 @@
 							<h:selectBooleanCheckbox value="#{loginModelBean.rememberMe}" />
 						</alloy:field>
 					</alloy:fieldset>
-					<h:commandButton action="#{loginBackingBean.authenticate}" value="#{i18n['sign-in']}" />
+					<alloy:buttonRow>
+						<h:commandButton action="#{loginBackingBean.authenticate}" value="#{i18n['sign-in']}" />
+						<alloy:outputLink value="#{loginBackingBean.createAccountURL}">
+							<alloy:outputText value="#{i18n['create-account']}" />
+						</alloy:outputLink>
+					</alloy:buttonRow>
 				</alloy:form>
 			</c:otherwise>
 		</c:choose>

@@ -21,7 +21,10 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
+import javax.portlet.WindowState;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -51,6 +54,8 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PortalUtilCompat;
 import com.liferay.portal.util.PropsValuesCompat;
+
+import com.liferay.portlet.PortletURLFactoryUtil;
 
 
 /**
@@ -190,6 +195,29 @@ public class LoginBackingBean {
 		}
 
 		return authType;
+	}
+
+	public String getCreateAccountURL() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+		HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+		long plid = LiferayPortletHelperUtil.getPlid(facesContext);
+
+		PortletURL createAccountURL = PortletURLFactoryUtil.create(httpServletRequest,
+				"1_WAR_comliferayfacesdemojsfregistrationportlet", plid, PortletRequest.RENDER_PHASE);
+
+		try {
+
+			createAccountURL.setPortletMode(PortletMode.VIEW);
+			createAccountURL.setWindowState(WindowState.MAXIMIZED);
+		}
+		catch (Exception e) {
+			// do nothing.
+		}
+
+		return createAccountURL.toString();
 	}
 
 	public String getHandleLabel() {
