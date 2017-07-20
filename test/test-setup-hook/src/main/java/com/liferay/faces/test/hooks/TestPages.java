@@ -50,6 +50,8 @@ public class TestPages {
 		BRIDGE_DEMO_PAGES = new ArrayList<PortalPage>();
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-applicant",
 				new Portlet("1", "com.liferay.faces.demo.jsf.applicant.portlet")));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("butterfaces-applicant",
+				new Portlet("1", "com.liferay.faces.demo.butterfaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-cdi-applicant",
 				new Portlet("1", "com.liferay.faces.demo.jsf.cdi.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-ds-applicant",
