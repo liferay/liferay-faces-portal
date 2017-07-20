@@ -81,13 +81,7 @@ public class JSFLoginPortletTester extends BrowserDriverManagingTesterBase {
 	public void signOut() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-		signOut(browserDriver);
-	}
-
-	public void signOut(BrowserDriver browserDriver) {
-
-		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + "/c/portal/logout");
-		browserDriver.clearBrowserCookies();
+		PortalTestUtil.signOut(browserDriver);
 	}
 
 	public void testJSF_Login(boolean testRememberMe) {

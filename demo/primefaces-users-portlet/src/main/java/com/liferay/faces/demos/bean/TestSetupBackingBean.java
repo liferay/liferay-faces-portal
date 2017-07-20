@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
 
 /**
@@ -155,6 +156,17 @@ public class TestSetupBackingBean {
 
 				long userId = defaultUser.getUserId();
 				setupNewUsers(companyId, groupId, userId);
+
+				try {
+
+					long registrantUserId = UserLocalServiceUtil.getUserIdByEmailAddress(companyId,
+							"registrant@liferay.com");
+					UserLocalServiceUtil.deleteUser(registrantUserId);
+				}
+				catch (NoSuchUserException e) {
+					// Do nothing since the user already does not exist.
+				}
+
 				usersModelBean.forceListReload();
 			}
 			catch (NoSuchCompanyException e) {
