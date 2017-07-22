@@ -81,6 +81,8 @@ public class TestPages {
 				new Portlet("1", "com.liferay.faces.demo.primepush.cdi.counter.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("richfaces-applicant",
 			new Portlet("1", "com.liferay.faces.demo.richfaces.applicant.portlet")));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("bootsfaces-applicant",
+			new Portlet("1", "com.liferay.faces.demo.bootsfaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("butterfaces-applicant",
 				new Portlet("1", "com.liferay.faces.demo.butterfaces.applicant.portlet")));
 	}
