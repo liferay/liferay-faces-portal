@@ -22,14 +22,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 import javax.portlet.PortletResponse;
 
+import com.liferay.captcha.util.CaptchaUtil;
+import com.liferay.captcha.taglib.servlet.taglib.CaptchaTag;
+
 import com.liferay.faces.portal.component.captcha.Captcha;
 import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
 import com.liferay.faces.portal.resource.internal.CaptchaResource;
 import com.liferay.faces.portal.resource.internal.LiferayFacesResourceHandler;
-
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
-
-import com.liferay.taglib.ui.CaptchaTag;
 
 
 /**

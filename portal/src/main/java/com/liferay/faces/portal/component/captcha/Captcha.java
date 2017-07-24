@@ -24,6 +24,8 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.filter.PortletRequestWrapper;
 
+import com.liferay.captcha.util.CaptchaUtil;
+
 import com.liferay.faces.util.i18n.I18n;
 import com.liferay.faces.util.i18n.I18nFactory;
 import com.liferay.faces.util.logging.Logger;
@@ -31,7 +33,6 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
 
 
 /**
