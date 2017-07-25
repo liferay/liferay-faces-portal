@@ -186,17 +186,24 @@ public class TestSetupAction extends TestSetupCompatAction {
 			Attribute nameAttribute = pageElement.attribute("name");
 			String pageName = nameAttribute.getValue();
 			Element portletElement = pageElement.element(getPlutoElementQName("portlet"));
-			Attribute contextAttribute = portletElement.attribute("context");
-			String context = contextAttribute.getValue();
 
-			if (context.endsWith(BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME)) {
+			if (portletElement != null) {
 
-				nameAttribute = portletElement.attribute("name");
+				Attribute contextAttribute = portletElement.attribute("context");
+				String context = contextAttribute.getValue();
 
-				String portletName = nameAttribute.getValue();
-				PortalPage portalPage = new PortalPage(pageName,
-						new Portlet(portletName, BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME, false));
-				setupPrivatePage(userId, groupId, portalPage, bundles);
+				if (context.endsWith(BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME)) {
+
+					nameAttribute = portletElement.attribute("name");
+
+					String portletName = nameAttribute.getValue();
+					PortalPage portalPage = new PortalPage(
+						pageName,
+						new Portlet(
+							portletName, BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME,
+							false));
+					setupPrivatePage(userId, groupId, portalPage, bundles);
+				}
 			}
 		}
 
