@@ -73,12 +73,6 @@ public class Captcha extends CaptchaBase {
 				// that. This is because the string "captchaText" is hard-coded in the liferay-ui:captcha JSP.
 				CaptchaUtil.check(captchaPortletRequest);
 
-				// As of Liferay 7 ga4 there is a new captcha api in the com.liferay.captcha packages. An authenticated
-				// user is only challenged with a captcha 'maxChallenges' times, which is 1 by default. After defeating
-				// the captcha, it is no longer enabled.  For JSF developers, this means that the captcha is rendered
-				// (blank) by the portal, but no longer required.
-				this.setRequired(CaptchaUtil.isEnabled(captchaPortletRequest));
-
 				// Liferay Captcha implementations like SimpleCaptchaUtil will remove the "CAPTCHA_TEXT" session
 				// attribute when calling the Capatcha.check(PortletRequest) method. But this will cause a problem
 				// if we're using an Ajaxified input field. As a workaround, set the value of the attribute again.
