@@ -67,10 +67,10 @@
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, and a value has not been specified for this component, then the PROCESS_VALIDATIONS phase will fail and a FacesMessage will be added to the FacesContext for this component.]]></description>
+			<description><![CDATA[When this flag is true (the default), and a value has not been specified for this component, then the PROCESS_VALIDATIONS phase will fail and a FacesMessage will be added to the FacesContext for this component.</p><p>For more information, see the default values in the "Captcha" section of Liferay Portal's <a href="https://github.com/liferay/liferay-portal/blob/7.0.3-ga4/portal-impl/src/portal.properties#L3723" target="_blank">portal.properties</a> file.]]></description>
 			<name>required</name>
 			<required>false</required>
-			<type>java.lang.Boolean</type>
+			<type>boolean</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[This message or the result of the specified expression, will be used as the text of the validation error message instead of any message that comes from the resulting validation error for this component when required="true" and no value is selected by the user.]]></description>

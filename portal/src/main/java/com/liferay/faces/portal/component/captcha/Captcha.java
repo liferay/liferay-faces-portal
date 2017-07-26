@@ -53,49 +53,56 @@ public class Captcha extends CaptchaBase {
 
 		if (isValid() && (value != null)) {
 
-			UIViewRoot viewRoot = facesContext.getViewRoot();
-			Locale locale = viewRoot.getLocale();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			I18n i18n = I18nFactory.getI18nInstance(externalContext);
+			String valueAsString = value.toString();
 
-			try {
-				Map<String, Object> sessionMap = externalContext.getSessionMap();
-				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-				String userCaptchaTextValue = value.toString();
-				String correctCaptchaTextValue = (String) sessionMap.get(WEB_KEYS_CAPTCHA_TEXT);
+			if (isRequired() || (valueAsString.length() > 0)) {
 
-				CaptchaPortletRequest captchaPortletRequest = new CaptchaPortletRequest(portletRequest,
-						userCaptchaTextValue);
+				UIViewRoot viewRoot = facesContext.getViewRoot();
+				Locale locale = viewRoot.getLocale();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				I18n i18n = I18nFactory.getI18nInstance(externalContext);
 
-				// The CaptchaUtil.check(PortletRequest) method will ultimately call
-				// portletRequest.getParameter("captchaText") and so we have to pass a CaptchaPortletRequest to handle
-				// that. This is because the string "captchaText" is hard-coded in the liferay-ui:captcha JSP.
-				CaptchaUtil.check(captchaPortletRequest);
+				try {
+					Map<String, Object> sessionMap = externalContext.getSessionMap();
+					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+					String userCaptchaTextValue = value.toString();
+					String correctCaptchaTextValue = (String) sessionMap.get(WEB_KEYS_CAPTCHA_TEXT);
 
-				// Liferay Captcha implementations like SimpleCaptchaUtil will remove the "CAPTCHA_TEXT" session
-				// attribute when calling the Capatcha.check(PortletRequest) method. But this will cause a problem
-				// if we're using an Ajaxified input field. As a workaround, set the value of the attribute again.
-				sessionMap.put(WEB_KEYS_CAPTCHA_TEXT, correctCaptchaTextValue);
-			}
-			catch (CaptchaTextException e) {
-				String summary = i18n.getMessage(facesContext, locale, "text-verification-failed");
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
-				facesContext.addMessage(getClientId(facesContext), facesMessage);
-				setValid(false);
-			}
-			catch (CaptchaMaxChallengesException e) {
-				String summary = i18n.getMessage(facesContext, locale, "maximum-number-of-captcha-attempts-exceeded");
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
-				facesContext.addMessage(getClientId(facesContext), facesMessage);
-				setValid(false);
-			}
-			catch (Exception e) {
-				logger.error(e);
+					CaptchaPortletRequest captchaPortletRequest = new CaptchaPortletRequest(portletRequest,
+							userCaptchaTextValue);
 
-				String summary = i18n.getMessage(facesContext, locale, "an-unexpected-error-occurred");
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
-				facesContext.addMessage(getClientId(facesContext), facesMessage);
-				setValid(false);
+					// The CaptchaUtil.check(PortletRequest) method will ultimately call
+					// portletRequest.getParameter("captchaText") and so we have to pass a CaptchaPortletRequest to
+					// handle that. This is because the string "captchaText" is hard-coded in the liferay-ui:captcha
+					// JSP.
+					CaptchaUtil.check(captchaPortletRequest);
+
+					// Liferay Captcha implementations like SimpleCaptchaUtil will remove the "CAPTCHA_TEXT" session
+					// attribute when calling the Capatcha.check(PortletRequest) method. But this will cause a problem
+					// if we're using an Ajaxified input field. As a workaround, set the value of the attribute again.
+					sessionMap.put(WEB_KEYS_CAPTCHA_TEXT, correctCaptchaTextValue);
+				}
+				catch (CaptchaTextException e) {
+					String summary = i18n.getMessage(facesContext, locale, "text-verification-failed");
+					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
+					facesContext.addMessage(getClientId(facesContext), facesMessage);
+					setValid(false);
+				}
+				catch (CaptchaMaxChallengesException e) {
+					String summary = i18n.getMessage(facesContext, locale,
+							"maximum-number-of-captcha-attempts-exceeded");
+					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
+					facesContext.addMessage(getClientId(facesContext), facesMessage);
+					setValid(false);
+				}
+				catch (Exception e) {
+					logger.error(e);
+
+					String summary = i18n.getMessage(facesContext, locale, "an-unexpected-error-occurred");
+					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
+					facesContext.addMessage(getClientId(facesContext), facesMessage);
+					setValid(false);
+				}
 			}
 		}
 	}
