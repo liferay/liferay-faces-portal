@@ -24,15 +24,15 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.filter.PortletRequestWrapper;
 
+import com.liferay.captcha.util.CaptchaUtil;
+
 import com.liferay.faces.util.i18n.I18n;
 import com.liferay.faces.util.i18n.I18nFactory;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.kernel.captcha.CaptchaException;
 import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
 
 
 /**
@@ -60,14 +60,7 @@ public class Captcha extends CaptchaBase {
 		// the captcha will become disabled when a user is considered to be trustworthy. Only authenticated users can
 		// achieve this level of trust, and only after they have successfully entered a correct captcha value
 		// 'maxChallenges' times, which is 1 by default.
-		boolean captchaEnabled = true;
-
-		try {
-			captchaEnabled = CaptchaUtil.isEnabled(portletRequest);
-		}
-		catch (CaptchaException e) {
-			logger.error(e);
-		}
+		boolean captchaEnabled = CaptchaUtil.isEnabled(portletRequest);
 
 		return captchaEnabled && super.isRequired();
 	}
