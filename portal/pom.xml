@@ -51,6 +51,10 @@
 			<artifactId>javax.servlet.jsp-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.captcha.taglib</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>com.liferay.portal.kernel</artifactId>
 		</dependency>
