@@ -36,7 +36,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 @RequestScoped
 public class CaptchaBacking {
 
-	@ManagedProperty(value = "#{showcaseModelBean.selectedComponent.required")
+	@ManagedProperty(value = "#{showcaseModelBean.selectedComponent.required}")
 	private boolean requiredChecked;
 
 	private String captchaText;
