@@ -29,6 +29,7 @@ import com.liferay.faces.util.i18n.I18nFactory;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
+import com.liferay.portal.kernel.captcha.CaptchaException;
 import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
@@ -45,6 +46,31 @@ public class Captcha extends CaptchaBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(Captcha.class);
+
+	@Override
+	public boolean isRequired() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		// If the captcha is enabled, then return the value of the required attribute. Otherwise, if the captcha is
+		// disabled, then since the liferay-ui:captcha JSP tag will not render any markup, there is no input data to
+		// validate. In this case it is necessary to return false, indicating that the field is not required. Note that
+		// the captcha will become disabled when a user is considered to be trustworthy. Only authenticated users can
+		// achieve this level of trust, and only after they have successfully entered a correct captcha value
+		// 'maxChallenges' times, which is 1 by default.
+		boolean captchaEnabled = true;
+
+		try {
+			captchaEnabled = CaptchaUtil.isEnabled(portletRequest);
+		}
+		catch (CaptchaException e) {
+			logger.error(e);
+		}
+
+		return captchaEnabled && super.isRequired();
+	}
 
 	@Override
 	protected void validateValue(FacesContext facesContext, Object value) {
