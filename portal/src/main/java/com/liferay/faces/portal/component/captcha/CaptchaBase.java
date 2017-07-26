@@ -33,6 +33,7 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 	// Protected Enumerations
 	protected enum CaptchaPropertyKeys {
 		label,
+		required,
 		style,
 		styleClass,
 		url
@@ -71,6 +72,24 @@ public abstract class CaptchaBase extends UIInput implements Styleable {
 	 */
 	public void setLabel(String label) {
 		getStateHelper().put(CaptchaPropertyKeys.label, label);
+	}
+
+	/**
+	 * <p><code>required</code> attribute description:</p>
+	 *
+	 * <div>When this flag is true (the default), and a value has not been specified for this component, then the PROCESS_VALIDATIONS phase will fail and a FacesMessage will be added to the FacesContext for this component.</p><p>For more information, see the default values in the "Captcha" section of Liferay Portal's <a href="https://github.com/liferay/liferay-portal/blob/7.0.3-ga4/portal-impl/src/portal.properties#L3723" target="_blank">portal.properties</a> file.</div>
+	 */
+	public boolean isRequired() {
+		return (Boolean) getStateHelper().eval(CaptchaPropertyKeys.required, true);
+	}
+
+	/**
+	 * <p><code>required</code> attribute description:</p>
+	 *
+	 * <div>When this flag is true (the default), and a value has not been specified for this component, then the PROCESS_VALIDATIONS phase will fail and a FacesMessage will be added to the FacesContext for this component.</p><p>For more information, see the default values in the "Captcha" section of Liferay Portal's <a href="https://github.com/liferay/liferay-portal/blob/7.0.3-ga4/portal-impl/src/portal.properties#L3723" target="_blank">portal.properties</a> file.</div>
+	 */
+	public void setRequired(boolean required) {
+		getStateHelper().put(CaptchaPropertyKeys.required, required);
 	}
 
 	/**

@@ -13,10 +13,14 @@
  */
 package com.liferay.faces.bridge.demos.bean;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import com.liferay.faces.util.context.FacesContextHelper;
+import com.liferay.faces.util.context.FacesContextHelperFactory;
 
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
 
@@ -28,6 +32,9 @@ import com.liferay.portal.kernel.captcha.CaptchaUtil;
 @RequestScoped
 public class CaptchaBacking {
 
+	@ManagedProperty(value = "#{showcaseModelBean.selectedComponent.required")
+	private boolean requiredChecked;
+
 	private String captchaText;
 
 	public String getCaptchaImpl() {
@@ -38,14 +45,42 @@ public class CaptchaBacking {
 		return captchaText;
 	}
 
+	public boolean isRequiredChecked() {
+		return requiredChecked;
+	}
+
 	public void setCaptchaText(String captchaText) {
 		this.captchaText = captchaText;
+	}
+
+	public void setRequiredChecked(boolean requiredChecked) {
+
+		// Injected via @ManagedProperty
+		this.requiredChecked = requiredChecked;
 	}
 
 	public void submit() {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		FacesMessage facesMessage = new FacesMessage("You entered the correct text verification code.");
-		facesContext.addMessage(null, facesMessage);
+		ExternalContext externalContext = facesContext.getExternalContext();
+		FacesContextHelper facesContextHelper = FacesContextHelperFactory.getFacesContextHelperInstance(
+				externalContext);
+
+		// If the user entered non-blank value for the captcha then validation was successful in the
+		// PROCESS_VALIDATIONS phase of the JSF lifecycle.
+		if ((captchaText != null) && (captchaText.trim().length() > 0)) {
+
+			facesContextHelper.addGlobalInfoMessage(facesContext, "you-entered-the-correct-text-verification-code");
+		}
+
+		// Otherwise, the user entered a blank value for the captcha.
+		else {
+
+			if (!requiredChecked) {
+
+				facesContextHelper.addGlobalInfoMessage(facesContext,
+					"no-value-was-entered-for-the-non-required-captcha");
+			}
+		}
 	}
 }
