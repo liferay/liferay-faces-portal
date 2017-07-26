@@ -43,6 +43,15 @@
 		<description><![CDATA[Captcha is a UIInput that renders Liferay Portal's captcha image and a field for editing single-line text. It provides built-in validation in order to make sure that the text value entered by the user matches the value in the captcha image.]]></description>
 		<tag-name>captcha</tag-name>
 		<attribute>
+			<attribute-extension>
+				<default-value>true</default-value>
+			</attribute-extension>
+			<description><![CDATA[When this flag is true (the default), and a value has not been specified for this component, then the PROCESS_VALIDATIONS phase will fail and a FacesMessage will be added to the FacesContext for this component.</p><p>For more information, see the default values in the "Captcha" section of Liferay Portal's <a href="https://github.com/liferay/liferay-portal/blob/7.0.3-ga4/portal-impl/src/portal.properties#L3723" target="_blank">portal.properties</a> file.]]></description>
+			<name>required</name>
+			<required>false</required>
+			<type><![CDATA[boolean]]></type>
+		</attribute>
+		<attribute>
 			<description><![CDATA[Specifies a custom captcha image URL. If the value is empty (the default), then the image will be obtained from Liferay Portal's built-in captcha feature.]]></description>
 			<name>url</name>
 			<type><![CDATA[java.lang.String]]></type>
@@ -254,7 +263,7 @@
 		<tag-extension>
 			<extends-tags>aria styleable uiComponentBaseInherited uiDataInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIData]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer<com.liferay.faces.portal.component.nav.Nav, com.liferay.taglib.aui.NavTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer<com.liferay.faces.portal.component.nav.Nav, com.liferay.taglib.aui.NavTag>]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>

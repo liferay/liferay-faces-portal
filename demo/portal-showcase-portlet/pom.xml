@@ -33,6 +33,10 @@
 			<artifactId>jsr250-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>${faces.api.group.id}</groupId>
+			<artifactId>${faces.api.artifact.id}</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
