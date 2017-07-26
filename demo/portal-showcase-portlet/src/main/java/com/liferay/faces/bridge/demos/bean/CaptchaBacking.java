@@ -16,13 +16,17 @@ package com.liferay.faces.bridge.demos.bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import com.liferay.faces.portal.component.captcha.Captcha;
 import com.liferay.faces.util.context.FacesContextHelper;
 import com.liferay.faces.util.context.FacesContextHelperFactory;
 
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 
 
 /**
@@ -76,7 +80,37 @@ public class CaptchaBacking {
 		// Otherwise, the user entered a blank value for the captcha.
 		else {
 
-			if (!requiredChecked) {
+			// If the user checked the "Required" checkbox, then
+			if (requiredChecked) {
+
+				// If the portal:captcha component indicates that the value is required, then validation should have
+				// failed in the PROCESS_VALIDATIONS phase of the JSF lifecycle and this method should never have been
+				// called now in the INVOKE_APPLICATION phase. This indicates an error condition that should never
+				// happen.
+				UIViewRoot uiViewRoot = facesContext.getViewRoot();
+				Captcha captcha = (Captcha) uiViewRoot.findComponent(":f1:simpleCaptcha");
+
+				if (captcha.isRequired()) {
+
+					facesContextHelper.addGlobalUnexpectedErrorMessage();
+				}
+
+				// Otherwise, if the portal:captcha component indicates that the value is not required, then according
+				// to the JavaDoc for the required attribute, that means the captcha was "inactive" because an
+				// authenticated user has correctly entered the captcha the maximum number of required times. This does
+				// not indicate an error condition.
+				else {
+
+					String maxChallenges = PropsUtil.get(PropsKeys.CAPTCHA_MAX_CHALLENGES);
+					facesContextHelper.addGlobalInfoMessage(facesContext,
+						"the-captcha-is-no-longer-enabled-since-the-user-entered-a-correct-value-x-times",
+						maxChallenges);
+				}
+			}
+
+			// Otherwise, since the user did not check the "Required" checkbox, it's OK that the user entered a blank
+			// value.
+			else {
 
 				facesContextHelper.addGlobalInfoMessage(facesContext,
 					"no-value-was-entered-for-the-non-required-captcha");
