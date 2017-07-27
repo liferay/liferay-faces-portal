@@ -263,7 +263,7 @@
 		<tag-extension>
 			<extends-tags>aria styleable uiComponentBaseInherited uiDataInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIData]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer<com.liferay.faces.portal.component.nav.Nav, com.liferay.taglib.aui.NavTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer<com.liferay.faces.portal.component.nav.Nav, com.liferay.taglib.aui.NavTag>]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
