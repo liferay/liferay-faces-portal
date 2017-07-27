@@ -20,11 +20,12 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import com.liferay.captcha.util.CaptchaUtil;
+
 import com.liferay.faces.portal.component.captcha.Captcha;
 import com.liferay.faces.util.context.FacesContextHelper;
 import com.liferay.faces.util.context.FacesContextHelperFactory;
 
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 
