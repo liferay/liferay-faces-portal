@@ -32,7 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
+import com.liferay.captcha.util.CaptchaUtil;
+
 import com.liferay.portal.kernel.util.PortalUtil;
 
 
