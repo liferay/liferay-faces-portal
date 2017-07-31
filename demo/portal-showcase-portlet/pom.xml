@@ -13,6 +13,19 @@
 	<name>Portal Showcase Portlet</name>
 	<description>This plugin is the Liferay Faces Portal Showcase demo portlet.</description>
 
+	<properties>
+		<validate.captcha.for.test>false</validate.captcha.for.test>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>validateCaptchaForTest</id>
+			<properties>
+				<validate.captcha.for.test>true</validate.captcha.for.test>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.liferay</groupId>
