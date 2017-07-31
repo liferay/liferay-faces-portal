@@ -3,6 +3,10 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
 
+	<context-param>
+		<param-name>VALIDATE_CAPTCHA_FOR_TEST</param-name>
+		<param-value>${validate.captcha.for.test}</param-value>
+	</context-param>
 	<!-- Inform the JSF runtime of additional faces-config.xml files. -->
 	<context-param>
 		<param-name>javax.faces.CONFIG_FILES</param-name>

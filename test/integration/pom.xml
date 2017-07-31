@@ -148,7 +148,10 @@
 										<integration.port>${integration.port}</integration.port>
 										<integration.demo.context>${integration.demo.context}</integration.demo.context>
 										<integration.issue.context>${integration.issue.context}</integration.issue.context>
-										<integration.showcase.context>${integration.showcase.context}</integration.showcase.context>
+
+										<integration.showcase.context>/web/guest/portal-showcase/-/portal-tag</integration.showcase.context>
+										<integration.default.component.prefix>portal</integration.default.component.prefix>
+
 										<integration.sign.in.context>${integration.sign.in.context}</integration.sign.in.context>
 										<integration.login.xpath>${integration.login.xpath}</integration.login.xpath>
 										<integration.password.xpath>${integration.password.xpath}</integration.password.xpath>
@@ -162,9 +165,11 @@
 											<value>com.liferay.faces.test.selenium.browser.BrowserDriverManagingTestSuiteListener</value>
 										</property>
 									</properties>
+<!--
 									<excludes>
 										<exclude>**/showcase/**</exclude>
 									</excludes>
+-->
 									<includes>
 										<include>**/*Test.java,**/Test*.java,**/*TestCase.java,**/*Tester.java</include>
 									</includes>
@@ -196,6 +201,13 @@
 		<dependency>
 			<groupId>com.liferay.faces.test</groupId>
 			<artifactId>com.liferay.faces.test.selenium</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.demo</groupId>
+			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+			<version>${liferay.faces.showcase.version}</version>
+			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

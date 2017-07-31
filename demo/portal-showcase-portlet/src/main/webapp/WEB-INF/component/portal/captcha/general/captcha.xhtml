@@ -1,12 +1,14 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"	xmlns:portal="http://liferay.com/faces/portal"
-	xmlns:showcase="http://liferay.com/faces/showcase" xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:portal="http://liferay.com/faces/portal" xmlns:showcase="http://liferay.com/faces/showcase"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:form id="f1">
 		<showcase:example description="#{i18n['portal-captcha-general-example-1']} #{captchaBacking.captchaImpl}"
 			requiredCheckbox="true">
 			<h:messages layout="table" />
 			<showcase:field label="#{i18n['text-verification-code']}">
+				<ui:include src="../correctCaptchaValue.xhtml" />
 				<portal:captcha id="simpleCaptcha" required="#{showcaseModelBean.selectedComponent.required}"
 					value="#{captchaBacking.captchaText}" />
 			</showcase:field>
