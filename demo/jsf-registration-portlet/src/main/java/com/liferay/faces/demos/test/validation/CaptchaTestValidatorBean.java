@@ -22,8 +22,6 @@ import javax.faces.context.FacesContext;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 
-import com.liferay.portal.kernel.util.WebKeys;
-
 
 /**
  * @author  Kyle Stiemann
@@ -37,7 +35,7 @@ public class CaptchaTestValidatorBean {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
-		String correctCaptchaValue = (String) sessionMap.get(WebKeys.CAPTCHA_TEXT);
+		String correctCaptchaValue = (String) sessionMap.get("CAPTCHA_TEXT");
 
 		if (correctCaptchaValue == null) {
 			return "Correct Captcha Value";
