@@ -19,6 +19,8 @@ import org.junit.Test;
 
 import org.junit.runners.MethodSorters;
 
+import org.openqa.selenium.WebElement;
+
 import com.liferay.faces.portal.test.integration.PortalTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
@@ -117,8 +119,9 @@ public class JSFRegistrationPortletTester extends BrowserDriverManagingTesterBas
 		// 13. Enter "different registrant" in the *Confirm Password* field.
 		browserDriver.sendKeysToElement(CONFIRM_PASSWORD_FIELD, "registrant");
 
-		// 14. Enter an invalid captcha value into the *Text Verification* field.
-		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, "1112");
+		// 14. Enter an incorrect captcha value into the *Text Verification* field.
+		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue + "1234");
 
 		// 15. Click the *Submit* button.
 		browserDriver.clickElement(SUBMIT_BUTTON_XPATH);
@@ -139,8 +142,9 @@ public class JSFRegistrationPortletTester extends BrowserDriverManagingTesterBas
 		// 2. Enter "different registrant" in the *Confirm Password* field.
 		browserDriver.sendKeysToElement(CONFIRM_PASSWORD_FIELD, "different registrant");
 
-		// 3. Enter the captcha value into the *Text Verification* field.
-		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, "1111");
+		// 3. Enter the correct captcha value into the *Text Verification* field.
+		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
 
 		// 4. Click the *Submit* button.
 		browserDriver.clickElement(SUBMIT_BUTTON_XPATH);
@@ -166,8 +170,9 @@ public class JSFRegistrationPortletTester extends BrowserDriverManagingTesterBas
 		// 3. Enter "different registrant" in the *Confirm Password* field.
 		browserDriver.sendKeysToElement(CONFIRM_PASSWORD_FIELD, "registrant");
 
-		// 4. Enter the captcha value into the *Text Verification* field.
-		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, "1111");
+		// 4. Enter the correct captcha value into the *Text Verification* field.
+		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
 
 		// 5. Click the *Submit* button.
 		browserDriver.clickElement(SUBMIT_BUTTON_XPATH);
@@ -192,8 +197,9 @@ public class JSFRegistrationPortletTester extends BrowserDriverManagingTesterBas
 		// 10. Enter "different registrant" in the *Confirm Password* field.
 		browserDriver.sendKeysToElement(CONFIRM_PASSWORD_FIELD, "registrant");
 
-		// 11. Enter the captcha value into the *Text Verification* field.
-		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, "1111");
+		// 11. Enter the correct captcha value into the *Text Verification* field.
+		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
 
 		// 12. Click the *Submit* button.
 		browserDriver.clickElement(SUBMIT_BUTTON_XPATH);
@@ -220,8 +226,9 @@ public class JSFRegistrationPortletTester extends BrowserDriverManagingTesterBas
 			// 2. Enter "different registrant" in the *Confirm Password* field.
 			browserDriver.sendKeysToElement(CONFIRM_PASSWORD_FIELD, "registrant");
 
-			// 3. Enter the captcha value into the *Text Verification* field.
-			browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, "1111");
+			// 3. Enter the correct captcha value into the *Text Verification* field.
+			String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+			browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
 
 			// 4. Click the *Submit* button.
 			browserDriver.clickElement(SUBMIT_BUTTON_XPATH);
@@ -261,5 +268,15 @@ public class JSFRegistrationPortletTester extends BrowserDriverManagingTesterBas
 			PortalTestUtil.signOut(browserDriver);
 			isStateReset = true;
 		}
+	}
+
+	private String getCorrectCaptchaValue(BrowserDriver browserDriver) {
+
+		String correctCaptchaValueXpath = "//button[contains(@id,':correctCaptchaValue')]";
+		browserDriver.clickElementAndWaitForRerender(correctCaptchaValueXpath);
+
+		WebElement correctCaptchaValueElement = browserDriver.findElementByXpath(correctCaptchaValueXpath);
+
+		return correctCaptchaValueElement.getText();
 	}
 }

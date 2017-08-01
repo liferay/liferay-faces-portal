@@ -24,7 +24,6 @@ import javax.faces.event.ActionEvent;
 
 import com.liferay.faces.demos.model.Registrant;
 import com.liferay.faces.demos.service.RegistrantServiceUtil;
-import com.liferay.faces.demos.test.validation.CaptchaTestValidatorBean;
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -48,7 +47,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
  */
 @ManagedBean(name = "registrantBackingBean")
 @ViewScoped
-public class RegistrantBackingBean extends CaptchaTestValidatorBean implements Serializable {
+public class RegistrantBackingBean implements Serializable {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 2947548873495692163L;

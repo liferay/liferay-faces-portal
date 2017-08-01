@@ -13,64 +13,46 @@
  */
 package com.liferay.faces.demos.test.validation;
 
-import java.io.Serializable;
+import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.faces.component.UIComponent;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
 
-import com.liferay.faces.portal.component.captcha.Captcha;
-import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.helper.BooleanHelper;
+
+import com.liferay.portal.kernel.util.WebKeys;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public abstract class CaptchaTestValidatorBean {
+@ManagedBean
+@RequestScoped
+public class CaptchaTestValidatorBean {
 
-	@PostConstruct
-	public void addValidatorToCaptcha() {
+	public String getCorrectCaptchaValue() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		String correctCaptchaValue = (String) sessionMap.get(WebKeys.CAPTCHA_TEXT);
+
+		if (correctCaptchaValue == null) {
+			return "Correct Captcha Value";
+		}
+
+		return correctCaptchaValue;
+	}
+
+	public boolean isValidateCaptchaForTest() {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		String validateCaptchaForTest = externalContext.getInitParameter("VALIDATE_CAPTCHA_FOR_TEST");
 
-		if (BooleanHelper.isTrueToken(validateCaptchaForTest)) {
+		return BooleanHelper.isTrueToken(validateCaptchaForTest);
 
-			Captcha captcha = (Captcha) FacesContextHelperUtil.matchComponentInViewRoot("captcha");
-			boolean captchaTestValidatorAdded = false;
-			Validator[] validators = captcha.getValidators();
-
-			for (Validator validator : validators) {
-
-				if (validator instanceof CaptchaTestValidator) {
-
-					captchaTestValidatorAdded = true;
-
-					break;
-				}
-			}
-
-			if (!captchaTestValidatorAdded) {
-				captcha.addValidator(new CaptchaTestValidator());
-			}
-		}
-	}
-
-	private static class CaptchaTestValidator implements Validator, Serializable {
-
-		// serialVersionUID
-		private static final long serialVersionUID = 5129264232758522926L;
-
-		@Override
-		public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-
-			// Set the captcha to always accept "1111".
-			context.getExternalContext().getSessionMap().put("CAPTCHA_TEXT", "1111");
-		}
 	}
 }
