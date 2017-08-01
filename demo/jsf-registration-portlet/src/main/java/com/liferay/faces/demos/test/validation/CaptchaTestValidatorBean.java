@@ -32,15 +32,22 @@ import com.liferay.portal.kernel.util.WebKeys;
 @RequestScoped
 public class CaptchaTestValidatorBean {
 
+	// Private Data Members
+	private String correctCaptchaValue;
+	private Boolean validateCaptchaForTest;
+
 	public String getCorrectCaptchaValue() {
 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, Object> sessionMap = externalContext.getSessionMap();
-		String correctCaptchaValue = (String) sessionMap.get(WebKeys.CAPTCHA_TEXT);
-
 		if (correctCaptchaValue == null) {
-			return "Correct Captcha Value";
+
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Map<String, Object> sessionMap = externalContext.getSessionMap();
+			correctCaptchaValue = (String) sessionMap.get(WebKeys.CAPTCHA_TEXT);
+
+			if (correctCaptchaValue == null) {
+				return "Correct Captcha Value";
+			}
 		}
 
 		return correctCaptchaValue;
@@ -48,11 +55,15 @@ public class CaptchaTestValidatorBean {
 
 	public boolean isValidateCaptchaForTest() {
 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		String validateCaptchaForTest = externalContext.getInitParameter("VALIDATE_CAPTCHA_FOR_TEST");
+		if (validateCaptchaForTest == null) {
 
-		return BooleanHelper.isTrueToken(validateCaptchaForTest);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			String initParameterValue = externalContext.getInitParameter("VALIDATE_CAPTCHA_FOR_TEST");
 
+			validateCaptchaForTest = Boolean.valueOf(BooleanHelper.isTrueToken(initParameterValue));
+		}
+
+		return validateCaptchaForTest;
 	}
 }
