@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
-	xmlns:portal="http://liferay.com/faces/portal" xmlns:ui="http://java.sun.com/jsf/facelets">
+				xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:portal="http://liferay.com/faces/portal"
+				xmlns:ui="http://java.sun.com/jsf/facelets">
 	<alloy:form id="f">
 		<h1 class="header-title">#{i18n['new-user-registration']}</h1>
 		<alloy:messages globalOnly="true" layout="table" />
@@ -57,6 +58,10 @@
 					</alloy:field>
 					<alloy:field label="#{i18n['text-verification']}"
 						rendered="#{registrantBackingBean.captchaRendered}">
+						<c:if test="#{captchaTestValidatorBean.validateCaptchaForTest}">
+							<alloy:commandButton id="correctCaptchaValue" execute="@this" render="@this"
+								value="#{captchaTestValidatorBean.correctCaptchaValue}" />
+						</c:if>
 						<portal:captcha id="captcha" />
 					</alloy:field>
 				</alloy:fieldset>
