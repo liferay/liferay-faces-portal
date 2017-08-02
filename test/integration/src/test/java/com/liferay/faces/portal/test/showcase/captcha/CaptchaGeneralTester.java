@@ -32,11 +32,8 @@ import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 
-	protected static final String CAPTCHA_INPUT_XPATH = "//input[contains(@id,'captchaText')]";
-	protected static final String CAPTCHA_MSG_INFO_XPATH = "//tr[contains(@class,'portlet-msg-info')]";
-	protected static final String CAPTCHA_MSG_ERROR_XPATH = "//tr[contains(@class,'portlet-msg-error')]";
-
-	protected String correctCaptchaValue = "";
+	// Private Constants
+	private static final String CAPTCHA_MSG_ERROR_XPATH = "//tr[contains(@class,'portlet-msg-error')]";
 
 	@Test
 	public void runCaptchaGeneralTest_A_NonAuthenticated_NonRequired() throws Exception {
@@ -45,27 +42,36 @@ public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		navigateToUseCase(browserDriver, "captcha", "general");
 
-		// Non-authenticated + non-required + empty submitted value
+		// 1. Ensure that there is no value entered into the *Captcha* field.
 		browserDriver.waitForElementEnabled(CAPTCHA_INPUT_XPATH);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
+
+		// 2. Click on the *Submit* button and verify that an informational message is displayed indicating that a
+		// value was not submitted.
 		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
 		waitingAsserter.assertTextPresentInElement("No value was entered for the non-required captcha",
 			CAPTCHA_MSG_INFO_XPATH);
 
-		// Non-authenticated + non-required + non-empty (incorrect) captcha value
-		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		// 3. Enter an incorrect value into the *Captcha* field.
+		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue + "1234");
+
+		// 4. Click on the *Submit* button and verify that an error message is displayed indicating that an incorrect
+		// value was submitted.
 		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 		waitingAsserter.assertElementDisplayed(error1Xpath);
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_ERROR_XPATH);
 		waitingAsserter.assertTextPresentInElement("Text verification failed", CAPTCHA_MSG_ERROR_XPATH);
 
-		// Non-authenticated + non-required + non-empty (correct) captcha value
+		// 5. Enter the correct value into the *Captcha* field.
 		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
+
+		// 6. Click on the *Submit* button and verify that an informational message is displayed indicating that the
+		// correct value was submitted.
 		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
 		waitingAsserter.assertTextPresentInElement("You entered the correct text verification code",
@@ -80,43 +86,53 @@ public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		navigateToUseCase(browserDriver, "captcha", "general");
 
+		// 1. Click on the *Required* checkbox.
 		browserDriver.clickElement(requiredCheckbox1Xpath);
 
-		// Non-authenticated + required + empty submitted value
+		// 2. Ensure that there is no value entered into the *Captcha* field.
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
+
+		// 3. Click on the *Submit* button and verify that an error message is displayed indicating that the
+		// value is required but was not submitted.
 		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 		waitingAsserter.assertElementDisplayed(error1Xpath);
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_ERROR_XPATH);
 		waitingAsserter.assertTextPresentInElement("Text Verification Code: Validation Error: Value is required",
 			CAPTCHA_MSG_ERROR_XPATH);
 
-		// Non-authenticated + required + non-empty (incorrect) captcha value
-		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		// 4. Enter an incorrect value into the *Captcha* field.
+		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue + "1234");
+
+		// 5. Click on the *Submit* button and verify that an error message is displayed indicating that an incorrect
+		// value was submitted.
 		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 		waitingAsserter.assertElementDisplayed(error1Xpath);
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_ERROR_XPATH);
 		waitingAsserter.assertTextPresentInElement("Text verification failed", CAPTCHA_MSG_ERROR_XPATH);
 
-		// Non-authenticated + required + non-empty (correct) captcha value
+		// 6. Enter the correct value into the *Captcha* field.
 		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
+
+		// 7. Click on the *Submit* button and verify that an informational message is displayed indicating that the
+		// correct value was submitted.
 		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
 		waitingAsserter.assertTextPresentInElement("You entered the correct text verification code",
 			CAPTCHA_MSG_INFO_XPATH);
-
 	}
 
-	private String getCorrectCaptchaValue(BrowserDriver browserDriver) {
+	@Override
+	protected String getCorrectCaptchaValue(BrowserDriver browserDriver) {
 
-		String correctCaptchaValueXpath = "//input[contains(@id,':correctCaptchaValue')]";
+		String correctCaptchaValueXpath = "//a[contains(@id,':correctCaptchaValue')]";
 		browserDriver.clickElementAndWaitForRerender(correctCaptchaValueXpath);
 
 		WebElement correctCaptchaValueElement = browserDriver.findElementByXpath(correctCaptchaValueXpath);
 
-		return correctCaptchaValueElement.getAttribute("value");
+		return correctCaptchaValueElement.getText();
 	}
 }

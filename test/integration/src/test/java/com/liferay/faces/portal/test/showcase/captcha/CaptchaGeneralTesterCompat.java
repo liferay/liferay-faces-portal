@@ -18,8 +18,6 @@ import org.junit.Test;
 
 import org.junit.runners.MethodSorters;
 
-import org.openqa.selenium.WebElement;
-
 import com.liferay.faces.portal.test.integration.PortalTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
@@ -33,12 +31,11 @@ import com.liferay.faces.test.showcase.inputtext.InputTextTester;
  * @author  Vernon Singleton
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CaptchaGeneralTesterCompat extends InputTextTester {
+public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 
+	// Protected Constants
 	protected static final String CAPTCHA_INPUT_XPATH = "//input[contains(@id,'captchaText')]";
 	protected static final String CAPTCHA_MSG_INFO_XPATH = "//tr[contains(@class,'portlet-msg-info')]";
-
-	protected String correctCaptchaValue = "";
 
 	@Test
 	public void runCaptchaGeneralTest_C_Authenticated_NoLongerEnabled() throws Exception {
@@ -48,38 +45,37 @@ public class CaptchaGeneralTesterCompat extends InputTextTester {
 
 		try {
 
+			// 1. Click on the "Sign-In" link and enter the email address and password of a valid user.
 			TestUtil.signIn(browserDriver);
 			navigateToUseCase(browserDriver, "captcha", "general");
 			browserDriver.clickElement(requiredCheckbox1Xpath);
 
-			// Authenticated + required + non-empty (correct) captcha value tests captcha.max.challenges to ensure
-			// that the component is no longer required after one correct submission
-			correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+			// 2. Enter the correct value into the *Captcha* field.
+			String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 			browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 			browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
+
+			// 3. Click on the *Submit* button and verify that an informational message is displayed indicating that the
+			// correct value was submitted.
 			browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 			waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
 			waitingAsserter.assertTextPresentInElement("You entered the correct text verification code",
 				CAPTCHA_MSG_INFO_XPATH);
 
+			// 4. Click on the *Submit* button again and verify that in informational message is displayed indicating
+			// that the captcha is no longer enabled since 1 correct submission is all that is required.
 			browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 			waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
 			waitingAsserter.assertTextPresentInElement("The captcha is no longer enabled", CAPTCHA_MSG_INFO_XPATH);
 
 		}
 		finally {
+
+			// 5. Click on the "Sign-Out" link.
 			PortalTestUtil.signOut(browserDriver);
 		}
 
 	}
 
-	private String getCorrectCaptchaValue(BrowserDriver browserDriver) {
-
-		String correctCaptchaValueXpath = "//input[contains(@id,':correctCaptchaValue')]";
-		browserDriver.clickElementAndWaitForRerender(correctCaptchaValueXpath);
-
-		WebElement correctCaptchaValueElement = browserDriver.findElementByXpath(correctCaptchaValueXpath);
-
-		return correctCaptchaValueElement.getAttribute("value");
-	}
+	protected abstract String getCorrectCaptchaValue(BrowserDriver browserDriver);
 }
