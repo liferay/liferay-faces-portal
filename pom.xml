@@ -127,7 +127,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
 		<selenium.version>2.53.0</selenium.version>
-		<short.version>3.0</short.version>
 		<surefire.version>2.12</surefire.version>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
