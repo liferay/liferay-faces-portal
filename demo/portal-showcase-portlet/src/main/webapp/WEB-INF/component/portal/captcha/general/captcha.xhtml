@@ -8,7 +8,13 @@
 			requiredCheckbox="true">
 			<h:messages layout="table" />
 			<showcase:field label="#{i18n['text-verification-code']}">
-				<ui:include src="../correctCaptchaValue.xhtml" />
+				<ui:remove><!-- SHOWCASE:IGNORE-BEGIN --></ui:remove>
+				<c:if test="#{captchaTestValidatorBean.validateCaptchaForTest}">
+					<h:commandLink id="correctCaptchaValue" value="#{captchaTestValidatorBean.correctCaptchaValue}">
+						<f:ajax execute="@this" render="@this" />
+					</h:commandLink>
+				</c:if>
+				<ui:remove><!-- SHOWCASE:IGNORE-END --></ui:remove>
 				<portal:captcha id="simpleCaptcha" required="#{showcaseModelBean.selectedComponent.required}"
 					value="#{captchaBacking.captchaText}" />
 			</showcase:field>

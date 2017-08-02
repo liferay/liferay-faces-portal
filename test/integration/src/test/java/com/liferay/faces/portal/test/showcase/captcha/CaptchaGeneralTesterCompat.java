@@ -18,8 +18,6 @@ import org.junit.Test;
 
 import org.junit.runners.MethodSorters;
 
-import org.openqa.selenium.WebElement;
-
 import com.liferay.faces.portal.test.integration.PortalTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
@@ -33,12 +31,11 @@ import com.liferay.faces.test.showcase.inputtext.InputTextTester;
  * @author  Vernon Singleton
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CaptchaGeneralTesterCompat extends InputTextTester {
+public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 
+	// Protected Constants
 	protected static final String CAPTCHA_INPUT_XPATH = "//input[contains(@id,'captchaText')]";
 	protected static final String CAPTCHA_MSG_ERROR_XPATH = "//tr[contains(@class,'portlet-msg-error')]";
-
-	protected String correctCaptchaValue = "";
 
 	@Test
 	public void runCaptchaGeneralTest_C_Authenticated_CaptchaMaxChallengesException() throws Exception {
@@ -48,42 +45,41 @@ public class CaptchaGeneralTesterCompat extends InputTextTester {
 
 		try {
 
+			// 1. Click on the "Sign-In" link and enter the email address and password of a valid user.
 			TestUtil.signIn(browserDriver);
 			navigateToUseCase(browserDriver, "captcha", "general");
 			browserDriver.clickElement(requiredCheckbox1Xpath);
 
-			// Authenticated + required + non-empty (incorrect) captcha value tests lockout due to too many failures
-			correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+			// 2. Enter an incorrect value into the *Captcha* field.
+			String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 			browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 			browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue + "1234");
+
+			// 3. Click on the *Submit* button and verify that an error message is displayed indicating that an
+			// incorrect value was submitted.
 			browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 			waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_ERROR_XPATH);
 			waitingAsserter.assertTextPresentInElement("Text verification failed", CAPTCHA_MSG_ERROR_XPATH);
 
+			// 4. Click on the *Submit* button again and verify that an error message is displayed indicating
+			// that the maximum number of attempts has been exceeded.
 			browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 			waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_ERROR_XPATH);
 			waitingAsserter.assertTextPresentInElement("Maximum number of CAPTCHA attempts exceeded",
 				CAPTCHA_MSG_ERROR_XPATH);
 
+			// 5. Repeat step #4.
 			browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 			waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_ERROR_XPATH);
 			waitingAsserter.assertTextPresentInElement("Maximum number of CAPTCHA attempts exceeded",
 				CAPTCHA_MSG_ERROR_XPATH);
-
 		}
 		finally {
+
+			// 6. Click on the "Sign-Out" link.
 			PortalTestUtil.signOut(browserDriver);
 		}
-
 	}
 
-	private String getCorrectCaptchaValue(BrowserDriver browserDriver) {
-
-		String correctCaptchaValueXpath = "//input[contains(@id,':correctCaptchaValue')]";
-		browserDriver.clickElementAndWaitForRerender(correctCaptchaValueXpath);
-
-		WebElement correctCaptchaValueElement = browserDriver.findElementByXpath(correctCaptchaValueXpath);
-
-		return correctCaptchaValueElement.getAttribute("value");
-	}
+	protected abstract String getCorrectCaptchaValue(BrowserDriver browserDriver);
 }
