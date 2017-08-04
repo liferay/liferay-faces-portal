@@ -50,7 +50,8 @@ public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 			navigateToUseCase(browserDriver, "captcha", "general");
 			browserDriver.clickElement(requiredCheckbox1Xpath);
 
-			// 2. Enter an incorrect value into the *Captcha* field.
+			// 2. Enter an incorrect value into the *Captcha* text field, meaning a value that is different than the one
+			// that is displayed in the distorted captcha image.
 			String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 			browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 			browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue + "1234");
