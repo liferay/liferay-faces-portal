@@ -42,7 +42,7 @@ public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		navigateToUseCase(browserDriver, "captcha", "general");
 
-		// 1. Ensure that there is no value entered into the *Captcha* field.
+		// 1. Ensure that there is no value entered into the *Captcha* text field.
 		browserDriver.waitForElementEnabled(CAPTCHA_INPUT_XPATH);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 
@@ -53,7 +53,8 @@ public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 		waitingAsserter.assertTextPresentInElement("No value was entered for the non-required captcha",
 			CAPTCHA_MSG_INFO_XPATH);
 
-		// 3. Enter an incorrect value into the *Captcha* field.
+		// 3. Enter an incorrect value into the *Captcha* text field, meaning a value that is different than the one
+		// that is displayed in the distorted captcha image.
 		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue + "1234");
@@ -65,7 +66,7 @@ public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_ERROR_XPATH);
 		waitingAsserter.assertTextPresentInElement("Text verification failed", CAPTCHA_MSG_ERROR_XPATH);
 
-		// 5. Enter the correct value into the *Captcha* field.
+		// 5. Enter the value that is displayed in the distorted captcha image into the *Captcha* text field.
 		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
@@ -89,7 +90,7 @@ public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 		// 1. Click on the *Required* checkbox.
 		browserDriver.clickElement(requiredCheckbox1Xpath);
 
-		// 2. Ensure that there is no value entered into the *Captcha* field.
+		// 2. Ensure that there is no value entered into the *Captcha* text field.
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 
 		// 3. Click on the *Submit* button and verify that an error message is displayed indicating that the
@@ -100,7 +101,8 @@ public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 		waitingAsserter.assertTextPresentInElement("Text Verification Code: Validation Error: Value is required",
 			CAPTCHA_MSG_ERROR_XPATH);
 
-		// 4. Enter an incorrect value into the *Captcha* field.
+		// 4. Enter an incorrect value into the *Captcha* text field, meaning a value that is different than the one
+		// that is displayed in the distorted captcha image.
 		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue + "1234");
@@ -112,7 +114,7 @@ public class CaptchaGeneralTester extends CaptchaGeneralTesterCompat {
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_ERROR_XPATH);
 		waitingAsserter.assertTextPresentInElement("Text verification failed", CAPTCHA_MSG_ERROR_XPATH);
 
-		// 6. Enter the correct value into the *Captcha* field.
+		// 6. Enter the value that is displayed in the distorted captcha image into the *Captcha* text field.
 		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);

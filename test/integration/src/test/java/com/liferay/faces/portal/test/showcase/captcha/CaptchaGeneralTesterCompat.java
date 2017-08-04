@@ -37,9 +37,6 @@ public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 	// Protected Constants
 	protected static final String CAPTCHA_INPUT_XPATH = "//input[contains(@id,'captchaText')]";
 	protected static final String CAPTCHA_MSG_INFO_XPATH = "//tr[contains(@class,'portlet-msg-info')]";
-	protected static final String REFRESH_CAPTCHA_XPATH = "//a[contains(@id,'refreshCaptcha')]";
-	protected static final String CAPTCHA_XPATH =
-		"//div[contains(@class,'taglib-captcha')]/img[contains(@id,'captcha')]";
 
 	@Test
 	public void runCaptchaGeneralTest_C_Authenticated_NoLongerEnabled() throws Exception {
@@ -54,7 +51,7 @@ public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 			navigateToUseCase(browserDriver, "captcha", "general");
 			browserDriver.clickElement(requiredCheckbox1Xpath);
 
-			// 2. Enter the correct value into the *Captcha* field.
+			// 2. Enter the value that is displayed in the distorted captcha image into the *Captcha* text field.
 			String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
 			browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
 			browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
@@ -82,7 +79,7 @@ public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 	}
 
 	/*
-	 * This test is to make sure that the fix for LPS-65011 does not regress.  It also tests the refresh button for the
+	 * This test is to make sure that the fix for LPS-65011 does not regress. It also tests the refresh button for the
 	 * SimpleCaptcha.
 	 */
 	@Test
@@ -92,52 +89,49 @@ public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		navigateToUseCase(browserDriver, "captcha", "general");
 
-		// 1. Enter the correct value into the *Captcha* field.
-		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
-		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
-		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
+		// 1. Take note of the first value that is displayed in the distorted captcha image.
+		String correctCaptchaValue1 = getCorrectCaptchaValue(browserDriver);
 
-		// 2. Remember the first correct captcha value
-		String correctCaptchaValue1 = correctCaptchaValue;
+		// 2. Enter the first value into the *Captcha* text field.
+		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
+		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue1);
 
 		// 3. Click on the *Submit* button and verify that an informational message is displayed indicating that the
 		// correct value was submitted.
 		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
 		waitingAsserter.assertTextPresentInElement("You entered the correct text verification code",
-				CAPTCHA_MSG_INFO_XPATH);
+			CAPTCHA_MSG_INFO_XPATH);
 
-		// 4. Click the *Refresh CAPTCHA* button
-		waitingAsserter.assertElementDisplayed(REFRESH_CAPTCHA_XPATH);
-		browserDriver.clickElement(REFRESH_CAPTCHA_XPATH);
-		browserDriver.waitForElementEnabled(CAPTCHA_XPATH, true);
+		// 4. Click on the *Refresh CAPTCHA* icon.
+		String refreshCaptchaXpath = "//a[contains(@id,'refreshCaptcha')]";
+		waitingAsserter.assertElementDisplayed(refreshCaptchaXpath);
+		browserDriver.clickElement(refreshCaptchaXpath);
+		browserDriver.waitForElementEnabled("//div[contains(@class,'taglib-captcha')]/img[contains(@id,'captcha')]",
+			true);
 
-		// 5. Enter the correct value into the *Captcha* field.
-		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		// 5. Take note of the second value that is displayed in the distorted captcha image.
+		String correctCaptchaValue2 = getCorrectCaptchaValue(browserDriver);
+
+		// 6. Enter the second value into the *Captcha* text field.
 		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
-		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
+		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue2);
 
-		// 2. Remember the second correct captcha value
-		String correctCaptchaValue2 = correctCaptchaValue;
-
-		// 6. Click on the *Submit* button and verify that an informational message is displayed indicating that the
+		// 7. Click on the *Submit* button and verify that an informational message is displayed indicating that the
 		// correct value was submitted.
 		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
 		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
 		waitingAsserter.assertTextPresentInElement("You entered the correct text verification code",
-				CAPTCHA_MSG_INFO_XPATH);
+			CAPTCHA_MSG_INFO_XPATH);
 
-		// 7. Get the correct captcha value for this third captcha rendered
-		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		// 8. Take note of the third value that is displayed in the distorted captcha image.
+		String correctCaptchaValue3 = getCorrectCaptchaValue(browserDriver);
 
-		// 8. Ensure that this final captcha value is not the same as the first
-		Assert.assertNotEquals("The final captcha value should not be the same as the first (" + correctCaptchaValue1 +
-				")", correctCaptchaValue1, correctCaptchaValue);
+		// 9. Verify that the third value is not the same as the first one.
+		Assert.assertNotEquals(correctCaptchaValue1, correctCaptchaValue3);
 
-		// 9. Ensure that this final captcha value is not the same as the second
-		Assert.assertNotEquals("The final captcha value should not be the same as the previous (" +
-				correctCaptchaValue2 + ")", correctCaptchaValue2, correctCaptchaValue);
-
+		// 10. Verify that the third value is not the same as the second one.
+		Assert.assertNotEquals(correctCaptchaValue2, correctCaptchaValue3);
 	}
 
 	protected abstract String getCorrectCaptchaValue(BrowserDriver browserDriver);
