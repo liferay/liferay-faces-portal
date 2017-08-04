@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.portal.test.showcase.captcha;
 
+import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 
@@ -36,6 +37,9 @@ public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 	// Protected Constants
 	protected static final String CAPTCHA_INPUT_XPATH = "//input[contains(@id,'captchaText')]";
 	protected static final String CAPTCHA_MSG_INFO_XPATH = "//tr[contains(@class,'portlet-msg-info')]";
+	protected static final String REFRESH_CAPTCHA_XPATH = "//a[contains(@id,'refreshCaptcha')]";
+	protected static final String CAPTCHA_XPATH =
+		"//div[contains(@class,'taglib-captcha')]/img[contains(@id,'captcha')]";
 
 	@Test
 	public void runCaptchaGeneralTest_C_Authenticated_NoLongerEnabled() throws Exception {
@@ -74,6 +78,65 @@ public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
 			// 5. Click on the "Sign-Out" link.
 			PortalTestUtil.signOut(browserDriver);
 		}
+
+	}
+
+	/*
+	 * This test is to make sure that the fix for LPS-65011 does not regress.  It also tests the refresh button for the
+	 * SimpleCaptcha.
+	 */
+	@Test
+	public void runCaptchaGeneralTest_D_NonAuthenticated_IncorrectCaptchaAfterRefreshAndSubmit() throws Exception {
+
+		BrowserDriver browserDriver = getBrowserDriver();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		navigateToUseCase(browserDriver, "captcha", "general");
+
+		// 1. Enter the correct value into the *Captcha* field.
+		String correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
+		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
+
+		// 2. Remember the first correct captcha value
+		String correctCaptchaValue1 = correctCaptchaValue;
+
+		// 3. Click on the *Submit* button and verify that an informational message is displayed indicating that the
+		// correct value was submitted.
+		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
+		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
+		waitingAsserter.assertTextPresentInElement("You entered the correct text verification code",
+				CAPTCHA_MSG_INFO_XPATH);
+
+		// 4. Click the *Refresh CAPTCHA* button
+		waitingAsserter.assertElementDisplayed(REFRESH_CAPTCHA_XPATH);
+		browserDriver.clickElement(REFRESH_CAPTCHA_XPATH);
+		browserDriver.waitForElementEnabled(CAPTCHA_XPATH, true);
+
+		// 5. Enter the correct value into the *Captcha* field.
+		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+		browserDriver.clearElement(CAPTCHA_INPUT_XPATH);
+		browserDriver.sendKeysToElement(CAPTCHA_INPUT_XPATH, correctCaptchaValue);
+
+		// 2. Remember the second correct captcha value
+		String correctCaptchaValue2 = correctCaptchaValue;
+
+		// 6. Click on the *Submit* button and verify that an informational message is displayed indicating that the
+		// correct value was submitted.
+		browserDriver.clickElementAndWaitForRerender(submitButton1Xpath);
+		waitingAsserter.assertElementDisplayed(CAPTCHA_MSG_INFO_XPATH);
+		waitingAsserter.assertTextPresentInElement("You entered the correct text verification code",
+				CAPTCHA_MSG_INFO_XPATH);
+
+		// 7. Get the correct captcha value for this third captcha rendered
+		correctCaptchaValue = getCorrectCaptchaValue(browserDriver);
+
+		// 8. Ensure that this final captcha value is not the same as the first
+		Assert.assertNotEquals("The final captcha value should not be the same as the first (" + correctCaptchaValue1 +
+				")", correctCaptchaValue1, correctCaptchaValue);
+
+		// 9. Ensure that this final captcha value is not the same as the second
+		Assert.assertNotEquals("The final captcha value should not be the same as the previous (" +
+				correctCaptchaValue2 + ")", correctCaptchaValue2, correctCaptchaValue);
 
 	}
 
