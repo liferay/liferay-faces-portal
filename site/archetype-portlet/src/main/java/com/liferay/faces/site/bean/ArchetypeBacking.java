@@ -163,17 +163,19 @@ public class ArchetypeBacking {
 
 	public void reinitializeListener(ActionEvent actionEvent) {
 
-		synchronized (archetypeService) {
+		logger.debug("Re-initializing archetype service");
 
-			logger.debug("Re-initializing archetype service");
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		@SuppressWarnings("unchecked")
+		Map<String, String> initParameterMap = (Map<String, String>) externalContext.getInitParameterMap();
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			@SuppressWarnings("unchecked")
-			Map<String, String> initParameterMap = (Map<String, String>) externalContext.getInitParameterMap();
-			archetypeService.init(initParameterMap);
-			FacesContextHelperUtil.addGlobalInfoMessage(facesContext, "Re-Initialization Complete.");
-		}
+		// If other threads access archetypeService while this method is running, they may encounter errors or stale
+		// data. In the future it may be necessary to provide synchronization around access to the archetypeService to
+		// avoid those issue, but for now those problems are acceptable because this method is called once or twice per
+		// year.
+		archetypeService.init(initParameterMap);
+		FacesContextHelperUtil.addGlobalInfoMessage(facesContext, "Re-Initialization Complete.");
 	}
 
 	public void setArchetypeService(ArchetypeService archetypeService) {
