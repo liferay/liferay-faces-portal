@@ -13,23 +13,27 @@
  */
 package com.liferay.faces.portal.component.captcha.internal;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.application.Resource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import javax.portlet.PortletResponse;
 
 import com.liferay.captcha.taglib.servlet.taglib.CaptchaTag;
+
 import com.liferay.faces.portal.component.captcha.Captcha;
 import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
 import com.liferay.faces.portal.resource.internal.CaptchaResource;
 import com.liferay.faces.portal.resource.internal.LiferayFacesResourceHandler;
+import com.liferay.faces.util.render.BufferedScriptResponseWriter;
 
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
-
 
 
 /**
@@ -51,7 +55,7 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
 
 		if (captchaImpl.contains("ReCaptcha")) {
-			submittedValue = requestParameterMap.get("recaptcha_response_field");
+			submittedValue = requestParameterMap.get("g-recaptcha-response");
 		}
 		else {
 			submittedValue = requestParameterMap.get("captchaText");
@@ -62,6 +66,50 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 		}
 
 		captcha.setSubmittedValue(submittedValue);
+	}
+
+	@Override
+	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+
+		super.encodeEnd(facesContext, uiComponent);
+
+		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
+
+		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
+
+		if (partialViewContext.isAjaxRequest() && captchaImpl.contains("ReCaptcha")) {
+
+			ResponseWriter responseWriter = facesContext.getResponseWriter();
+
+			BufferedScriptResponseWriter bufferedScriptResponseWriter = new BufferedScriptResponseWriter();
+			facesContext.setResponseWriter(bufferedScriptResponseWriter);
+
+			// If recaptcha scripts are present in the head section during an ajax postback, jsf.js will not run them
+			// again for the update. These recaptcha scripts need to be run each time they are returned by the component
+			// for an update, or else the recaptcha will not be rendered.  Also, one recaptcha script adds another one
+			// in such a way that it causes a client side memory leak with each ajax postback, so let's just remove them
+			// all after each ajax postback.
+
+			//J-
+			// var js = document.querySelectorAll('script[src*=recaptcha]');
+			// if (js) {
+			//	  for (var i = 0; i < js.length; i++) {
+			//		 js[i].parentElement.removeChild(js[i]);
+			//	  }
+			// }
+			//J+
+			responseWriter.write("<script>");
+			responseWriter.write("var js = document.querySelectorAll('script[src*=recaptcha]');");
+			responseWriter.write("if (js) {");
+			responseWriter.write("for(var i = 0; i < js.length; i++) {");
+			responseWriter.write("js[i].parentElement.removeChild(js[i]);");
+			responseWriter.write("}");
+			responseWriter.write("}");
+			responseWriter.write("</script>");
+
+			facesContext.setResponseWriter(responseWriter);
+		}
+
 	}
 
 	@Override
@@ -115,8 +163,8 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
 
 		if (captchaImpl.contains("ReCaptcha")) {
-			replacement = "name=\"".concat(namespace).concat("recaptcha_response_field\"");
-			textToReplace = "name=\"recaptcha_response_field\"";
+			replacement = "name=\"".concat(namespace).concat("g-recaptcha-response\"");
+			textToReplace = "name=\"g-recaptcha-response\"";
 		}
 		else {
 			replacement = "name=\"".concat(namespace).concat("captchaText\"");
