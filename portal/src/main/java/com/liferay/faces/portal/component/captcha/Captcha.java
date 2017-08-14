@@ -75,13 +75,18 @@ public class Captcha extends CaptchaBase {
 	@Override
 	protected void validateValue(FacesContext facesContext, Object value) {
 
-		super.validateValue(facesContext, value);
+		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
 
-		if (isValid() && (value != null)) {
+		// JSF cannot validate the value for reCAPTCHA
+		if (!captchaImpl.contains("ReCaptcha")) {
+			super.validateValue(facesContext, value);
+		}
+
+		if ((isValid() || captchaImpl.contains("ReCaptcha")) && (value != null)) {
 
 			String valueAsString = value.toString();
 
-			if (isRequired() || (valueAsString.length() > 0)) {
+			if (isRequired() || (valueAsString.length() > 0) || captchaImpl.contains("ReCaptcha")) {
 
 				UIViewRoot viewRoot = facesContext.getViewRoot();
 				Locale locale = viewRoot.getLocale();
@@ -110,6 +115,11 @@ public class Captcha extends CaptchaBase {
 				}
 				catch (CaptchaTextException e) {
 					String summary = i18n.getMessage(facesContext, locale, "text-verification-failed");
+
+					if (captchaImpl.contains("ReCaptcha")) {
+						summary = i18n.getMessage(facesContext, locale, "recaptcha-verification-failed");
+					}
+
 					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
 					facesContext.addMessage(getClientId(facesContext), facesMessage);
 					setValid(false);
