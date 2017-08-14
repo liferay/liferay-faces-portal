@@ -15,7 +15,7 @@
 					</h:commandLink>
 				</c:if>
 				<ui:remove><!-- SHOWCASE:IGNORE-END --></ui:remove>
-				<portal:captcha id="simpleCaptcha" required="#{showcaseModelBean.selectedComponent.required}"
+				<portal:captcha id="captchaId" required="#{showcaseModelBean.selectedComponent.required}"
 					value="#{captchaBacking.captchaText}" />
 			</showcase:field>
 			<h:commandButton action="#{captchaBacking.submit}" value="#{i18n['submit']}">
