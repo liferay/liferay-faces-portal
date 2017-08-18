@@ -22,7 +22,6 @@ import javax.faces.context.FacesContext;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 
@@ -63,12 +62,6 @@ public class CaptchaTestValidatorBean {
 			String initParameterValue = externalContext.getInitParameter("VALIDATE_CAPTCHA_FOR_TEST");
 
 			validateCaptchaForTest = Boolean.valueOf(BooleanHelper.isTrueToken(initParameterValue));
-		}
-
-		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
-
-		if (captchaImpl.contains("ReCaptcha")) {
-			validateCaptchaForTest = false;
 		}
 
 		return validateCaptchaForTest;
