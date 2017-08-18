@@ -578,8 +578,9 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		String columnElementsXpath = "//span[contains(@id,':" + columnName + "Cell')]";
 		WebDriver webDriver = browserDriver.getWebDriver();
 		ExpectedCondition<Boolean> navigationButtonClassDisabledCondition = navigationButtonClassDisabled("Last");
+		Boolean navigationButtonDisabled = navigationButtonClassDisabledCondition.apply(webDriver);
 
-		while (!navigationButtonClassDisabledCondition.apply(webDriver)) {
+		while (!navigationButtonDisabled) {
 
 			// Extract the column values from the current page of the dataTable.
 			List<WebElement> columnElements = browserDriver.findElementsByXpath(columnElementsXpath);
