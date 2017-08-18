@@ -594,6 +594,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 			// Click the *Next Page* button.
 			Action clickNextPageAction = browserDriver.createClickElementAction(getNavigationButtonXpath("Next"));
 			browserDriver.performAndWaitForRerender(clickNextPageAction, columnElementsXpath);
+			navigationButtonDisabled = navigationButtonClassDisabledCondition.apply(webDriver);
 		}
 
 		// Extract column values from the last page of the dataTable.
