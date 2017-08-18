@@ -70,9 +70,10 @@ public class CaptchaBacking {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		FacesContextHelper facesContextHelper = FacesContextHelperFactory.getFacesContextHelperInstance(
 				externalContext);
+		String captchaImpl = getCaptchaImpl();
 
-		// If the user entered non-blank value for the captcha then validation was successful in the
-		// PROCESS_VALIDATIONS phase of the JSF lifecycle.
+		// If the user entered non-blank value for the captcha then validation was successful in the PROCESS_VALIDATIONS
+		// phase of the JSF lifecycle.
 		if ((captchaText != null) && (captchaText.trim().length() > 0)) {
 
 			facesContextHelper.addGlobalInfoMessage(facesContext, "you-entered-the-correct-text-verification-code");
@@ -84,16 +85,22 @@ public class CaptchaBacking {
 			// If the user checked the "Required" checkbox, then
 			if (requiredChecked) {
 
-				// If the portal:captcha component indicates that the value is required, then validation should have
-				// failed in the PROCESS_VALIDATIONS phase of the JSF lifecycle and this method should never have been
-				// called now in the INVOKE_APPLICATION phase. This indicates an error condition that should never
-				// happen.
 				UIViewRoot uiViewRoot = facesContext.getViewRoot();
-				Captcha captcha = (Captcha) uiViewRoot.findComponent(":f1:simpleCaptcha");
+				Captcha captcha = (Captcha) uiViewRoot.findComponent(":f1:captchaId");
 
+				// If the portal:captcha component indicates that the value is required, then validation should have
+				// failed in the PROCESS_VALIDATIONS phase of the JSF lifecycle and this method should never have
+				// been called now in the INVOKE_APPLICATION phase. This indicates an error condition that should
+				// never happen.
 				if (captcha.isRequired()) {
 
-					facesContextHelper.addGlobalUnexpectedErrorMessage();
+					if (captchaImpl.contains("ReCaptcha")) {
+						facesContextHelper.addGlobalInfoMessage(facesContext,
+							"no-value-was-needed-for-the-required-no-captcha-recaptcha");
+					}
+					else {
+						facesContextHelper.addGlobalUnexpectedErrorMessage();
+					}
 				}
 
 				// Otherwise, if the portal:captcha component indicates that the value is not required, then according
@@ -113,8 +120,14 @@ public class CaptchaBacking {
 			// value.
 			else {
 
-				facesContextHelper.addGlobalInfoMessage(facesContext,
-					"no-value-was-entered-for-the-non-required-captcha");
+				if (captchaImpl.contains("ReCaptcha")) {
+					facesContextHelper.addGlobalInfoMessage(facesContext,
+						"no-value-was-needed-for-the-no-captcha-recaptcha");
+				}
+				else {
+					facesContextHelper.addGlobalInfoMessage(facesContext,
+						"no-value-was-entered-for-the-non-required-captcha");
+				}
 			}
 		}
 	}
