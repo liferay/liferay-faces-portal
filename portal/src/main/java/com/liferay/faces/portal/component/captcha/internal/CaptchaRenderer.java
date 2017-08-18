@@ -13,22 +13,29 @@
  */
 package com.liferay.faces.portal.component.captcha.internal;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.application.Resource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import com.liferay.captcha.taglib.servlet.taglib.CaptchaTag;
-import com.liferay.captcha.util.CaptchaUtil;
 
 import com.liferay.faces.portal.component.captcha.Captcha;
 import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
 import com.liferay.faces.portal.resource.internal.CaptchaResource;
 import com.liferay.faces.portal.resource.internal.LiferayFacesResourceHandler;
+
+import com.liferay.portal.kernel.captcha.CaptchaUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 
 /**
@@ -50,7 +57,10 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
 
 		if (captchaImpl.contains("ReCaptcha")) {
-			submittedValue = requestParameterMap.get("recaptcha_response_field");
+			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+			HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+			HttpServletRequest originalServletRequest = PortalUtil.getOriginalServletRequest(httpServletRequest);
+			submittedValue = originalServletRequest.getParameter("g-recaptcha-response");
 		}
 		else {
 			submittedValue = requestParameterMap.get("captchaText");
@@ -61,6 +71,60 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 		}
 
 		captcha.setSubmittedValue(submittedValue);
+	}
+
+	@Override
+	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+
+		super.encodeEnd(facesContext, uiComponent);
+
+		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
+
+		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
+
+		if (partialViewContext.isAjaxRequest() && captchaImpl.contains("ReCaptcha")) {
+
+			ResponseWriter responseWriter = facesContext.getResponseWriter();
+
+			// The liferay-ui:captcha JSP tag will render the reCAPTCHA API script element:
+
+			//J-
+			//<script src="https://www.google.com/recaptcha/api.js?hl=en" type="text/javascript"></script>
+			//J+
+
+			// When the JSP tag is rendered during a full page GET (RenderRequest), the reCAPTCHA API script element
+			// will be placed into the <head>...</head> section of the portal page. At some point during the script's
+			// execution, another script element will be dynamically added to the <body>...</body> of the document. For
+			// example:
+
+			//J-
+			//<script src="https://www.gstatic.com/recaptcha/api2/r20170816175713/recaptcha__en.js"></script>
+			//J+
+
+			// When the JSP tag is rendered during an Ajax request, the reCAPTCHA API script element will be
+			// included in the <partial-response>...</partial-response>. However, if jsf.js detects that it is already
+			// present in the <head>...</head> section, then jsf.js will not execute it. In order to force jsf.js to
+			// execute it, include an inline script in the partial-response that deletes all scripts in the DOM that
+			// contain "recaptcha" in the src attribute URL:
+
+			//J-
+			// var recaptchaScripts = document.querySelectorAll('script[src*=recaptcha]');
+			// if (recaptchaScripts) {
+			//	  for (var i = 0; i < recaptchaScripts.length; i++) {
+			//		 recaptchaScripts[i].parentElement.removeChild(recaptchaScripts[i]);
+			//	  }
+			// }
+			//J+
+			responseWriter.startElement("script", uiComponent);
+			responseWriter.write("var recaptchaScripts = document.querySelectorAll('script[src*=recaptcha]');");
+			responseWriter.write("if (recaptchaScripts) {");
+			responseWriter.write("for(var i = 0; i < recaptchaScripts.length; i++) {");
+			responseWriter.write("recaptchaScripts[i].parentElement.removeChild(recaptchaScripts[i]);");
+			responseWriter.write("}");
+			responseWriter.write("}");
+			responseWriter.endElement("script");
+		}
+
 	}
 
 	@Override
@@ -114,8 +178,8 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
 
 		if (captchaImpl.contains("ReCaptcha")) {
-			replacement = "name=\"".concat(namespace).concat("recaptcha_response_field\"");
-			textToReplace = "name=\"recaptcha_response_field\"";
+			replacement = "name=\"".concat(namespace).concat("g-recaptcha-response\"");
+			textToReplace = "name=\"g-recaptcha-response\"";
 		}
 		else {
 			replacement = "name=\"".concat(namespace).concat("captchaText\"");
