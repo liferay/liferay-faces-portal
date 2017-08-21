@@ -171,7 +171,7 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 		String namespace = portletResponse.getNamespace();
 		String textToReplace = "id=\"refreshCaptcha\"";
 		String replacement = "id=\"".concat(namespace).concat("refreshCaptcha\"");
-		String modifiedMarkup = markup.toString();
+		String modifiedMarkup = fixMarkup(markup.toString());
 		modifiedMarkup = modifiedMarkup.replace(textToReplace, replacement);
 
 		// Note: It is only possible to prepend the hidden field with the portlet namespace for simple captcha since the
@@ -180,9 +180,8 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 		if (getCaptchaType() == CaptchaType.SIMPLE) {
 			replacement = "name=\"".concat(namespace).concat("captchaText\"");
 			textToReplace = "name=\"captchaText\"";
+			modifiedMarkup = modifiedMarkup.replace(textToReplace, replacement);
 		}
-
-		modifiedMarkup = modifiedMarkup.replace(textToReplace, replacement);
 
 		// Remove <label>Text Verification<span class="required">...</span></label> since it is not possible to
 		// customize the "Text Verification" label in the JSP tag. Better to let JSF developers decorate portal:captcha
