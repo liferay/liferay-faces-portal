@@ -33,6 +33,10 @@ public abstract class CaptchaRendererCompat extends DelayedPortalTagRenderer<Cap
 		SIMPLE, RECAPTCHA
 	}
 
+	protected String fixMarkup(String markup) {
+		return markup;
+	}
+
 	protected CaptchaType getCaptchaType() {
 
 		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
