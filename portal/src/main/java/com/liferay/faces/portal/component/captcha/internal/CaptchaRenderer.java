@@ -28,7 +28,6 @@ import javax.portlet.PortletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.liferay.faces.portal.component.captcha.Captcha;
-import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
 import com.liferay.faces.portal.resource.internal.CaptchaResource;
 import com.liferay.faces.portal.resource.internal.LiferayFacesResourceHandler;
 
@@ -45,7 +44,7 @@ import com.liferay.taglib.ui.CaptchaTag;
 //J-
 @FacesRenderer(componentFamily = Captcha.COMPONENT_FAMILY, rendererType = Captcha.RENDERER_TYPE)
 //J+
-public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTag> {
+public class CaptchaRenderer extends CaptchaRendererCompat {
 
 	@Override
 	public void decode(FacesContext facesContext, UIComponent uiComponent) {
@@ -54,9 +53,8 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
 		String submittedValue;
 		Captcha captcha = cast(uiComponent);
-		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
 
-		if (captchaImpl.contains("ReCaptcha")) {
+		if (getCaptchaType() == CaptchaType.RECAPTCHA) {
 			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 			HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 			HttpServletRequest originalServletRequest = PortalUtil.getOriginalServletRequest(httpServletRequest);
@@ -78,11 +76,9 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 
 		super.encodeEnd(facesContext, uiComponent);
 
-		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
-
 		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
 
-		if (partialViewContext.isAjaxRequest() && captchaImpl.contains("ReCaptcha")) {
+		if (partialViewContext.isAjaxRequest() && (getCaptchaType() == CaptchaType.RECAPTCHA)) {
 
 			ResponseWriter responseWriter = facesContext.getResponseWriter();
 
@@ -175,13 +171,7 @@ public class CaptchaRenderer extends DelayedPortalTagRenderer<Captcha, CaptchaTa
 		String modifiedMarkup = markup.toString();
 		modifiedMarkup = modifiedMarkup.replace(textToReplace, replacement);
 
-		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
-
-		if (captchaImpl.contains("ReCaptcha")) {
-			replacement = "name=\"".concat(namespace).concat("g-recaptcha-response\"");
-			textToReplace = "name=\"g-recaptcha-response\"";
-		}
-		else {
+		if (getCaptchaType() == CaptchaType.SIMPLE) {
 			replacement = "name=\"".concat(namespace).concat("captchaText\"");
 			textToReplace = "name=\"captchaText\"";
 		}
