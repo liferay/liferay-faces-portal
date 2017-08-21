@@ -33,7 +33,6 @@ import com.liferay.faces.portal.component.captcha.Captcha;
 import com.liferay.faces.portal.resource.internal.CaptchaResource;
 import com.liferay.faces.portal.resource.internal.LiferayFacesResourceHandler;
 
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 
 
@@ -55,10 +54,14 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 		Captcha captcha = cast(uiComponent);
 
 		if (getCaptchaType() == CaptchaType.RECAPTCHA) {
+
+			// Note: Since the hidden input field for reCAPTCHA is added dynamically via JavaScript, it is necessary to
+			// consult the underlying servlet request in order to obtain the submitted value for the non-namespaced
+			// reCAPTCHA hidden field.
 			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 			HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 			HttpServletRequest originalServletRequest = PortalUtil.getOriginalServletRequest(httpServletRequest);
-			submittedValue = originalServletRequest.getParameter("g-recaptcha-response");
+			submittedValue = originalServletRequest.getParameter(RECAPTCHA_INPUT_NAME);
 		}
 		else {
 			submittedValue = requestParameterMap.get("captchaText");
@@ -171,6 +174,9 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 		String modifiedMarkup = markup.toString();
 		modifiedMarkup = modifiedMarkup.replace(textToReplace, replacement);
 
+		// Note: It is only possible to prepend the hidden field with the portlet namespace for simple captcha since the
+		// hidden input field for reCAPTCHA is added dynamically via JavaScript. As a result, the decode method must
+		// take extra steps to obtain the submitted value in the case of reCAPTCHA.
 		if (getCaptchaType() == CaptchaType.SIMPLE) {
 			replacement = "name=\"".concat(namespace).concat("captchaText\"");
 			textToReplace = "name=\"captchaText\"";

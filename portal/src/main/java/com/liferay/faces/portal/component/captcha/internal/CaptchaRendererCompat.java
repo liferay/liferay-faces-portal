@@ -26,6 +26,9 @@ import com.liferay.portal.kernel.captcha.CaptchaUtil;
  */
 public abstract class CaptchaRendererCompat extends DelayedPortalTagRenderer<Captcha, CaptchaTag> {
 
+	// Protected Constants
+	protected static final String RECAPTCHA_INPUT_NAME = "g-recaptcha-response";
+
 	protected enum CaptchaType {
 		SIMPLE, RECAPTCHA
 	}
