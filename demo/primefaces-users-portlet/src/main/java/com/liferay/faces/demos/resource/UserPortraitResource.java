@@ -45,7 +45,6 @@ public class UserPortraitResource extends Resource {
 
 	// Public Constants
 	public static final String RESOURCE_NAME = "portrait";
-	public static final String PARAM_NAME_PORTRAIT_ID = "portraitId";
 
 	// Private Constants
 	private static final String PARAM_LIBRARY_NAME = "ln";
@@ -179,13 +178,9 @@ public class UserPortraitResource extends Resource {
 				buf.append("=");
 				buf.append(user.getUserId());
 
-				// Add the portraitId so every time the image changes, the browser will get the new image and not use
-				// a cached image.  This url needs to be unique for each image.  At this point, without another
-				// parameter, the url is only unique to a user. So, without this parameter, revisiting a user might show
-				// an old image cached by the browser for that user.
-				buf.append("&");
-				buf.append(PARAM_NAME_PORTRAIT_ID);
-				buf.append("=");
+				// Add the portraitId as a URL parameter so every time the image changes, the browser will get the new
+				// image and not use a cached image.
+				buf.append("&portraitId=");
 				buf.append(user.getPortraitId());
 
 				if (uploadedFileId != null) {
