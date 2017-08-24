@@ -102,7 +102,12 @@ public class Captcha extends CaptchaBase {
 					sessionMap.put(WEB_KEYS_CAPTCHA_TEXT, correctCaptchaTextValue);
 				}
 				catch (CaptchaTextException e) {
-					String summary = i18n.getMessage(facesContext, locale, "text-verification-failed");
+					String summary = getValidatorMessage();
+
+					if (summary == null) {
+						summary = i18n.getMessage(facesContext, locale, "text-verification-failed");
+					}
+
 					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
 					facesContext.addMessage(getClientId(facesContext), facesMessage);
 					setValid(false);
