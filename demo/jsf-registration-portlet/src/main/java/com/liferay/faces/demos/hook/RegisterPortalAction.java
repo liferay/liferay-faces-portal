@@ -35,8 +35,8 @@ import com.liferay.portal.util.PortalUtil;
  * to create a Liferay EXT Plugin that simply extends the PortalImpl class and overrides the {@link
  * Portal#getCreateAccountURL(javax.servlet.http.HttpServletRequest, com.liferay.portal.theme.ThemeDisplay)} method. The
  * override would need to take place during portal startup by overriding the bean with the ext-spring.xml file. For more
- * information, see {@link
- * http://www.liferay.com/documentation/liferay-portal/6.1/development/-/ai/developing-an-ext-plug-4}.</p>
+ * information, see 
+ * http://www.liferay.com/documentation/liferay-portal/6.1/development/-/ai/developing-an-ext-plug-4</p>
  *
  * @author  Neil Griffin
  */
