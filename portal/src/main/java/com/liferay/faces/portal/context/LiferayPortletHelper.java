@@ -41,7 +41,7 @@ public interface LiferayPortletHelper {
 	 * be an action defined for the current portlet). If the authorization fails, a PrincipalException is thrown. Any
 	 * other errors that occur will be caught and re-thrown, wrapped in a PortletRuntimeException.
 	 *
-	 * @throws  AuthorizationException
+	 * @throws  AuthorizationException  problem checking permissions
 	 *
 	 * @see     #userHasPortletPermission(String)
 	 */
