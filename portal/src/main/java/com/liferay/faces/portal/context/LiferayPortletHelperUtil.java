@@ -44,7 +44,8 @@ public class LiferayPortletHelperUtil {
 	 * be an action defined for the current portlet). If the authorization fails, a PrincipalException is thrown. Any
 	 * other errors that occur will be caught and re-thrown, wrapped in a PortletRuntimeException.
 	 *
-	 * @throws  AuthorizationException  problem checking permissions
+	 * @throws  AuthorizationException  If the user does not have the portlet permission associated with the specified
+	 *                                  actionId.
 	 *
 	 * @see     LiferayPortletHelper#userHasPortletPermission(String)
 	 */
@@ -57,7 +58,8 @@ public class LiferayPortletHelperUtil {
 	 * be an action defined for the current portlet). If the authorization fails, a PrincipalException is thrown. Any
 	 * other errors that occur will be caught and re-thrown, wrapped in a PortletRuntimeException.
 	 *
-	 * @throws  AuthorizationException  problem checking permissions
+	 * @throws  AuthorizationException  If the user does not have the portlet permission associated with the specified
+	 *                                  actionId.
 	 *
 	 * @see     LiferayPortletHelper#userHasPortletPermission(String)
 	 * @since   3.1
