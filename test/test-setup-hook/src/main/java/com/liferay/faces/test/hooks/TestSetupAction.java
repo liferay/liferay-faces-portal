@@ -215,11 +215,12 @@ public class TestSetupAction extends TestSetupCompatAction {
 					"com.liferay.faces.test.bridge.tck.render.policy3.portlet")), bundles);
 		setupPrivatePage(userId, groupId,
 			new PortalPage("Render Response Wrapper",
-				new Portlet("chapter6_2_1TestsusesConfiguredRenderResponseWrapperTestportlet", "")), bundles);
+				new Portlet("chapter6_2_1TestsusesConfiguredRenderResponseWrapperTestportlet",
+					"com.liferay.faces.test.bridge.tck.response.wrapper.portlet")), bundles);
 		setupPrivatePage(userId, groupId,
 			new PortalPage("Resource Response Wrapper",
 				new Portlet("chapter6_2_1TestsusesConfiguredResourceResponseWrapperTestportlet",
-					"bridge-tck-response-wrapper-portlet")), bundles);
+					"com.liferay.faces.test.bridge.tck.response.wrapper.portlet")), bundles);
 	}
 
 	protected void setupGuestSite(long companyId, long userId, Bundle[] bundles) throws Exception {
