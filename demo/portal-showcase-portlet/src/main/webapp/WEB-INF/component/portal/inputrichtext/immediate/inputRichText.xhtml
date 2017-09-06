@@ -36,7 +36,7 @@
 						valueChangeListener="#{inputRichTextBacking.valueChangeListener}" />
 				</showcase:field>
 				<h:commandButton actionListener="#{inputRichTextBacking.submit}" value="#{i18n['submit']}">
-					<f:ajax execute="@form" render="messages modelValue2" />
+					<f:ajax execute="@form" render="messages :modelValue2" />
 				</h:commandButton>
 			</showcase:example>
 		</h:form>
