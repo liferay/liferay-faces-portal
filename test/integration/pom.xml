@@ -256,7 +256,6 @@
 			<id>weblogic</id>
 			<properties>
 				<integration.port>7001</integration.port>
-				<faces.impl.name>JavaServer Faces Reference Implementation</faces.impl.name>
 			</properties>
 		</profile>
 		<profile>
