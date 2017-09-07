@@ -226,7 +226,6 @@
 					<!-- MJAVADOC-275: Need version 2.8 or higher for release:prepare to generate JavaDoc -->
 					<version>2.10.4</version>
 					<configuration>
-						<additionalparam>-Xdoclint:all -Xdoclint:-missing</additionalparam>
 						<sourceFileExcludes>
 							<exclude>**/internal/*.java</exclude>
 						</sourceFileExcludes>
