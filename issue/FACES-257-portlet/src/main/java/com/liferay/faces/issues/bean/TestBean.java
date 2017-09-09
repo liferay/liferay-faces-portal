@@ -13,7 +13,6 @@
  */
 package com.liferay.faces.issues.bean;
 
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
@@ -31,7 +30,6 @@ import com.liferay.portal.util.PortalUtil;
 @ManagedBean
 @RequestScoped
 public class TestBean {
-
 
 	// Private Data Members
 	private String alpha;
