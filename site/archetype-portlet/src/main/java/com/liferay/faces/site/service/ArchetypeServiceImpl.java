@@ -93,6 +93,58 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 		init(initParameterMap);
 	}
 
+	public String extractGradle(File file) {
+
+		JarFile jar;
+		String dependencyLines = "";
+
+		try {
+			jar = new JarFile(file);
+
+			Enumeration<JarEntry> entries = jar.entries();
+
+			while (entries.hasMoreElements()) {
+				JarEntry entry = entries.nextElement();
+
+				if ("archetype-resources/build.gradle".equals(entry.getName())) {
+
+					File build = new File("build.gradle");
+
+					InputStream is;
+					is = jar.getInputStream(entry);
+
+					FileOutputStream fos = new FileOutputStream(build);
+
+					while (is.available() > 0) {
+						fos.write(is.read());
+					}
+
+					fos.close();
+					is.close();
+
+					List<String> lines = Files.readAllLines(Paths.get(build.getCanonicalPath()),
+							StandardCharsets.UTF_8);
+
+					for (String line : lines) {
+						dependencyLines += line;
+						dependencyLines += "\n";
+					}
+
+					build.delete();
+				}
+			}
+
+			jar.close();
+
+		}
+		catch (IOException e) {
+			logger.error(e);
+		}
+
+		return dependencyLines;
+
+	}
+
 	public String extractMavenDependencies(File file) {
 
 		JarFile jar;
@@ -130,9 +182,11 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 					pom.delete();
 				}
 			}
+
 			jar.close();
 
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			logger.error(e);
 		}
 
@@ -191,8 +245,7 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 					int finishExpresionPos = line.indexOf("}", startExpressionPos);
 
 					if (finishExpresionPos > 0) {
-						String propertyExpression = line.substring(startExpressionPos + 2,
-								finishExpresionPos);
+						String propertyExpression = line.substring(startExpressionPos + 2, finishExpresionPos);
 						String propertyExpressionValue = propertyMap.get(propertyExpression);
 
 						if (propertyExpressionValue != null) {
@@ -217,58 +270,6 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 			else if (line.contains("</dependencyManagement>")) {
 				inDependencyManagement = false;
 			}
-		}
-
-		return dependencyLines;
-
-	}
-
-	public String extractGradle(File file) {
-
-		JarFile jar;
-		String dependencyLines = "";
-
-		try {
-			jar = new JarFile(file);
-
-			Enumeration<JarEntry> entries = jar.entries();
-
-			while (entries.hasMoreElements()) {
-				JarEntry entry = entries.nextElement();
-
-				if ("archetype-resources/build.gradle".equals(entry.getName())) {
-
-					File build = new File("build.gradle");
-
-					InputStream is;
-					is = jar.getInputStream(entry);
-
-					FileOutputStream fos = new FileOutputStream(build);
-
-					while (is.available() > 0) {
-						fos.write(is.read());
-					}
-
-					fos.close();
-					is.close();
-
-					List<String> lines = Files.readAllLines(Paths.get(build.getCanonicalPath()),
-							StandardCharsets.UTF_8);
-
-					for (String line : lines) {
-						dependencyLines += line;
-						dependencyLines += "\n";
-					}
-
-					build.delete();
-				}
-			}
-
-			jar.close();
-
-		}
-		catch (IOException e) {
-			logger.error(e);
 		}
 
 		return dependencyLines;
@@ -412,6 +413,7 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 
 					// reinitialized the map of latest minors for each new component suite
 					latestMinorMapForThisSuite = new HashMap<String, String>();
+
 					Version versionOfLatestMinor = null;
 
 					for (Element potentialVersion : versionsDocument.select("td,pre").select("a")) {
@@ -419,8 +421,8 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 						String archetypeVersion;
 
 						if (potentialVersion.attr("href").contains(potentialSuite.attr("href"))) {
-							archetypeVersion = potentialVersion.attr("href").substring(potentialSuite.attr("href").length())
-								.replaceAll("/", "");
+							archetypeVersion = potentialVersion.attr("href").substring(potentialSuite.attr("href")
+									.length()).replaceAll("/", "");
 						}
 						else {
 							archetypeVersion = potentialVersion.attr("href").replaceAll("/", "");
@@ -431,7 +433,7 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 						logger.debug("init: archetypeVersion = " + archetypeVersion);
 
 						String groupIdArtifactId = groupId + ":" + groupId + "." + suite + "." + archetypeSuffix +
-								":jar";
+							":jar";
 
 						if (archetypeVersion.matches("\\d+\\..*")) {
 
@@ -441,15 +443,21 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 							logger.debug("init: latestMinorMap.get(major) = " + latestMinorMapForThisSuite.get(major));
 
 							if (latestMinorMapForThisSuite.get(major) == null) {
+
 								try {
+
 									// use the latest minor version (of the given major version number)
-									versionOfLatestMinor = client.getVersionOfLatestMinor(groupIdArtifactId, new Long(major));
-								} catch(ArtifactResolutionException e) {
+									versionOfLatestMinor = client.getVersionOfLatestMinor(groupIdArtifactId,
+											new Long(major));
+								}
+								catch (ArtifactResolutionException e) {
 									logger.error(e);
 								}
+
 								if (versionOfLatestMinor != null) {
 									latestMinorMapForThisSuite.put(major, versionOfLatestMinor.toString());
 								}
+
 								logger.debug("init: versionOfLatestMinor = " + versionOfLatestMinor);
 							}
 
@@ -459,17 +467,22 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 							logger.debug("init: latestMinorVersion = " + versionOfLatestMinor);
 
 							if (latestMinorVersion == null) {
-								logger.error("init: latestMinorVersion == null ... apparently the aether client was unable to get the latest minor version for major = " + major);
-							} else {
+								logger.error(
+									"init: latestMinorVersion == null ... apparently the aether client was unable to get the latest minor version for major = " +
+									major);
+							}
+							else {
+
 								if (latestMinorVersion.equals(archetypeVersion)) {
 
-									logger.debug("init: Matched >" + latestMinorVersion + "< eq >" + archetypeVersion + "<");
+									logger.debug("init: Matched >" + latestMinorVersion + "< eq >" + archetypeVersion +
+										"<");
 
 									String jsfVersion = jsfMap.get(qualifiedMajor);
 									String liferayVersion = liferayMap.get(qualifiedMajor);
 
-									String mavenCommand = ARCHETYPE_GENERATE_COMMAND.replace("VERSION", archetypeVersion).replaceAll(
-											"SUITE", suite);
+									String mavenCommand = ARCHETYPE_GENERATE_COMMAND.replace("VERSION",
+											archetypeVersion).replaceAll("SUITE", suite);
 
 									try {
 
@@ -480,7 +493,8 @@ public class ArchetypeServiceImpl implements ArchetypeService {
 										String dependencyLines = extractMavenDependencies(artifact);
 										String gradleLines = extractGradle(artifact);
 
-										logger.debug("init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",
+										logger.debug(
+											"init: liferayVersion=[{0}] jsfVersion=[{1}] suite=[{2}] extVersion=[{3}]",
 											liferayVersion, jsfVersion, suite, archetypeVersion);
 										archetypes.add(new Archetype(liferayVersion, jsfVersion, suite, dependencyLines,
 												gradleLines, mavenCommand));

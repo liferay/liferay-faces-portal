@@ -32,7 +32,8 @@ public class Archetype implements Serializable {
 	private String suite;
 	private String command;
 
-	public Archetype(String liferayVersion, String jsfVersion, String suite, String dependencies, String gradle, String command) {
+	public Archetype(String liferayVersion, String jsfVersion, String suite, String dependencies, String gradle,
+		String command) {
 		this.liferayVersion = liferayVersion;
 		this.jsfVersion = jsfVersion;
 		this.suite = suite;

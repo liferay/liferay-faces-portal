@@ -56,6 +56,10 @@ public class ArchetypeBacking {
 	@ManagedProperty(name = "archetypeService", value = "#{archetypeService}")
 	private ArchetypeService archetypeService;
 
+	public List<Build> getBuilds() {
+		return archetypeService.getBuilds();
+	}
+
 	public String getFavoriteBuild() {
 		return favoriteBuild;
 	}
@@ -78,23 +82,6 @@ public class ArchetypeBacking {
 
 	public List<String> getLiferayVersions() {
 		return archetypeService.getLiferayVersions();
-	}
-
-	public String getSelectedBuild() {
-
-		Archetype archetype = getSelectedArchetype();
-
-		if ("maven".equals(favoriteBuild)) {
-			selectedBuild = archetype.getDependencies();
-		} else {
-			selectedBuild = archetype.getGradle();
-		}
-
-		if (selectedBuild == null) {
-			selectedBuild = "N/A";
-		}
-
-		return selectedBuild;
 	}
 
 	public Archetype getSelectedArchetype() {
@@ -123,6 +110,24 @@ public class ArchetypeBacking {
 		return selectedArchetype;
 	}
 
+	public String getSelectedBuild() {
+
+		Archetype archetype = getSelectedArchetype();
+
+		if ("maven".equals(favoriteBuild)) {
+			selectedBuild = archetype.getDependencies();
+		}
+		else {
+			selectedBuild = archetype.getGradle();
+		}
+
+		if (selectedBuild == null) {
+			selectedBuild = "N/A";
+		}
+
+		return selectedBuild;
+	}
+
 	public String getSelectedConfiguration() {
 
 		if ((selectedConfiguration == null) && (favoriteLiferayVersion != null) && (favoriteJsfVersion != null) &&
@@ -146,17 +151,16 @@ public class ArchetypeBacking {
 		return archetypeService.getSuites();
 	}
 
-	public List<Build> getBuilds() {
-		return archetypeService.getBuilds();
-	}
-
 	public void itemSelectionListener(AjaxBehaviorEvent ajaxBehaviorEvent) {
 
 		if (getSelectedArchetype() instanceof UnsupportedArchetype) {
 			FacesContextHelperUtil.addGlobalErrorMessage("You have selected an unsupported configuration.");
-		} else {
+		}
+		else {
+
 			if ("gradle".equals(favoriteBuild)) {
-				FacesContextHelperUtil.addGlobalInfoMessage("Gradle developers can also use the archetype:generate command because it generates a build.gradle file for you to use, if you like.");
+				FacesContextHelperUtil.addGlobalInfoMessage(
+					"Gradle developers can also use the archetype:generate command because it generates a build.gradle file for you to use, if you like.");
 			}
 		}
 	}
@@ -184,16 +188,16 @@ public class ArchetypeBacking {
 		this.archetypeService = archetypeService;
 	}
 
+	public void setFavoriteBuild(String favoriteBuild) {
+		this.favoriteBuild = favoriteBuild;
+	}
+
 	public void setFavoriteJsfVersion(String favoriteJsfVersion) {
 		this.favoriteJsfVersion = favoriteJsfVersion;
 	}
 
 	public void setFavoriteLiferayVersion(String liferayVersion) {
 		this.favoriteLiferayVersion = liferayVersion;
-	}
-
-	public void setFavoriteBuild(String favoriteBuild) {
-		this.favoriteBuild = favoriteBuild;
 	}
 
 	public void setFavoriteSuite(String favoriteSuite) {
