@@ -187,11 +187,8 @@ public class TestSetupAction extends TestSetupCompatAction {
 					nameAttribute = portletElement.attribute("name");
 
 					String portletName = nameAttribute.getValue();
-					PortalPage portalPage = new PortalPage(
-						pageName,
-						new Portlet(
-							portletName, BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME,
-							false));
+					PortalPage portalPage = new PortalPage(pageName,
+							new Portlet(portletName, BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME, false));
 					setupPrivatePage(userId, groupId, portalPage, bundles);
 				}
 			}

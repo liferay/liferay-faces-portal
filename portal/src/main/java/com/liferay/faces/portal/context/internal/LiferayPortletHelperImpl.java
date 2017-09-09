@@ -23,8 +23,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
-import com.liferay.faces.portal.el.internal.Liferay;
 import com.liferay.faces.portal.context.LiferayPortletHelper;
+import com.liferay.faces.portal.el.internal.Liferay;
 import com.liferay.faces.portal.security.AuthorizationException;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
