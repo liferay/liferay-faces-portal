@@ -15,6 +15,7 @@
 	<name>Liferay Faces Portal Integration Tests</name>
 
 	<properties>
+		<maven.test.skip>true</maven.test.skip>
 		<faces.impl.name>Mojarra</faces.impl.name>
 		<integration.container>liferay</integration.container>
 		<integration.portal.showcase.context>/web/guest/portal-showcase/-/portal-tag</integration.portal.showcase.context>
@@ -103,6 +104,9 @@
 		<!-- /browsers -->
 		<profile>
 			<id>selenium</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
 			<build>
 				<plugins>
 					<!-- Ensure that the png resource is in the temporary directory for testing. -->
@@ -177,9 +181,25 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<!--
+					This dependency is only included to ensure that all tests compile. Showcase tests are only run in
+					the selenium-portal-showcase profile.
+				-->
+				<dependency>
+					<groupId>com.liferay.faces.demo</groupId>
+					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<version>${liferay.faces.showcase.version}</version>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>selenium-portal-showcase</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
 			<build>
 				<plugins>
 					<!-- Ensure that the png resource is in the temporary directory for testing. -->
@@ -251,6 +271,15 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<dependency>
+					<groupId>com.liferay.faces.demo</groupId>
+					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<version>${liferay.faces.showcase.version}</version>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>weblogic</id>
@@ -272,13 +301,6 @@
 		<dependency>
 			<groupId>com.liferay.faces.test</groupId>
 			<artifactId>com.liferay.faces.test.selenium</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.faces.demo</groupId>
-			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
-			<version>${liferay.faces.showcase.version}</version>
-			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
