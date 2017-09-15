@@ -47,7 +47,6 @@ import org.eclipse.aether.transfer.AbstractTransferListener;
 import org.eclipse.aether.transport.file.FileTransporterFactory;
 import org.eclipse.aether.transport.http.HttpTransporterFactory;
 import org.eclipse.aether.version.Version;
-import org.eclipse.aether.version.VersionConstraint;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -130,6 +129,7 @@ public class AetherClient {
 
 		DefaultServiceLocator.ErrorHandler handler = new DefaultServiceLocator.ErrorHandler() {
 
+				@Override
 				public void serviceCreationFailed(Class<?> type, Class<?> impl, Throwable exception) {
 
 					exception.printStackTrace();
@@ -242,7 +242,8 @@ public class AetherClient {
 	}
 
 	private List<RemoteRepository> repos() {
-		final List<RemoteRepository> repos = new ArrayList<>();
+
+		final List<RemoteRepository> repos = new ArrayList<RemoteRepository>();
 
 		for (String repoUrl : _repoUrls) {
 			repos.add(newRemoteRepository(repoUrl));
