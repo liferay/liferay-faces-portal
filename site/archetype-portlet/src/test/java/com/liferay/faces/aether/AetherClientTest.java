@@ -7,13 +7,17 @@ import java.io.File;
 
 import org.eclipse.aether.resolution.ArtifactResolutionException;
 import org.eclipse.aether.version.Version;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 /**
- * @author Vernon Singleton
+ * @author  Vernon Singleton
  */
 public class AetherClientTest {
 
