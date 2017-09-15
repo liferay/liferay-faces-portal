@@ -79,7 +79,6 @@
 		<module>demo</module>
 		<module>site</module>
 		<module>issue</module>
-		<module>site</module>
 		<module>test</module>
 	</modules>
 
