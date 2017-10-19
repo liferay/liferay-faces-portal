@@ -54,8 +54,6 @@ public class TestSetupAction extends TestSetupCompatAction {
 	private static final Log logger = LogFactory.getLog(TestSetupAction.class);
 
 	// Private Constants
-	private static final String BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME =
-		"com.liferay.faces.test.bridge.tck.main.portlet";
 	private static final Namespace PLUTO_PORTAL_DRIVER_CONFIG_NAMESPACE = SAXReaderUtil.createNamespace(
 			"http://portals.apache.org/pluto/xsd/pluto-portal-driver-config.xsd");
 
@@ -194,25 +192,19 @@ public class TestSetupAction extends TestSetupCompatAction {
 				Attribute contextAttribute = portletElement.attribute("context");
 				String context = contextAttribute.getValue();
 
-				if (context.endsWith(BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME)) {
+				if (context.startsWith("/com.liferay.faces.test.bridge.tck.")) {
 
 					nameAttribute = portletElement.attribute("name");
 
 					String portletName = nameAttribute.getValue();
-					PortalPage portalPage = new PortalPage(
-						pageName,
-						new Portlet(
-							portletName, BRIDGE_TCK_MAIN_PORTLET_ARTIFACT_NAME,
-							false));
+
+					// Strip off the leading forward slash "/".
+					String artifactName = context.substring(1);
+					PortalPage portalPage = new PortalPage(pageName, new Portlet(portletName, artifactName, false));
 					setupPrivatePage(userId, groupId, portalPage, bundles);
 				}
 			}
 		}
-
-		setupPrivatePage(userId, groupId,
-			new PortalPage("Lifecycle Set",
-				new Portlet("chapter3TestslifecycleTestportlet",
-					"com.liferay.faces.test.bridge.tck.lifecycle.set.portlet")), bundles);
 	}
 
 	protected void setupGuestSite(long companyId, long userId, Bundle[] bundles) throws Exception {
