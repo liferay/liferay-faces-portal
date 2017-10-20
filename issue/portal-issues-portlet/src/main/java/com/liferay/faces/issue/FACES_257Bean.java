@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.issues.bean;
+package com.liferay.faces.issue;
 
 
 import javax.faces.bean.ManagedBean;
@@ -28,9 +28,9 @@ import com.liferay.portal.kernel.util.WebKeys;
 /**
  * @author  Neil Griffin
  */
-@ManagedBean
+@ManagedBean(name = "FACES_257Bean")
 @RequestScoped
-public class TestBean {
+public class FACES_257Bean {
 
 
 	// Private Data Members
@@ -39,7 +39,7 @@ public class TestBean {
 	private String gamma;
 	private String requestedURL;
 
-	public TestBean() {
+	public FACES_257Bean() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
