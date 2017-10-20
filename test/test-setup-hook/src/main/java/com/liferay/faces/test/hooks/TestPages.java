@@ -87,25 +87,26 @@ public class TestPages {
 	static {
 		BRIDGE_ISSUE_PAGES = new ArrayList<PortalPage>();
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-224",
-				new Portlet("1", "com.liferay.faces.issue.224.portlet", false)));
+				new Portlet("FACES-224", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1470",
-				new Portlet("1", "com.liferay.faces.issue.1470.portlet", false)));
+				new Portlet("FACES-1470", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1478",
-				new Portlet("1", "com.liferay.faces.issue.1478.portlet", false)));
+				new Portlet("FACES-1478", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1618",
-				new Portlet("1", "com.liferay.faces.issue.1618.portlet", false)));
+				new Portlet("FACES-1618", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1635",
 				new Portlet("1", "com.liferay.faces.demo.jsf.applicant.portlet"),
 				new Portlet("1", "com.liferay.faces.demo.primefaces.applicant.portlet")));
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1638", new Portlet("1", "com.liferay.faces.issue.1638.portlet")));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1638",
+				new Portlet("FACES-1638", "com.liferay.faces.issue.jsf.portlet")));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-2921",
 				new Portlet("FACES-2921", "com.liferay.faces.issue.primefaces.portlet")));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3031",
 				new Portlet("FACES-3031", "com.liferay.faces.issue.primefaces.portlet")));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3231",
-				new Portlet("1", "com.liferay.faces.issue.3231.portlet")));
+				new Portlet("FACES-3231", "com.liferay.faces.issue.jsf.portlet")));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("JSFSPEC-1433",
-				new Portlet("1", "com.liferay.faces.issue.1433.portlet")));
+				new Portlet("JSFSPEC-1433", "com.liferay.faces.issue.jsf.portlet")));
 	}
 
 	static {
@@ -131,9 +132,7 @@ public class TestPages {
 	static {
 		PORTAL_ISSUE_PAGES = new ArrayList<PortalPage>();
 		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-257",
-				new Portlet("1", "com.liferay.faces.issue.257.portlet", false)));
-		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-1427", new Portlet("1", "com.liferay.faces.issue.1427.portlet")));
-		PORTAL_ISSUE_PAGES.add(new PortalPage("FACES-1439", new Portlet("1", "com.liferay.faces.issue.1439.portlet")));
+				new Portlet("FACES-257", "com.liferay.faces.issue.portal.portlet", false)));
 	}
 
 	static {
