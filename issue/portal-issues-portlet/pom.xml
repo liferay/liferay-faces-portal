@@ -8,9 +8,9 @@
 		<version>3.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>com.liferay.faces.issue.257.portlet</artifactId>
+	<artifactId>com.liferay.faces.issue.portal.portlet</artifactId>
 	<packaging>war</packaging>
-	<name>FACES-257</name>
+	<name>portal-issues</name>
 
 	<dependencies>
 		<dependency>
