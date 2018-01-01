@@ -26,17 +26,18 @@ import javax.portlet.PortletSession;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
-
+import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.ServiceTracker;
+import org.osgi.util.tracker.ServiceTrackerCustomizer;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 
 import com.liferay.faces.demos.dto.UploadedFileWrapper;
-import com.liferay.faces.demos.service.UserLocalServiceTracker;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.model.UploadedFile;
-
+import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;
 
@@ -63,7 +64,8 @@ public class UsersBackingBean {
 	private UsersViewBean usersViewBean;
 
 	// Private Data Members
-	private UserLocalServiceTracker userLocalServiceTracker;
+	private ServiceTracker<UserLocalService, UserLocalService> userLocalServiceTracker;
+	private UserLocalService userLocalService;
 
 	public void cancel(ActionEvent actionEvent) {
 		usersViewBean.setFormRendered(false);
@@ -107,9 +109,27 @@ public class UsersBackingBean {
 	@PostConstruct
 	public void postConstruct() {
 		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
-		BundleContext bundleContext = bundle.getBundleContext();
-		userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
-		userLocalServiceTracker.open();
+		final BundleContext bundleContext = bundle.getBundleContext();
+		userLocalServiceTracker = ServiceTrackerFactory.open(bundleContext, UserLocalService.class,
+				new ServiceTrackerCustomizer<UserLocalService, UserLocalService>() {
+					@Override
+					public UserLocalService addingService(ServiceReference<UserLocalService> reference) {
+						userLocalService = bundleContext.getService(reference);
+						return userLocalService;
+					}
+
+					@Override
+					public void modifiedService(ServiceReference<UserLocalService> reference, UserLocalService service) {
+					}
+
+					@Override
+					public void removedService(ServiceReference<UserLocalService> reference, UserLocalService service) {
+						userLocalService = null;
+						bundleContext.ungetService(reference);
+					}
+
+		});
+
 	}
 
 	@PreDestroy
@@ -121,9 +141,7 @@ public class UsersBackingBean {
 
 		try {
 
-			if (!userLocalServiceTracker.isEmpty()) {
-
-				UserLocalService userLocalService = userLocalServiceTracker.getService();
+			if (userLocalService != null) {
 
 				// Update the selected user in the Liferay database.
 				User user = usersModelBean.getSelectedUser();

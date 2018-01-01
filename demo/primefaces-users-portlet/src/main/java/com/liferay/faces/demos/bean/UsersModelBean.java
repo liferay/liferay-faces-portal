@@ -31,15 +31,17 @@ import javax.portlet.PortletRequest;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.ServiceTracker;
+import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 import com.liferay.faces.demos.list.UserLazyDataModel;
 import com.liferay.faces.demos.resource.UserPortraitResource;
-import com.liferay.faces.demos.service.UserLocalServiceTracker;
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.portal.context.PortletHelperUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.model.UploadedFile;
-
+import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -70,7 +72,8 @@ public class UsersModelBean implements Serializable {
 	private transient List<SelectItem> statusSelectItems;
 	private transient UploadedFile uploadedFile;
 	private transient String selectedUserPortraitURL;
-	private transient UserLocalServiceTracker userLocalServiceTracker;
+	private transient ServiceTracker<UserLocalService, UserLocalService> userLocalServiceTracker;
+	private transient UserLocalService userLocalService;
 
 	public void forceListReload() {
 
@@ -88,9 +91,8 @@ public class UsersModelBean implements Serializable {
 			int rowsPerPage = PortletHelperUtil.getPortletPreferenceAsInt(facesContext, "rowsPerPage",
 					SearchContainer.DEFAULT_DELTA);
 
-			if (!userLocalServiceTracker.isEmpty()) {
+			if (userLocalService != null) {
 
-				UserLocalService userLocalService = userLocalServiceTracker.getService();
 				userDataModel = new UserLazyDataModel(userLocalService,
 						LiferayPortletHelperUtil.getCompanyId(facesContext), rowsPerPage);
 			}
@@ -163,9 +165,26 @@ public class UsersModelBean implements Serializable {
 	@PostConstruct
 	public void postConstruct() {
 		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
-		BundleContext bundleContext = bundle.getBundleContext();
-		userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
-		userLocalServiceTracker.open();
+		final BundleContext bundleContext = bundle.getBundleContext();
+		userLocalServiceTracker = ServiceTrackerFactory.open(bundleContext, UserLocalService.class,
+				new ServiceTrackerCustomizer<UserLocalService, UserLocalService>() {
+					@Override
+					public UserLocalService addingService(ServiceReference<UserLocalService> reference) {
+						userLocalService = bundleContext.getService(reference);
+						return userLocalService;
+					}
+
+					@Override
+					public void modifiedService(ServiceReference<UserLocalService> reference, UserLocalService service) {
+					}
+
+					@Override
+					public void removedService(ServiceReference<UserLocalService> reference, UserLocalService service) {
+						userLocalService = null;
+						bundleContext.ungetService(reference);
+					}
+
+		});
 	}
 
 	@PreDestroy
