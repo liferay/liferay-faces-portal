@@ -26,14 +26,15 @@ import javax.faces.event.ActionEvent;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.ServiceTracker;
+import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
-import com.liferay.faces.demos.service.CompanyLocalServiceTracker;
-import com.liferay.faces.demos.service.UserLocalServiceTracker;
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-
+import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.portal.kernel.exception.NoSuchCompanyException;
 import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -60,8 +61,10 @@ public class TestSetupBackingBean {
 	private UsersModelBean usersModelBean;
 
 	// Private Data Members
-	private CompanyLocalServiceTracker companyLocalServiceTracker;
-	private UserLocalServiceTracker userLocalServiceTracker;
+	private ServiceTracker<CompanyLocalService, CompanyLocalService> companyLocalServiceTracker;
+	private CompanyLocalService companyLocalService;
+	private ServiceTracker<UserLocalService, UserLocalService> userLocalServiceTracker;
+	private UserLocalService userLocalService;
 
 	public void addUser(long creatorUserId, long groupId, long companyId, String firstName, String lastName)
 		throws PortalException {
@@ -89,14 +92,11 @@ public class TestSetupBackingBean {
 		long[] userGroupIds = new long[] {};
 		boolean sendEmail = false;
 		ServiceContext serviceContext = new ServiceContext();
-		UserLocalService userLocalService;
 
-		if (userLocalServiceTracker.isEmpty()) {
+		if (userLocalService == null) {
 			FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
 		}
 		else {
-			userLocalService = userLocalServiceTracker.getService();
-
 			boolean addUser = false;
 
 			try {
@@ -124,11 +124,47 @@ public class TestSetupBackingBean {
 	@PostConstruct
 	public void postConstruct() {
 		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
-		BundleContext bundleContext = bundle.getBundleContext();
-		companyLocalServiceTracker = new CompanyLocalServiceTracker(bundleContext);
-		companyLocalServiceTracker.open();
-		userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
-		userLocalServiceTracker.open();
+		final BundleContext bundleContext = bundle.getBundleContext();
+		companyLocalServiceTracker = ServiceTrackerFactory.open(bundleContext, CompanyLocalService.class,
+				new ServiceTrackerCustomizer<CompanyLocalService, CompanyLocalService>() {
+					@Override
+					public CompanyLocalService addingService(ServiceReference<CompanyLocalService> reference) {
+						companyLocalService = bundleContext.getService(reference);
+						return companyLocalService;
+					}
+
+					@Override
+					public void modifiedService(ServiceReference<CompanyLocalService> reference, CompanyLocalService service) {
+					}
+
+					@Override
+					public void removedService(ServiceReference<CompanyLocalService> reference, CompanyLocalService service) {
+						companyLocalService = null;
+						bundleContext.ungetService(reference);
+					}
+
+		});
+
+		userLocalServiceTracker = ServiceTrackerFactory.open(bundleContext, UserLocalService.class,
+				new ServiceTrackerCustomizer<UserLocalService, UserLocalService>() {
+					@Override
+					public UserLocalService addingService(ServiceReference<UserLocalService> reference) {
+						userLocalService = bundleContext.getService(reference);
+						return userLocalService;
+					}
+
+					@Override
+					public void modifiedService(ServiceReference<UserLocalService> reference, UserLocalService service) {
+					}
+
+					@Override
+					public void removedService(ServiceReference<UserLocalService> reference, UserLocalService service) {
+						userLocalService = null;
+						bundleContext.ungetService(reference);
+					}
+
+		});
+
 	}
 
 	@PreDestroy
@@ -141,16 +177,13 @@ public class TestSetupBackingBean {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		if (!companyLocalServiceTracker.isEmpty()) {
-
-			CompanyLocalService companyLocalService = companyLocalServiceTracker.getService();
+		if (companyLocalService != null) {
 
 			try {
 				long companyId = LiferayPortletHelperUtil.getCompanyId(facesContext);
 				long groupId = LiferayPortletHelperUtil.getLayout(facesContext).getGroupId();
 				Company company = companyLocalService.getCompanyById(companyId);
 				User defaultUser = company.getDefaultUser();
-				UserLocalService userLocalService = userLocalServiceTracker.getService();
 				User testUser = userLocalService.getUserByEmailAddress(companyId, "test@liferay.com");
 				userLocalService.addGroupUser(groupId, testUser);
 
