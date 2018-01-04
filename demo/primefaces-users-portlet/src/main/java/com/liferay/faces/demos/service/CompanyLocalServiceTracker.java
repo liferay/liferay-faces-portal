@@ -14,7 +14,7 @@
 package com.liferay.faces.demos.service;
 
 import org.osgi.framework.BundleContext;
-
+import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
 import com.liferay.portal.kernel.service.CompanyLocalService;
@@ -25,7 +25,28 @@ import com.liferay.portal.kernel.service.CompanyLocalService;
  */
 public class CompanyLocalServiceTracker extends ServiceTracker<CompanyLocalService, CompanyLocalService> {
 
-	public CompanyLocalServiceTracker(BundleContext bundleContext) {
+	private BundleContext _bundleContext;
+	private CompanyLocalService _companyLocalService;
+	
+
+	public CompanyLocalServiceTracker(BundleContext bundleContext) {		
 		super(bundleContext, CompanyLocalService.class, null);
+		_bundleContext = bundleContext;
+	}
+
+	@Override
+	public CompanyLocalService addingService(ServiceReference<CompanyLocalService> reference) {
+		_companyLocalService = _bundleContext.getService(reference);
+		return _companyLocalService;
+	}
+
+	@Override
+	public void removedService(ServiceReference<CompanyLocalService> reference, CompanyLocalService service) {
+		_bundleContext.ungetService(reference);
+		_companyLocalService = null;
+	}
+	
+	public CompanyLocalService getCompanyLocalService() {
+		return _companyLocalService;
 	}
 }

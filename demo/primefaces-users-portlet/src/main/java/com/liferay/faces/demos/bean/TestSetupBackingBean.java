@@ -95,7 +95,7 @@ public class TestSetupBackingBean {
 			FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
 		}
 		else {
-			userLocalService = userLocalServiceTracker.getService();
+			userLocalService = userLocalServiceTracker.getUserLocalService();
 
 			boolean addUser = false;
 
@@ -143,14 +143,14 @@ public class TestSetupBackingBean {
 
 		if (!companyLocalServiceTracker.isEmpty()) {
 
-			CompanyLocalService companyLocalService = companyLocalServiceTracker.getService();
+			CompanyLocalService companyLocalService = companyLocalServiceTracker.getCompanyLocalService();
 
 			try {
 				long companyId = LiferayPortletHelperUtil.getCompanyId(facesContext);
 				long groupId = LiferayPortletHelperUtil.getLayout(facesContext).getGroupId();
 				Company company = companyLocalService.getCompanyById(companyId);
 				User defaultUser = company.getDefaultUser();
-				UserLocalService userLocalService = userLocalServiceTracker.getService();
+				UserLocalService userLocalService = userLocalServiceTracker.getUserLocalService();
 				User testUser = userLocalService.getUserByEmailAddress(companyId, "test@liferay.com");
 				userLocalService.addGroupUser(groupId, testUser);
 
