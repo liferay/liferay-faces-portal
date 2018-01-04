@@ -90,7 +90,7 @@ public class UsersModelBean implements Serializable {
 
 			if (!userLocalServiceTracker.isEmpty()) {
 
-				UserLocalService userLocalService = userLocalServiceTracker.getService();
+				UserLocalService userLocalService = userLocalServiceTracker.getUserLocalService();
 				userDataModel = new UserLazyDataModel(userLocalService,
 						LiferayPortletHelperUtil.getCompanyId(facesContext), rowsPerPage);
 			}
