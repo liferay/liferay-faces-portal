@@ -93,7 +93,7 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 					userLocalServiceTracker.open();
 
 					if (!userLocalServiceTracker.isEmpty()) {
-						UserLocalService userLocalService = userLocalServiceTracker.getService();
+						UserLocalService userLocalService = userLocalServiceTracker.getUserLocalService();
 						user = userLocalService.getUser(Long.parseLong(userId));
 					}
 					else {
