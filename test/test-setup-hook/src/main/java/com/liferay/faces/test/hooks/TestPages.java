@@ -114,6 +114,10 @@ public class TestPages {
 				new Portlet("FACES-3231", "com.liferay.faces.issue.jsf.portlet")));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("JSFSPEC-1433",
 				new Portlet("JSFSPEC-1433", "com.liferay.faces.issue.jsf.portlet")));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("MOJARRA-4340-workaround",
+				new Portlet("MOJARRA-4340-workaround", "com.liferay.faces.issue.jsf.portlet")));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("MOJARRA-4345-workaround",
+				new Portlet("MOJARRA-4345-workaround", "com.liferay.faces.issue.jsf.portlet")));
 	}
 
 	static {
