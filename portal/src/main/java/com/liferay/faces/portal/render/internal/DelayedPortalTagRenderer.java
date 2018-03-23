@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -102,12 +102,11 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 		// Get the output of the JSP tag (and all child JSP tags).
 		Map<String, Object> componentAttributes = uiComponent.getAttributes();
 		Tag tag = (Tag) componentAttributes.get(CORRESPONDING_JSP_TAG);
-		PortalTagOutput portalTagOutput;
 
 		try {
-			portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag, stringWriter.toString());
 
-			String preChildMarkup = portalTagOutput.getMarkup();
+			String portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag, stringWriter.toString());
+			String preChildMarkup = portalTagOutput;
 			String postChildMarkup = null;
 
 			// Determine the point at which children should be inserted into the markup.
@@ -127,20 +126,6 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 			StringBuilder markup = new StringBuilder(3);
 
 			markup.append(preChildMarkup);
-
-			// Ensure that scripts are rendered at the bottom of the page.
-			String scripts = portalTagOutput.getScripts();
-
-			if ((scripts != null) && (scripts.length() > 0)) {
-
-				logger.debug("Scripts before transformation:{0}", scripts);
-
-				String processedScripts = getScripts(uiComponent, scripts);
-				logger.debug("Scripts after transformation:{0}", processedScripts);
-
-				FacesRequestContext facesRequestContext = FacesRequestContext.getCurrentInstance();
-				facesRequestContext.addScript(processedScripts);
-			}
 
 			if (writeChildrenMarkup()) {
 
