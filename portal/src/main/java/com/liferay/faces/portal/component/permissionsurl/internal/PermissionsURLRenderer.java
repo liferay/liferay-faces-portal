@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -24,7 +24,6 @@ import javax.faces.render.FacesRenderer;
 import javax.servlet.jsp.JspException;
 
 import com.liferay.faces.portal.component.permissionsurl.PermissionsURL;
-import com.liferay.faces.portal.render.internal.PortalTagOutput;
 
 import com.liferay.taglib.security.PermissionsURLTag;
 
@@ -70,8 +69,7 @@ public class PermissionsURLRenderer extends PermissionsURLRendererBase {
 			PermissionsURLTag permissionsURLTag = newTag();
 			copyAttributes(facesContext, cast(uiComponent), permissionsURLTag);
 
-			PortalTagOutput portalTagOutput = getPortalTagOutput(facesContext, uiComponent, permissionsURLTag);
-			String url = portalTagOutput.getMarkup();
+			String url = getPortalTagOutput(facesContext, uiComponent, permissionsURLTag);
 
 			// If the user didn't specify a value for the "var" attribute, then write the URL to the response.
 			PermissionsURL permissionsURL = (PermissionsURL) uiComponent;
