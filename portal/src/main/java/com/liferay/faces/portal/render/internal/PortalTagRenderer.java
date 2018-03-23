@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -58,9 +58,6 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 	protected static final String CORRESPONDING_JSP_TAG = "correspondingJspTag";
 	protected static final String POST_CHILD_MARKUP = "postChildMarkup";
 
-	// Self-Injections
-	private static PortalTagOutputParser portalTagOutputParser = new PortalTagOutputParserImpl();
-
 	/**
 	 * Creates a new instance of the JSP tag.
 	 */
@@ -79,8 +76,8 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 			componentAttributes.put(CORRESPONDING_JSP_TAG, tag);
 
 			// Get the output of the JSP tag (and all child JSP tags).
-			PortalTagOutput portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag);
-			String preChildMarkup = portalTagOutput.getMarkup();
+			String portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag);
+			String preChildMarkup = portalTagOutput;
 
 			// Determine the point at which children should be inserted into the markup.
 			String childInsertionMarker = getChildInsertionMarker();
@@ -99,15 +96,6 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 			// Encode the output of the JSP tag up until the point at which children should be inserted.
 			ResponseWriter responseWriter = facesContext.getResponseWriter();
 			responseWriter.write(preChildMarkup);
-
-			// Ensure that scripts are rendered at the bottom of the page.
-			String scripts = portalTagOutput.getScripts();
-
-			if (scripts != null) {
-
-				FacesRequestContext facesRequestContext = FacesRequestContext.getCurrentInstance();
-				facesRequestContext.addScript(scripts);
-			}
 		}
 		catch (JspException e) {
 			throw new IOException(e);
@@ -171,13 +159,13 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		return (Tag) parentComponentAttributes.get(CORRESPONDING_JSP_TAG);
 	}
 
-	protected PortalTagOutput getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, Tag tag)
+	protected String getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, Tag tag)
 		throws JspException {
 
 		return getPortalTagOutput(facesContext, uiComponent, tag, null);
 	}
 
-	protected PortalTagOutput getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, Tag tag,
+	protected String getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, Tag tag,
 		String customBodyContent) throws JspException {
 
 		// Setup the Facelet -> JSP tag adapter.
@@ -228,8 +216,9 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		// If executing within an Ajax request, then write all the scripts contained in the AUI_SCRIPT_DATA attribute
 		// directly to the tag output.
 		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
+		boolean ajaxRequest = partialViewContext.isAjaxRequest();
 
-		if (partialViewContext.isAjaxRequest()) {
+		if (ajaxRequest) {
 
 			if ((contentType != null) && (contentType.length() > 0) &&
 					!contentType.equals(httpServletResponse.getContentType())) {
@@ -247,8 +236,6 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 			if (scriptData != null) {
 
 				try {
-
-					stringWriter.write(portalTagOutputParser.getScriptSectionMarker());
 					ScriptTag.flushScriptData(stringPageContext);
 				}
 				catch (Exception e) {
@@ -259,7 +246,18 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 
 		jspFactory.releasePageContext(stringPageContext);
 
-		// Return the tag output.
-		return portalTagOutputParser.parse(stringWriter);
+		String markup = stringWriter.toString();
+
+		if (ajaxRequest) {
+
+			// Workaround Mojarra #4340: ensure type="text/javascript" is the last attribute so that jsf.js will strip
+			// and run the script.
+			markup = markup.replaceAll("(<script[^>]+)(type=\"text/javascript\")([^>]+)>", "$1 $3 $2>");
+
+			// Remove all the "<![CDATA[" and "]]>" tokens since they will interfere with the JSF partial-response.
+			markup = markup.replace("<![CDATA[", "").replace("]]>", "");
+		}
+
+		return markup;
 	}
 }
