@@ -53,9 +53,9 @@ public class TestPages {
 	static {
 		BRIDGE_ISSUE_PAGES = new ArrayList<PortalPage>();
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1478",
-				new Portlet("1", "com.liferay.faces.issue.1478.portlet", false)));
+				new Portlet("FACES-1478", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("JSFSPEC-1433",
-				new Portlet("1", "com.liferay.faces.issue.1433.portlet")));
+				new Portlet("JSFSPEC-1433", "com.liferay.faces.issue.jsf.portlet", false)));
 	}
 
 	static {
