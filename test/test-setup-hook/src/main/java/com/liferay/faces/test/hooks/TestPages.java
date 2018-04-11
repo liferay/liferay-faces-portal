@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -106,14 +106,10 @@ public class TestPages {
 				new Portlet("1", "com.liferay.faces.demo.primefaces.applicant.portlet")));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1638",
 				new Portlet("FACES-1638", "com.liferay.faces.issue.jsf.portlet", false)));
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-2921",
-				new Portlet("FACES-2921", "com.liferay.faces.issue.primefaces.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-2958",
 				new Portlet("FACES-2958", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-2958-friendlyURL",
 				new Portlet("FACES-2958-friendlyURL", "com.liferay.faces.issue.jsf.portlet", false)));
-		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3031",
-				new Portlet("FACES-3031", "com.liferay.faces.issue.primefaces.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3231",
 				new Portlet("FACES-3231", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("JSFSPEC-1433",
@@ -122,6 +118,14 @@ public class TestPages {
 				new Portlet("MOJARRA-4340-workaround", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("MOJARRA-4345-workaround",
 				new Portlet("MOJARRA-4345-workaround", "com.liferay.faces.issue.jsf.portlet", false)));
+
+		// PrimeFaces Issue Portlets
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-2921",
+				new Portlet("FACES-2921", "com.liferay.faces.issue.primefaces.portlet", false)));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3031",
+				new Portlet("FACES-3031", "com.liferay.faces.issue.primefaces.portlet", false)));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3250",
+				new Portlet("FACES-3250", "com.liferay.faces.issue.primefaces.portlet", false)));
 	}
 
 	static {
