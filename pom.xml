@@ -118,7 +118,7 @@
 		<liferay.version>7.0.3</liferay.version>
 		<liferay.version.dtd>7.0</liferay.version.dtd>
 		<liferay.portal>liferay-portal-${liferay.deploy.version}</liferay.portal>
-		<mojarra.version>2.2.14</mojarra.version>
+		<mojarra.version>2.2.17</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
