@@ -120,6 +120,8 @@ public class TestPages {
 				new Portlet("MOJARRA-4345-workaround", "com.liferay.faces.issue.jsf.portlet", false)));
 
 		// PrimeFaces Issue Portlets
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-1513-2185",
+				new Portlet("FACES-1513-2185", "com.liferay.faces.issue.primefaces.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-2921",
 				new Portlet("FACES-2921", "com.liferay.faces.issue.primefaces.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3031",
