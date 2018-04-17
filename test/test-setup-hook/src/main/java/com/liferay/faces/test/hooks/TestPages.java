@@ -174,5 +174,9 @@ public class TestPages {
 				new Portlet("1", "com.liferay.faces.demo.portal.showcase.portlet", false));
 		portalPage.setLayoutTemplateId("1_column");
 		GUEST_PAGES.add(portalPage);
+		portalPage = new PortalPage("archetype-portlet",
+				new Portlet("1", "com.liferay.faces.site.archetype.portlet", false));
+		portalPage.setLayoutTemplateId("1_column");
+		GUEST_PAGES.add(portalPage);
 	}
 }
