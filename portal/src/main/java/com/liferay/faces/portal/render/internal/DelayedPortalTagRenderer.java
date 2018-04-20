@@ -15,7 +15,6 @@ package com.liferay.faces.portal.render.internal;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +25,6 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 import javax.servlet.jsp.tagext.Tag;
 
-import com.liferay.faces.util.context.FacesRequestContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
