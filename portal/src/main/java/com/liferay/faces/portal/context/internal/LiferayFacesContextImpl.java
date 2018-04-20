@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -74,11 +74,13 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 
 /**
- * @author  Neil Griffin
+ * @deprecated
+ * @author      Neil Griffin
  */
 @ManagedBean(name = "liferayFacesContext", eager = true)
 @ApplicationScoped
 @SuppressWarnings("deprecation")
+@Deprecated
 public class LiferayFacesContextImpl extends LiferayFacesContext implements Serializable {
 
 	// serialVersionUID Note: This class implements Serializable only to avoid extraneous stacktraces from being thrown
