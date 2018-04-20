@@ -14,7 +14,6 @@
 package com.liferay.faces.portal.render.internal;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -30,13 +29,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspFactory;
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.jsp.internal.JspWriterStringImpl;
-import com.liferay.faces.util.context.FacesRequestContext;
 
 import com.liferay.portal.kernel.servlet.JSPSupportServlet;
 import com.liferay.portal.kernel.util.PortalUtil;
