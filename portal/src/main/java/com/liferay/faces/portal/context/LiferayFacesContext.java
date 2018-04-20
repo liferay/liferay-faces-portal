@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -66,12 +66,12 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 
 /**
- * This class is deprecated and has been replaced by {@link com.liferay.faces.util.context.FacesContextHelperUtil},
- * {@link PortletHelperUtil}, and {@link LiferayPortletHelperUtil}. For more information, see <a
- * href="https://issues.liferay.com/browse/FACES-2502">FACES-2502</a>.
- *
- * @author  Neil Griffin
+ * @deprecated  Please use {@link com.liferay.faces.util.context.FacesContextHelperUtil}, {@link PortletHelperUtil}, and
+ *              {@link LiferayPortletHelperUtil} instead. For more information, see <a
+ *              href="https://issues.liferay.com/browse/FACES-2502">FACES-2502</a>.
+ * @author      Neil Griffin
  */
+@Deprecated
 public abstract class LiferayFacesContext extends FacesContext implements FacesContextHelper, PortletHelper,
 	LiferayPortletHelper {
 
