@@ -81,7 +81,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 		// Navigate to the PrimeFaces Users portlet.
 		browserDriver.navigateWindowTo(getURL());
-		browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut(10));
+		browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut() * 2);
 		browserDriver.waitForElementDisplayed(SCREEN_NAME_COLUMN_FILTER_XPATH);
 
 		List<WebElement> screenNameCells = browserDriver.findElementsByXpath(SCREEN_NAME_CELL_XPATH);
