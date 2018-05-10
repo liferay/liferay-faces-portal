@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.portal.test.integration.demo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -405,7 +406,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 	}
 
 	@Test
-	public void runPrimeFacesUsersPortletTest_E_DetailViewFileUpload() {
+	public void runPrimeFacesUsersPortletTest_E_DetailViewFileUpload() throws IOException {
 
 		BrowserDriver browserDriver = getBrowserDriver();
 
@@ -434,7 +435,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		Dimension originalPlaceholderPortraitSize = portraitElement.getSize();
 
 		// 5. Click the *Choose* button and select "liferay-jsf-jersey.png" for upload.
-		fileUploadChooser.sendKeys(TestUtil.JAVA_IO_TMPDIR + "liferay-jsf-jersey.png");
+		fileUploadChooser.sendKeys(getFileSystemPathForResource("liferay-jsf-jersey.png"));
 		browserDriver.waitFor(ExpectedConditions.stalenessOf(portraitElement));
 
 		WaitingAsserter waitingAsserter = getWaitingAsserter();

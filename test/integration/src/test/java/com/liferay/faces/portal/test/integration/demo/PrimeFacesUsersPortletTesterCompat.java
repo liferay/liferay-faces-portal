@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -13,7 +13,7 @@
  */
 package com.liferay.faces.portal.test.integration.demo;
 
-import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.FileUploadTesterBase;
 import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
@@ -22,7 +22,7 @@ import com.liferay.faces.test.selenium.browser.TestUtil;
  *
  * @author  Neil Griffin
  */
-public abstract class PrimeFacesUsersPortletTesterCompat extends BrowserDriverManagingTesterBase {
+public abstract class PrimeFacesUsersPortletTesterCompat extends FileUploadTesterBase {
 
 	protected static String getURL() {
 		return TestUtil.DEFAULT_BASE_URL + "/group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet";
