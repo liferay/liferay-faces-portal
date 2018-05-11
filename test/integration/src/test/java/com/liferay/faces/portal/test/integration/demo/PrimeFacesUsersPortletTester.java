@@ -296,8 +296,8 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		// order).
 		Assert.assertEquals(expectedFilteredFirstNamesDescending, actualfilteredFirstNamesDescending);
 
-		// 12. Click the *Last Page* button to go back to the last page of users.
-		browserDriver.clickElement(getNavigationButtonXpath("Last"));
+		// 12. Verify that the last page number button is highlighted and that the *Next Page* and *Last Page* buttons
+		// are disabled.
 		browserDriver.waitFor(navigationButtonClassDisabled("Last"));
 
 		// 13. Click the *First Name* header to sort first names into ascending order and verify that the sort
@@ -577,11 +577,8 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 		// While the *Last Page* button is still active:
 		List<String> columnValues = new ArrayList<String>();
 		String columnElementsXpath = "//span[contains(@id,':" + columnName + "Cell')]";
-		WebDriver webDriver = browserDriver.getWebDriver();
-		ExpectedCondition<Boolean> navigationButtonClassDisabledCondition = navigationButtonClassDisabled("Last");
-		Boolean navigationButtonDisabled = navigationButtonClassDisabledCondition.apply(webDriver);
 
-		while (!navigationButtonDisabled) {
+		while (!isNavigationButtonDisabled(browserDriver)) {
 
 			// Extract the column values from the current page of the dataTable.
 			List<WebElement> columnElements = browserDriver.findElementsByXpath(columnElementsXpath);
@@ -595,7 +592,6 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 			// Click the *Next Page* button.
 			Action clickNextPageAction = browserDriver.createClickElementAction(getNavigationButtonXpath("Next"));
 			browserDriver.performAndWaitForRerender(clickNextPageAction, columnElementsXpath);
-			navigationButtonDisabled = navigationButtonClassDisabledCondition.apply(webDriver);
 		}
 
 		// Extract column values from the last page of the dataTable.
@@ -648,6 +644,14 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 	private String getPageButtonXpath(int buttonPageNumber) {
 		return PAGE_BUTTON_XPATH_PREFIX + "[contains(@aria-label,'" + Integer.toString(buttonPageNumber) + "')]";
+	}
+
+	private boolean isNavigationButtonDisabled(BrowserDriver browserDriver) {
+
+		ExpectedCondition<Boolean> navigationButtonClassDisabledCondition = navigationButtonClassDisabled("Last");
+		WebDriver webDriver = browserDriver.getWebDriver();
+
+		return navigationButtonClassDisabledCondition.apply(webDriver);
 	}
 
 	private void logList(List<String> list, String message, Object... arguments) {
