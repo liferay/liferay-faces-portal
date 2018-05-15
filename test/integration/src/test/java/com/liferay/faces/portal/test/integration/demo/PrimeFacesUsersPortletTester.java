@@ -54,6 +54,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 	private static final Logger logger = LoggerFactory.getLogger(PrimeFacesUsersPortletTester.class);
 
 	// Private Constants
+	private static final int DOUBLED_DEFAULT_BROWSER_DRIVER_WAIT_TIME_OUT = 10;
 	private static final String CANCEL_BUTTON_XPATH = "//button[contains(@id, ':pushButtonCancel') and @type='submit']";
 	private static final String EMAIL_ADDRESS_FIELD_XPATH =
 		"//input[contains(@id,':emailAddress')][not(contains(@id,':filter'))]";
@@ -82,7 +83,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 
 		// Navigate to the PrimeFaces Users portlet.
 		browserDriver.navigateWindowTo(getURL());
-		browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut() * 2);
+		browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut(DOUBLED_DEFAULT_BROWSER_DRIVER_WAIT_TIME_OUT));
 		browserDriver.waitForElementDisplayed(SCREEN_NAME_COLUMN_FILTER_XPATH);
 
 		List<WebElement> screenNameCells = browserDriver.findElementsByXpath(SCREEN_NAME_CELL_XPATH);
