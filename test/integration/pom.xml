@@ -22,14 +22,6 @@
 	</properties>
 
 	<profiles>
-		<!-- containers -->
-		<profile>
-			<id>liferay62</id>
-			<properties>
-				<integration.container>liferay62</integration.container>
-			</properties>
-		</profile>
-		<!-- /containers -->
 		<!-- browsers -->
 		<profile>
 			<id>firefox</id>
