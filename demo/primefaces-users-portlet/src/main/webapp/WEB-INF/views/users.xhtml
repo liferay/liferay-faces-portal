@@ -71,6 +71,7 @@
 					<p:dataTable id="users" lazy="true" paginator="true" paginatorPosition="top" rowKey="#{user.userId}"
 						rows="#{usersModelBean.dataModel.pageSize}" selectionMode="single"
 						selection="#{usersModelBean.selectedUser}" value="#{usersModelBean.dataModel}" var="user">
+						<p:ajax event="filter" listener="#{usersViewBean.workAroundPF3584DoubleRequest}" />
 						<p:ajax event="rowSelect" listener="#{usersBackingBean.selectUser}" update=":f1" />
 						<p:column id="screenName" filterBy="#{user.screenName}"
 							filterValue="#{usersViewBean.screenNameFilterValue}" headerText="#{i18n['screen-name']}"

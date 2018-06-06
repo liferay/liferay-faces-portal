@@ -106,6 +106,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 	public void runPrimeFacesUsersPortletTest_A_UsersPagination() {
 
 		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(getURL());
 
 		// 1. Take note of the screen name of the first user in the list on page 1.
 		String firstScreenNameOnPageOne = browserDriver.findElementByXpath(SCREEN_NAME_CELL_XPATH).getText();
@@ -604,7 +605,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 			columnValues.add(screenName);
 		}
 
-		return columnValues;
+		return Collections.unmodifiableList(columnValues);
 	}
 
 	private void filterColumnByFullScreenName(BrowserDriver browserDriver, String screenName) {
@@ -634,7 +635,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 			}
 		}
 
-		return filteredFirstNames;
+		return Collections.unmodifiableList(filteredFirstNames);
 	}
 
 	private String getNavigationButtonXpath(String buttonAriaLabelText) {
