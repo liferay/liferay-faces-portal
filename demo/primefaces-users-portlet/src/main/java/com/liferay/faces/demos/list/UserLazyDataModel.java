@@ -128,9 +128,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 	 * @param  pageSize   The number of rows to fetch.
 	 * @param  sortField  The name of the field which the table is sorted by.
 	 * @param  sortOrder  The sort order, which can be either ascending (default) or descending.
-	 * @param  filters    The query criteria. Note that in order for the filtering to work with the Liferay API, the
-	 *                    end-user must specify complete, matching words. Wildcards and partial matches are not
-	 *                    supported.
+	 * @param  filters    The query criteria.
 	 */
 	@Override
 	public List<User> load(int first, int pageSize, String sortField, SortOrder sortOrder,

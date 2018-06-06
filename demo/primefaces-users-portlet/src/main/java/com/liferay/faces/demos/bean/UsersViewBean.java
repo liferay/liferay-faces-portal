@@ -14,9 +14,15 @@
 package com.liferay.faces.demos.bean;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+
+import org.primefaces.event.data.FilterEvent;
 
 
 /**
@@ -34,6 +40,7 @@ public class UsersViewBean implements Serializable {
 
 	// Private Data Members
 	private boolean formRendered = false;
+	private boolean workAroundPF3584DoubleRequest = false;
 	private String emailAddressFilterValue;
 	private String firstNameFilterValue;
 	private String jobTitleFilterValue;
@@ -95,5 +102,33 @@ public class UsersViewBean implements Serializable {
 
 	public void setScreenNameFilterValue(String screenNameFilterValue) {
 		this.screenNameFilterValue = screenNameFilterValue;
+	}
+
+	public void workAroundPF3584DoubleRequest(FilterEvent filterEvent) {
+
+		Map<String, Object> filters = filterEvent.getFilters();
+
+		if (!workAroundPF3584DoubleRequest && filters.isEmpty()) {
+			workAroundPF3584DoubleRequest = true;
+		}
+		else if (workAroundPF3584DoubleRequest) {
+			workAroundPF3584DoubleRequest = false;
+
+			// Work around https://github.com/primefaces/primefaces/issues/3584
+			if (filters.isEmpty()) {
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				PartialViewContext partialViewContext = facesContext.getPartialViewContext();
+
+				if (partialViewContext != null) {
+
+					Collection<String> renderIds = partialViewContext.getRenderIds();
+					renderIds.clear();
+
+					Collection<String> executeIds = partialViewContext.getExecuteIds();
+					executeIds.clear();
+				}
+			}
+		}
 	}
 }
