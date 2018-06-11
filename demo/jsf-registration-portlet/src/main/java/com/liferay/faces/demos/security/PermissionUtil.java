@@ -26,7 +26,11 @@ import com.liferay.portal.kernel.service.ResourcePermissionLocalServiceUtil;
  *
  * @author  Neil Griffin
  */
-public class PermissionUtil {
+public final class PermissionUtil {
+
+	private PermissionUtil() {
+		throw new AssertionError();
+	}
 
 	public static void grantPermissions(long companyId, long roleId, String resourceId, int scope, String primKey,
 		String[] actionKeys) throws PortalException, SystemException {

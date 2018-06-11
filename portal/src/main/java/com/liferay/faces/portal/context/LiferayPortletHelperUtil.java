@@ -37,7 +37,11 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
  *
  * @author  Neil Griffin
  */
-public class LiferayPortletHelperUtil {
+public final class LiferayPortletHelperUtil {
+
+	private LiferayPortletHelperUtil() {
+		throw new AssertionError();
+	}
 
 	/**
 	 * Checks to see if the current user has permission to execute the specified actionId (which, in turn, is assumed to

@@ -24,7 +24,11 @@ import com.liferay.portal.kernel.security.auth.session.AuthenticatedSessionManag
  *
  * @author  Neil Griffin
  */
-public class LoginUtilCompat {
+public final class LoginUtilCompat {
+
+	private LoginUtilCompat() {
+		throw new AssertionError();
+	}
 
 	public static Object login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
 		String handle, String password, boolean rememberMe, String authType) throws Exception {

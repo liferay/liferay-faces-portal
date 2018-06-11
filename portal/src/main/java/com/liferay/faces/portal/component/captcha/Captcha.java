@@ -138,7 +138,7 @@ public class Captcha extends CaptchaBase {
 		}
 	}
 
-	private static class CaptchaPortletRequest extends PortletRequestWrapper {
+	private static final class CaptchaPortletRequest extends PortletRequestWrapper {
 
 		private String userCaptchaTextValue;
 
