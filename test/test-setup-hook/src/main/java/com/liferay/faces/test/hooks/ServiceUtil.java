@@ -32,7 +32,11 @@ import com.liferay.portal.kernel.service.ServiceContext;
  *
  * @author  Neil Griffin
  */
-public class ServiceUtil {
+public final class ServiceUtil {
+
+	private ServiceUtil() {
+		throw new AssertionError();
+	}
 
 	public static Group addActiveOpenGroup(long userId, String name) throws Exception {
 

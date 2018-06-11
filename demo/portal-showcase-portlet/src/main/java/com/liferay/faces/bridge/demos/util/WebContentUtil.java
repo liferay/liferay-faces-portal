@@ -32,10 +32,14 @@ import com.liferay.portal.kernel.util.LocalizationUtil;
 /**
  * @author  Neil Griffin
  */
-public class WebContentUtil {
+public final class WebContentUtil {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(WebContentUtil.class);
+
+	private WebContentUtil() {
+		throw new AssertionError();
+	}
 
 	public static JournalArticle getArticle(long companyId, long userId, long groupId, long folderId, Locale locale,
 		String title, String content) {
