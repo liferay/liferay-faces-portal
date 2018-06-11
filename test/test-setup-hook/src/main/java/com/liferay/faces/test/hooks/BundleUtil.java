@@ -21,7 +21,11 @@ import org.osgi.framework.FrameworkUtil;
 /**
  * @author  Neil Griffin
  */
-public class BundleUtil {
+public final class BundleUtil {
+
+	private BundleUtil() {
+		throw new AssertionError();
+	}
 
 	public static Bundle[] getBundles() {
 		Bundle portletBundle = FrameworkUtil.getBundle(BundleUtil.class);

@@ -16,7 +16,7 @@ package com.liferay.faces.demos.util;
 /**
  * @author  Kyle Stiemann
  */
-public class UploadedFileUtil {
+public final class UploadedFileUtil {
 
 	// Public Constants
 	public static final String USER_PORTRAIT = "user-portrait-";
@@ -24,6 +24,10 @@ public class UploadedFileUtil {
 	// Private Constants
 	private static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
 	private static final String TMP = ".tmp";
+
+	private UploadedFileUtil() {
+		throw new AssertionError();
+	}
 
 	public static String createFileName(String uploadedFileId) {
 		return USER_PORTRAIT + uploadedFileId + TMP;

@@ -124,7 +124,7 @@ public class CaptchaResource extends Resource {
 		return true;
 	}
 
-	private static class CaptchaHttpServletResponse extends HttpServletResponseWrapper {
+	private static final class CaptchaHttpServletResponse extends HttpServletResponseWrapper {
 
 		ServletOutputStream outputStream;
 
@@ -144,7 +144,7 @@ public class CaptchaResource extends Resource {
 
 	}
 
-	private static class CaptchaServletOutputStream extends ServletOutputStream {
+	private static final class CaptchaServletOutputStream extends ServletOutputStream {
 
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 

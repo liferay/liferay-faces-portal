@@ -35,7 +35,11 @@ import javax.portlet.WindowState;
  *
  * @author  Neil Griffin
  */
-public class PortletHelperUtil {
+public final class PortletHelperUtil {
+
+	private PortletHelperUtil() {
+		throw new AssertionError();
+	}
 
 	/**
 	 * Retrieves a render URL for the current faces context.

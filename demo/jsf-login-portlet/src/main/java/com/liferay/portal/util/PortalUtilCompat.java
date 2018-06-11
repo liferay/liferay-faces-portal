@@ -24,7 +24,11 @@ import com.liferay.portal.kernel.util.PortalUtil;
  *
  * @author  Vernon Singleton
  */
-public class PortalUtilCompat extends PortalUtil {
+public final class PortalUtilCompat extends PortalUtil {
+
+	private PortalUtilCompat() {
+		throw new AssertionError();
+	}
 
 	public static String getPortalURL(HttpServletRequest httpServletRequest) {
 
