@@ -7,11 +7,26 @@
 			<portal:permissionsURL resourcePrimKey="#{permissionsURLModelBean.portletResourcePrimaryKey}" windowState="pop_up"
 				var="permissionsURL" />
 			<pre>#{permissionsURL}</pre>
-			<h:form>
-				<h:button
-					onclick="window.open('#{permissionsURL}', '#{i18n.permissions}', 'scrollbars=1,width=800,height=600'); return false;"
-					rendered="#{liferay.userHasPortletPermission['PERMISSIONS']}" value="#{i18n['permissions']}" />
-			</h:form>
+			<h:panelGroup rendered="#{liferay.userHasPortletPermission['PERMISSIONS']}">
+				<h:outputScript>
+					AUI().use('liferay-util-window', function(A) {
+						Liferay.component('permissionsPopUp', Liferay.Util.Window.getWindow({
+							dialog: {
+								centered: true,
+								constrain2view: true,
+								resizable: false,
+								visible: false,
+								render: true
+							}
+						}).plug(A.Plugin.DialogIframe, {
+							autoLoad: true,
+							iframeCssClass: 'dialog-iframe',
+							uri:'#{permissionsURL}'
+						}));
+					});
+				</h:outputScript>
+				<button onclick="Liferay.component('permissionsPopUp').show();">#{i18n['permissions']}</button>
+			</h:panelGroup>
 		</showcase:example>
 	</ui:define>
 

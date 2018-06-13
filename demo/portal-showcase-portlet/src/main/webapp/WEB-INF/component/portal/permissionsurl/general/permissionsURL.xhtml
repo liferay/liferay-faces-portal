@@ -8,7 +8,7 @@
 			<portal:permissionsURL resourcePrimKey="#{permissionsURLModelBean.portletResourcePrimaryKey}" var="permissionsURL1" />
 			<pre>#{permissionsURL1}</pre>
 			<h:panelGroup rendered="#{liferay.userHasPortletPermission['PERMISSIONS']}">
-				<button onclick="document.location='#{permissionsURL1}'; return false;">#{i18n['permissions']}</button>
+				<a href="#{permissionsURL1}">#{i18n['permissions']}</a>
 			</h:panelGroup>
 		</showcase:example>
 	</ui:define>
@@ -23,7 +23,7 @@
 			<portal:permissionsURL resourcePrimKey="#{permissionsURLModelBean.portletResourcePrimaryKey}"
 				roleTypes="#{permissionsURLModelBean.roleConstants.TYPES_REGULAR}" var="permissionsURL2" />
 			<h:panelGroup rendered="#{liferay.userHasPortletPermission['PERMISSIONS']}">
-				<button onclick="document.location='#{permissionsURL2}'; return false;">#{i18n['permissions']}</button>
+				<a href="#{permissionsURL2}">#{i18n['permissions']}</a>
 			</h:panelGroup>
 		</showcase:example>
 	</ui:define>

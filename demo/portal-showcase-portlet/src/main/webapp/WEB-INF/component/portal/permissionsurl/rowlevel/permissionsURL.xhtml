@@ -10,7 +10,7 @@
 				resourcePrimKey="#{group.groupId}" var="permissionsURL" />
 			<pre>#{permissionsURL}</pre>
 			<h:panelGroup rendered="#{liferay.userHasPortletPermission['PERMISSIONS']}">
-				<button onclick="document.location='#{permissionsURL}'; return false;">#{i18n['permissions']}</button>
+				<a href="#{permissionsURL}">#{i18n['permissions']}</a>
 			</h:panelGroup>
 		</showcase:example>
 	</ui:define>
