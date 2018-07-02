@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -55,12 +55,12 @@ import com.liferay.taglib.ui.InputSearchTag;
 /**
  * This class is a renderer for the {@link com.liferay.faces.portal.component.inputsearch.InputSearch} component. The
  * component has unique requirements in the sense that the corresponding JSP-based {@link
- * com.liferay.taglib.ui.InputSearchTag} renders an &lt;input type="text"&gt;...&lt;/input&gt; and also a &lt;button&gt;&lt;/button&gt; for
- * submission. From a JSF perspective, this creates a multiple-inheritance dilemma. For example, should the component
- * component extend {@link javax.faces.component.UIInput} or {@link javax.faces.component.UICommand}? The solution is to
- * have the component extend {@link javax.faces.component.UIInput}, but to dynamically create an {@link
- * javax.faces.component.html.HtmlCommandButton} child that can participate in the processing of JSF events. This design
- * is essentially a 100% Java equivalent of a JSF composite component.
+ * com.liferay.taglib.ui.InputSearchTag} renders an &lt;input type="text"&gt;...&lt;/input&gt; and also a
+ * &lt;button&gt;&lt;/button&gt; for submission. From a JSF perspective, this creates a multiple-inheritance dilemma.
+ * For example, should the component component extend {@link javax.faces.component.UIInput} or {@link
+ * javax.faces.component.UICommand}? The solution is to have the component extend {@link javax.faces.component.UIInput},
+ * but to dynamically create an {@link javax.faces.component.html.HtmlCommandButton} child that can participate in the
+ * processing of JSF events. This design is essentially a 100% Java equivalent of a JSF composite component.
  *
  * @author  Juan Gonzalez
  */
