@@ -478,7 +478,7 @@ java.lang.Object)</method-signature>
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu. The default value is <code>true</code>.]]></description>
+			<description><![CDATA[When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an portal:navBar parent tag) for small/mobile displays that causes the child portal:navItem links to be displayed in a popup menu. The default value is <code>true</code>.]]></description>
 			<name>responsive</name>
 			<required>false</required>
 			<type>boolean</type>

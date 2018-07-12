@@ -256,7 +256,7 @@
 			<attribute-extension>
 				<default-value><![CDATA[true]]></default-value>
 			</attribute-extension>
-			<description><![CDATA[When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu.]]></description>
+			<description><![CDATA[When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an portal:navBar parent tag) for small/mobile displays that causes the child portal:navItem links to be displayed in a popup menu.]]></description>
 			<name>responsive</name>
 			<type><![CDATA[boolean]]></type>
 		</attribute>
