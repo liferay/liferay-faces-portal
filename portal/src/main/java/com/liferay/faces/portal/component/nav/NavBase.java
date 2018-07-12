@@ -83,7 +83,7 @@ public abstract class NavBase extends UIData implements Styleable {
 	/**
 	 * <p><code>responsive</code> attribute description:</p>
 	 *
-	 * <div>When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu.</div>
+	 * <div>When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an portal:navBar parent tag) for small/mobile displays that causes the child portal:navItem links to be displayed in a popup menu.</div>
 	 */
 	public boolean isResponsive() {
 		return (Boolean) getStateHelper().eval(NavPropertyKeys.responsive, true);
@@ -92,7 +92,7 @@ public abstract class NavBase extends UIData implements Styleable {
 	/**
 	 * <p><code>responsive</code> attribute description:</p>
 	 *
-	 * <div>When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an alloy:navBar parent tag) for small/mobile displays that causes the child alloy:navItem links to be displayed in a popup menu.</div>
+	 * <div>When true, the unordered list will be surrounded by <code>&lt;div class="collapse nav-collapse"&gt;...&lt;/div&gt;</code>. This is a responsive layout feature (that works in conjunction with an portal:navBar parent tag) for small/mobile displays that causes the child portal:navItem links to be displayed in a popup menu.</div>
 	 */
 	public void setResponsive(boolean responsive) {
 		getStateHelper().put(NavPropertyKeys.responsive, responsive);
