@@ -110,6 +110,8 @@ public class TestPages {
 				new Portlet("FACES-2958", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-2958-friendlyURL",
 				new Portlet("FACES-2958-friendlyURL", "com.liferay.faces.issue.jsf.portlet", false)));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3175",
+				new Portlet("FACES-3175", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3231",
 				new Portlet("FACES-3231", "com.liferay.faces.issue.jsf.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3300",
