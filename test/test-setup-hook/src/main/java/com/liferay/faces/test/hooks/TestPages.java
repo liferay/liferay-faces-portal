@@ -134,6 +134,10 @@ public class TestPages {
 				new Portlet("FACES-3250", "com.liferay.faces.issue.primefaces.portlet", false)));
 		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3327",
 				new Portlet("FACES-3327", "com.liferay.faces.issue.primefaces.portlet", false)));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3328-start"));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3328",
+				new Portlet("FACES-3328", "com.liferay.faces.issue.primefaces.portlet", false)));
+		BRIDGE_ISSUE_PAGES.add(new PortalPage("FACES-3328-end"));
 	}
 
 	static {
