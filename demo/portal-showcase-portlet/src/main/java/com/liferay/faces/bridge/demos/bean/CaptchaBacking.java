@@ -103,6 +103,11 @@ public class CaptchaBacking {
 				else {
 
 					String maxChallenges = PropsUtil.get(PropsKeys.CAPTCHA_MAX_CHALLENGES);
+
+					if (maxChallenges == null) {
+						maxChallenges = "1";
+					}
+
 					facesContextHelper.addGlobalInfoMessage(facesContext,
 						"the-captcha-is-no-longer-enabled-since-the-user-entered-a-correct-value-x-times",
 						maxChallenges);
