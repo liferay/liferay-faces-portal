@@ -50,7 +50,7 @@ public class InputRichTextBacking {
 
 		if (ViewParamUtil.getUsage().equals("default-value")) {
 			applicant.setComments(
-				"<p>This is some <strong>bold</strong> text\nand this is some <em>italic</em> text.</p>");
+				"<p>This is some <strong>bold</strong> text<br />\nand this is some <em>italic</em> text.</p>");
 		}
 	}
 
