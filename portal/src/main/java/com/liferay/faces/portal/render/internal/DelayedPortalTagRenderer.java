@@ -86,12 +86,9 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 		return true;
 	}
 
-	protected StringBuilder getMarkup(UIComponent uiComponent, StringBuilder markup) throws Exception {
-		return markup;
-	}
-
-	protected String getScripts(UIComponent uiComponent, String scripts) throws Exception {
-		return scripts;
+	protected StringBuilder getMarkup(FacesContext facesContext, UIComponent uiComponent, String markup)
+		throws Exception {
+		return new StringBuilder(markup);
 	}
 
 	protected void renderComponentMarkup(FacesContext facesContext, UIComponent uiComponent, StringWriter stringWriter)
@@ -143,7 +140,7 @@ public abstract class DelayedPortalTagRenderer<U extends UIComponent, T extends 
 			ResponseWriter responseWriter = facesContext.getResponseWriter();
 			logger.debug("Markup before transformation:{0}", markup);
 
-			StringBuilder processedMarkup = getMarkup(uiComponent, markup);
+			StringBuilder processedMarkup = getMarkup(facesContext, uiComponent, markup.toString());
 			logger.debug("Markup after transformation:{0}", processedMarkup);
 			responseWriter.write(processedMarkup.toString());
 		}

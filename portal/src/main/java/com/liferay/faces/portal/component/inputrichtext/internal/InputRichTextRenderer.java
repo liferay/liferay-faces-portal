@@ -283,23 +283,26 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 	}
 
 	@Override
-	protected String getScripts(UIComponent uiComponent, String scripts) throws Exception {
+	protected StringBuilder getMarkup(FacesContext facesContext, UIComponent uiComponent, String markup)
+		throws Exception {
 
-		if (scripts != null) {
+		StringBuilder stringBuilder = new StringBuilder();
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+		if ((markup != null) && !"".equals(markup)) {
+
 			String escapedEditorName = getEditorId(facesContext, uiComponent);
 
 			// There are two possible methods to be executed, depending on inline editor enabled or not:
 			// CKEDITOR.replace or CKEDITOR.inline
-			int configIndex = scripts.indexOf("CKEDITOR.replace");
+			int configIndex = markup.indexOf("CKEDITOR.replace");
 			Boolean editorConfigReplace = null;
 
 			if (configIndex != -1) {
 				editorConfigReplace = Boolean.TRUE;
 			}
 			else {
-				configIndex = scripts.indexOf("CKEDITOR.inline");
+
+				configIndex = markup.indexOf("CKEDITOR.inline");
 
 				if (configIndex != -1) {
 					editorConfigReplace = Boolean.FALSE;
@@ -318,22 +321,24 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 				replacement.append("CKEDITOR.instances['");
 				replacement.append(escapedEditorName);
 				replacement.append("'].fire('customDataProcessorLoaded');} ");
-				scripts = StringUtil.replace(scripts, "createEditor();", replacement.toString());
+				markup = StringUtil.replace(markup, "createEditor();", replacement.toString());
 
 				// Now, in order to refresh the config, we have to enter a different URL. We achieve this by adding a
 				// "timestamp" param (without this, a default toolbar will be loaded).
-				int customConfigIndex = scripts.indexOf("customConfig");
+				int customConfigIndex = markup.indexOf("customConfig");
 
 				if (customConfigIndex != -1) {
-					String configURL = scripts.substring(customConfigIndex, scripts.indexOf(",", customConfigIndex));
+					String configURL = markup.substring(customConfigIndex, markup.indexOf(",", customConfigIndex));
 					String[] configArray = configURL.split("'");
 					configURL = configArray[1];
-					scripts = StringUtil.replace(scripts, configURL, configURL.concat("&t=" + new Date().getTime()));
+					markup = StringUtil.replace(markup, configURL, configURL.concat("&t=" + new Date().getTime()));
 				}
 			}
+
+			stringBuilder.append(markup);
 		}
 
-		return scripts;
+		return stringBuilder;
 	}
 
 	private void encodeTagFunction(ResponseWriter responseWriter, String clientId, char separatorChar,
