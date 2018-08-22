@@ -160,12 +160,12 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 	}
 
 	@Override
-	protected StringBuilder getMarkup(UIComponent uiComponent, StringBuilder markup) throws Exception {
+	protected StringBuilder getMarkup(FacesContext facesContext, UIComponent uiComponent, String markup)
+		throws Exception {
 
 		// Fix the refresh captcha link with the namespaced id when using SimpleCaptcha (default in
 		// portal-ext.properties). It works using out-of-the-box Liferay portlets because it internally uses the
 		// namespace and this is not populated if used through Liferay Faces.
-		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 		String namespace = portletResponse.getNamespace();
