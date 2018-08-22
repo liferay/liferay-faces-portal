@@ -4,7 +4,15 @@
 
 	<h:outputStylesheet library="css" name="input-rich-text.css" />
 	<h:form id="exampleForm">
-		<showcase:example id="example" renderedCheckbox="true" requiredCheckbox="true">
+		<showcase:example id="example" requiredCheckbox="true">
+			<span>
+				<label class="component-required-label">
+					<h:selectBooleanCheckbox id="renderedCheckbox" immediate="true"
+						value="#{showcaseModelBean.selectedComponent.rendered}">
+						<f:ajax render="@form" />
+					</h:selectBooleanCheckbox>
+				</label>
+			</span>
 			<showcase:field id="commentsField" label="#{i18n['comments']}" styleClass="input-rich-text-field">
 				<h:message id="commentsMessage" for="comments" />
 			</showcase:field>
