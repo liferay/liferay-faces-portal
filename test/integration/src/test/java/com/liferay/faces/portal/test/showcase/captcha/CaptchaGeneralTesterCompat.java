@@ -23,7 +23,7 @@ import com.liferay.faces.portal.test.integration.PortalTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
 import com.liferay.faces.test.selenium.browser.WaitingAsserter;
-import com.liferay.faces.test.showcase.inputtext.InputTextTester;
+import com.liferay.faces.test.showcase.input.InputTester;
 
 
 /**
@@ -32,7 +32,7 @@ import com.liferay.faces.test.showcase.inputtext.InputTextTester;
  * @author  Vernon Singleton
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public abstract class CaptchaGeneralTesterCompat extends InputTextTester {
+public abstract class CaptchaGeneralTesterCompat extends InputTester {
 
 	// Protected Constants
 	protected static final String CAPTCHA_INPUT_XPATH = "//input[contains(@id,'captchaText')]";
