@@ -284,7 +284,8 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 	}
 
 	@Override
-	protected StringBuilder getMarkup(UIComponent uiComponent, StringBuilder markup) throws Exception {
+	protected StringBuilder getMarkup(FacesContext facesContext, UIComponent uiComponent, String markup)
+		throws Exception {
 
 		//J-
 		// NOTE: The specified markup looks like the following (HTML comments added for clarity):
