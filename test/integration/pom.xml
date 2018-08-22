@@ -154,19 +154,6 @@
 					</plugin>
 				</plugins>
 			</build>
-			<dependencies>
-				<!--
-					This dependency is only included to ensure that all tests compile. Showcase tests are only run in
-					the selenium-portal-showcase profile.
-				-->
-				<dependency>
-					<groupId>com.liferay.faces.demo</groupId>
-					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
-					<version>${liferay.faces.showcase.version}</version>
-					<type>test-jar</type>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>selenium-portal-showcase</id>
@@ -225,15 +212,6 @@
 					</plugin>
 				</plugins>
 			</build>
-			<dependencies>
-				<dependency>
-					<groupId>com.liferay.faces.demo</groupId>
-					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
-					<version>${liferay.faces.showcase.version}</version>
-					<type>test-jar</type>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>weblogic</id>
@@ -290,6 +268,17 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--
+			This dependency is only included to ensure that all tests compile. Showcase tests are only run in the
+			selenium-portal-showcase profile.
+		-->
+		<dependency>
+			<groupId>com.liferay.faces.demo</groupId>
+			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+			<version>${liferay.faces.showcase.version}</version>
+			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<!-- End integration test dependencies. -->
