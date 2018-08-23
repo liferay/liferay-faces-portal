@@ -302,7 +302,7 @@ java.lang.Object)</method-signature>
 			<type>boolean</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When true, the resources necessary for loading the CKEditor will not be added to the <code>&lt;head&gt;...&lt;/head&gt;</code> section of the portal page. The default value is <code>false</code>.]]></description>
+			<description><![CDATA[When true, the resources necessary for loading the CKEditor will not be added to the <code>&lt;head&gt;...&lt;/head&gt;</code> section of the portal page. The default value is <code>isAjaxRequest()</code>.]]></description>
 			<name>skipEditorLoading</name>
 			<required>false</required>
 			<type>boolean</type>
