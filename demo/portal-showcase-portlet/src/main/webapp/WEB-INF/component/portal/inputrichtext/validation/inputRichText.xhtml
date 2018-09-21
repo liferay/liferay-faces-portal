@@ -3,21 +3,30 @@
 	xmlns:showcase="http://liferay.com/faces/showcase" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 	<h:outputStylesheet library="css" name="input-rich-text.css" />
-	<h:form id="exampleForm">
-		<showcase:example id="example" description="#{i18n['portal-inputrichtext-validation-example-1']}">
+	<showcase:example id="example" description="#{i18n['portal-inputrichtext-validation-example-1']}">
+		<h:form>
+			<showcase:field label="#{i18n['Editor Type']}">
+				<h:selectOneMenu id="editorKey" onchange="this.form.submit()" hideNoSelectionOption="true"
+					value="#{inputRichTextValidationBacking.validationEditorKey}">
+					<f:selectItems value="#{validationEditorKeys}" var="validationEditorKey"
+						itemLabel="#{validationEditorKey}" itemValue="#{validationEditorKey}" />
+				</h:selectOneMenu>
+			</showcase:field>
+		</h:form>
+		<h:form id="exampleForm">
 			<showcase:field id="commentsField" label="#{i18n['comments']}" styleClass="input-rich-text-field">
 				<h:message id="commentsMessage" for="comments" />
 			</showcase:field>
 			<!-- Note: In this example, portal:inputRichText is intentionally not a child of showcase:field in order -->
 			<!-- to prevent it from being unnecessarily reinitialized when the showcase:field is re-rendered via Ajax. -->
-			<portal:inputRichText id="comments" label="#{i18n['comments']}" minPlainTextChars="10"
-				maxPlainTextChars="144"
+			<portal:inputRichText id="comments" editorKey="#{inputRichTextValidationBacking.validationEditorKey}"
+				label="#{i18n['comments']}" minPlainTextChars="10" maxPlainTextChars="144"
 				value="#{inputRichTextBacking.applicant.comments}" />
 			<h:commandButton actionListener="#{inputRichTextBacking.submit}" value="#{i18n['submit']}">
 				<f:ajax execute="@form" render="commentsField :modelValue" />
 			</h:commandButton>
-		</showcase:example>
-	</h:form>
+		</h:form>
+	</showcase:example>
 	<showcase:results label="#{i18n['model-value']}">
 		<h:outputText id="modelValue" value="#{inputRichTextBacking.applicant.comments}" />
 	</showcase:results>

@@ -25,9 +25,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 
-import com.liferay.faces.portal.component.inputrichtext.internal.RichText;
-import com.liferay.faces.portal.component.inputrichtext.internal.RichTextFactory;
-import com.liferay.faces.portal.component.inputrichtext.internal.RichTextFactoryImpl;
+import com.liferay.faces.portal.component.inputrichtext.internal.FailedToCalculatePlainTextCharCountException;
+import com.liferay.faces.portal.component.inputrichtext.internal.PlainTextCharUtil;
 import com.liferay.faces.util.i18n.I18n;
 import com.liferay.faces.util.i18n.I18nFactory;
 import com.liferay.faces.util.logging.Logger;
@@ -45,6 +44,7 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 	// Private Constants
 	private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList("blur",
 				"change", "valueChange", "focus"));
+	private static final String FAILED_TO_CALCULATE_PLAIN_TEXT_CHAR_COUNT = "failed-to-calculate-plain-text-char-count";
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(InputRichText.class);
@@ -66,56 +66,77 @@ public class InputRichText extends InputRichTextBase implements ClientBehaviorHo
 
 		if (isValid()) {
 
-			String editorType = null;
-			String editorKey = getEditorKey();
-
-			if (editorKey != null) {
-				editorType = PropsUtil.get(editorKey);
-			}
-
-			RichText.Type richTextType;
-
-			if ("ckeditor_bbcode".equals(editorType)) {
-				richTextType = RichText.Type.BBCODE;
-			}
-			else if ("ckeditor_creole".equals(editorType)) {
-				richTextType = RichText.Type.CREOLE;
-			}
-			else {
-				richTextType = RichText.Type.HTML;
-			}
-
-			RichTextFactory richTextFactory = new RichTextFactoryImpl();
-			RichText richText = richTextFactory.getRichText(richTextType, newValue.toString());
-			int length = richText.getPlainTextLength();
 			int minimum = getMinPlainTextChars();
 			int maximum = getMaxPlainTextChars();
 
-			logger.debug("length=[{0}] minimum=[{1}] maximum=[{2}]", length, minimum, maximum);
+			if ((minimum > 0) || (maximum > 0)) {
 
-			if ((minimum > 0) && (length < minimum)) {
+				try {
 
-				Object label = getAttributes().get("label");
-				Locale locale = facesContext.getViewRoot().getLocale();
-				ExternalContext externalContext = facesContext.getExternalContext();
-				I18n i18n = I18nFactory.getI18nInstance(externalContext);
-				FacesMessage facesMessage = i18n.getFacesMessage(facesContext, locale, FacesMessage.SEVERITY_ERROR,
-						LengthValidator.MINIMUM_MESSAGE_ID, minimum, label);
-				facesContext.addMessage(getClientId(), facesMessage);
-				setValid(false);
-			}
+					int length = 0;
+					String richText = (String) newValue;
 
-			if ((maximum > 0) && (length > maximum)) {
+					if (richText != null) {
 
-				Object label = getAttributes().get("label");
-				Locale locale = facesContext.getViewRoot().getLocale();
-				ExternalContext externalContext = facesContext.getExternalContext();
-				I18n i18n = I18nFactory.getI18nInstance(externalContext);
-				FacesMessage facesMessage = i18n.getFacesMessage(facesContext, locale, FacesMessage.SEVERITY_ERROR,
-						LengthValidator.MAXIMUM_MESSAGE_ID, maximum, label);
-				facesContext.addMessage(getClientId(), facesMessage);
-				setValid(false);
+						String editorType = "";
+						String editorKey = getEditorKey();
+
+						if (editorKey != null) {
+							editorType = PropsUtil.get(editorKey);
+						}
+
+						if (editorType.endsWith("_bbcode")) {
+							length = PlainTextCharUtil.getBBCodePlainTextCharCount(richText);
+						}
+						else if (editorType.endsWith("_creole")) {
+							length = PlainTextCharUtil.getCreolePlainTextCharCount(richText);
+						}
+						else if (!editorType.contains("_") || editorType.endsWith("_html")) {
+							length = PlainTextCharUtil.getHTMLPlainTextCharCount(richText);
+						}
+						else {
+							throw new FailedToCalculatePlainTextCharCountException(new UnsupportedOperationException(
+									"Cannot calculate plain text characters for editor type: " + editorType));
+						}
+					}
+
+					logger.debug("length=[{0}] minimum=[{1}] maximum=[{2}]", length, minimum, maximum);
+
+					if ((minimum > 0) && (length < minimum)) {
+						setInvalidPlainTextCount(facesContext, LengthValidator.MINIMUM_MESSAGE_ID, minimum);
+					}
+
+					if ((maximum > 0) && (length > maximum)) {
+						setInvalidPlainTextCount(facesContext, LengthValidator.MAXIMUM_MESSAGE_ID, maximum);
+					}
+				}
+				catch (FailedToCalculatePlainTextCharCountException e) {
+
+					logger.error(e);
+					setInvalidPlainTextCount(facesContext, FAILED_TO_CALCULATE_PLAIN_TEXT_CHAR_COUNT, null);
+				}
 			}
 		}
+	}
+
+	private void setInvalidPlainTextCount(FacesContext facesContext, String validationMessageId, Integer integer) {
+
+		Object label = getAttributes().get("label");
+		Locale locale = facesContext.getViewRoot().getLocale();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		I18n i18n = I18nFactory.getI18nInstance(externalContext);
+		FacesMessage facesMessage;
+
+		if (integer != null) {
+			facesMessage = i18n.getFacesMessage(facesContext, locale, FacesMessage.SEVERITY_ERROR, validationMessageId,
+					integer, label);
+		}
+		else {
+			facesMessage = i18n.getFacesMessage(facesContext, locale, FacesMessage.SEVERITY_ERROR, validationMessageId,
+					label);
+		}
+
+		facesContext.addMessage(getClientId(facesContext), facesMessage);
+		setValid(false);
 	}
 }

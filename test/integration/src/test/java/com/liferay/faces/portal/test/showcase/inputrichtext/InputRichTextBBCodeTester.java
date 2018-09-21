@@ -21,8 +21,12 @@ import org.junit.Test;
  */
 public class InputRichTextBBCodeTester extends InputRichTextTester {
 
+	// Package-Private Constants
+	/* package-private */ static final String BOLD_OPEN = "[b]";
+	/* package-private */ static final String BOLD_CLOSE = "[/b]";
+
 	@Test
 	public void runInputRichTextBBCodeTest() {
-		runInputRichTextTest("bbcode", "[b]", "[/b]", "[i]", "[/i]");
+		runInputRichTextTest("bbcode", BOLD_OPEN, BOLD_CLOSE, "[i]", "[/i]");
 	}
 }
