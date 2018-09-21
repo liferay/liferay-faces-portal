@@ -14,16 +14,14 @@
 package com.liferay.faces.portal.component.inputrichtext.internal;
 
 /**
- * @author  Neil Griffin
+ * @author  Kyle Stiemann
  */
-public class RichTextBBCodeImpl extends RichTextBaseImpl {
+public class FailedToCalculatePlainTextCharCountException extends Exception {
 
-	public RichTextBBCodeImpl(String value) {
-		super(value);
-	}
+	// serialVersionUID
+	private static final long serialVersionUID = 3216768285486219805L;
 
-	@Override
-	public Type getType() {
-		return Type.BBCODE;
+	public FailedToCalculatePlainTextCharCountException(Throwable cause) {
+		super(cause);
 	}
 }

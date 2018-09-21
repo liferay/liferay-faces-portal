@@ -21,8 +21,12 @@ import org.junit.Test;
  */
 public class InputRichTextCreoleTester extends InputRichTextTester {
 
+	// Package-Private Constants
+	/* package-private */ static final String BOLD_OPEN = "**";
+	/* package-private */ static final String BOLD_CLOSE = BOLD_OPEN;
+
 	@Test
 	public void runInputRichTextCreoleTest() {
-		runInputRichTextTest("creole", "**", "**", "//", "//");
+		runInputRichTextTest("creole", BOLD_OPEN, BOLD_CLOSE, "//", "//");
 	}
 }

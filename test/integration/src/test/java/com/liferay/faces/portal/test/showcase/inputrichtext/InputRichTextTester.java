@@ -35,6 +35,8 @@ public abstract class InputRichTextTester extends InputTester {
 
 	// Protected Constants
 	protected static final String BODY_XPATH = "//body";
+	protected static final String BOLD_OPEN = "<strong>";
+	protected static final String BOLD_CLOSE = "</strong>";
 	protected static final String CK_EDITOR_IFRAME_XPATH = "//div[contains(@id,':comments')]//iframe";
 
 	// Private Constants
@@ -164,8 +166,8 @@ public abstract class InputRichTextTester extends InputTester {
 		selectTextAndSendKeys(browserDriver, text, italicizedSelection, Keys.CONTROL, Keys.COMMAND, "i");
 
 		// 20. Click the *Submit* button.
-		String expectedFormattedText = "Hel<strong>lo t<em>o the wh</em></strong><em>ole Wor</em>ld!";
-		expectedFormattedText = expectedFormattedText.replace("<strong>", boldOpen).replace("</strong>", boldClose)
+		String expectedFormattedText = "Hel" + BOLD_OPEN + "lo t<em>o the wh</em>" + BOLD_CLOSE + "<em>ole Wor</em>ld!";
+		expectedFormattedText = expectedFormattedText.replace(BOLD_OPEN, boldOpen).replace(BOLD_CLOSE, boldClose)
 			.replace("<em>", italicsOpen).replace("</em>", italicsClose);
 		submitRichText(browserDriver, elementToClickXpath, 1, expectedFormattedText);
 
