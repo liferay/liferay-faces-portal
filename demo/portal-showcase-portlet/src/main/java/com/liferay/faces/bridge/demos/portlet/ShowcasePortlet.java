@@ -14,18 +14,65 @@
 package com.liferay.faces.bridge.demos.portlet;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Properties;
+import java.util.TreeSet;
 
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.GenericFacesPortlet;
 
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
+
 
 /**
  * @author  Neil Griffin
  */
 public class ShowcasePortlet extends GenericFacesPortlet {
+
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(ShowcasePortlet.class);
+
+	@Override
+	public void init(PortletConfig portletConfig) throws PortletException {
+
+		super.init(portletConfig);
+
+		InputStream inputStream = null;
+
+		try {
+
+			Properties properties = new Properties();
+			ClassLoader classLoader = ShowcasePortlet.class.getClassLoader();
+			inputStream = classLoader.getResourceAsStream("input-rich-text.properties");
+			properties.load(inputStream);
+
+			PortletContext portletContext = portletConfig.getPortletContext();
+			portletContext.setAttribute("validationEditorKeys",
+				Collections.unmodifiableSet(new TreeSet(properties.keySet())));
+		}
+		catch (IOException e) {
+			throw new PortletException(e);
+		}
+		finally {
+
+			if (inputStream != null) {
+
+				try {
+					inputStream.close();
+				}
+				catch (IOException e) {
+					logger.error(e);
+				}
+			}
+		}
+	}
 
 	@Override
 	protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
