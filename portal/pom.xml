@@ -236,6 +236,7 @@
 										<argument>-d</argument>
 										<argument>${project.build.directory}/vdldoc/${project.artifact.selectedVersion.majorVersion}.${project.artifact.selectedVersion.minorVersion}/</argument>
 										<argument>${project.basedir}/src/main/resources/META-INF/portal.taglib.xml</argument>
+										<argument>${project.basedir}/src/main/resources/META-INF/liferay.taglib.xml</argument>
 									</arguments>
 									<executableDependency>
 										<groupId>org.omnifaces</groupId>
