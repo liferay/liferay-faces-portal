@@ -158,7 +158,8 @@ public class UserPortraitResource extends Resource {
 					logger.error(e);
 				}
 
-				String portraitURL = UserConstants.getPortraitURL(imagePath, male, portraitId);
+				String userUuid = user.getUuid();
+				String portraitURL = UserConstants.getPortraitURL(imagePath, male, portraitId, userUuid);
 				buf.append(portraitURL);
 			}
 
