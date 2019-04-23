@@ -110,7 +110,7 @@ public class JSFLoginPortletTester extends BrowserDriverManagingTesterBase {
 		browserDriver.sendKeysToElement(emailFieldXpath, "test@liferay.com");
 
 		String passwordFieldXpath = "//input[contains(@id,':password')]";
-		String signInButtonXpath = "//input[@type='submit' and @value='Sign In']";
+		String signInButtonXpath = "//button[@value='Sign In']";
 
 		// Note: skip steps 5-9 if you are testing the "Remember Me" feature.
 		if (!testRememberMe) {
