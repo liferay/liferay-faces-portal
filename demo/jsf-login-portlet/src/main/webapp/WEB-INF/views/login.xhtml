@@ -3,38 +3,39 @@
 	xmlns:aui-cc="http://liferay.com/faces/aui-cc" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	<h:head />
-	<h:body>
+	<alloy:head />
+	<alloy:body>
 		<c:choose>
 			<c:when test="#{liferay.themeDisplay.signedIn}">
-				<h:outputText value="#{i18n.replace('you-are-signed-in-as-x', liferay.user.fullName)}" />
+				<alloy:outputText value="#{i18n.replace('you-are-signed-in-as-x', liferay.user.fullName)}" />
 			</c:when>
 			<c:otherwise>
 				<alloy:form>
-					<h:messages globalOnly="true" />
+					<alloy:messages globalOnly="true" />
 					<alloy:fieldset>
 						<alloy:field id="handleField" label="#{i18n[loginBackingBean.handleLabel]}">
-							<h:inputText id="handle" value="#{loginModelBean.handle}" required="true"
+							<alloy:inputText id="handle" value="#{loginModelBean.handle}" required="true"
 								validatorMessage="#{i18n['you-have-entered-invalid-data']}">
 								<f:ajax render="handleMessage" />
 								<c:if test="#{loginBackingBean.handleLabel == 'email-address'}">
 									<f:validateRegex pattern=".+[@].+[.].+" />
 								</c:if>
-							</h:inputText>
-							<h:message id="handleMessage" for="handle" style="display: inline;" />
+							</alloy:inputText>
+							<alloy:message id="handleMessage" for="handle" style="display: inline;" />
 						</alloy:field>
 						<alloy:field id="passwordField" label="#{i18n['password']}">
-							<h:inputSecret id="password" value="#{loginModelBean.password}" required="true">
+							<alloy:inputSecret id="password" value="#{loginModelBean.password}" required="true">
 								<f:ajax render="passwordMessage" />
-							</h:inputSecret>
-							<h:message id="passwordMessage" for="password" style="display: inline;" />
+							</alloy:inputSecret>
+							<alloy:message id="passwordMessage" for="password" style="display: inline;" />
 						</alloy:field>
 						<alloy:field id="rememberMeField" label="#{i18n['remember-me']}">
-							<h:selectBooleanCheckbox value="#{loginModelBean.rememberMe}" />
+							<alloy:selectBooleanCheckbox value="#{loginModelBean.rememberMe}" />
 						</alloy:field>
 					</alloy:fieldset>
 					<alloy:buttonRow>
-						<h:commandButton action="#{loginBackingBean.authenticate}" value="#{i18n['sign-in']}" />
+						<alloy:commandButton action="#{loginBackingBean.authenticate}" ajax="false"
+							value="#{i18n['sign-in']}" />
 						<alloy:outputLink value="#{loginBackingBean.createAccountURL}">
 							<alloy:outputText value="#{i18n['create-account']}" />
 						</alloy:outputLink>
@@ -42,5 +43,5 @@
 				</alloy:form>
 			</c:otherwise>
 		</c:choose>
-	</h:body>
+	</alloy:body>
 </f:view>
