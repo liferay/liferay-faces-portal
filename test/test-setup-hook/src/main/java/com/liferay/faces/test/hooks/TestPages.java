@@ -131,6 +131,16 @@ public class TestPages {
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Non-Dispatch",
 				new Portlet("2", "com.liferay.faces.lsv.158.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-169", new Portlet("1", "com.liferay.faces.lsv.169.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-alloy",
+			new Portlet("1", "com.liferay.faces.lsv.485.alloy.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-ice",
+			new Portlet("1", "com.liferay.faces.lsv.485.icefaces.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-bridge",
+			new Portlet("1", "com.liferay.faces.lsv.485.bridge.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-prime",
+			new Portlet("1", "com.liferay.faces.lsv.485.primefaces.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-rich",
+			new Portlet("1", "com.liferay.faces.lsv.485.richfaces.portlet", false)));
 	}
 
 	static {
