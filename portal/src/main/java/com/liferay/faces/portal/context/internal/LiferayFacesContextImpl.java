@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -58,6 +58,7 @@ import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.portal.context.PortletHelper;
 import com.liferay.faces.portal.context.PortletHelperUtil;
 import com.liferay.faces.portal.security.AuthorizationException;
+import com.liferay.faces.util.client.Script;
 import com.liferay.faces.util.context.FacesContextHelper;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 
@@ -79,7 +80,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
  */
 @ManagedBean(name = "liferayFacesContext", eager = true)
 @ApplicationScoped
-@SuppressWarnings("deprecation")
 @Deprecated
 public class LiferayFacesContextImpl extends LiferayFacesContext implements Serializable {
 
@@ -292,6 +292,26 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	public void addMessage(FacesContext facesContext, String clientId, Severity severity, String messageId,
 		Object... arguments) {
 		FacesContextHelperUtil.addMessage(facesContext, clientId, severity, messageId, arguments);
+	}
+
+	@Override
+	public void addScript(Script script) {
+		FacesContextHelperUtil.addScript(script);
+	}
+
+	@Override
+	public void addScript(String scriptString) {
+		FacesContextHelperUtil.addScript(scriptString);
+	}
+
+	@Override
+	public void addScript(FacesContext facesContext, Script script) {
+		FacesContextHelperUtil.addScript(facesContext, script);
+	}
+
+	@Override
+	public void addScript(FacesContext facesContext, String scriptString) {
+		FacesContextHelperUtil.addScript(facesContext, scriptString);
 	}
 
 	/**
@@ -1043,6 +1063,16 @@ public class LiferayFacesContextImpl extends LiferayFacesContext implements Seri
 	@Override
 	public User getScopeGroupUser() {
 		return LiferayPortletHelperUtil.getScopeGroupUser(getFacesContext());
+	}
+
+	@Override
+	public List<Script> getScripts() {
+		return FacesContextHelperUtil.getScripts();
+	}
+
+	@Override
+	public List<Script> getScripts(FacesContext facesContext) {
+		return FacesContextHelperUtil.getScripts(facesContext);
 	}
 
 	/**
