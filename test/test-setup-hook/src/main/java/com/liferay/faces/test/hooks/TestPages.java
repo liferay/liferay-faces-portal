@@ -170,6 +170,8 @@ public class TestPages {
 			new Portlet("1", "com.liferay.faces.lsv.485.primefaces.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-rich",
 			new Portlet("1", "com.liferay.faces.lsv.485.richfaces.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-523",
+			new Portlet("1", "com.liferay.faces.lsv.523", false)));
 	}
 
 	static {
