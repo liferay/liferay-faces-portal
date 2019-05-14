@@ -75,7 +75,8 @@ import com.liferay.portal.kernel.util.HtmlUtil;
 			stringBuilder.append(markup.substring(lastMatchEnd, markup.length()));
 		}
 
-		return stringBuilder.toString();
+		// Remove all the "<![CDATA[" and "]]>" tokens since they will interfere with the JSF partial-response.
+		return stringBuilder.toString().replace("<![CDATA[", "").replace("]]>", "");
 	}
 
 	private static void appendTrimmedGroupIfNotNull(StringBuilder stringBuilder, Matcher matcher, int groupIndex) {

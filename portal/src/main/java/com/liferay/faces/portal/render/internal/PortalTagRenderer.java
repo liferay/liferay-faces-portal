@@ -254,9 +254,6 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 			// FACES-3441: portal:captcha ReCaptcha fails to re-render on ajax on Liferay 7.0 + FP81
 			//J+
 			markup = ScriptUtil.prepareScriptsForMojarraPartialResponse(markup);
-
-			// Remove all the "<![CDATA[" and "]]>" tokens since they will interfere with the JSF partial-response.
-			markup = markup.replace("<![CDATA[", "").replace("]]>", "");
 		}
 
 		return markup;

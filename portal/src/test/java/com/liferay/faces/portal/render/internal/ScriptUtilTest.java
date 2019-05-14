@@ -36,6 +36,10 @@ public final class ScriptUtilTest {
 	@Test
 	public final void testScriptUtil_MOJARRA_4340_FACES_3441() {
 		Assert.assertEquals(
+			"<script data-senna-track=\"permanent\" type=\"text/javascript\">\nalert('hello');\n</script>",
+			ScriptUtil.prepareScriptsForMojarraPartialResponse(
+				"<script type=\"text/javascript\" data-senna-track=\"permanent\">\n<![CDATA[alert('hello');]]>\n</script>"));
+		Assert.assertEquals(
 			"<script test=\"&quot;&apos;test/test/test&apos;&quot;\" type=\"text/javascript\">\nalert('hello');\n</script>",
 			ScriptUtil.prepareScriptsForMojarraPartialResponse(
 				"<script type=\"text/javascript\" test=\"&quot;&apos;test&#x2f;test&#47;test&apos;&quot;\">\nalert('hello');\n</script>"));
