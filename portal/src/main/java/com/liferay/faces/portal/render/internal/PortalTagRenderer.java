@@ -15,6 +15,7 @@ package com.liferay.faces.portal.render.internal;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
@@ -247,9 +248,12 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 
 		if (ajaxRequest) {
 
+			//J-
 			// Workaround Mojarra #4340: ensure type="text/javascript" is the last attribute so that jsf.js will strip
 			// and run the script.
-			markup = markup.replaceAll("(<script[^>]+)(type=\"text/javascript\")([^>]+)>", "$1 $3 $2>");
+			// FACES-3441: portal:captcha ReCaptcha fails to re-render on ajax on Liferay 7.0 + FP81
+			//J+
+			markup = ScriptUtil.prepareScriptsForMojarraPartialResponse(markup);
 
 			// Remove all the "<![CDATA[" and "]]>" tokens since they will interfere with the JSF partial-response.
 			markup = markup.replace("<![CDATA[", "").replace("]]>", "");
