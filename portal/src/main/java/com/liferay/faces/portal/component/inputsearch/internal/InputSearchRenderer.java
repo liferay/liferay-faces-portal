@@ -35,9 +35,9 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.MethodExpressionActionListener;
 import javax.faces.event.PreRenderComponentEvent;
 import javax.faces.render.FacesRenderer;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.inputsearch.InputSearch;
-import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
 import com.liferay.faces.util.event.PreRenderComponentEventListener;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -45,6 +45,7 @@ import com.liferay.faces.util.render.RendererUtil;
 
 import com.liferay.portal.kernel.xml.Attribute;
 import com.liferay.portal.kernel.xml.Document;
+import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
@@ -68,11 +69,43 @@ import com.liferay.taglib.ui.InputSearchTag;
 //J-
 @FacesRenderer(componentFamily = InputSearch.COMPONENT_FAMILY, rendererType = InputSearch.RENDERER_TYPE)
 //J+
-public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, InputSearchTag>
-	implements PreRenderComponentEventListener {
+public class InputSearchRenderer extends InputSearchRendererBase implements PreRenderComponentEventListener {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(InputSearchRenderer.class);
+
+	@Override
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
+
+		InputSearchTag inputSearchTag = new InputSearchTag();
+		InputSearch inputSearch = (InputSearch) uiComponent;
+
+		// Set attributes that are common between the component and JSP tag.
+		inputSearchTag.setAutoFocus(inputSearch.isAutoFocus());
+
+		if (inputSearch.getButtonLabel() != null) {
+			inputSearchTag.setButtonLabel(inputSearch.getButtonLabel());
+		}
+
+		if (inputSearch.getPlaceholder() != null) {
+			inputSearchTag.setPlaceholder(inputSearch.getPlaceholder());
+		}
+
+		inputSearchTag.setShowButton(inputSearch.isShowButton());
+
+		if (inputSearch.getTitle() != null) {
+			inputSearchTag.setTitle(inputSearch.getTitle());
+		}
+
+		// Set other attributes.
+		inputSearchTag.setCssClass(inputSearch.getStyleClass());
+
+		String clientId = inputSearch.getClientId(facesContext);
+		inputSearchTag.setId(clientId);
+		inputSearchTag.setName(clientId);
+
+		return inputSearchTag;
+	}
 
 	@Override
 	public void decode(FacesContext facesContext, UIComponent uiComponent) {
@@ -81,9 +114,9 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
-		String clientId = uiComponent.getClientId();
+		String clientId = uiComponent.getClientId(facesContext);
 		String submittedValue = requestParameterMap.get(clientId);
-		InputSearch inputSearch = cast(uiComponent);
+		InputSearch inputSearch = (InputSearch) uiComponent;
 
 		if (submittedValue == null) {
 			submittedValue = "";
@@ -115,13 +148,134 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 	}
 
 	@Override
-	public String getChildInsertionMarker() {
+	public String getChildrenInsertionMarker() {
 		return "</div>";
 	}
 
 	@Override
-	public InputSearchTag newTag() {
-		return new InputSearchTag();
+	public String getMarkup(FacesContext facesContext, UIComponent uiComponent, String portalTagOutput)
+		throws IOException {
+
+		//J-
+		// NOTE: The specified markup looks like the following (HTML comments added for clarity):
+		//
+		// <!-- Opening <div> rendered by html/taglib/ui/input_search/page.jsp -->
+		// <div class="input-append">
+		//
+		//	 <!-- Input text field rendered by html/taglib/ui/input_search/page.jsp -->
+		//	 <input class="search-query span9" id="...:jid42" name="..." placeholder="" type="text" value="" />
+		//
+		//	 <!-- Search button rendered by html/taglib/ui/input_search/page.jsp -->
+		//	 <button class="btn" type="submit">Search</button>
+		//
+		//	 <!-- HtmlInputText (dynamically added JSF child component) -->
+		//	 <input type="text" name="...:htmlInputText" />
+		//
+		//	 <!-- HtmlCommandButton (dynamically added JSF child component) -->
+		//	 <input type="submit" name="...:htmlCommandButton" value="" />
+		//
+		// <!-- Closing </div> rendered by html/taglib/ui/input_search/page.jsp -->
+		// </div>
+		//J+
+
+		try {
+
+			// Parse the generated markup as an XML document.
+			Document document = SAXReaderUtil.read(portalTagOutput);
+			Element rootElement = document.getRootElement();
+
+			// Locate the first/main input element in the XML document. This is the one that will contain contain the
+			// value that will be submitted in the postback and received by the decode(FacesContext, UIComponent)
+			// method).
+			InputSearch inputSearch = (InputSearch) uiComponent;
+			String xpathInput = "//input[contains(@id, '" + inputSearch.getClientId(facesContext) + "')]";
+			Element mainInputElement = (Element) rootElement.selectSingleNode(xpathInput);
+
+			if (mainInputElement != null) {
+
+				// Copy the value attribute of the InputSearch component to the first input element in the XML document.
+				mainInputElement.attribute("value").setValue((String) inputSearch.getValue());
+
+				// Locate the dynamically added HtmlInputText and HtmlCommandButton child components.
+				String xpathInputs = "//input[@type='text']";
+				List<Node> inputElements = rootElement.selectNodes(xpathInputs);
+
+				if ((inputElements != null) && (inputElements.size() == 2)) {
+
+					// Copy each "on" attribute name/value pairs from the HtmlInputText to the first input element in
+					// the XML document. This will enable all of the AjaxBehavior events like keyup/keydown to work.
+					Element htmlInputTextElement = (Element) inputElements.get(1);
+					Iterator<Attribute> attributeIterator = htmlInputTextElement.attributeIterator();
+
+					while (attributeIterator.hasNext()) {
+						Attribute attribute = attributeIterator.next();
+						String attributeName = attribute.getName();
+
+						if (attributeName.startsWith("on")) {
+							mainInputElement.addAttribute(attributeName, attribute.getValue());
+						}
+					}
+
+					// Remove the HtmlInputText <input> from the XML document so that only one text field is rendered.
+					htmlInputTextElement.getParent().remove(htmlInputTextElement);
+				}
+			}
+
+			// Locate the HtmlCommandButton in the XML document.
+			List<UIComponent> children = inputSearch.getChildren();
+			HtmlCommandButton htmlCommandButton = (HtmlCommandButton) children.get(1);
+			String htmlCommandButtonClientId = htmlCommandButton.getClientId(facesContext);
+
+			// Note that if there is an AjaxBehavior, then the rendered HtmlCommandButton can be located in the XML
+			// document via the name attribute. Otherwise it can be located in the XML document via the id attribute.
+			String htmlCommandButtonXPath = "//input[contains(@name,'" + htmlCommandButtonClientId +
+				"') and @type='submit']";
+			Element htmlCommandButtonElement = (Element) rootElement.selectSingleNode(htmlCommandButtonXPath);
+
+			if (htmlCommandButtonElement == null) {
+				htmlCommandButtonXPath = "//input[contains(@id,'" + htmlCommandButtonClientId +
+					"') and @type='submit']";
+				htmlCommandButtonElement = (Element) rootElement.selectSingleNode(htmlCommandButtonXPath);
+			}
+
+			if (htmlCommandButtonElement != null) {
+
+				// Locate the <button> element in the XML document that was rendered by page.jsp
+				Element buttonElement = (Element) rootElement.selectSingleNode("//button[@type='submit']");
+
+				if (buttonElement != null) {
+
+					// Copy attributes found on the HtmlCommandButton <input> element to the <button> element that was
+					// rendered by page.jsp
+					Attribute onClickAttr = htmlCommandButtonElement.attribute("onclick");
+
+					if (onClickAttr != null) {
+						buttonElement.addAttribute("onclick", onClickAttr.getValue());
+					}
+
+					Attribute nameAttr = htmlCommandButtonElement.attribute("name");
+
+					if (nameAttr != null) {
+						buttonElement.addAttribute("name", nameAttr.getValue());
+					}
+
+					Attribute idAttr = htmlCommandButtonElement.attribute("id");
+
+					if (idAttr != null) {
+						buttonElement.addAttribute("id", idAttr.getValue());
+					}
+
+					// Remove the HtmlCommandButton <input> from the XML document so that only one button is rendered.
+					htmlCommandButtonElement.getParent().remove(htmlCommandButtonElement);
+				}
+			}
+
+			// Returned the modified verson of the specified markup.
+			return rootElement.asXML();
+		}
+		catch (DocumentException e) {
+			throw new IOException(e);
+		}
 	}
 
 	@Override
@@ -129,12 +283,7 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 		dynamicallyAddChildComponents((InputSearch) preRenderComponentEvent.getComponent());
 	}
 
-	@Override
-	protected InputSearch cast(UIComponent uiComponent) {
-		return (InputSearch) uiComponent;
-	}
-
-	protected void changeClientBehaviorIds(ClientBehavior clientBehavior, String id) {
+	private void changeClientBehaviorIds(ClientBehavior clientBehavior, String id) {
 
 		// Determine whether or not the developer added an f:ajax child tag.
 		if (clientBehavior instanceof AjaxBehavior) {
@@ -163,45 +312,16 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 		}
 	}
 
-	@Override
-	protected void copyFrameworkAttributes(FacesContext facesContext, InputSearch inputSearch,
-		InputSearchTag inputSearchTag) {
-
-		inputSearchTag.setCssClass(inputSearch.getStyleClass());
-		inputSearchTag.setId(inputSearch.getClientId());
-		inputSearchTag.setName(inputSearch.getClientId());
-		inputSearchTag.setAutoFocus(inputSearch.isAutoFocus());
-
-		if (inputSearch.getButtonLabel() != null) {
-			inputSearchTag.setButtonLabel(inputSearch.getButtonLabel());
-		}
-
-		if (inputSearch.getPlaceholder() != null) {
-			inputSearchTag.setPlaceholder(inputSearch.getPlaceholder());
-		}
-
-		inputSearchTag.setShowButton(inputSearch.isShowButton());
-
-		if (inputSearch.getTitle() != null) {
-			inputSearchTag.setTitle(inputSearch.getTitle());
-		}
-	}
-
-	@Override
-	protected void copyNonFrameworkAttributes(FacesContext facesContext, InputSearch u, InputSearchTag t) {
-		// no-op
-	}
-
 	// The purpose of this method is to dynamically add HtmlInputText and HtmlCommandButton JSF child components. These
 	// children will render child <input>..</input> elements with attributes like "id","name", "onclick", etc. that need
 	// to be copied to the HTML elements that are rendered by html/taglib/ui/input_search/page.jsp
-	protected void dynamicallyAddChildComponents(InputSearch inputSearch) {
+	private void dynamicallyAddChildComponents(InputSearch inputSearch) {
 
 		// If the HtmlInputText and HtmlCommandButton JSF child components are not already present in the component
 		// tree, then
-		List<UIComponent> children = inputSearch.getChildren();
+		if (inputSearch.getChildCount() == 0) {
 
-		if (children.size() == 0) {
+			List<UIComponent> children = inputSearch.getChildren();
 
 			// Dynamically create the HtmlInputText JSF child
 			FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -281,123 +401,5 @@ public class InputSearchRenderer extends DelayedPortalTagRenderer<InputSearch, I
 			inputSearch.markInitialState();
 		}
 
-	}
-
-	@Override
-	protected StringBuilder getMarkup(FacesContext facesContext, UIComponent uiComponent, String markup)
-		throws Exception {
-
-		//J-
-		// NOTE: The specified markup looks like the following (HTML comments added for clarity):
-		//
-		// <!-- Opening <div> rendered by html/taglib/ui/input_search/page.jsp -->
-		// <div class="input-append">
-		//
-		//	 <!-- Input text field rendered by html/taglib/ui/input_search/page.jsp -->
-		//	 <input class="search-query span9" id="...:jid42" name="..." placeholder="" type="text" value="" />
-		//
-		//	 <!-- Search button rendered by html/taglib/ui/input_search/page.jsp -->
-		//	 <button class="btn" type="submit">Search</button>
-		//
-		//	 <!-- HtmlInputText (dynamically added JSF child component) -->
-		//	 <input type="text" name="...:htmlInputText" />
-		//
-		//	 <!-- HtmlCommandButton (dynamically added JSF child component) -->
-		//	 <input type="submit" name="...:htmlCommandButton" value="" />
-		//
-		// <!-- Closing </div> rendered by html/taglib/ui/input_search/page.jsp -->
-		// </div>
-		//J+
-
-		// Parse the generated markup as an XML document.
-		InputSearch inputSearch = cast(uiComponent);
-		Document document = SAXReaderUtil.read(markup.toString());
-		Element rootElement = document.getRootElement();
-
-		// Locate the first/main input element in the XML document. This is the one that will contain contain the value
-		// that will be submitted in the postback and received by the decode(FacesContext, UIComponent) method).
-		String xpathInput = "//input[contains(@id, '" + uiComponent.getClientId() + "')]";
-		Element mainInputElement = (Element) rootElement.selectSingleNode(xpathInput);
-
-		if (mainInputElement != null) {
-
-			// Copy the value attribute of the InputSearch component to the first input element in the XML document.
-			mainInputElement.attribute("value").setValue((String) inputSearch.getValue());
-
-			// Locate the dynamically added HtmlInputText and HtmlCommandButton child components.
-			String xpathInputs = "//input[@type='text']";
-			List<Node> inputElements = rootElement.selectNodes(xpathInputs);
-
-			if ((inputElements != null) && (inputElements.size() == 2)) {
-
-				// Copy each "on" attribute name/value pairs from the HtmlInputText to the first input element in
-				// the XML document. This will enable all of the AjaxBehavior events like keyup/keydown to work.
-				Element htmlInputTextElement = (Element) inputElements.get(1);
-				Iterator<Attribute> attributeIterator = htmlInputTextElement.attributeIterator();
-
-				while (attributeIterator.hasNext()) {
-					Attribute attribute = attributeIterator.next();
-					String attributeName = attribute.getName();
-
-					if (attributeName.startsWith("on")) {
-						mainInputElement.addAttribute(attributeName, attribute.getValue());
-					}
-				}
-
-				// Remove the HtmlInputText <input> from the XML document so that only one text field is rendered.
-				htmlInputTextElement.getParent().remove(htmlInputTextElement);
-			}
-		}
-
-		// Locate the HtmlCommandButton in the XML document.
-		List<UIComponent> children = uiComponent.getChildren();
-		HtmlCommandButton htmlCommandButton = (HtmlCommandButton) children.get(1);
-		String htmlCommandButtonClientId = htmlCommandButton.getClientId();
-
-		// Note that if there is an AjaxBehavior, then the rendered HtmlCommandButton can be located in the XML document
-		// via the name attribute. Otherwise it can be located in the XML document via the id attribute.
-		String htmlCommandButtonXPath = "//input[contains(@name,'" + htmlCommandButtonClientId +
-			"') and @type='submit']";
-		Element htmlCommandButtonElement = (Element) rootElement.selectSingleNode(htmlCommandButtonXPath);
-
-		if (htmlCommandButtonElement == null) {
-			htmlCommandButtonXPath = "//input[contains(@id,'" + htmlCommandButtonClientId + "') and @type='submit']";
-			htmlCommandButtonElement = (Element) rootElement.selectSingleNode(htmlCommandButtonXPath);
-		}
-
-		if (htmlCommandButtonElement != null) {
-
-			// Locate the <button> element in the XML document that was rendered by page.jsp
-			Element buttonElement = (Element) rootElement.selectSingleNode("//button[@type='submit']");
-
-			if (buttonElement != null) {
-
-				// Copy attributes found on the HtmlCommandButton <input> element to the <button> element that was
-				// rendered by page.jsp
-				Attribute onClickAttr = htmlCommandButtonElement.attribute("onclick");
-
-				if (onClickAttr != null) {
-					buttonElement.addAttribute("onclick", onClickAttr.getValue());
-				}
-
-				Attribute nameAttr = htmlCommandButtonElement.attribute("name");
-
-				if (nameAttr != null) {
-					buttonElement.addAttribute("name", nameAttr.getValue());
-				}
-
-				Attribute idAttr = htmlCommandButtonElement.attribute("id");
-
-				if (idAttr != null) {
-					buttonElement.addAttribute("id", idAttr.getValue());
-				}
-
-				// Remove the HtmlCommandButton <input> from the XML document so that only one button is rendered.
-				htmlCommandButtonElement.getParent().remove(htmlCommandButtonElement);
-			}
-		}
-
-		// Returned the modified verson of the specified markup.
-		return new StringBuilder(rootElement.asXML());
 	}
 }

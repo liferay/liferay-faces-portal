@@ -23,7 +23,7 @@ import com.liferay.faces.portal.render.internal.PortalTagRenderer;
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class RuntimeRendererBase extends PortalTagRenderer<com.liferay.faces.portal.component.runtime.Runtime, com.liferay.taglib.portletext.RuntimeTag> {
+public abstract class RuntimeRendererBase extends PortalTagRenderer {
 
 	// Protected Constants
 	protected static final String DEFAULT_PREFERENCES = "defaultPreferences";

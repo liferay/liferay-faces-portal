@@ -59,7 +59,7 @@
 		<tag-extension>
 			<extends-tags>facesMessageLabel styleable uiInputInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIInput]]></parent-class>
-			<render-parent-class><![CDATA[com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer<com.liferay.faces.portal.component.captcha.Captcha, com.liferay.taglib.ui.CaptchaTag>]]></render-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.component.captcha.internal.CaptchaRendererCompat]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -99,7 +99,7 @@
 		<tag-extension>
 			<extends-tags>styleableInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.html.HtmlPanelGroup]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer<com.liferay.faces.portal.component.header.Header, com.liferay.taglib.ui.HeaderTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -195,7 +195,7 @@
 		<tag-extension>
 			<extends-tags>facesMessageLabel styleable uiInputInherited</extends-tags>
 			<parent-class><![CDATA[com.liferay.faces.portal.component.inputrichtext.AjaxUIInput]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer<com.liferay.faces.portal.component.inputrichtext.InputRichText, com.liferay.taglib.ui.InputEditorTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -246,7 +246,7 @@
 		<tag-extension>
 			<extends-tags>styleable uiInputInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIInput]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer<com.liferay.faces.portal.component.inputsearch.InputSearch, com.liferay.taglib.ui.InputSearchTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -263,7 +263,7 @@
 		<tag-extension>
 			<extends-tags>aria styleable uiComponentBaseInherited uiDataInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIData]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer<com.liferay.faces.portal.component.nav.Nav, com.liferay.taglib.aui.NavTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -272,7 +272,7 @@
 		<tag-extension>
 			<extends-tags>styleable uiComponentBaseInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIPanel]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer<com.liferay.faces.portal.component.navbar.NavBar, com.liferay.taglib.aui.NavBarTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -281,7 +281,7 @@
 		<tag-extension>
 			<extends-tags>styleable uiComponentBaseInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIPanel]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer<com.liferay.faces.portal.component.navbarsearch.NavBarSearch, com.liferay.taglib.aui.NavBarSearchTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -346,7 +346,7 @@
 		<tag-extension>
 			<extends-tags>aria styleable uiComponentBaseInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIColumn]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer<com.liferay.faces.portal.component.navitem.NavItem, com.liferay.taglib.aui.NavItemTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -400,7 +400,7 @@
 		</attribute>
 		<tag-extension>
 			<parent-class><![CDATA[javax.faces.component.UIOutput]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer<com.liferay.faces.portal.component.permissionsurl.PermissionsURL, com.liferay.taglib.security.PermissionsURLTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 			<since>1.0.0</since>
 		</tag-extension>
 	</tag>
@@ -435,7 +435,7 @@
 		<tag-extension>
 			<extends-tags>styleable uiComponentBaseInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIPanel]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer<com.liferay.faces.portal.component.runtime.Runtime, com.liferay.taglib.portletext.RuntimeTag>]]></renderer-parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 </facelet-taglib>

@@ -16,14 +16,14 @@ package com.liferay.faces.portal.component.navbar.internal;
 
 import javax.annotation.Generated;
 
-import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
+import com.liferay.faces.portal.render.internal.PortalTagRenderer;
 
 
 /**
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class NavBarRendererBase extends DelayedPortalTagRenderer<com.liferay.faces.portal.component.navbar.NavBar, com.liferay.taglib.aui.NavBarTag> {
+public abstract class NavBarRendererBase extends PortalTagRenderer {
 
 	// Protected Constants
 	protected static final String STYLE = "style";

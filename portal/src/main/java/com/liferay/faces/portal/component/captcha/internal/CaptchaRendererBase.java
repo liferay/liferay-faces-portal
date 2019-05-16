@@ -16,14 +16,14 @@ package com.liferay.faces.portal.component.captcha.internal;
 
 import javax.annotation.Generated;
 
-import javax.faces.render.Renderer;
+import com.liferay.faces.portal.component.captcha.internal.CaptchaRendererCompat;
 
 
 /**
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class CaptchaRendererBase extends Renderer {
+public abstract class CaptchaRendererBase extends CaptchaRendererCompat {
 
 	// Protected Constants
 	protected static final String LABEL = "label";

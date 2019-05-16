@@ -23,7 +23,7 @@ import com.liferay.faces.portal.render.internal.PortalTagRenderer;
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class NavItemRendererBase extends PortalTagRenderer<com.liferay.faces.portal.component.navitem.NavItem, com.liferay.taglib.aui.NavItemTag> {
+public abstract class NavItemRendererBase extends PortalTagRenderer {
 
 	// Protected Constants
 	protected static final String ANCHOR_CSS_CLASS = "anchorCssClass";

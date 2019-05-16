@@ -19,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.header.Header;
 import com.liferay.faces.util.component.Styleable;
@@ -37,13 +38,32 @@ import com.liferay.taglib.ui.HeaderTag;
 public class HeaderRenderer extends HeaderRendererBase {
 
 	@Override
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
+
+		HeaderTag headerTag = new HeaderTag();
+		Header header = (Header) uiComponent;
+
+		// Set attributes that are common between the component and JSP tag.
+		headerTag.setBackLabel(header.getBackLabel());
+		headerTag.setBackURL(header.getBackURL());
+		headerTag.setEscapeXml(header.isEscapeXml());
+		headerTag.setShowBackURL(header.isShowBackURL());
+		headerTag.setTitle(header.getTitle());
+
+		// Set other attributes.
+		headerTag.setCssClass(header.getStyleClass());
+
+		return headerTag;
+	}
+
+	@Override
 	public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		// Encode the starting <div> element that represents the rich text editor.
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.startElement("div", uiComponent);
 
-		String clientId = uiComponent.getClientId();
+		String clientId = uiComponent.getClientId(facesContext);
 		responseWriter.writeAttribute("id", clientId, null);
 		RendererUtil.encodeStyleable(responseWriter, (Styleable) uiComponent);
 
@@ -63,31 +83,7 @@ public class HeaderRenderer extends HeaderRendererBase {
 	}
 
 	@Override
-	public String getChildInsertionMarker() {
+	public String getChildrenInsertionMarker() {
 		return "</h3>";
-	}
-
-	@Override
-	public HeaderTag newTag() {
-		return new HeaderTag();
-	}
-
-	@Override
-	protected Header cast(UIComponent uiComponent) {
-		return (Header) uiComponent;
-	}
-
-	@Override
-	protected void copyFrameworkAttributes(FacesContext facesContext, Header header, HeaderTag headerTag) {
-		headerTag.setCssClass(header.getStyleClass());
-	}
-
-	@Override
-	protected void copyNonFrameworkAttributes(FacesContext facesContext, Header header, HeaderTag headerTag) {
-		headerTag.setBackLabel(header.getBackLabel());
-		headerTag.setBackURL(header.getBackURL());
-		headerTag.setEscapeXml(header.isEscapeXml());
-		headerTag.setShowBackURL(header.isShowBackURL());
-		headerTag.setTitle(header.getTitle());
 	}
 }
