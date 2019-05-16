@@ -244,7 +244,7 @@
 			<type><![CDATA[java.lang.String]]></type>
 		</attribute>
 		<tag-extension>
-			<extends-tags>styleable uiComponentBaseInherited</extends-tags>
+			<extends-tags>styleable uiInputInherited</extends-tags>
 			<parent-class><![CDATA[javax.faces.component.UIInput]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer<com.liferay.faces.portal.component.inputsearch.InputSearch, com.liferay.taglib.ui.InputSearchTag>]]></renderer-parent-class>
 		</tag-extension>
