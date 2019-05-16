@@ -71,6 +71,10 @@ import com.liferay.taglib.ui.InputSearchTag;
 //J+
 public class InputSearchRenderer extends InputSearchRendererBase implements PreRenderComponentEventListener {
 
+	// Private Constants
+	private static final String TEMP_ROOT_ELEMENT_CLOSE = "</TEMPTEMPTEMP>";
+	private static final String TEMP_ROOT_ELEMENT_OPEN = "<TEMPTEMPTEMP>";
+
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(InputSearchRenderer.class);
 
@@ -181,7 +185,8 @@ public class InputSearchRenderer extends InputSearchRendererBase implements PreR
 		try {
 
 			// Parse the generated markup as an XML document.
-			Document document = SAXReaderUtil.read(portalTagOutput);
+			Document document = SAXReaderUtil.read(TEMP_ROOT_ELEMENT_OPEN.concat(portalTagOutput).concat(
+						TEMP_ROOT_ELEMENT_CLOSE));
 			Element rootElement = document.getRootElement();
 
 			// Locate the first/main input element in the XML document. This is the one that will contain contain the
@@ -270,8 +275,10 @@ public class InputSearchRenderer extends InputSearchRendererBase implements PreR
 				}
 			}
 
+			String xml = rootElement.asXML();
+
 			// Returned the modified verson of the specified markup.
-			return rootElement.asXML();
+			return xml.replace(TEMP_ROOT_ELEMENT_OPEN, "").replace(TEMP_ROOT_ELEMENT_CLOSE, "");
 		}
 		catch (DocumentException e) {
 			throw new IOException(e);
