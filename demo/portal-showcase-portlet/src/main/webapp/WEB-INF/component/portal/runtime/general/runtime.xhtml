@@ -1,9 +1,13 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:portal="http://liferay.com/faces/portal"
-	xmlns:showcase="http://liferay.com/faces/showcase" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:portal="http://liferay.com/faces/portal" xmlns:showcase="http://liferay.com/faces/showcase"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-	<showcase:example>
-		<!-- Embed the out-of-the-box Liferay Hello World Portlet -->
-		<portal:runtime portletName="com_liferay_hello_world_web_portlet_HelloWorldPortlet" />
-	</showcase:example>
+	<h:form>
+		<showcase:example renderedCheckbox="true">
+			<!-- Embed the out-of-the-box Liferay Hello World Portlet -->
+			<portal:runtime rendered="#{showcaseModelBean.selectedComponent.rendered}"
+				portletName="com_liferay_hello_world_web_portlet_HelloWorldPortlet" />
+		</showcase:example>
+	</h:form>
 
 </ui:composition>
