@@ -28,8 +28,9 @@
 
 	<ui:define name="col2">
 		<h:form>
-			<showcase:example description="#{i18n['portal-nav-general-example-2']}" number="2">
-				<portal:nav responsive="false" styleClass="nav-list">
+			<showcase:example description="#{i18n['portal-nav-general-example-2']}" number="2" renderedCheckbox="true">
+				<portal:nav rendered="#{showcaseModelBean.selectedComponent.rendered}" responsive="false"
+					styleClass="nav-list">
 					<portal:navItem iconCssClass="icon-github" href="https://github.com/liferay/liferay-faces" label="Source Code" />
 					<portal:navItem iconCssClass="icon-twitter" href="https://twitter.com/liferayfaces" label="@liferayfaces" />
 				</portal:nav>

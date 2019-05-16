@@ -5,7 +5,7 @@
 
 	<h:form id="f1">
 		<showcase:example description="#{i18n['portal-captcha-general-example-1']} #{captchaBacking.captchaImpl}"
-			requiredCheckbox="true">
+			renderedCheckbox="true" requiredCheckbox="true">
 			<h:messages layout="table" />
 			<showcase:field label="#{i18n['text-verification-code']}">
 				<ui:remove><!-- SHOWCASE:IGNORE-BEGIN --></ui:remove>
@@ -15,8 +15,8 @@
 					</h:commandLink>
 				</c:if>
 				<ui:remove><!-- SHOWCASE:IGNORE-END --></ui:remove>
-				<portal:captcha id="simpleCaptcha" required="#{showcaseModelBean.selectedComponent.required}"
-					value="#{captchaBacking.captchaText}" />
+				<portal:captcha id="simpleCaptcha" rendered="#{showcaseModelBean.selectedComponent.rendered}"
+					required="#{showcaseModelBean.selectedComponent.required}" value="#{captchaBacking.captchaText}" />
 			</showcase:field>
 			<h:commandButton action="#{captchaBacking.submit}" value="#{i18n['submit']}">
 				<f:ajax execute="@form" render="@form :modelValue" />
