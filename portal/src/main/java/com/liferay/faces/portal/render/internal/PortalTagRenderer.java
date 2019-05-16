@@ -65,9 +65,6 @@ public abstract class PortalTagRenderer extends Renderer {
 	// Private Constants
 	private static final String CORRESPONDING_JSP_TAG_KEY = PortalTagRenderer.class.getName() + "correspondingJspTag";
 
-	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(PortalTagRenderer.class);
-
 	@Override
 	public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
@@ -138,6 +135,18 @@ public abstract class PortalTagRenderer extends Renderer {
 		facesContext.getResponseWriter().write(portalTagOutput);
 	}
 
+	/**
+	 * This method provides subclasses the opportunity to modify the component markup before it is rendered to the
+	 * response. The default implementation returns the portal tag output markup unmodified.
+	 *
+	 * @param   facesContext
+	 * @param   uiComponent
+	 * @param   portalTagOutput
+	 *
+	 * @return  the markup to be rendered to the response.
+	 *
+	 * @throws  IOException
+	 */
 	protected String getMarkup(FacesContext facesContext, UIComponent uiComponent, String portalTagOutput)
 		throws IOException {
 		return portalTagOutput;
