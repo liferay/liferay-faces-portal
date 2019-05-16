@@ -23,7 +23,7 @@ import com.liferay.faces.portal.render.internal.PortalTagRenderer;
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class PermissionsURLRendererBase extends PortalTagRenderer<com.liferay.faces.portal.component.permissionsurl.PermissionsURL, com.liferay.taglib.security.PermissionsURLTag> {
+public abstract class PermissionsURLRendererBase extends PortalTagRenderer {
 
 	// Protected Constants
 	protected static final String MODEL_RESOURCE = "modelResource";

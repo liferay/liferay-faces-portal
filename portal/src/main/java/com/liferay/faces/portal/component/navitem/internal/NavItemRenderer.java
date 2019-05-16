@@ -16,6 +16,7 @@ package com.liferay.faces.portal.component.navitem.internal;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.navitem.NavItem;
 
@@ -32,18 +33,12 @@ import com.liferay.taglib.aui.NavItemTag;
 public class NavItemRenderer extends NavItemRendererBase {
 
 	@Override
-	public NavItem cast(UIComponent uiComponent) {
-		return (NavItem) uiComponent;
-	}
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
 
-	@Override
-	public void copyFrameworkAttributes(FacesContext facesContext, NavItem navItem, NavItemTag navItemTag) {
-		navItemTag.setId(navItem.getClientId());
-		navItemTag.setCssClass(navItem.getStyleClass());
-	}
+		NavItemTag navItemTag = new NavItemTag();
+		NavItem navItem = (NavItem) uiComponent;
 
-	@Override
-	public void copyNonFrameworkAttributes(FacesContext facesContext, NavItem navItem, NavItemTag navItemTag) {
+		// Set attributes that are common between the component and JSP tag.
 		navItemTag.setAnchorCssClass(navItem.getAnchorCssClass());
 		navItemTag.setAnchorData(navItem.getAnchorData());
 		navItemTag.setAnchorId(navItem.getAnchorId());
@@ -56,15 +51,16 @@ public class NavItemRenderer extends NavItemRendererBase {
 		navItemTag.setSelected(navItem.isSelected());
 		navItemTag.setTitle(navItem.getTitle());
 		navItemTag.setUseDialog(navItem.isUseDialog());
+
+		// Set other attributes.
+		navItemTag.setId(navItem.getClientId(facesContext));
+		navItemTag.setCssClass(navItem.getStyleClass());
+
+		return navItemTag;
 	}
 
 	@Override
-	public String getChildInsertionMarker() {
+	public String getChildrenInsertionMarker() {
 		return "</li>";
-	}
-
-	@Override
-	public NavItemTag newTag() {
-		return new NavItemTag();
 	}
 }

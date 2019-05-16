@@ -14,9 +14,10 @@
 package com.liferay.faces.portal.component.nav.internal;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -24,7 +25,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-import javax.faces.render.RenderKit;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.nav.Nav;
 import com.liferay.faces.portal.component.navitem.NavItem;
@@ -43,23 +44,23 @@ import com.liferay.taglib.aui.NavTag;
 public class NavRenderer extends NavRendererBase {
 
 	@Override
-	public Nav cast(UIComponent uiComponent) {
-		return (Nav) uiComponent;
-	}
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
 
-	@Override
-	public void copyFrameworkAttributes(FacesContext facesContext, Nav nav, NavTag navTag) {
-		char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
-		String id = nav.getClientId().replace(separatorChar, '_').concat("_jsptag");
-		navTag.setId(id);
-		navTag.setCssClass(nav.getStyleClass());
-	}
+		NavTag navTag = new NavTag();
+		Nav nav = (Nav) uiComponent;
 
-	@Override
-	public void copyNonFrameworkAttributes(FacesContext facesContext, Nav nav, NavTag navTag) {
+		// Set attributes that are common between the component and JSP tag.
 		navTag.setAriaLabel(nav.getAriaLabel());
 		navTag.setAriaRole(nav.getAriaRole());
+
+		// Set other attributes.
+		char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
+		String id = nav.getClientId(facesContext).replace(separatorChar, '_').concat("_jsptag");
+		navTag.setId(id);
+		navTag.setCssClass(nav.getStyleClass());
 		navTag.setCollapsible(nav.isResponsive());
+
+		return navTag;
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class NavRenderer extends NavRendererBase {
 		// attribute that does not contain colons (which is the default JSF NamingContainer separator character).
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.startElement("div", uiComponent);
-		responseWriter.writeAttribute("id", uiComponent.getClientId(), "id");
+		responseWriter.writeAttribute("id", uiComponent.getClientId(facesContext), "id");
 
 		// Delegate to PortalTagRenderer so that the JSP tag output will get encoded.
 		super.encodeBegin(facesContext, uiComponent);
@@ -82,43 +83,24 @@ public class NavRenderer extends NavRendererBase {
 		// Get the "value" and "var" attributes of the Nav component and determine if iteration should take place
 		// using a prototype child tab.
 		Nav nav = (Nav) uiComponent;
+		NavItem prototypeChildNavItem = null;
 		Object value = nav.getValue();
 		String var = nav.getVar();
 		boolean iterateOverDataModel = ((value != null) && (var != null));
-		NavItem prototypeChildNavItem = null;
 
-		if (uiComponent instanceof Nav) {
+		if (iterateOverDataModel) {
 			prototypeChildNavItem = getFirstChildNavItem(nav);
 		}
 
 		// Encode the content for each tab.
-		if ((iterateOverDataModel) && (prototypeChildNavItem != null)) {
-
-			ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
-			RenderKit renderKit = facesContext.getRenderKit();
-			StringWriter bufferedChildrenMarkupWriter = new StringWriter();
-			ResponseWriter stringResponseWriter = renderKit.createResponseWriter(bufferedChildrenMarkupWriter, null,
-					"UTF-8");
-			facesContext.setResponseWriter(stringResponseWriter);
-
-			int rowCount = nav.getRowCount();
-
-			for (int i = 0; i < rowCount; i++) {
-				nav.setRowIndex(i);
-				prototypeChildNavItem.encodeAll(facesContext);
-			}
-
-			nav.setRowIndex(-1);
-
-			facesContext.setResponseWriter(originalResponseWriter);
-
-			renderComponentMarkup(facesContext, uiComponent, bufferedChildrenMarkupWriter);
+		if (prototypeChildNavItem != null) {
+			encodeChildren(facesContext, uiComponent, new IteratorDataModelChildrenImpl(nav, prototypeChildNavItem));
 		}
 		else {
 			super.encodeChildren(facesContext, uiComponent);
-
-			nav.setRowIndex(-1);
 		}
+
+		nav.setRowIndex(-1);
 	}
 
 	@Override
@@ -132,12 +114,7 @@ public class NavRenderer extends NavRendererBase {
 		responseWriter.endElement("div");
 	}
 
-	@Override
-	public String getChildInsertionMarker() {
-		return "</ul>";
-	}
-
-	public List<NavItem> getChildNavItems(UIData uiData) {
+	private List<NavItem> getChildNavItems(UIData uiData) {
 
 		List<NavItem> childNavItems = new ArrayList<NavItem>();
 
@@ -153,7 +130,7 @@ public class NavRenderer extends NavRendererBase {
 		return childNavItems;
 	}
 
-	public NavItem getFirstChildNavItem(UIData uiData) {
+	private NavItem getFirstChildNavItem(UIData uiData) {
 
 		NavItem prototypeChildType = null;
 
@@ -166,23 +143,39 @@ public class NavRenderer extends NavRendererBase {
 		return prototypeChildType;
 	}
 
-	@Override
-	public boolean getRendersChildren() {
-		return true;
-	}
+	private static final class IteratorDataModelChildrenImpl implements Iterator<UIComponent> {
 
-	@Override
-	public NavTag newTag() {
-		return new NavTag();
-	}
+		// Private Final Data Members
+		private final Nav nav;
+		private final UIComponent prototypeChildNavItem;
+		private final int rowCount;
 
-	@Override
-	public boolean writeBodyContent() {
-		return true;
-	}
+		// Private Data Members
+		private int currentRow = 0;
 
-	@Override
-	public boolean writeChildrenMarkup() {
-		return false;
+		public IteratorDataModelChildrenImpl(Nav nav, UIComponent prototypeChildNavItem) {
+
+			this.nav = nav;
+			this.prototypeChildNavItem = prototypeChildNavItem;
+			this.rowCount = nav.getRowCount();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return currentRow < rowCount;
+		}
+
+		@Override
+		public UIComponent next() {
+
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+
+			nav.setRowIndex(currentRow);
+			currentRow++;
+
+			return prototypeChildNavItem;
+		}
 	}
 }

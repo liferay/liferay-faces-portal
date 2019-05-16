@@ -19,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.runtime.Runtime;
 
@@ -35,6 +36,20 @@ import com.liferay.taglib.portletext.RuntimeTag;
 public class RuntimeRenderer extends RuntimeRendererBase {
 
 	@Override
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
+
+		RuntimeTag runtimeTag = new RuntimeTag();
+		Runtime runtime = (Runtime) uiComponent;
+
+		// Set attributes that are common between the component and JSP tag.
+		runtimeTag.setDefaultPreferences(runtime.getDefaultPreferences());
+		runtimeTag.setPortletName(runtime.getPortletName());
+		runtimeTag.setQueryString(runtime.getQueryString());
+
+		return runtimeTag;
+	}
+
+	@Override
 	public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		// Encode the starting <div> element that represents the portlet.
@@ -42,7 +57,7 @@ public class RuntimeRenderer extends RuntimeRendererBase {
 
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.startElement("div", uiComponent);
-		responseWriter.writeAttribute("id", uiComponent.getClientId(), "id");
+		responseWriter.writeAttribute("id", uiComponent.getClientId(facesContext), "id");
 
 		// Delegate to PortalTagRenderer so that the JSP tag output will get encoded.
 		super.encodeBegin(facesContext, uiComponent);
@@ -60,29 +75,7 @@ public class RuntimeRenderer extends RuntimeRendererBase {
 	}
 
 	@Override
-	public String getChildInsertionMarker() {
+	public String getChildrenInsertionMarker() {
 		return "</div>";
-	}
-
-	@Override
-	public RuntimeTag newTag() {
-		return new RuntimeTag();
-	}
-
-	@Override
-	protected Runtime cast(UIComponent uiComponent) {
-		return (Runtime) uiComponent;
-	}
-
-	@Override
-	protected void copyFrameworkAttributes(FacesContext facesContext, Runtime runtime, RuntimeTag runtimeTag) {
-		runtimeTag.setDefaultPreferences(runtime.getDefaultPreferences());
-		runtimeTag.setPortletName(runtime.getPortletName());
-		runtimeTag.setQueryString(runtime.getQueryString());
-	}
-
-	@Override
-	protected void copyNonFrameworkAttributes(FacesContext facesContext, Runtime u, RuntimeTag t) {
-
 	}
 }

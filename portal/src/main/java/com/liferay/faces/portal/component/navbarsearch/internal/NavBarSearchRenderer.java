@@ -17,9 +17,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.navbarsearch.NavBarSearch;
-import com.liferay.faces.portal.render.internal.PortalTagRenderer;
 
 import com.liferay.taglib.aui.NavBarSearchTag;
 
@@ -31,34 +31,25 @@ import com.liferay.taglib.aui.NavBarSearchTag;
 //J-
 @FacesRenderer(componentFamily = NavBarSearch.COMPONENT_FAMILY, rendererType = NavBarSearch.RENDERER_TYPE)
 //J+
-public class NavBarSearchRenderer extends PortalTagRenderer<NavBarSearch, NavBarSearchTag> {
+public class NavBarSearchRenderer extends NavBarSearchRendererBase {
 
 	@Override
-	public String getChildInsertionMarker() {
-		return "</div>";
-	}
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
 
-	@Override
-	public NavBarSearchTag newTag() {
-		return new NavBarSearchTag();
-	}
+		NavBarSearchTag navBarSearchTag = new NavBarSearchTag();
+		NavBarSearch navBarSearch = (NavBarSearch) uiComponent;
 
-	@Override
-	protected NavBarSearch cast(UIComponent uiComponent) {
-		return (NavBarSearch) uiComponent;
-	}
-
-	@Override
-	protected void copyFrameworkAttributes(FacesContext facesContext, NavBarSearch navBarSearch,
-		NavBarSearchTag navBarSearchTag) {
+		// Set other attributes.
 		char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
-		String id = navBarSearch.getClientId().replace(separatorChar, '_').concat("_jsptag");
+		String id = navBarSearch.getClientId(facesContext).replace(separatorChar, '_').concat("_jsptag");
 		navBarSearchTag.setId(id);
 		navBarSearchTag.setCssClass(navBarSearch.getStyleClass());
+
+		return navBarSearchTag;
 	}
 
 	@Override
-	protected void copyNonFrameworkAttributes(FacesContext facesContext, NavBarSearch u, NavBarSearchTag t) {
-		// no-op
+	public String getChildrenInsertionMarker() {
+		return "</div>";
 	}
 }

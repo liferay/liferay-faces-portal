@@ -16,14 +16,14 @@ package com.liferay.faces.portal.component.inputsearch.internal;
 
 import javax.annotation.Generated;
 
-import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
+import com.liferay.faces.portal.render.internal.PortalTagRenderer;
 
 
 /**
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class InputSearchRendererBase extends DelayedPortalTagRenderer<com.liferay.faces.portal.component.inputsearch.InputSearch, com.liferay.taglib.ui.InputSearchTag> {
+public abstract class InputSearchRendererBase extends PortalTagRenderer {
 
 	// Protected Constants
 	protected static final String ACTION = "action";

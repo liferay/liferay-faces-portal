@@ -13,10 +13,7 @@
  */
 package com.liferay.faces.portal.component.captcha.internal;
 
-import com.liferay.captcha.taglib.servlet.taglib.CaptchaTag;
-
-import com.liferay.faces.portal.component.captcha.Captcha;
-import com.liferay.faces.portal.render.internal.DelayedPortalTagRenderer;
+import com.liferay.faces.portal.render.internal.PortalTagRenderer;
 
 import com.liferay.portal.kernel.captcha.CaptchaUtil;
 
@@ -24,7 +21,7 @@ import com.liferay.portal.kernel.captcha.CaptchaUtil;
 /**
  * @author  Neil Griffin
  */
-public abstract class CaptchaRendererCompat extends DelayedPortalTagRenderer<Captcha, CaptchaTag> {
+public abstract class CaptchaRendererCompat extends PortalTagRenderer {
 
 	// Protected Constants
 	protected static final String RECAPTCHA_INPUT_NAME = "g-recaptcha-response";
@@ -33,11 +30,11 @@ public abstract class CaptchaRendererCompat extends DelayedPortalTagRenderer<Cap
 		SIMPLE, RECAPTCHA
 	}
 
-	protected String fixMarkup(String markup) {
+	protected final String fixMarkup(String markup) {
 		return markup;
 	}
 
-	protected CaptchaType getCaptchaType() {
+	protected final CaptchaType getCaptchaType() {
 
 		String captchaImpl = CaptchaUtil.getCaptcha().getClass().getName();
 
