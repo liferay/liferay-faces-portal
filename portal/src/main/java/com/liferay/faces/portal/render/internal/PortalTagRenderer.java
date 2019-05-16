@@ -40,6 +40,8 @@ import com.liferay.faces.portal.jsp.internal.JspWriterStringImpl;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
+import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.servlet.JSPSupportServlet;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -154,9 +156,11 @@ public abstract class PortalTagRenderer extends Renderer {
 		portletRequest.setAttribute("aui:form:portletNamespace", "");
 		portletRequest.setAttribute("aui:form:useNamespace", "false");
 
-		HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+		LiferayPortletRequest liferayPortletRequest = PortalUtil.getLiferayPortletRequest(portletRequest);
+		HttpServletRequest httpServletRequest = liferayPortletRequest.getHttpServletRequest();
 		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-		HttpServletResponse httpServletResponse = PortalUtil.getHttpServletResponse(portletResponse);
+		LiferayPortletResponse liferayPortletResponse = PortalUtil.getLiferayPortletResponse(portletResponse);
+		HttpServletResponse httpServletResponse = liferayPortletResponse.getHttpServletResponse();
 		String contentType = httpServletResponse.getContentType();
 
 		JspWriterStringImpl stringWriter = new JspWriterStringImpl();
