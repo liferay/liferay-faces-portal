@@ -27,6 +27,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.inputrichtext.InputRichText;
 import com.liferay.faces.util.component.Styleable;
@@ -51,42 +52,35 @@ import com.liferay.taglib.ui.InputEditorTag;
 public class InputRichTextRenderer extends InputRichTextRendererBase {
 
 	@Override
-	public InputRichText cast(UIComponent uiComponent) {
-		return (InputRichText) uiComponent;
-	}
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
 
-	@Override
-	public void copyFrameworkAttributes(FacesContext facesContext, InputRichText inputRichText,
-		InputEditorTag inputEditorTag) {
+		InputEditorTag inputEditorTag = new InputEditorTag();
+		InputRichText inputRichText = (InputRichText) uiComponent;
 
+		// Set attributes that are common between the component and JSP tag.
+		inputEditorTag.setConfigParams(inputRichText.getConfigParams());
+		inputEditorTag.setContentsLanguageId(inputRichText.getContentsLanguageId());
+		inputEditorTag.setFileBrowserParams(inputRichText.getFileBrowserParams());
+		inputEditorTag.setResizable(inputRichText.isResizable());
+		inputEditorTag.setSkipEditorLoading(inputRichText.isSkipEditorLoading());
+
+		// Set other attributes.
 		inputEditorTag.setCssClass(inputRichText.getStyleClass());
 
 		// When ckeditor.jsp renders a hidden textarea, the name is rendered as the id and name attributes of the
 		// textarea element. Since this renderer creates its own textarea, it is necessary to set a name that will
 		// not interfere when decoding.
 		String escapedEditorName = getEditorId(facesContext, inputRichText);
-
 		inputEditorTag.setName(escapedEditorName);
-	}
-
-	@Override
-	public void copyNonFrameworkAttributes(FacesContext facesContext, InputRichText inputRichText,
-		InputEditorTag inputEditorTag) {
-
-		inputEditorTag.setConfigParams(inputRichText.getConfigParams());
-		inputEditorTag.setContentsLanguageId(inputRichText.getContentsLanguageId());
 		inputEditorTag.setEditorImpl(inputRichText.getEditorKey());
-		inputEditorTag.setFileBrowserParams(inputRichText.getFileBrowserParams());
 
 		char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
-		String clientId = inputRichText.getClientId();
+		String clientId = inputRichText.getClientId(facesContext);
 		String functionNamespace = clientId.replace(separatorChar, '_');
 		inputEditorTag.setInitMethod(functionNamespace + "Init");
 		inputEditorTag.setOnBlurMethod(functionNamespace + "Blur");
 		inputEditorTag.setOnChangeMethod(functionNamespace + "Change");
 		inputEditorTag.setOnFocusMethod(functionNamespace + "Focus");
-		inputEditorTag.setResizable(inputRichText.isResizable());
-		inputEditorTag.setSkipEditorLoading(inputRichText.isSkipEditorLoading());
 
 		String toolbarSet = inputRichText.getToolbarSet();
 
@@ -106,6 +100,8 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 				inputEditorTag.setToolbarSet("liferay");
 			}
 		}
+
+		return inputEditorTag;
 	}
 
 	@Override
@@ -131,7 +127,7 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.startElement("div", uiComponent);
 
-		String clientId = uiComponent.getClientId();
+		String clientId = uiComponent.getClientId(facesContext);
 		char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
 		String escapedEditorName = getEditorId(facesContext, uiComponent);
 		responseWriter.writeAttribute("id", clientId, null);
@@ -244,57 +240,16 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 	}
 
 	@Override
-	public String getChildInsertionMarker() {
-		return "</div>";
-	}
+	public String getMarkup(FacesContext facesContext, UIComponent uiComponent, String portalTagOutput)
+		throws IOException {
 
-	@Override
-	public InputEditorTag newTag() {
-		return new InputEditorTag();
-	}
-
-	protected String getEditorId(FacesContext facesContext, UIComponent uiComponent) {
-
-		String clientId = uiComponent.getClientId();
-		char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
-		String editorId = clientId.replace(separatorChar, '_').concat("_jsptag");
-		String editorType = getEditorType(cast(uiComponent));
-
-		if ("ckeditor_bbcode".equals(editorType)) {
-			editorId = editorId + "_bbcodeInput";
-		}
-		else {
-			editorId = editorId + "_nonInput";
-		}
-
-		return editorId;
-	}
-
-	protected String getEditorType(InputRichText inputRichText) {
-
-		String editorType = PropsUtil.get(PropsKeys.EDITOR_WYSIWYG_DEFAULT);
-		String editorKey = inputRichText.getEditorKey();
-
-		if (editorKey != null) {
-			editorType = PropsUtil.get(editorKey);
-		}
-
-		return editorType;
-	}
-
-	@Override
-	protected StringBuilder getMarkup(FacesContext facesContext, UIComponent uiComponent, String markup)
-		throws Exception {
-
-		StringBuilder stringBuilder = new StringBuilder();
-
-		if ((markup != null) && !"".equals(markup)) {
+		if ((portalTagOutput != null) && !"".equals(portalTagOutput)) {
 
 			String escapedEditorName = getEditorId(facesContext, uiComponent);
 
 			// There are two possible methods to be executed, depending on inline editor enabled or not:
 			// CKEDITOR.replace or CKEDITOR.inline
-			int configIndex = markup.indexOf("CKEDITOR.replace");
+			int configIndex = portalTagOutput.indexOf("CKEDITOR.replace");
 			Boolean editorConfigReplace = null;
 
 			if (configIndex != -1) {
@@ -302,7 +257,7 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 			}
 			else {
 
-				configIndex = markup.indexOf("CKEDITOR.inline");
+				configIndex = portalTagOutput.indexOf("CKEDITOR.inline");
 
 				if (configIndex != -1) {
 					editorConfigReplace = Boolean.FALSE;
@@ -321,24 +276,24 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 				replacement.append("CKEDITOR.instances['");
 				replacement.append(escapedEditorName);
 				replacement.append("'].fire('customDataProcessorLoaded');} ");
-				markup = StringUtil.replace(markup, "createEditor();", replacement.toString());
+				portalTagOutput = StringUtil.replace(portalTagOutput, "createEditor();", replacement.toString());
 
 				// Now, in order to refresh the config, we have to enter a different URL. We achieve this by adding a
 				// "timestamp" param (without this, a default toolbar will be loaded).
-				int customConfigIndex = markup.indexOf("customConfig");
+				int customConfigIndex = portalTagOutput.indexOf("customConfig");
 
 				if (customConfigIndex != -1) {
-					String configURL = markup.substring(customConfigIndex, markup.indexOf(",", customConfigIndex));
+					String configURL = portalTagOutput.substring(customConfigIndex,
+							portalTagOutput.indexOf(",", customConfigIndex));
 					String[] configArray = configURL.split("'");
 					configURL = configArray[1];
-					markup = StringUtil.replace(markup, configURL, configURL.concat("&t=" + new Date().getTime()));
+					portalTagOutput = StringUtil.replace(portalTagOutput, configURL,
+							configURL.concat("&t=" + new Date().getTime()));
 				}
 			}
-
-			stringBuilder.append(markup);
 		}
 
-		return stringBuilder;
+		return portalTagOutput;
 	}
 
 	private void encodeTagFunction(ResponseWriter responseWriter, String clientId, char separatorChar,
@@ -382,5 +337,34 @@ public class InputRichTextRenderer extends InputRichTextRendererBase {
 		}
 
 		responseWriter.write(");};");
+	}
+
+	private String getEditorId(FacesContext facesContext, UIComponent uiComponent) {
+
+		String clientId = uiComponent.getClientId(facesContext);
+		char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
+		String editorId = clientId.replace(separatorChar, '_').concat("_jsptag");
+		String editorType = getEditorType((InputRichText) uiComponent);
+
+		if ("ckeditor_bbcode".equals(editorType)) {
+			editorId = editorId + "_bbcodeInput";
+		}
+		else {
+			editorId = editorId + "_nonInput";
+		}
+
+		return editorId;
+	}
+
+	private String getEditorType(InputRichText inputRichText) {
+
+		String editorType = PropsUtil.get(PropsKeys.EDITOR_WYSIWYG_DEFAULT);
+		String editorKey = inputRichText.getEditorKey();
+
+		if (editorKey != null) {
+			editorType = PropsUtil.get(editorKey);
+		}
+
+		return editorType;
 	}
 }

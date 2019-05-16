@@ -23,7 +23,7 @@ import com.liferay.faces.portal.render.internal.PortalTagRenderer;
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class NavBarSearchRendererBase extends PortalTagRenderer<com.liferay.faces.portal.component.navbarsearch.NavBarSearch, com.liferay.taglib.aui.NavBarSearchTag> {
+public abstract class NavBarSearchRendererBase extends PortalTagRenderer {
 
 	// Protected Constants
 	protected static final String STYLE = "style";

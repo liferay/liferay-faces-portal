@@ -23,7 +23,7 @@ import com.liferay.faces.portal.render.internal.PortalTagRenderer;
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class HeaderRendererBase extends PortalTagRenderer<com.liferay.faces.portal.component.header.Header, com.liferay.taglib.ui.HeaderTag> {
+public abstract class HeaderRendererBase extends PortalTagRenderer {
 
 	// Protected Constants
 	protected static final String BACK_LABEL = "backLabel";

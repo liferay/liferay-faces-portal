@@ -26,6 +26,7 @@ import javax.faces.render.FacesRenderer;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.captcha.taglib.servlet.taglib.CaptchaTag;
 
@@ -43,7 +44,29 @@ import com.liferay.portal.kernel.util.PortalUtil;
 //J-
 @FacesRenderer(componentFamily = Captcha.COMPONENT_FAMILY, rendererType = Captcha.RENDERER_TYPE)
 //J+
-public class CaptchaRenderer extends CaptchaRendererCompat {
+public class CaptchaRenderer extends CaptchaRendererBase {
+
+	@Override
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
+
+		String url;
+		Captcha captcha = (Captcha) uiComponent;
+
+		if (captcha.getUrl() != null) {
+			url = captcha.getUrl();
+		}
+		else {
+			Resource captchaResource = facesContext.getApplication().getResourceHandler().createResource(
+					CaptchaResource.RESOURCE_NAME, LiferayFacesResourceHandler.LIBRARY_NAME);
+			ExternalContext externalContext = facesContext.getExternalContext();
+			url = externalContext.encodeResourceURL(captchaResource.getRequestPath());
+		}
+
+		CaptchaTag captchaTag = new CaptchaTag();
+		captchaTag.setUrl(url);
+
+		return captchaTag;
+	}
 
 	@Override
 	public void decode(FacesContext facesContext, UIComponent uiComponent) {
@@ -51,7 +74,7 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
 		String submittedValue;
-		Captcha captcha = cast(uiComponent);
+		Captcha captcha = (Captcha) uiComponent;
 
 		if (getCaptchaType() == CaptchaType.RECAPTCHA) {
 
@@ -127,41 +150,8 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 	}
 
 	@Override
-	public CaptchaTag newTag() {
-		return new CaptchaTag();
-	}
-
-	@Override
-	protected Captcha cast(UIComponent uiComponent) {
-		return (Captcha) uiComponent;
-	}
-
-	@Override
-	protected void copyFrameworkAttributes(FacesContext facesContext, Captcha captcha, CaptchaTag captchaTag) {
-
-		String url;
-
-		if (captcha.getUrl() != null) {
-			url = captcha.getUrl();
-		}
-		else {
-			Resource captchaResource = facesContext.getApplication().getResourceHandler().createResource(
-					CaptchaResource.RESOURCE_NAME, LiferayFacesResourceHandler.LIBRARY_NAME);
-			ExternalContext externalContext = facesContext.getExternalContext();
-			url = externalContext.encodeResourceURL(captchaResource.getRequestPath());
-		}
-
-		captchaTag.setUrl(url);
-	}
-
-	@Override
-	protected void copyNonFrameworkAttributes(FacesContext facesContext, Captcha captcha, CaptchaTag captchaTag) {
-		// no-op
-	}
-
-	@Override
-	protected StringBuilder getMarkup(FacesContext facesContext, UIComponent uiComponent, String markup)
-		throws Exception {
+	public String getMarkup(FacesContext facesContext, UIComponent uiComponent, String portalTagOutput)
+		throws IOException {
 
 		// Fix the refresh captcha link with the namespaced id when using SimpleCaptcha (default in
 		// portal-ext.properties). It works using out-of-the-box Liferay portlets because it internally uses the
@@ -171,7 +161,7 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 		String namespace = portletResponse.getNamespace();
 		String textToReplace = "id=\"refreshCaptcha\"";
 		String replacement = "id=\"".concat(namespace).concat("refreshCaptcha\"");
-		String modifiedMarkup = fixMarkup(markup.toString());
+		String modifiedMarkup = fixMarkup(portalTagOutput);
 		modifiedMarkup = modifiedMarkup.replace(textToReplace, replacement);
 
 		// Note: It is only possible to prepend the hidden field with the portlet namespace for simple captcha since the
@@ -193,6 +183,6 @@ public class CaptchaRenderer extends CaptchaRendererCompat {
 			modifiedMarkup = modifiedMarkup.substring(0, labelStartPos) + modifiedMarkup.substring(labelFinishPos + 8);
 		}
 
-		return new StringBuilder(modifiedMarkup);
+		return modifiedMarkup;
 	}
 }

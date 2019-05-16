@@ -16,7 +16,6 @@ package com.liferay.faces.portal.render.internal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.liferay.portal.kernel.util.Html;
 import com.liferay.portal.kernel.util.HtmlUtil;
 
 

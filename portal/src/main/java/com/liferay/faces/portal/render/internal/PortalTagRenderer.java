@@ -14,14 +14,16 @@
 package com.liferay.faces.portal.render.internal;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -35,6 +37,8 @@ import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.jsp.internal.JspWriterStringImpl;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.servlet.JSPSupportServlet;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -46,125 +50,102 @@ import com.liferay.taglib.aui.ScriptTag;
 
 /**
  * This abstract class serves as a generic JSF {@link Renderer} that invokes the JSP tag lifecycle of a Liferay Portal
- * JSP tag and encodes the output.
+ * JSP tag and encodes the output. This class will encode children as body content of the JSP tag unless {@link
+ * #getChildrenInsertionMarker()} is overridden and returns a non-null value. See {@link #getChildrenInsertionMarker()},
+ * for more details.
  *
  * @author  Neil Griffin
+ * @author  Juan Gonzalez
+ * @author  Kyle Stiemann
  */
-public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> extends PortalTagRendererCompat {
+public abstract class PortalTagRenderer extends Renderer {
 
-	// Protected Constants
-	protected static final String CORRESPONDING_JSP_TAG = "correspondingJspTag";
-	protected static final String POST_CHILD_MARKUP = "postChildMarkup";
+	// Private Constants
+	private static final String CORRESPONDING_JSP_TAG_KEY = PortalTagRenderer.class.getName() + "correspondingJspTag";
 
-	/**
-	 * Creates a new instance of the JSP tag.
-	 */
-	public abstract T newTag();
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(PortalTagRenderer.class);
 
 	@Override
 	public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-		try {
+		// Create an instance of the JSP tag that corresponds to the JSF component.
+		Tag tag = createTag(facesContext, uiComponent);
+		UIComponent parentComponent = uiComponent.getParent();
+		Map<String, Object> parentComponentAttributes = parentComponent.getAttributes();
+		tag.setParent((Tag) parentComponentAttributes.get(CORRESPONDING_JSP_TAG_KEY));
+		uiComponent.getAttributes().put(CORRESPONDING_JSP_TAG_KEY, tag);
+	}
 
-			// Create an instance of the JSP tag that corresponds to the JSF component.
-			T tag = newTag();
-			copyAttributes(facesContext, cast(uiComponent), tag);
-
-			Map<String, Object> componentAttributes = uiComponent.getAttributes();
-			componentAttributes.put(CORRESPONDING_JSP_TAG, tag);
-
-			// Get the output of the JSP tag (and all child JSP tags).
-			String portalTagOutput = getPortalTagOutput(facesContext, uiComponent, tag);
-			String preChildMarkup = portalTagOutput;
-
-			// Determine the point at which children should be inserted into the markup.
-			String childInsertionMarker = getChildInsertionMarker();
-
-			if (childInsertionMarker != null) {
-
-				int pos = preChildMarkup.indexOf(childInsertionMarker);
-
-				if (pos > 0) {
-					String postChildMarkup = preChildMarkup.substring(pos).trim();
-					componentAttributes.put(POST_CHILD_MARKUP, postChildMarkup);
-					preChildMarkup = preChildMarkup.substring(0, pos).trim();
-				}
-			}
-
-			// Encode the output of the JSP tag up until the point at which children should be inserted.
-			ResponseWriter responseWriter = facesContext.getResponseWriter();
-			responseWriter.write(preChildMarkup);
-		}
-		catch (JspException e) {
-			throw new IOException(e);
-		}
+	@Override
+	public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+		encodeChildren(facesContext, uiComponent, uiComponent.getChildren().iterator());
 	}
 
 	@Override
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
-
-		// Encode the output of the JSP tag that is to appear after the children.
-		ResponseWriter responseWriter = facesContext.getResponseWriter();
-		Map<String, Object> componentAttributes = uiComponent.getAttributes();
-		String postChildMarkup = (String) componentAttributes.remove(POST_CHILD_MARKUP);
-
-		if (postChildMarkup != null) {
-			responseWriter.write(postChildMarkup);
-		}
-
-		componentAttributes.remove(CORRESPONDING_JSP_TAG);
+		uiComponent.getAttributes().remove(CORRESPONDING_JSP_TAG_KEY);
 	}
 
-	public String getChildInsertionMarker() {
+	/**
+	 * @return  the marker string that indicates where children markup should be inserted. Children markup will be
+	 *          inserted before this marker. If this method returns null, any child markup will be inserted as the body
+	 *          content of the JSP Tag. The default return value is null.
+	 */
+	public String getChildrenInsertionMarker() {
 		return null;
 	}
 
-	public boolean writeBodyContent() {
-		return false;
+	@Override
+	public final boolean getRendersChildren() {
+		return true;
 	}
 
 	/**
-	 * Casts a UIComponent to a concrete instance of UIComponent.
+	 * @param   facesContext
+	 * @param   uiComponent
+	 *
+	 * @return  the created JSP tag with all appropriate attributes set.
 	 */
-	protected abstract U cast(UIComponent uiComponent);
+	protected abstract Tag createTag(FacesContext facesContext, UIComponent uiComponent);
 
-	/**
-	 * Copy attributes from the JSF component to the JSP tag that are common between JSF and JSP.
-	 */
-	protected abstract void copyFrameworkAttributes(FacesContext facesContext, U u, T t);
+	protected final void encodeChildren(FacesContext facesContext, UIComponent uiComponent,
+		Iterator<UIComponent> childrenIterator) throws IOException {
 
-	/**
-	 * Copy attributes from the JSF component to the JSP tag that are not common between JSF and JSP.
-	 */
-	protected abstract void copyNonFrameworkAttributes(FacesContext facesContext, U u, T t);
+		String bufferedChildrenMarkup = null;
 
-	protected void copyAttributes(FacesContext facesContext, U u, T t) {
-		copyFrameworkAttributes(facesContext, u, t);
-		copyNonFrameworkAttributes(facesContext, u, t);
-		t.setParent(getParentTag(facesContext, u, t));
+		if (childrenIterator.hasNext()) {
+
+			// Encode each of the children using a writer that can capture the child markup as a string.
+			ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
+			RenderKit renderKit = facesContext.getRenderKit();
+			StringWriter bufferedChildrenMarkupWriter = new StringWriter();
+			ResponseWriter stringResponseWriter = renderKit.createResponseWriter(bufferedChildrenMarkupWriter, null,
+					"UTF-8");
+			facesContext.setResponseWriter(stringResponseWriter);
+
+			while (childrenIterator.hasNext()) {
+				childrenIterator.next().encodeAll(facesContext);
+			}
+
+			facesContext.setResponseWriter(originalResponseWriter);
+			bufferedChildrenMarkup = bufferedChildrenMarkupWriter.toString();
+		}
+
+		String portalTagOutput = getPortalTagOutput(facesContext, uiComponent, bufferedChildrenMarkup);
+		facesContext.getResponseWriter().write(portalTagOutput);
 	}
 
-	protected HttpServletResponse getHttpServletResponse(PortletResponse portletResponse) {
-		return PortalUtil.getHttpServletResponse(portletResponse);
+	protected String getMarkup(FacesContext facesContext, UIComponent uiComponent, String portalTagOutput)
+		throws IOException {
+		return portalTagOutput;
 	}
 
-	protected Tag getParentTag(FacesContext facesContext, U u, T t) {
+	protected final String getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, String childrenMarkup)
+		throws IOException {
 
-		UIComponent uiComponent = cast(u);
-		UIComponent parentComponent = uiComponent.getParent();
-		Map<String, Object> parentComponentAttributes = parentComponent.getAttributes();
-
-		return (Tag) parentComponentAttributes.get(CORRESPONDING_JSP_TAG);
-	}
-
-	protected String getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, Tag tag)
-		throws JspException {
-
-		return getPortalTagOutput(facesContext, uiComponent, tag, null);
-	}
-
-	protected String getPortalTagOutput(FacesContext facesContext, UIComponent uiComponent, Tag tag,
-		String customBodyContent) throws JspException {
+		Map<String, Object> uiComponentAttributes = uiComponent.getAttributes();
+		Tag tag = (Tag) uiComponentAttributes.get(CORRESPONDING_JSP_TAG_KEY);
 
 		// Setup the Facelet -> JSP tag adapter.
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -173,9 +154,9 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 		portletRequest.setAttribute("aui:form:portletNamespace", "");
 		portletRequest.setAttribute("aui:form:useNamespace", "false");
 
-		HttpServletRequest httpServletRequest = getHttpServletRequest(portletRequest);
+		HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
 		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-		HttpServletResponse httpServletResponse = getHttpServletResponse(portletResponse);
+		HttpServletResponse httpServletResponse = PortalUtil.getHttpServletResponse(portletResponse);
 		String contentType = httpServletResponse.getContentType();
 
 		JspWriterStringImpl stringWriter = new JspWriterStringImpl();
@@ -188,9 +169,18 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 
 		// Invoke the JSP tag lifecycle directly (rather than using the tag from a JSP).
 		tag.setPageContext(stringPageContext);
-		tag.doStartTag();
 
-		if (writeBodyContent() && (customBodyContent != null) && (tag instanceof BaseBodyTagSupport)) {
+		try {
+			tag.doStartTag();
+		}
+		catch (JspException e) {
+			throw new IOException(e);
+		}
+
+		String childrenInsertionMarker = getChildrenInsertionMarker();
+
+		if ((childrenInsertionMarker == null) && (childrenMarkup != null) && (!"".equals(childrenMarkup.trim())) &&
+				(tag instanceof BaseBodyTagSupport)) {
 			BaseBodyTagSupport bodyTag = (BaseBodyTagSupport) tag;
 			BodyContent bodyContent = bodyTag.getBodyContent();
 
@@ -201,15 +191,15 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 				bodyTag.setBodyContent(bodyContent);
 			}
 
-			try {
-				bodyContent.write(customBodyContent);
-			}
-			catch (Exception e) {
-				throw new JspException(e);
-			}
+			bodyContent.write(childrenMarkup);
 		}
 
-		tag.doEndTag();
+		try {
+			tag.doEndTag();
+		}
+		catch (JspException e) {
+			throw new IOException(e);
+		}
 
 		// If executing within an Ajax request, then write all the scripts contained in the AUI_SCRIPT_DATA attribute
 		// directly to the tag output.
@@ -237,25 +227,33 @@ public abstract class PortalTagRenderer<U extends UIComponent, T extends Tag> ex
 					ScriptTag.flushScriptData(stringPageContext);
 				}
 				catch (Exception e) {
-					throw new JspException(e);
+					throw new IOException(e);
 				}
 			}
 		}
 
 		jspFactory.releasePageContext(stringPageContext);
 
-		String markup = stringWriter.toString();
+		String portalTagOutput = stringWriter.toString();
 
-		if (ajaxRequest) {
+		if ((childrenInsertionMarker != null) && (childrenMarkup != null)) {
 
-			//J-
-			// Workaround Mojarra #4340: ensure type="text/javascript" is the last attribute so that jsf.js will strip
-			// and run the script.
-			// FACES-3441: portal:captcha ReCaptcha fails to re-render on ajax on Liferay 7.0 + FP81
-			//J+
-			markup = ScriptUtil.prepareScriptsForMojarraPartialResponse(markup);
+			int pos = portalTagOutput.indexOf(childrenInsertionMarker);
+
+			if (pos > 0) {
+
+				String preChildMarkup = portalTagOutput.substring(0, pos).trim();
+				String postChildMarkup = portalTagOutput.substring(pos).trim();
+				portalTagOutput = preChildMarkup.concat(childrenMarkup).concat(postChildMarkup);
+			}
 		}
 
-		return markup;
+		portalTagOutput = getMarkup(facesContext, uiComponent, portalTagOutput);
+
+		if (ajaxRequest) {
+			portalTagOutput = ScriptUtil.prepareScriptsForMojarraPartialResponse(portalTagOutput);
+		}
+
+		return portalTagOutput;
 	}
 }

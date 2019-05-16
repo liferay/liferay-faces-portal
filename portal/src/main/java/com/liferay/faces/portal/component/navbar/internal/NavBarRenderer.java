@@ -20,6 +20,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
+import javax.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.navbar.NavBar;
 
@@ -36,22 +37,18 @@ import com.liferay.taglib.aui.NavBarTag;
 public class NavBarRenderer extends NavBarRendererBase {
 
 	@Override
-	public NavBar cast(UIComponent uiComponent) {
-		return (NavBar) uiComponent;
-	}
+	public Tag createTag(FacesContext facesContext, UIComponent uiComponent) {
 
-	@Override
-	public void copyFrameworkAttributes(FacesContext facesContext, NavBar navBar, NavBarTag navBarTag) {
+		NavBarTag navBarTag = new NavBarTag();
+		NavBar navBar = (NavBar) uiComponent;
 
+		// Set other attributes.
 		char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
-		String id = navBar.getClientId().replace(separatorChar, '_').concat("_jsptag");
+		String id = navBar.getClientId(facesContext).replace(separatorChar, '_').concat("_jsptag");
 		navBarTag.setId(id);
 		navBarTag.setCssClass(navBar.getStyleClass());
-	}
 
-	@Override
-	public void copyNonFrameworkAttributes(FacesContext facesContext, NavBar u, NavBarTag t) {
-		// no-op
+		return navBarTag;
 	}
 
 	@Override
@@ -62,7 +59,7 @@ public class NavBarRenderer extends NavBarRendererBase {
 		// id attribute that does not contain colons (which is the default JSF NamingContainer separator character).
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.startElement("div", uiComponent);
-		responseWriter.writeAttribute("id", uiComponent.getClientId(), "id");
+		responseWriter.writeAttribute("id", uiComponent.getClientId(facesContext), "id");
 
 		// Delegate to PortalTagRenderer so that the JSP tag output will get encoded.
 		super.encodeBegin(facesContext, uiComponent);
@@ -77,36 +74,5 @@ public class NavBarRenderer extends NavBarRendererBase {
 		// Encode the closing </div> element for the navBar.
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.endElement("div");
-	}
-
-	@Override
-	public String getChildInsertionMarker() {
-
-		// Typical output looks like the following:
-
-		//J-
-		// <div class="navbar portal-nav-bar" id="_1_WAR_showcaseportlet_j_idt47" >
-		//	 <div class="navbar-inner">
-		//	   <div class="container">
-		//	   </div>
-		//	   </div>
-		// </div>
-		//J+
-		return "</div>";
-	}
-
-	@Override
-	public NavBarTag newTag() {
-		return new NavBarTag();
-	}
-
-	@Override
-	public boolean writeBodyContent() {
-		return true;
-	}
-
-	@Override
-	public boolean writeChildrenMarkup() {
-		return false;
 	}
 }
