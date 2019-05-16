@@ -4,10 +4,10 @@
 
 	<h:form>
 		<h:messages globalOnly="true" layout="table" />
-		<showcase:example>
-			<portal:inputSearch value="#{inputSearchBacking.searchText}"
-				actionListener="#{inputSearchBacking.searchActionListener}" buttonLabel="#{i18n['submit-search']}"
-				placeholder="#{i18n['enter-your-search-here']}" />
+		<showcase:example renderedCheckbox="true">
+			<portal:inputSearch actionListener="#{inputSearchBacking.searchActionListener}"
+				buttonLabel="#{i18n['submit-search']}" placeholder="#{i18n['enter-your-search-here']}"
+				rendered="#{showcaseModelBean.selectedComponent.rendered}" value="#{inputSearchBacking.searchText}" />
 		</showcase:example>
 	</h:form>
 	<showcase:results label="#{i18n['model-value']}">
