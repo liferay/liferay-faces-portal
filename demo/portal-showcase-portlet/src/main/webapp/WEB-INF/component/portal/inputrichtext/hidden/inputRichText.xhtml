@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"	xmlns:portal="http://liferay.com/faces/portal"
+	xmlns:showcase="http://liferay.com/faces/showcase" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	<ui:remove><!-- SHOWCASE:IGNORE-BEGIN --></ui:remove>
+	<!-- #{showcaseModelBean.selectedComponent.rendered = false} -->
+	<ui:remove><!-- SHOWCASE:IGNORE-END --></ui:remove>
+	<h:outputStylesheet library="css" name="input-rich-text.css" />
+	<h:form id="exampleForm">
+		<showcase:example id="example">
+			<span>
+				<label class="component-rendered-label">
+					<h:selectBooleanCheckbox id="renderedCheckbox" immediate="true"
+						value="#{showcaseModelBean.selectedComponent.rendered}">
+						<f:ajax render="@form" />
+					</h:selectBooleanCheckbox>
+				</label>
+			</span>
+			<showcase:field id="commentsField" label="#{i18n['comments']}" styleClass="input-rich-text-field">
+				<h:message id="commentsMessage" for="comments" />
+			</showcase:field>
+			<!-- Note: In this example, portal:inputRichText is intentionally not a child of showcase:field in order -->
+			<!-- to prevent it from being unnecessarily reinitialized when the showcase:field is re-rendered via Ajax. -->
+			<portal:inputRichText id="comments" label="#{i18n['comments']}"
+				rendered="#{showcaseModelBean.selectedComponent.rendered}"
+				value="#{inputRichTextBacking.applicant.comments}" />
+			<h:commandButton actionListener="#{inputRichTextBacking.submit}" value="#{i18n['submit']}">
+				<f:ajax execute="@form" render="commentsField :modelValue" />
+			</h:commandButton>
+		</showcase:example>
+	</h:form>
+	<showcase:results label="#{i18n['model-value']}">
+		<h:outputText id="modelValue" value="#{inputRichTextBacking.applicant.comments}" />
+	</showcase:results>
+
+</ui:composition>

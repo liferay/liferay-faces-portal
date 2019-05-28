@@ -76,7 +76,7 @@ public abstract class InputRichTextTester extends InputTester {
 		browserDriver.sendKeysToElement(BODY_XPATH, keys);
 	}
 
-	private static boolean isCheckboxDisplayedAndEnabled(BrowserDriver browserDriver, String checkboxType) {
+	private static WebElement getCheckbox(BrowserDriver browserDriver, String checkboxType) {
 
 		String checkboxXpath = "//input[contains(@id,':{0}Checkbox')]".replace("{0}", checkboxType);
 		WebElement checkbox = null;
@@ -86,7 +86,18 @@ public abstract class InputRichTextTester extends InputTester {
 			checkbox = webElements.get(0);
 		}
 
+		return checkbox;
+	}
+
+	private static boolean isCheckboxDisplayedAndEnabled(WebElement checkbox) {
 		return (checkbox != null) && checkbox.isDisplayed() && checkbox.isEnabled();
+	}
+
+	private static boolean isCheckboxDisplayedAndEnabled(BrowserDriver browserDriver, String checkboxType) {
+
+		WebElement checkbox = getCheckbox(browserDriver, checkboxType);
+
+		return isCheckboxDisplayedAndEnabled(checkbox);
 	}
 
 	public void runInputRichTextTest(String useCase, String boldOpen, String boldClose, String italicsOpen,
@@ -103,12 +114,19 @@ public abstract class InputRichTextTester extends InputTester {
 
 		// 2. Verify that the rich text editor is visible.
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
-		waitingAsserter.assertElementDisplayed(INPUT_RICH_TEXT_DIV_XPATH);
+		WebElement renderedCheckbox = getCheckbox(browserDriver, "rendered");
 
-		if (isCheckboxDisplayedAndEnabled(browserDriver, "rendered")) {
+		if ((renderedCheckbox == null) || renderedCheckbox.isSelected()) {
+			waitingAsserter.assertElementDisplayed(INPUT_RICH_TEXT_DIV_XPATH);
+		}
 
-			// 3. Click the *Rendered* checkbox.
-			browserDriver.clickElement(RENDERED_CHECKBOX_XPATH);
+		if (isCheckboxDisplayedAndEnabled(renderedCheckbox)) {
+
+			if (renderedCheckbox.isSelected()) {
+
+				// 3. Click the *Rendered* checkbox.
+				browserDriver.clickElement(RENDERED_CHECKBOX_XPATH);
+			}
 
 			// 4. Verify that the rich text editor is not visible.
 			waitingAsserter.assertElementNotDisplayed(INPUT_RICH_TEXT_DIV_XPATH);
@@ -187,19 +205,24 @@ public abstract class InputRichTextTester extends InputTester {
 			componentName.toLowerCase(Locale.ENGLISH) + "/" + componentUseCase);
 		waitForShowcasePageReady(browserDriver);
 
-		// TECHNICAL NOTE: Wait until all CKEditors are ready to be tested.
-		browserDriver.waitFor(ExpectedConditions.jsReturnsValue(
-				"if (CKEDITOR && CKEDITOR.instances) { return true; }"));
+		WebElement renderedCheckbox = getCheckbox(browserDriver, "rendered");
 
-		//J-
-		browserDriver.waitFor(ExpectedConditions.jsReturnsValue(
-			"for (var ckeditorKey in CKEDITOR.instances) {" +
-				"if (!CKEDITOR.instances[ckeditorKey].instanceReady) {" +
-					"return null;" +
+		if ((renderedCheckbox == null) || renderedCheckbox.isSelected()) {
+
+			// TECHNICAL NOTE: Wait until all CKEditors are ready to be tested.
+			browserDriver.waitFor(ExpectedConditions.jsReturnsValue(
+					"if (CKEDITOR && CKEDITOR.instances) { return true; }"));
+
+			//J-
+			browserDriver.waitFor(ExpectedConditions.jsReturnsValue(
+				"for (var ckeditorKey in CKEDITOR.instances) {" +
+					"if (!CKEDITOR.instances[ckeditorKey].instanceReady) {" +
+						"return null;" +
+					"}" +
 				"}" +
-			"}" +
-			"return true;"));
-		//J+
+				"return true;"));
+			//J+
+		}
 	}
 
 	protected final void submitRichText(BrowserDriver browserDriver, String elementToClickXpath,
