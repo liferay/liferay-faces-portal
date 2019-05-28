@@ -15,7 +15,7 @@ package com.liferay.faces.portal.component.inputrichtext;
 //J-
 
 import javax.annotation.Generated;
-import com.liferay.faces.portal.component.inputrichtext.AjaxUIInput;
+import javax.faces.component.UIInput;
 
 import com.liferay.faces.util.component.Styleable;
 
@@ -24,7 +24,7 @@ import com.liferay.faces.util.component.Styleable;
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class InputRichTextBase extends AjaxUIInput implements Styleable {
+public abstract class InputRichTextBase extends UIInput implements Styleable {
 
 	// Public Constants
 	public static final String COMPONENT_TYPE = "com.liferay.faces.portal.component.inputrichtext.InputRichText";
@@ -272,7 +272,7 @@ public abstract class InputRichTextBase extends AjaxUIInput implements Styleable
 	 * <div>When true, the resources necessary for loading the CKEditor will not be added to the <code>&lt;head&gt;...&lt;/head&gt;</code> section of the portal page.</div>
 	 */
 	public boolean isSkipEditorLoading() {
-		return (Boolean) getStateHelper().eval(InputRichTextPropertyKeys.skipEditorLoading, isAjaxRequest());
+		return (Boolean) getStateHelper().eval(InputRichTextPropertyKeys.skipEditorLoading, false);
 	}
 
 	/**
