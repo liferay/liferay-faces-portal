@@ -261,19 +261,36 @@
 			</build>
 		</profile>
 		<profile>
-			<id>generate-vdldoc</id>
+			<id>generate-docs</id>
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.10.4</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>javadoc</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<destDir>${project.artifact.selectedVersion.majorVersion}.${project.artifact.selectedVersion.minorVersion}</destDir>
+									<reportOutputDirectory>${project.build.directory}/javadoc/portal</reportOutputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2.1</version>
+						<version>1.5.0</version>
 						<executions>
 							<execution>
 								<goals>
 									<goal>java</goal>
 								</goals>
-								<phase>prepare-package</phase>
+								<phase>generate-resources</phase>
 								<configuration>
 									<includePluginDependencies>true</includePluginDependencies>
 									<mainClass>org.omnifaces.vdldoc.Main</mainClass>
@@ -283,7 +300,7 @@
 										<argument>-doctitle</argument>
 										<argument>Liferay Faces Portal View Description Language Documentation (VDLDoc)</argument>
 										<argument>-d</argument>
-										<argument>${project.build.directory}/vdldoc/${project.artifact.selectedVersion.majorVersion}.${project.artifact.selectedVersion.minorVersion}/</argument>
+										<argument>${project.build.directory}/vdldoc/portal/${project.artifact.selectedVersion.majorVersion}.${project.artifact.selectedVersion.minorVersion}</argument>
 										<argument>${project.basedir}/src/main/resources/META-INF/portal.taglib.xml</argument>
 										<argument>${project.basedir}/src/main/resources/META-INF/liferay.taglib.xml</argument>
 									</arguments>
