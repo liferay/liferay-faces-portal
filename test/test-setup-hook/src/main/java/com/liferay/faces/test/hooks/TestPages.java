@@ -34,6 +34,8 @@ public class TestPages {
 
 	static {
 		ARCHETYPE_PAGES = new ArrayList<PortalPage>();
+		ARCHETYPE_PAGES.add(new PortalPage("my-adf",
+			new Portlet("commycompanymyadfportlet", "com.mycompany.my.adf.portlet", false)));
 		ARCHETYPE_PAGES.add(new PortalPage("my-alloy",
 				new Portlet("commycompanymyalloyportlet", "com.mycompany.my.alloy.portlet", false)));
 		ARCHETYPE_PAGES.add(new PortalPage("my-icefaces",
@@ -86,7 +88,11 @@ public class TestPages {
 		BRIDGE_DEMO_PAGES.add(new PortalPage("bootsfaces-applicant",
 				new Portlet("1", "com.liferay.faces.demo.bootsfaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("butterfaces-applicant",
-				new Portlet("1", "com.liferay.faces.demo.butterfaces.applicant.portlet")));
+			new Portlet("1", "com.liferay.faces.demo.butterfaces.applicant.portlet")));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("adf-facelets-applicant",
+			new Portlet("1", "com.liferay.faces.demo.adf.facelets.applicant.portlet")));
+		BRIDGE_DEMO_PAGES.add(new PortalPage("adf-jsp-applicant",
+				new Portlet("1", "com.liferay.faces.demo.adf.jsp.applicant.portlet")));
 	}
 
 	static {
