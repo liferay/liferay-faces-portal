@@ -80,7 +80,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
  */
 @ManagedBean(name = "liferayFacesContext", eager = true)
 @ApplicationScoped
-@SuppressWarnings("deprecation")
 @Deprecated
 public class LiferayFacesContextImpl extends LiferayFacesContext implements Serializable {
 
