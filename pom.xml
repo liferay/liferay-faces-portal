@@ -143,10 +143,11 @@
 				<plugin>
 					<groupId>com.liferay.faces</groupId>
 					<artifactId>com.liferay.faces.maven.plugin</artifactId>
-					<version>0.1.0</version>
+					<version>0.3.0</version>
 					<configuration>
 						<!-- liferay.auto.deploy.dir is the location where WARs are copied for deployment -->
 						<autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+						<configsDeployDir>${liferay.home}/osgi/configs</configsDeployDir>
 						<!-- liferay.deploy.dir is the location where extracted WARs are finally deployed -->
 						<liferayVersion>${liferay.version}</liferayVersion>
 					</configuration>
