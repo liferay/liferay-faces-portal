@@ -257,8 +257,7 @@ public class PrimeFacesUsersPortletTester extends PrimeFacesUsersPortletTesterCo
 			"Expected list of first names (sorted in ascending order), filtered by text \"{0}\":", firstNameFilterText);
 
 		//J-
-		// 4. On Liferay 7+, Enter "J" into the *First Name* column filter since partial matching is supported.
-		// On Liferay 6.2, enter "John" into the *First Name* column filter since only exact matching is supported.
+		// 4. Enter "John" into the *First Name* column filter since only exact matching is supported.
 		//J+
 		filterColumnByText(browserDriver, FIRST_NAME_COLUMN_FILTER_XPATH, firstNameFilterText);
 
