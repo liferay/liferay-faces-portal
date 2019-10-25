@@ -166,6 +166,8 @@ public class TestPages {
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-158-Non-Dispatch",
 				new Portlet("2", "com.liferay.faces.lsv.158.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-169", new Portlet("1", "com.liferay.faces.lsv.169.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-adf",
+			new Portlet("1", "com.liferay.faces.lsv.485.adf.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-alloy",
 			new Portlet("1", "com.liferay.faces.lsv.485.alloy.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-ice",
