@@ -115,7 +115,7 @@
 		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
 		<liferay.version>7.3.0-SNAPSHOT</liferay.version>
-		<liferay.version.dtd>7.0</liferay.version.dtd>
+		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<mojarra.version>2.3.2</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<portal.type>liferay</portal.type>
