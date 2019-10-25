@@ -31,7 +31,6 @@ import com.liferay.faces.util.i18n.I18nFactory;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
-import com.liferay.portal.kernel.captcha.CaptchaMaxChallengesException;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 
 
@@ -108,13 +107,6 @@ public class Captcha extends CaptchaBase {
 						summary = i18n.getMessage(facesContext, locale, "text-verification-failed");
 					}
 
-					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
-					facesContext.addMessage(getClientId(facesContext), facesMessage);
-					setValid(false);
-				}
-				catch (CaptchaMaxChallengesException e) {
-					String summary = i18n.getMessage(facesContext, locale,
-							"maximum-number-of-captcha-attempts-exceeded");
 					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, summary);
 					facesContext.addMessage(getClientId(facesContext), facesMessage);
 					setValid(false);
