@@ -29,11 +29,7 @@ public abstract class PrimeFacesUsersPortletTesterCompat extends FileUploadTeste
 	}
 
 	protected String getFirstNameFilterText() {
-
-		// Liferay Portal 7.x has the ability to perform partial matches. For example, "J" would match first names that
-		// start with "J" like "John" and "Josiah". Liferay Portal 6.2 can only do exact matches. For example, "J" would
-		// match zero users, but "John" would match all users named "John" but not "Jonathan".
-		return "J";
+		return "John";
 	}
 
 	protected boolean isFirstNameMatch(String firstName) {
