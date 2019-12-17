@@ -13,9 +13,9 @@
  */
 package com.liferay.faces.portal.component.captcha.internal;
 
-import com.liferay.faces.portal.render.internal.PortalTagRenderer;
+import com.liferay.captcha.util.CaptchaUtil;
 
-import com.liferay.portal.kernel.captcha.CaptchaUtil;
+import com.liferay.faces.portal.render.internal.PortalTagRenderer;
 
 
 /**
