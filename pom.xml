@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.liferay.faces</groupId>
 	<artifactId>com.liferay.faces.portal.parent</artifactId>
-	<version>4.0.0</version>
+	<version>4.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Portal Parent</name>
 	<description>Parent POM for all Liferay Faces Potal modules</description>
@@ -71,7 +71,7 @@
 		<connection>scm:git:https://github.com/liferay/liferay-faces-portal</connection>
 		<developerConnection>scm:git:https://github.com/liferay/liferay-faces-portal</developerConnection>
 		<url>scm:git:https://github.com/liferay/liferay-faces-portal</url>
-		<tag>4.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<modules>
