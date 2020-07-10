@@ -124,7 +124,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
-		<selenium.version>2.53.0</selenium.version>
+		<selenium.version>3.8.1</selenium.version>
 		<surefire.version>2.22.0</surefire.version>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
@@ -781,7 +781,7 @@
 			<dependency>
 				<groupId>com.liferay.faces.test</groupId>
 				<artifactId>com.liferay.faces.test.selenium</artifactId>
-				<version>0.5.4</version>
+				<version>0.5.5-SNAPSHOT</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -805,13 +805,6 @@
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-support</artifactId>
-				<version>${selenium.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<!-- Note: the tests require that Firefox 46.0 is installed on the system. -->
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium-firefox-driver</artifactId>
 				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
