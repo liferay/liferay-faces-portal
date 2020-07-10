@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.primefaces.component.datatable.DataTable;
 
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -132,7 +133,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 	 */
 	@Override
 	public List<User> load(int first, int pageSize, String sortField, SortOrder sortOrder,
-		Map<String, Object> filters) {
+		Map<String, FilterMeta> filters) {
 
 		List<User> users = null;
 		int rowCount = 0;
@@ -160,11 +161,11 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 			boolean andSearch = true;
 			int status = WorkflowConstants.STATUS_ANY;
 
-			String firstNameFilter = trimExpresssion((String) filters.get("firstName"));
-			String middleNameFilter = trimExpresssion((String) filters.get("middleName"));
-			String lastNameFilter = trimExpresssion((String) filters.get("lastName"));
-			String screenNameFilter = trimExpresssion((String) filters.get("screenName"));
-			String emailAddressFilter = trimExpresssion((String) filters.get("emailAddress"));
+			String firstNameFilter = trimExpresssion(filters.get("firstName"));
+			String middleNameFilter = trimExpresssion(filters.get("middleName"));
+			String lastNameFilter = trimExpresssion(filters.get("lastName"));
+			String screenNameFilter = trimExpresssion(filters.get("screenName"));
+			String emailAddressFilter = trimExpresssion(filters.get("emailAddress"));
 
 			// For the sake of speed, search for users in the index rather than
 			// querying the database directly.
@@ -210,11 +211,16 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 
 	}
 
-	protected String trimExpresssion(String value) {
+	protected String trimExpresssion(FilterMeta filterMeta) {
 
 		String expression = null;
 
-		if (value != null) {
+		if (filterMeta != null) {
+			String value = "";
+			Object filterValue = filterMeta.getFilterValue();
+			if (filterValue != null) {
+				value = filterValue.toString();
+			}
 			String trimmedValue = value.trim();
 
 			if (trimmedValue.length() > 0) {
