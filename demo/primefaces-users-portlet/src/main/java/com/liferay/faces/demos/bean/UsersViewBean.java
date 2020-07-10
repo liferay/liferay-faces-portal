@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 
 import org.primefaces.event.data.FilterEvent;
+import org.primefaces.model.FilterMeta;
 
 
 /**
@@ -106,7 +107,7 @@ public class UsersViewBean implements Serializable {
 
 	public void workAroundPF3584DoubleRequest(FilterEvent filterEvent) {
 
-		Map<String, Object> filters = filterEvent.getFilters();
+		Map<String, FilterMeta> filters = filterEvent.getFilterBy();
 
 		if (!workAroundPF3584DoubleRequest && filters.isEmpty()) {
 			workAroundPF3584DoubleRequest = true;

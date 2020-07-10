@@ -90,7 +90,7 @@ public class UsersBackingBean {
 			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 			PortletSession portletSession = (PortletSession) externalContext.getSession(false);
 			String uniqueFolderName = portletSession.getId();
-			org.primefaces.model.UploadedFile uploadedFile = fileUploadEvent.getFile();
+			org.primefaces.model.file.UploadedFile uploadedFile = fileUploadEvent.getFile();
 			UploadedFileWrapper uploadedFileWrapper = new UploadedFileWrapper(uploadedFile,
 					UploadedFile.Status.FILE_SAVED, uniqueFolderName);
 			usersModelBean.setUploadedFile(uploadedFileWrapper);

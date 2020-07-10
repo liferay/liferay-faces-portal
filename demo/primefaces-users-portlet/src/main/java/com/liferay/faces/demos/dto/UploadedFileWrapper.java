@@ -41,7 +41,7 @@ import com.liferay.faces.util.model.UploadedFile;
  * @author  Kyle Stiemann
  */
 public class UploadedFileWrapper implements Serializable, UploadedFile,
-	FacesWrapper<org.primefaces.model.UploadedFile> {
+	FacesWrapper<org.primefaces.model.file.UploadedFile> {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 1078847948835811331L;
@@ -54,9 +54,9 @@ public class UploadedFileWrapper implements Serializable, UploadedFile,
 	private String id;
 	private File renamedFile;
 	private Status status;
-	private org.primefaces.model.UploadedFile wrappedUploadedFile;
+	private org.primefaces.model.file.UploadedFile wrappedUploadedFile;
 
-	public UploadedFileWrapper(org.primefaces.model.UploadedFile uploadedFile, UploadedFile.Status status,
+	public UploadedFileWrapper(org.primefaces.model.file.UploadedFile uploadedFile, UploadedFile.Status status,
 		String uniqueFolderName) {
 		this.wrappedUploadedFile = uploadedFile;
 		this.status = status;
@@ -153,7 +153,7 @@ public class UploadedFileWrapper implements Serializable, UploadedFile,
 		return status;
 	}
 
-	public org.primefaces.model.UploadedFile getWrapped() {
+	public org.primefaces.model.file.UploadedFile getWrapped() {
 		return wrappedUploadedFile;
 	}
 
@@ -184,7 +184,7 @@ public class UploadedFileWrapper implements Serializable, UploadedFile,
 			file = File.createTempFile(fileNamePrefix, fileNameSuffix, uniqueFolder);
 
 			OutputStream outputStream = new FileOutputStream(file);
-			outputStream.write(wrappedUploadedFile.getContents());
+			outputStream.write(wrappedUploadedFile.getContent());
 			outputStream.close();
 
 			// Temporary file maintained by PrimeFaces is automatically deleted.
