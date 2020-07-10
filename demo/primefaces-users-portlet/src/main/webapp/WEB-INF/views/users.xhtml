@@ -51,7 +51,7 @@
 							<h:graphicImage id="portrait" value="#{usersModelBean.selectedUserPortraitURL}"
 								style="width:100px;" />
 							<p:fileUpload id="fileEntryComp" auto="true" update="portrait"
-								fileUploadListener="#{usersBackingBean.handleFileUpload}" />
+								listener="#{usersBackingBean.handleFileUpload}" />
 						</alloy:field>
 					</alloy:fieldset>
 				</alloy:column>
