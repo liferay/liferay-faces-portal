@@ -959,13 +959,6 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<!-- Note: the tests require that Firefox 46.0 is installed on the system. -->
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium-firefox-driver</artifactId>
-				<version>${selenium.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
 				<!-- Note: the tests require that chromedriver 2.24 is installed on the system. -->
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-chrome-driver</artifactId>
