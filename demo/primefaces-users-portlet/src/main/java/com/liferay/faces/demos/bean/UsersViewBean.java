@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 
 import org.primefaces.event.data.FilterEvent;
+
 import org.primefaces.model.FilterMeta;
 
 
