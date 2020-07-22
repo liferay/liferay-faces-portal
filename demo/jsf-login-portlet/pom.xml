@@ -13,6 +13,26 @@
 	<name>jsf-login-portlet</name>
 	<description>This plugin is an alternate JSF 2 portlet for the out-of-the-box Liferay Sign-In portlet.</description>
 
+	<profiles>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.portal},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.portal},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
@@ -50,7 +70,7 @@
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.portal</artifactId>
 			<version>${project.version}</version>
-			<scope>compile</scope>
+			<scope>${war.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

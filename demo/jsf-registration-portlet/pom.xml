@@ -19,6 +19,23 @@
 
 	<profiles>
 		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.portal},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.portal},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
+		</profile>
+		<profile>
 			<id>validateCaptchaForTest</id>
 			<properties>
 				<validate.captcha.for.test>true</validate.captcha.for.test>
@@ -63,6 +80,7 @@
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.portal</artifactId>
 			<version>${project.version}</version>
+			<scope>${war.dependency.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
