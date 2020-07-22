@@ -118,6 +118,76 @@
 		<liferay.version.dtd>7.0</liferay.version.dtd>
 		<mojarra.version>2.2.20</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
+		<!-- Specifies the DynamicImport-Package directive for use with the "thin" Maven profile. -->
+		<osgi.dynamic.import.package></osgi.dynamic.import.package>
+		<!-- Ensures that the Liferay Faces Alloy component/renderer classes can be loaded dynamically via -->
+		<!-- Class.forName(String) -->
+		<osgi.dynamic.import.package.liferay.faces.alloy>
+			com.liferay.faces.alloy.*
+		</osgi.dynamic.import.package.liferay.faces.alloy>
+		<!-- Ensures that the Liferay Faces Bridge and JSF runtime (Mojarra) component/renderer classes can be -->
+		<!-- loadedu dynamically via Class.forName(String) -->
+		<osgi.dynamic.import.package.liferay.faces.bridge>
+			com.liferay.faces.bridge.*,\
+			com.liferay.faces.portlet.*,\
+			com.liferay.faces.util.*,\
+			com.sun.faces.*,\
+			javax.faces.*,\
+			javax.portlet.faces.*
+		</osgi.dynamic.import.package.liferay.faces.bridge>
+		<!-- Ensures that the Liferay Faces Portal component/renderer classes can be loaded dynamically via -->
+		<!-- Class.forName(String) -->
+		<osgi.dynamic.import.package.liferay.faces.portal>
+			com.liferay.faces.portal.*
+		</osgi.dynamic.import.package.liferay.faces.portal>
+		<!-- Ensures that the PrimeFaces component/renderer classes can be loaded dynamically via -->
+		<!-- Class.forName(String) -->
+		<osgi.dynamic.import.package.primefaces>
+			org.primefaces.*
+		</osgi.dynamic.import.package.primefaces>
+		<!-- Excludes unused Hibernate Validator transitive package dependencies so that a WAB can resolve. -->
+		<osgi.import.package.hibernate>
+			com.thoughtworks.paranamer;resolution:=optional,\
+			javafx.beans.*;resolution:=optional,\
+			javax.money;resolution:=optional,\
+			org.apache.logging.log4j.*;resolution:=optional,\
+			org.jboss.logmanager;resolution:=optional,\
+			org.joda.time;resolution:=optional
+		</osgi.import.package.hibernate>
+		<!-- Specifies that $LIFERAY_HOME/osgi/modules/com.liferay.faces.alloy.jar is required for a WAB to resolve, -->
+		<!-- and ensures that it will be included for scanning of descriptors like META-INF/faces-config.xml. -->
+		<osgi.import.package.liferay.faces.alloy>
+			com.liferay.faces.alloy
+		</osgi.import.package.liferay.faces.alloy>
+		<!-- Specifies that $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.api.jar, -->
+		<!-- $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.impl.jar, -->
+		<!-- $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.ext.jar, -->
+		<!-- and javax.faces.jar (the JSF runtime) are required for a WAB to resolve, and ensures that each JAR -->
+		<!-- will be included for scanning of descriptors like META-INF/faces-config.xml. The optional imports are -->
+		<!-- unused transitive package dependencies. They are added automatically by the Liferay WAB generator at -->
+		<!-- deploy time, but must be marked as optional since they are not present in the runtime classpath. -->
+		<osgi.import.package.liferay.faces.bridge>
+			com.liferay.faces.bridge.ext,\
+			com.liferay.faces.bridge.impl,\
+			com.sun.faces,\
+			javax.annotation,\
+			javax.faces,\
+			javax.portlet.faces,\
+			net.fortuna.ical4j.*;resolution:=optional,\
+			org.apache.axis.tools.ant.*;resolution:=optional,\
+			org.apache.poi.*;resolution:=optional,\
+			*
+		</osgi.import.package.liferay.faces.bridge>
+		<!-- Specifies that $LIFERAY_HOME/osgi/modules/com.liferay.faces.portal.jar is required for a WAB to resolve, -->
+		<!-- and ensures that it will be included for scanning of descriptors like META-INF/faces-config.xml. -->
+		<osgi.import.package.liferay.faces.portal>
+			com.liferay.faces.portal
+		</osgi.import.package.liferay.faces.portal>
+		<!-- Specifies that $LIFERAY_HOME/osgi/modules/primefaces.jar is required for a WAB to resolve, and ensures -->
+		<!-- that it will be included for scanning of descriptors like META-INF/faces-config.xml. -->
+		<osgi.import.package.primefaces>
+			org.primefaces
+		</osgi.import.package.primefaces>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
 		<primefaces.version>8.0</primefaces.version>
@@ -125,7 +195,9 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
 		<selenium.version>2.53.0</selenium.version>
+		<skip.thin.war.setup>true</skip.thin.war.setup>
 		<surefire.version>2.22.0</surefire.version>
+		<war.dependency.scope>compile</war.dependency.scope>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
 			WEB-INF/ibm-*.xml,
@@ -161,6 +233,44 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>
 					<version>1.7</version>
+					<executions>
+						<execution>
+							<id>thin-war-setup</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<configuration>
+								<skip>${skip.thin.war.setup}</skip>
+								<target>
+									<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
+									<echo
+										file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer"
+									>com.sun.faces.config.FacesInitializer
+										com.liferay.faces.util.osgi.internal.FacesThinWabInitializer
+										com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
+									</echo>
+									<echo
+										file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.annotationprovider"
+									>com.liferay.faces.util.osgi.mojarra.spi.internal.AnnotationProviderOSGiImpl
+									</echo>
+									<echo
+										file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.FaceletConfigResourceProvider"
+									>com.liferay.faces.util.osgi.mojarra.spi.internal.FaceletConfigResourceProviderOSGiImpl
+									</echo>
+									<echo
+										file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.FacesConfigResourceProvider"
+									>com.liferay.faces.util.osgi.mojarra.spi.internal.FacesConfigResourceProviderOSGiImpl
+									</echo>
+									<echo
+										file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.util.cdi11.CDIUtil"
+									>com.sun.faces.util.cdi11.CDIUtilImpl
+									</echo>
+									<mkdir dir="${project.build.outputDirectory}/WEB-INF" />
+								</target>
+							</configuration>
+						</execution>
+					</executions>
 					<dependencies>
 						<dependency>
 							<groupId>ant-contrib</groupId>
@@ -248,6 +358,16 @@
 						<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
 						<packagingExcludes>${war.packaging.excludes}</packagingExcludes>
 						<webXml>${basedir}/src/main/webapp/WEB-INF/${webapp.descriptor}</webXml>
+						<webResources>
+							<resource>
+								<directory>${basedir}/src/main/webapp/WEB-INF</directory>
+								<filtering>true</filtering>
+								<targetPath>WEB-INF</targetPath>
+								<includes>
+									<include>**/*.properties</include>
+								</includes>
+							</resource>
+						</webResources>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -589,6 +709,22 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package: \
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<faces.impl.scope>provided</faces.impl.scope>
+				<osgi.import.package>
+					Import-Package: \
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+				<skip.thin.war.setup>false</skip.thin.war.setup>
+				<war.dependency.scope>provided</war.dependency.scope>
+			</properties>
+		</profile>
+		<profile>
 			<id>tomcat</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -632,30 +768,31 @@
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.alloy</artifactId>
 				<version>${liferay.faces.alloy.version}</version>
-				<scope>runtime</scope>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.api</artifactId>
 				<version>${liferay.faces.bridge.api.version}</version>
-				<scope>compile</scope>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.impl</artifactId>
 				<version>${liferay.faces.bridge.impl.version}</version>
-				<scope>runtime</scope>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.ext</artifactId>
 				<version>${liferay.faces.bridge.ext.version}</version>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.util</artifactId>
 				<version>${liferay.faces.util.version}</version>
-				<scope>compile</scope>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay</groupId>
@@ -690,6 +827,7 @@
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>1.1.1</version>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>javax.annotation</groupId>
@@ -736,11 +874,13 @@
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
 				<version>2.0.1.Final</version>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>${log4j.version}</version>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish</groupId>
@@ -752,6 +892,7 @@
 				<groupId>org.glassfish.web</groupId>
 				<artifactId>jstl-impl</artifactId>
 				<version>${jstl.version}</version>
+				<scope>${war.dependency.scope}</scope>
 				<exclusions>
 				    <exclusion>
 				        <groupId>javax.servlet</groupId>
@@ -784,11 +925,13 @@
 				<groupId>org.apache.myfaces.core</groupId>
 				<artifactId>myfaces-api</artifactId>
 				<version>${myfaces.version}</version>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.myfaces.core</groupId>
 				<artifactId>myfaces-impl</artifactId>
 				<version>${myfaces.version}</version>
+				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.osgi</groupId>
