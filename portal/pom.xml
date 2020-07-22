@@ -66,6 +66,7 @@
 								!com.liferay.faces.portal,\
 								!com.liferay.faces.portal.*,\
 								javax.el;version="[2.2.0,4.0.0)",\
+								javax.portlet;version="[2.0.0,4.0.0)",\
 								*
 						]]>
 					</bnd>
