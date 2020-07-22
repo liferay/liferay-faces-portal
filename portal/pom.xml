@@ -44,6 +44,22 @@
 						<![CDATA[
 							# Consult individual package-info.java files to determine Export-Packages and versions.
 							-exportcontents: ${packages;VERSIONED}
+							Export-Package: \
+								com.liferay.faces.portal.context.internal,\
+								com.liferay.faces.portal.el.internal,\
+								com.liferay.faces.portal.render.internal,\
+								com.liferay.faces.portal.component.inputrichtext.internal,\
+								com.liferay.faces.portal.component.navbar.internal,\
+								com.liferay.faces.portal.component.navbarsearch.internal,\
+								com.liferay.faces.portal.component.runtime.internal,\
+								com.liferay.faces.portal.component.inputsearch.internal,\
+								com.liferay.faces.portal.component.captcha.internal,\
+								com.liferay.faces.portal.component.permissionsurl.internal,\
+								com.liferay.faces.portal.component.nav.internal,\
+								com.liferay.faces.portal.component.navitem.internal,\
+								com.liferay.faces.portal.component.header.internal,\
+								com.liferay.faces.portal.resource.internal,\
+								com.liferay.faces.portal.jsp.internal
 							# javax.el is automatically imported with the following versions:
 							# javax.el;version="[2.2.0,3.0.0)", but versions 3.0.0+ are also valid.
 							Import-Package: \
