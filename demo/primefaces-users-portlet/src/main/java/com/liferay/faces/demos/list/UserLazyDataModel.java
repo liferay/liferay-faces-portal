@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -218,9 +218,11 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		if (filterMeta != null) {
 			String value = "";
 			Object filterValue = filterMeta.getFilterValue();
+
 			if (filterValue != null) {
 				value = filterValue.toString();
 			}
+
 			String trimmedValue = value.trim();
 
 			if (trimmedValue.length() > 0) {
