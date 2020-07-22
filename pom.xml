@@ -194,7 +194,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
-		<selenium.version>2.53.0</selenium.version>
+		<selenium.version>3.8.1</selenium.version>
 		<skip.thin.war.setup>true</skip.thin.war.setup>
 		<surefire.version>2.22.0</surefire.version>
 		<war.dependency.scope>compile</war.dependency.scope>
@@ -931,7 +931,7 @@
 			<dependency>
 				<groupId>com.liferay.faces.test</groupId>
 				<artifactId>com.liferay.faces.test.selenium</artifactId>
-				<version>0.5.4</version>
+				<version>0.5.5-SNAPSHOT</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
