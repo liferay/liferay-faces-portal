@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -35,7 +35,7 @@ public class TestPages {
 	static {
 		ARCHETYPE_PAGES = new ArrayList<PortalPage>();
 		ARCHETYPE_PAGES.add(new PortalPage("my-adf",
-			new Portlet("commycompanymyadfportlet", "com.mycompany.my.adf.portlet", false)));
+				new Portlet("commycompanymyadfportlet", "com.mycompany.my.adf.portlet", false)));
 		ARCHETYPE_PAGES.add(new PortalPage("my-alloy",
 				new Portlet("commycompanymyalloyportlet", "com.mycompany.my.alloy.portlet", false)));
 		ARCHETYPE_PAGES.add(new PortalPage("my-icefaces",
@@ -88,9 +88,9 @@ public class TestPages {
 		BRIDGE_DEMO_PAGES.add(new PortalPage("bootsfaces-applicant",
 				new Portlet("1", "com.liferay.faces.demo.bootsfaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("butterfaces-applicant",
-			new Portlet("1", "com.liferay.faces.demo.butterfaces.applicant.portlet")));
+				new Portlet("1", "com.liferay.faces.demo.butterfaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("adf-facelets-applicant",
-			new Portlet("1", "com.liferay.faces.demo.adf.facelets.applicant.portlet")));
+				new Portlet("1", "com.liferay.faces.demo.adf.facelets.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("adf-jsp-applicant",
 				new Portlet("1", "com.liferay.faces.demo.adf.jsp.applicant.portlet")));
 	}
@@ -167,19 +167,18 @@ public class TestPages {
 				new Portlet("2", "com.liferay.faces.lsv.158.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-169", new Portlet("1", "com.liferay.faces.lsv.169.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-adf",
-			new Portlet("1", "com.liferay.faces.lsv.485.adf.portlet", false)));
+				new Portlet("1", "com.liferay.faces.lsv.485.adf.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-alloy",
-			new Portlet("1", "com.liferay.faces.lsv.485.alloy.portlet", false)));
+				new Portlet("1", "com.liferay.faces.lsv.485.alloy.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-ice",
-			new Portlet("1", "com.liferay.faces.lsv.485.icefaces.portlet", false)));
+				new Portlet("1", "com.liferay.faces.lsv.485.icefaces.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-bridge",
-			new Portlet("1", "com.liferay.faces.lsv.485.bridge.portlet", false)));
+				new Portlet("1", "com.liferay.faces.lsv.485.bridge.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-prime",
-			new Portlet("1", "com.liferay.faces.lsv.485.primefaces.portlet", false)));
+				new Portlet("1", "com.liferay.faces.lsv.485.primefaces.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-rich",
-			new Portlet("1", "com.liferay.faces.lsv.485.richfaces.portlet", false)));
-		LSV_ISSUE_PAGES.add(new PortalPage("LSV-523",
-			new Portlet("1", "com.liferay.faces.lsv.523", false)));
+				new Portlet("1", "com.liferay.faces.lsv.485.richfaces.portlet", false)));
+		LSV_ISSUE_PAGES.add(new PortalPage("LSV-523", new Portlet("1", "com.liferay.faces.lsv.523", false)));
 	}
 
 	static {
