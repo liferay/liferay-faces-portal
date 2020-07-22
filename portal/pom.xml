@@ -65,6 +65,9 @@
 							Import-Package: \
 								!com.liferay.faces.portal,\
 								!com.liferay.faces.portal.*,\
+								com.liferay.portal.kernel.model;version="1.0.0",\
+								com.liferay.portal.kernel.portlet;version="7.1.0",\
+								com.liferay.portal.kernel.util;version="7.2.0",\
 								javax.el;version="[2.2.0,4.0.0)",\
 								javax.portlet;version="[2.0.0,4.0.0)",\
 								*
