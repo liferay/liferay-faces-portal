@@ -73,7 +73,8 @@ public class CaptchaResource extends Resource {
 			HttpServletResponse httpServletResponse = PortalUtil.getHttpServletResponse(portletResponse);
 			CaptchaHttpServletResponse captchaHttpServletResponse = new CaptchaHttpServletResponse(httpServletResponse);
 
-			CaptchaUtil.serveImage(httpServletRequest, captchaHttpServletResponse);
+			CaptchaUtil.serveImage(new PortletIdHttpServletRequest(httpServletRequest,
+					PortalUtil.getPortletId(portletRequest)), captchaHttpServletResponse);
 
 			String captchaText = (String) httpServletRequest.getSession().getAttribute(CAPTCHA_TEXT);
 			portletSession.setAttribute(CAPTCHA_TEXT, captchaText);
