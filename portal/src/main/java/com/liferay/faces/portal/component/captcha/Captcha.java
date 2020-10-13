@@ -23,6 +23,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.filter.PortletRequestWrapper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
 
 import com.liferay.captcha.util.CaptchaUtil;
 
@@ -32,6 +35,8 @@ import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
+import com.liferay.portal.kernel.servlet.PortletServlet;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 
 /**
@@ -81,10 +86,27 @@ public class Captcha extends CaptchaBase {
 				I18n i18n = I18nFactory.getI18nInstance(externalContext);
 
 				try {
+					HttpSession httpSession = null;
 					Map<String, Object> sessionMap = externalContext.getSessionMap();
 					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 					String userCaptchaTextValue = value.toString();
-					String correctCaptchaTextValue = (String) sessionMap.get(WEB_KEYS_CAPTCHA_TEXT);
+					String key = WEB_KEYS_CAPTCHA_TEXT;
+					String correctCaptchaTextValue = (String) sessionMap.get(key);
+
+					if (correctCaptchaTextValue == null) {
+						HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+						HttpServletRequest originalServletRequest = PortalUtil.getOriginalServletRequest(
+								httpServletRequest);
+						httpSession = originalServletRequest.getSession(true);
+						correctCaptchaTextValue = (String) httpSession.getAttribute(key);
+
+						if (correctCaptchaTextValue == null) {
+							String portletId = PortalUtil.getPortletId(portletRequest);
+							String portletNamespace = PortalUtil.getPortletNamespace(portletId);
+							key = portletNamespace + WEB_KEYS_CAPTCHA_TEXT;
+							correctCaptchaTextValue = (String) httpSession.getAttribute(key);
+						}
+					}
 
 					CaptchaPortletRequest captchaPortletRequest = new CaptchaPortletRequest(portletRequest,
 							userCaptchaTextValue);
@@ -98,7 +120,12 @@ public class Captcha extends CaptchaBase {
 					// Liferay Captcha implementations like SimpleCaptchaUtil will remove the "CAPTCHA_TEXT" session
 					// attribute when calling the Capatcha.check(PortletRequest) method. But this will cause a problem
 					// if we're using an Ajaxified input field. As a workaround, set the value of the attribute again.
-					sessionMap.put(WEB_KEYS_CAPTCHA_TEXT, correctCaptchaTextValue);
+					if (httpSession == null) {
+						sessionMap.put(key, correctCaptchaTextValue);
+					}
+					else {
+						httpSession.setAttribute(key, correctCaptchaTextValue);
+					}
 				}
 				catch (CaptchaTextException e) {
 					String summary = getValidatorMessage();
@@ -123,6 +150,26 @@ public class Captcha extends CaptchaBase {
 		}
 	}
 
+	private static final class CaptchaHttpServletRequest extends HttpServletRequestWrapper {
+
+		private String userCaptchaTextValue;
+
+		public CaptchaHttpServletRequest(HttpServletRequest httpServletRequest, String userCaptchaTextValue) {
+			super(httpServletRequest);
+			this.userCaptchaTextValue = userCaptchaTextValue;
+		}
+
+		@Override
+		public String getParameter(String name) {
+
+			if ("captchaText".equals(name)) {
+				return userCaptchaTextValue;
+			}
+
+			return super.getParameter(name);
+		}
+	}
+
 	private static final class CaptchaPortletRequest extends PortletRequestWrapper {
 
 		private String userCaptchaTextValue;
@@ -133,14 +180,28 @@ public class Captcha extends CaptchaBase {
 		}
 
 		@Override
+		public Object getAttribute(String name) {
+
+			if (PortletServlet.PORTLET_SERVLET_REQUEST.equals(name)) {
+				Object portletServletRequest = super.getAttribute(PortletServlet.PORTLET_SERVLET_REQUEST);
+
+				if ((portletServletRequest != null) && (portletServletRequest instanceof HttpServletRequest)) {
+					return new CaptchaHttpServletRequest((HttpServletRequest) portletServletRequest,
+							userCaptchaTextValue);
+				}
+			}
+
+			return super.getAttribute(name);
+		}
+
+		@Override
 		public String getParameter(String name) {
 
 			if ("captchaText".equals(name)) {
 				return userCaptchaTextValue;
 			}
-			else {
-				return super.getParameter(name);
-			}
+
+			return super.getParameter(name);
 		}
 	}
 }
