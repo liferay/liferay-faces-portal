@@ -99,7 +99,7 @@
 		<liferay.auto.deploy.dir>${liferay.home}/deploy</liferay.auto.deploy.dir>
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
-		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
+		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}-${thick.or.thin}</liferay.home>
 		<liferay.faces.alloy.version>4.1.0-SNAPSHOT</liferay.faces.alloy.version>
 		<liferay.faces.bridge.api.version>4.2.0-SNAPSHOT</liferay.faces.bridge.api.version>
 		<liferay.faces.bridge.ext.version>6.1.0-SNAPSHOT</liferay.faces.bridge.ext.version>
@@ -176,6 +176,7 @@
 			net.fortuna.ical4j.*;resolution:=optional,\
 			org.apache.axis.tools.ant.*;resolution:=optional,\
 			org.apache.poi.*;resolution:=optional,\
+			com.swabunga.spell.*;resolution:=optional,\
 			*
 		</osgi.import.package.liferay.faces.bridge>
 		<!-- Specifies that $LIFERAY_HOME/osgi/modules/com.liferay.faces.portal.jar is required for a WAB to resolve, -->
@@ -197,6 +198,7 @@
 		<selenium.version>3.8.1</selenium.version>
 		<skip.thin.war.setup>true</skip.thin.war.setup>
 		<surefire.version>2.22.0</surefire.version>
+		<thick.or.thin>thick</thick.or.thin>
 		<war.dependency.scope>compile</war.dependency.scope>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
@@ -485,9 +487,16 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>dxp</id>
+			<id>dxp72</id>
 			<properties>
-				<liferay.deploy.version>7.2.10.1-sp1</liferay.deploy.version>
+				<liferay.deploy.version>7.2.10.2-sp5</liferay.deploy.version>
+				<liferay.platform>liferay-dxp</liferay.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>dxp73</id>
+			<properties>
+				<liferay.deploy.version>7.3.10.1-sp0</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
@@ -702,6 +711,7 @@
 						${osgi.import.package.liferay.faces.bridge}
 				</osgi.import.package>
 				<skip.thin.war.setup>false</skip.thin.war.setup>
+				<thick.or.thin>thin</thick.or.thin>
 				<war.dependency.scope>provided</war.dependency.scope>
 			</properties>
 		</profile>
