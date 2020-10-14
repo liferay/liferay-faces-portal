@@ -16,6 +16,7 @@ package com.liferay.faces.portal.test.showcase.inputrichtext;
 import org.junit.Test;
 
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -58,7 +59,7 @@ public class InputRichTextDefaultValueTester extends InputRichTextTester {
 
 		// 4. Click the *Submit* button.
 		String expectedText =
-			"<p>This is some <strong>bold old</strong> text<br />\nand this is some <em>italic</em> text.</p>";
+			"<p>This is some <strong>bold old</strong> text<br />and this is some <em>italic</em> text.</p>";
 		submitRichText(browserDriver, submitButton1Xpath, 1, expectedText);
 
 		//J-
@@ -66,6 +67,15 @@ public class InputRichTextDefaultValueTester extends InputRichTextTester {
 		// "<p>This is some <strong>bold old</strong> text<br />\nand this is some <em>italic</em> text.</p>" appears in
 		// the *Model Value*.
 		//J+
-		waitingAsserter.assertTextPresentInElement(expectedText, modelValue1Xpath);
+		try {
+			waitingAsserter.assertTextPresentInElement(expectedText, modelValue1Xpath);
+		}
+		catch (TimeoutException timeoutException) {
+
+			// Liferay 7.2 includes a newline after the line break
+			expectedText =
+				"<p>This is some <strong>bold old</strong> text<br />\nand this is some <em>italic</em> text.</p>";
+			waitingAsserter.assertTextPresentInElement(expectedText, modelValue1Xpath);
+		}
 	}
 }
