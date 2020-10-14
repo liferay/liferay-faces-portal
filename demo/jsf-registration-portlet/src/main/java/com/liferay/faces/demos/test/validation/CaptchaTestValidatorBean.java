@@ -19,9 +19,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.PortletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 
@@ -44,6 +48,22 @@ public class CaptchaTestValidatorBean {
 			ExternalContext externalContext = facesContext.getExternalContext();
 			Map<String, Object> sessionMap = externalContext.getSessionMap();
 			correctCaptchaValue = (String) sessionMap.get(WebKeys.CAPTCHA_TEXT);
+
+			if (correctCaptchaValue == null) {
+				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+				HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(portletRequest);
+				HttpServletRequest originalServletRequest = PortalUtil.getOriginalServletRequest(httpServletRequest);
+				HttpSession httpSession = originalServletRequest.getSession(true);
+				String key = WebKeys.CAPTCHA_TEXT;
+				correctCaptchaValue = (String) httpSession.getAttribute(key);
+
+				if (correctCaptchaValue == null) {
+					String portletId = PortalUtil.getPortletId(portletRequest);
+					String portletNamespace = PortalUtil.getPortletNamespace(portletId);
+					key = portletNamespace + WebKeys.CAPTCHA_TEXT;
+					correctCaptchaValue = (String) httpSession.getAttribute(key);
+				}
+			}
 
 			if (correctCaptchaValue == null) {
 				return "Correct Captcha Value";
