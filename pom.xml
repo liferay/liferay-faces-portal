@@ -487,21 +487,21 @@
 		<profile>
 			<id>dxp70</id>
 			<properties>
-				<liferay.deploy.version>7.0.10.11-sp11</liferay.deploy.version>
+				<liferay.deploy.version>7.0.10.14-sp14</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
 		<profile>
 			<id>dxp71</id>
 			<properties>
-				<liferay.deploy.version>7.1.10.3-sp3</liferay.deploy.version>
+				<liferay.deploy.version>7.1.10.4-sp4</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
 		<profile>
 			<id>dxp72</id>
 			<properties>
-				<liferay.deploy.version>7.2.10.1-sp1</liferay.deploy.version>
+				<liferay.deploy.version>7.2.10.2-sp5</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
