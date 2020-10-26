@@ -340,7 +340,7 @@
 						<sourceFileExcludes>
 							<exclude>**/internal/*.java</exclude>
 						</sourceFileExcludes>
-						<excludePackageNames>*.internal.*;org.primefaces.model.UploadedFile</excludePackageNames>
+						<excludePackageNames>*.internal.*</excludePackageNames>
 					</configuration>
 				</plugin>
 				<plugin>
