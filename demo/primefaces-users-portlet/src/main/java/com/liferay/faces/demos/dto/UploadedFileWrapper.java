@@ -34,7 +34,7 @@ import com.liferay.faces.util.model.UploadedFile;
 
 
 /**
- * This class provides a convenient mechanism for converting a PrimeFaces {@link org.primefaces.model.UploadedFile}
+ * This class provides a convenient mechanism for converting a PrimeFaces org.primefaces.model.UploadedFile
  * object to an instance of the {@link UploadedFile} interface provided by the Liferay Faces Bridge implementation.
  *
  * @author  Neil Griffin
