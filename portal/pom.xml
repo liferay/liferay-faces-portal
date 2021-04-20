@@ -84,6 +84,7 @@
 								com.liferay.taglib.portletext;version="7.0.0",\
 								com.liferay.taglib.security;version="7.0.0",\
 								com.liferay.taglib.ui;version="7.1.0",\
+								com.liferay.wiki.engine;version="[1.2.0,3.0.0)",\
 								com.liferay.wiki.model;version="1.1.0",\
 								javax.el;version="[2.2.0,4.0.0)",\
 								javax.portlet;version="[3.0.0,4.0.0)",\
