@@ -28,7 +28,7 @@
 						<configuration>
 							<url>https://raw.githubusercontent.com/liferay/liferay-faces-bridge-impl/81eb1c880e79416f996762353e00402660923bf9/tck/bridge-tck-harness/src/main/resources/tomcat_pluto/pluto-portal-driver-config.xml</url>
 							<outputDirectory>${project.build.directory}/classes</outputDirectory>
-							<sha1>39c93aad15b369e5357e4b15abf17a5f2f331cab</sha1>
+							<sha1>3f43a136e0d30ce456638cc1ab029d616bc01a14</sha1>
 						</configuration>
 					</execution>
 				</executions>
