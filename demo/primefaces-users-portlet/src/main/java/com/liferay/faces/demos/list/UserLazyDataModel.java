@@ -18,11 +18,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.primefaces.component.datatable.DataTable;
 
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
 import com.liferay.faces.util.logging.Logger;
@@ -117,37 +119,47 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 	}
 
 	@Override
-	public Object getRowKey(User user) {
-		return user.getUserId();
+	public String getRowKey(User user) {
+		return String.valueOf(user.getUserId());
 	}
 
 	/**
 	 * This method is called by the PrimeFaces {@link DataTable} according to the rows specified in the currently
 	 * displayed page of data.
 	 *
-	 * @param  first      The zero-relative first row index.
-	 * @param  pageSize   The number of rows to fetch.
-	 * @param  sortField  The name of the field which the table is sorted by.
-	 * @param  sortOrder  The sort order, which can be either ascending (default) or descending.
-	 * @param  filters    The query criteria.
+	 * @param  first     The zero-relative first row index.
+	 * @param  pageSize  The number of rows to fetch.
+	 * @param  sortBy    The sort field, sort order (which can be either ascending (default) or descending), etc.
+	 * @param  filterBy  The query criteria.
 	 */
 	@Override
-	public List<User> load(int first, int pageSize, String sortField, SortOrder sortOrder,
-		Map<String, FilterMeta> filters) {
+	public List<User> load(int first, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
 
 		List<User> users = null;
 		int rowCount = 0;
 
-		Sort sort;
+		Sort sort = null;
+		String sortField = null;
 
 		// sort
-		if (sortField != null) {
+		if ((sortBy != null) && !sortBy.isEmpty()) {
 
-			if (sortOrder.equals(SortOrder.DESCENDING)) {
-				sort = SortFactoryUtil.getSort(User.class, sortField, "desc");
-			}
-			else {
-				sort = SortFactoryUtil.getSort(User.class, sortField, "asc");
+			Set<Map.Entry<String, SortMeta>> entrySet = sortBy.entrySet();
+
+			for (Map.Entry<String, SortMeta> entry : entrySet) {
+
+				SortMeta sortMeta = entry.getValue();
+				SortOrder sortOrder = sortMeta.getOrder();
+				sortField = sortMeta.getField();
+
+				if (sortOrder.equals(SortOrder.DESCENDING)) {
+					sort = SortFactoryUtil.getSort(User.class, sortField, "desc");
+				}
+				else {
+					sort = SortFactoryUtil.getSort(User.class, sortField, "asc");
+				}
+
+				break;
 			}
 		}
 		else {
@@ -161,11 +173,11 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 			boolean andSearch = true;
 			int status = WorkflowConstants.STATUS_ANY;
 
-			String firstNameFilter = trimExpresssion(filters.get("firstName"));
-			String middleNameFilter = trimExpresssion(filters.get("middleName"));
-			String lastNameFilter = trimExpresssion(filters.get("lastName"));
-			String screenNameFilter = trimExpresssion(filters.get("screenName"));
-			String emailAddressFilter = trimExpresssion(filters.get("emailAddress"));
+			String firstNameFilter = trimExpresssion(filterBy.get("firstName"));
+			String middleNameFilter = trimExpresssion(filterBy.get("middleName"));
+			String lastNameFilter = trimExpresssion(filterBy.get("lastName"));
+			String screenNameFilter = trimExpresssion(filterBy.get("screenName"));
+			String emailAddressFilter = trimExpresssion(filterBy.get("emailAddress"));
 
 			// For the sake of speed, search for users in the index rather than
 			// querying the database directly.
@@ -177,7 +189,7 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 			List<Document> documentHits = hits.toList();
 
 			logger.debug(
-				"filters firstNameFilter=[{0}] middleNameFilter=[{1}] lastNameFilter=[{2}] screenNameFilter=[{3}] emailAddressFilter=[{4}] active=[{5}] andSearch=[{6}] startRow=[{7}] nonInclusiveFinishRow=[{8}] sortColumn=[{9}] reverseOrder=[{10}] hitCount=[{11}]",
+				"filterBy firstNameFilter=[{0}] middleNameFilter=[{1}] lastNameFilter=[{2}] screenNameFilter=[{3}] emailAddressFilter=[{4}] active=[{5}] andSearch=[{6}] startRow=[{7}] nonInclusiveFinishRow=[{8}] sortColumn=[{9}] reverseOrder=[{10}] hitCount=[{11}]",
 				firstNameFilter, middleNameFilter, lastNameFilter, screenNameFilter, emailAddressFilter, status,
 				andSearch, first, nonInclusiveFinishRow, sortField, sort.isReverse(), documentHits.size());
 
