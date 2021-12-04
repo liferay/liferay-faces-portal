@@ -502,6 +502,13 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>dxp74</id>
+			<properties>
+				<liferay.deploy.version>7.4.13-ga1</liferay.deploy.version>
+				<liferay.platform>liferay-dxp</liferay.platform>
+			</properties>
+		</profile>
+		<profile>
 			<id>faces-war</id>
 			<activation>
 				<file>
