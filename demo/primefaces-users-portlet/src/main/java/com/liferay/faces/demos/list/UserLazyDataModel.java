@@ -123,6 +123,18 @@ public class UserLazyDataModel extends LazyDataModel<User> implements Serializab
 		return String.valueOf(user.getUserId());
 	}
 
+	@Override
+	public int count(Map<String, FilterMeta> filterBy) {
+
+		String firstNameFilter = trimExpresssion(filterBy.get("firstName"));
+		String middleNameFilter = trimExpresssion(filterBy.get("middleName"));
+		String lastNameFilter = trimExpresssion(filterBy.get("lastName"));
+		String screenNameFilter = trimExpresssion(filterBy.get("screenName"));
+		String emailAddressFilter = trimExpresssion(filterBy.get("emailAddress"));
+
+		return countRows(firstNameFilter, middleNameFilter, lastNameFilter, screenNameFilter, emailAddressFilter);
+	}
+
 	/**
 	 * This method is called by the PrimeFaces {@link DataTable} according to the rows specified in the currently
 	 * displayed page of data.
