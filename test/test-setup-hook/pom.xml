@@ -26,9 +26,9 @@
 							<goal>wget</goal>
 						</goals>
 						<configuration>
-							<url>https://raw.githubusercontent.com/liferay/liferay-faces-bridge-impl/cef463f67a8523fae7fad561745f90f230c3a028/tck/bridge-tck-harness/src/main/resources/tomcat_pluto/pluto-portal-driver-config.xml</url>
+							<url>https://raw.githubusercontent.com/liferay/liferay-faces-bridge-impl/acf9057d44eb33c1239975501c0b63f386d328a8/tck/bridge-tck-harness/src/main/resources/tomcat_pluto/pluto-portal-driver-config.xml</url>
 							<outputDirectory>${project.build.directory}/classes</outputDirectory>
-							<sha1>2cbd581db6ee808ed59659012c3f152919eb8fd1</sha1>
+							<sha1>715293e78e9e9a6b40db04536b5ef4a4d78ff319</sha1>
 						</configuration>
 					</execution>
 				</executions>
