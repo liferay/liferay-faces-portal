@@ -185,10 +185,12 @@ public class TestSetupAction extends TestSetupCompatAction {
 			Element pageElement = pageElementIterator.next();
 			Attribute nameAttribute = pageElement.attribute("name");
 			String pageName = nameAttribute.getValue();
-			Element portletElement = pageElement.element(getPlutoElementQName("portlet"));
 
-			if (portletElement != null) {
+			Iterator<Element> portletIterator = pageElement.elementIterator(getPlutoElementQName("portlet"));
 
+			while (portletIterator.hasNext()) {
+
+				Element portletElement = portletIterator.next();
 				Attribute contextAttribute = portletElement.attribute("context");
 				String context = contextAttribute.getValue();
 
