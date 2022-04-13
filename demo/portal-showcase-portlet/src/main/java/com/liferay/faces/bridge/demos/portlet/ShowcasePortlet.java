@@ -19,11 +19,12 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.TreeSet;
 
+import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import javax.portlet.RenderParameters;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.GenericFacesPortlet;
 
@@ -75,17 +76,18 @@ public class ShowcasePortlet extends GenericFacesPortlet {
 	}
 
 	@Override
-	protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
+	public void renderHeaders(HeaderRequest headerRequest, HeaderResponse headerResponse) throws PortletException,
 		IOException {
 
-		String componentPrefix = renderRequest.getParameter("componentPrefix");
-		String componentName = renderRequest.getParameter("componentName");
+		RenderParameters renderParameters = headerRequest.getRenderParameters();
+		String componentPrefix = renderParameters.getValue("componentPrefix");
+		String componentName = renderParameters.getValue("componentName");
 
 		if ((componentPrefix != null) && (componentName != null)) {
 			String viewId = "/views/component.xhtml";
-			renderRequest.setAttribute(Bridge.VIEW_ID, viewId);
+			headerRequest.setAttribute(Bridge.VIEW_ID, viewId);
 		}
 
-		super.doView(renderRequest, renderResponse);
+		super.renderHeaders(headerRequest, headerResponse);
 	}
 }
