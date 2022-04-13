@@ -59,7 +59,7 @@ public class InputRichTextDefaultValueTester extends InputRichTextTester {
 
 		// 4. Click the *Submit* button.
 		String expectedText =
-			"<p>This is some <strong>bold old</strong> text<br />and this is some <em>italic</em> text.</p>";
+			"<p>This is some <strong>bold old</strong> text<br />\nand this is some <em>italic</em> text.</p>";
 		submitRichText(browserDriver, submitButton1Xpath, 1, expectedText);
 
 		//J-
