@@ -13,6 +13,10 @@
  */
 package com.liferay.faces.portal.component.inputrichtext.internal;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -21,9 +25,11 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
+
 import com.liferay.portal.kernel.parsers.bbcode.BBCodeTranslator;
 import com.liferay.portal.kernel.parsers.bbcode.BBCodeTranslatorUtil;
-import com.liferay.portal.kernel.util.HtmlUtil;
 
 import com.liferay.wiki.engine.WikiEngine;
 import com.liferay.wiki.exception.PageContentException;
@@ -34,6 +40,49 @@ import com.liferay.wiki.model.WikiPage;
  * @author  Kyle Stiemann
  */
 public final class PlainTextCharUtil {
+
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(PlainTextCharUtil.class);
+
+	// See https://issues.liferay.com/browse/FACES-3673
+	private static final MethodHandle EXTRACT_TEXT_METHOD_HANDLE;
+
+	static {
+		MethodHandle extractTextBuilder = null;
+		MethodHandles.Lookup lookup = MethodHandles.lookup();
+
+		if (extractTextBuilder == null) {
+
+			try {
+				Class htmlParserUtil = Class.forName("com.liferay.portal.kernel.util.HtmlParserUtil");
+				extractTextBuilder = lookup.findStatic(htmlParserUtil, "extractText",
+						MethodType.methodType(String.class, String.class));
+			}
+			catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException ex) {
+				logger.debug("Failed to fetch method extractText from com.liferay.portal.kernel.util.HtmlParserUtil",
+					ex);
+			}
+		}
+
+		if (extractTextBuilder == null) {
+
+			try {
+				Class htmlUtil = Class.forName("com.liferay.portal.kernel.util.HtmlUtil");
+				extractTextBuilder = lookup.findStatic(htmlUtil, "extractText",
+						MethodType.methodType(String.class, String.class));
+			}
+			catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException ex) {
+				logger.debug("Failed to fetch method extractText from com.liferay.portal.kernel.util.HtmlUtil", ex);
+			}
+		}
+
+		if (extractTextBuilder == null) {
+			logger.error(
+				"Failed to retrieve extractText from com.liferay.portal.kernel.util.HtmlUtil or com.liferay.portal.kernel.util.HtmlParserUtil");
+		}
+
+		EXTRACT_TEXT_METHOD_HANDLE = extractTextBuilder;
+	}
 
 	private PlainTextCharUtil() {
 		throw new AssertionError();
@@ -56,7 +105,14 @@ public final class PlainTextCharUtil {
 
 	public static int getHTMLPlainTextCharCount(String richText) {
 
-		String plainText = HtmlUtil.extractText(richText);
+		String plainText = "";
+
+		try {
+			plainText = (String) EXTRACT_TEXT_METHOD_HANDLE.invoke(richText);
+		}
+		catch (Throwable ex) {
+			logger.error("Failed to invoke extractText", ex);
+		}
 
 		return plainText.length();
 	}
