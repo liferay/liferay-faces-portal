@@ -35,40 +35,54 @@ import com.liferay.wiki.engine.WikiEngine;
 import com.liferay.wiki.exception.PageContentException;
 import com.liferay.wiki.model.WikiPage;
 
+
 /**
  * @author  Kyle Stiemann
  */
 public final class PlainTextCharUtil {
-    private static final Logger logger = LoggerFactory.getLogger(PlainTextCharUtil.class);
-    // With https://github.com/liferay/liferay-portal/commit/0f098e0a87460a8a1b7afb13c7fbc6af25bf4f0b
-    // the access to extractText was broken. Using reflection to call into the
-    // correct method.
-    private static final MethodHandle extractText;
 
-    static {
-        MethodHandle extractTextBuilder = null;
-        MethodHandles.Lookup lookup = MethodHandles.lookup();
-        if (extractTextBuilder == null) {
-            try {
-                Class htmlParserUtil = Class.forName("com.liferay.portal.kernel.util.HtmlParserUtil");
-                extractTextBuilder = lookup.findStatic(htmlParserUtil, "extractText", MethodType.methodType(String.class, String.class));
-            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException ex) {
-                logger.debug("Failed to fetch method extractText from com.liferay.portal.kernel.util.HtmlParserUtil", ex);
-            }
-        }
-        if (extractTextBuilder == null) {
-            try {
-                Class htmlUtil = Class.forName("com.liferay.portal.kernel.util.HtmlUtil");
-                extractTextBuilder = lookup.findStatic(htmlUtil, "extractText", MethodType.methodType(String.class, String.class));
-            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException ex) {
-                logger.debug("Failed to fetch method extractText from com.liferay.portal.kernel.util.HtmlUtil", ex);
-            }
-        }
-        if(extractTextBuilder == null) {
-            logger.error("Failed to retrieve extractText from com.liferay.portal.kernel.util.HtmlUtil or com.liferay.portal.kernel.util.HtmlParserUtil");
-        }
-        extractText = extractTextBuilder;
-    }
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(PlainTextCharUtil.class);
+
+	// See https://issues.liferay.com/browse/FACES-3673
+	private static final MethodHandle EXTRACT_TEXT_METHOD_HANDLE;
+
+	static {
+		MethodHandle extractTextBuilder = null;
+		MethodHandles.Lookup lookup = MethodHandles.lookup();
+
+		if (extractTextBuilder == null) {
+
+			try {
+				Class htmlParserUtil = Class.forName("com.liferay.portal.kernel.util.HtmlParserUtil");
+				extractTextBuilder = lookup.findStatic(htmlParserUtil, "extractText",
+						MethodType.methodType(String.class, String.class));
+			}
+			catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException ex) {
+				logger.debug("Failed to fetch method extractText from com.liferay.portal.kernel.util.HtmlParserUtil",
+					ex);
+			}
+		}
+
+		if (extractTextBuilder == null) {
+
+			try {
+				Class htmlUtil = Class.forName("com.liferay.portal.kernel.util.HtmlUtil");
+				extractTextBuilder = lookup.findStatic(htmlUtil, "extractText",
+						MethodType.methodType(String.class, String.class));
+			}
+			catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException ex) {
+				logger.debug("Failed to fetch method extractText from com.liferay.portal.kernel.util.HtmlUtil", ex);
+			}
+		}
+
+		if (extractTextBuilder == null) {
+			logger.error(
+				"Failed to retrieve extractText from com.liferay.portal.kernel.util.HtmlUtil or com.liferay.portal.kernel.util.HtmlParserUtil");
+		}
+
+		EXTRACT_TEXT_METHOD_HANDLE = extractTextBuilder;
+	}
 
 	private PlainTextCharUtil() {
 		throw new AssertionError();
@@ -91,13 +105,14 @@ public final class PlainTextCharUtil {
 
 	public static int getHTMLPlainTextCharCount(String richText) {
 
-        String plainText = "";
+		String plainText = "";
 
-        try {
-            plainText = (String) extractText.invoke(richText);
-        } catch (Throwable ex) {
-            logger.error("Failed to invoke extractText", ex);
-        }
+		try {
+			plainText = (String) EXTRACT_TEXT_METHOD_HANDLE.invoke(richText);
+		}
+		catch (Throwable ex) {
+			logger.error("Failed to invoke extractText", ex);
+		}
 
 		return plainText.length();
 	}
