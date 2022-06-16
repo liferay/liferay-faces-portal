@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.demos.bean;
 
+import java.lang.reflect.Method;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
@@ -112,10 +113,35 @@ public class TestSetupBackingBean {
 			}
 
 			if (addUser) {
-				userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2, autoScreenName,
-					screenName, emailAddress, facebookId, openId, locale, firstName, middleName, lastName, prefixId,
-					suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds,
-					roleIds, userGroupIds, sendEmail, serviceContext);
+
+				try {
+					userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
+						autoScreenName, screenName, emailAddress, facebookId, openId, locale, firstName, middleName,
+						lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle,
+						groupIds, organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
+				}
+				catch (Throwable t) {
+
+					// At some point the facebookId and openId arguments were removed from the method signature.
+					try {
+						Method method = UserLocalServiceUtil.class.getDeclaredMethod("addUser", long.class, long.class,
+								boolean.class, String.class, String.class, boolean.class, String.class, String.class,
+								Locale.class, String.class, String.class, String.class, long.class, long.class,
+								boolean.class, int.class, int.class, int.class, String.class, groupIds.getClass(),
+								organizationIds.getClass(), roleIds.getClass(), userGroupIds.getClass(), boolean.class,
+								ServiceContext.class);
+
+						method.invoke(null, creatorUserId, companyId, autoPassword, password1, password2,
+							autoScreenName, screenName, emailAddress, locale, firstName, middleName, lastName, prefixId,
+							suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
+							organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
+					}
+					catch (Exception e) {
+						logger.error(e.getMessage(), e);
+					}
+
+				}
+
 				logger.debug("Added user=[{0}]", screenName);
 			}
 		}
