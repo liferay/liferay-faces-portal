@@ -482,6 +482,7 @@
 			<id>dxp72</id>
 			<properties>
 				<liferay.deploy.version>7.2.10.sp5</liferay.deploy.version>
+				<liferay.faces.bridge.ext.version>5.1.1</liferay.faces.bridge.ext.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
