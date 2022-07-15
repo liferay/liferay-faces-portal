@@ -489,7 +489,7 @@
 		<profile>
 			<id>dxp73</id>
 			<properties>
-				<liferay.deploy.version>7.3.10.sp3</liferay.deploy.version>
+				<liferay.deploy.version>7.3.10.u7</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
