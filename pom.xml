@@ -496,7 +496,7 @@
 		<profile>
 			<id>dxp72</id>
 			<properties>
-				<liferay.deploy.version>7.2.10.sp5</liferay.deploy.version>
+				<liferay.deploy.version>7.2.10.sp6</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
