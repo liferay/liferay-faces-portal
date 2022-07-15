@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.demos.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,6 +123,23 @@ public final class RegistrantServiceUtil {
 			}
 			catch (Exception e) {
 				logger.error(e.getMessage(), e);
+
+				if (e instanceof PortalException) {
+					throw (PortalException) e;
+				}
+
+				if (e instanceof InvocationTargetException) {
+					InvocationTargetException ite = (InvocationTargetException) e;
+					Throwable cause = ite.getCause();
+
+					if (cause instanceof PortalException) {
+						throw (PortalException) cause;
+					}
+
+					throw new PortalException(cause);
+				}
+
+				throw new PortalException(e);
 			}
 		}
 
