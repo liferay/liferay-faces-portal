@@ -115,7 +115,7 @@
 		<liferay.tomcat.version>7.0.62</liferay.tomcat.version>
 		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
-		<liferay.version>7.4.3.ga22</liferay.version>
+		<liferay.version>7.4.3.ga31</liferay.version>
 		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<mojarra.version>2.3.9</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
@@ -491,23 +491,9 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>dxp72</id>
-			<properties>
-				<liferay.deploy.version>7.2.10.sp5</liferay.deploy.version>
-				<liferay.platform>liferay-dxp</liferay.platform>
-			</properties>
-		</profile>
-		<profile>
-			<id>dxp73</id>
-			<properties>
-				<liferay.deploy.version>7.3.10.sp3</liferay.deploy.version>
-				<liferay.platform>liferay-dxp</liferay.platform>
-			</properties>
-		</profile>
-		<profile>
 			<id>dxp</id>
 			<properties>
-				<liferay.deploy.version>7.4.13.u23</liferay.deploy.version>
+				<liferay.deploy.version>7.4.13.u31</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
@@ -719,6 +705,7 @@
 		<profile>
 			<id>thin</id>
 			<properties>
+				<aries.cdi.options />
 				<osgi.dynamic.import.package>
 					DynamicImport-Package: \
 						${osgi.dynamic.import.package.liferay.faces.bridge}
