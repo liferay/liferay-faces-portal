@@ -104,7 +104,7 @@
 		<liferay.faces.alloy.version>4.1.1</liferay.faces.alloy.version>
 		<liferay.faces.bridge.api.version>6.0.0</liferay.faces.bridge.api.version>
 		<liferay.faces.bridge.ext.version>8.0.0</liferay.faces.bridge.ext.version>
-		<liferay.faces.bridge.impl.version>6.0.0-SNAPSHOT</liferay.faces.bridge.impl.version>
+		<liferay.faces.bridge.impl.version>6.0.0</liferay.faces.bridge.impl.version>
 		<liferay.faces.showcase.version>4.0.0</liferay.faces.showcase.version>
 		<liferay.faces.util.version>4.0.0</liferay.faces.util.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
