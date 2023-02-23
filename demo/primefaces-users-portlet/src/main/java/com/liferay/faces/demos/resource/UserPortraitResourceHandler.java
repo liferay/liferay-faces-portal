@@ -92,8 +92,9 @@ public class UserPortraitResourceHandler extends ResourceHandlerWrapper {
 					UserLocalServiceTracker userLocalServiceTracker = new UserLocalServiceTracker(bundleContext);
 					userLocalServiceTracker.open();
 
-					if (!userLocalServiceTracker.isEmpty()) {
-						UserLocalService userLocalService = userLocalServiceTracker.getService();
+					UserLocalService userLocalService = userLocalServiceTracker.getService();
+
+					if (userLocalService != null) {
 						user = userLocalService.getUser(Long.parseLong(userId));
 					}
 					else {

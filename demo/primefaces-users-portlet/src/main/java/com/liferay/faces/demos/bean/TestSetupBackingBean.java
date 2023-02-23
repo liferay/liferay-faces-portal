@@ -89,13 +89,12 @@ public class TestSetupBackingBean {
 		long[] userGroupIds = new long[] {};
 		boolean sendEmail = false;
 		ServiceContext serviceContext = new ServiceContext();
-		UserLocalService userLocalService;
+		UserLocalService userLocalService = userLocalServiceTracker.getService();
 
-		if (userLocalServiceTracker.isEmpty()) {
+		if (userLocalService == null) {
 			FacesContextHelperUtil.addGlobalErrorMessage("is-temporarily-unavailable", "User service");
 		}
 		else {
-			userLocalService = userLocalServiceTracker.getService();
 
 			boolean addUser = false;
 
@@ -140,10 +139,9 @@ public class TestSetupBackingBean {
 	public void resetUsers(ActionEvent actionEvent) throws PortalException {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
+		CompanyLocalService companyLocalService = companyLocalServiceTracker.getService();
 
-		if (!companyLocalServiceTracker.isEmpty()) {
-
-			CompanyLocalService companyLocalService = companyLocalServiceTracker.getService();
+		if (companyLocalService != null) {
 
 			try {
 				long companyId = LiferayPortletHelperUtil.getCompanyId(facesContext);
