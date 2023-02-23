@@ -120,10 +120,9 @@ public class UsersBackingBean {
 	public void save(ActionEvent actionEvent) {
 
 		try {
+			UserLocalService userLocalService = userLocalServiceTracker.getService();
 
-			if (!userLocalServiceTracker.isEmpty()) {
-
-				UserLocalService userLocalService = userLocalServiceTracker.getService();
+			if (userLocalService != null) {
 
 				// Update the selected user in the Liferay database.
 				User user = usersModelBean.getSelectedUser();
