@@ -87,10 +87,10 @@ public class UsersModelBean implements Serializable {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			int rowsPerPage = PortletHelperUtil.getPortletPreferenceAsInt(facesContext, "rowsPerPage",
 					SearchContainer.DEFAULT_DELTA);
+			UserLocalService userLocalService = userLocalServiceTracker.getService();
 
-			if (!userLocalServiceTracker.isEmpty()) {
+			if (userLocalService != null) {
 
-				UserLocalService userLocalService = userLocalServiceTracker.getService();
 				userDataModel = new UserLazyDataModel(userLocalService,
 						LiferayPortletHelperUtil.getCompanyId(facesContext), rowsPerPage);
 			}
