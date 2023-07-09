@@ -13,13 +13,17 @@
  */
 package com.liferay.faces.test.hooks;
 
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.GroupConstants;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.ServiceContext;
 
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.GroupConstants;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * This class provides access to Liferay Portal Service Layer methods in order to isolate API method signature
@@ -32,7 +36,8 @@ public class ServiceUtil {
 	public static Group addActiveOpenGroup(long userId, String name) throws Exception {
 
 		boolean active = true;
-		String description = name;
+		Map<Locale, String> nameMap = new HashMap<Locale, String>();
+		nameMap.put(Locale.getDefault(), name);
 		String friendlyURL = "/" + name.toLowerCase().replaceAll(" ", "-");
 		boolean siteFlag = true;
 		int type = GroupConstants.TYPE_SITE_OPEN;
@@ -40,12 +45,12 @@ public class ServiceUtil {
 		int membershipRestriction = GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION;
 
 		return GroupLocalServiceUtil.addGroup(userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, (String) null, 0L,
-				GroupConstants.DEFAULT_LIVE_GROUP_ID, name, description, type, manualMembership, membershipRestriction,
+				GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, nameMap, type, manualMembership, membershipRestriction,
 				friendlyURL, siteFlag, active, new ServiceContext());
 	}
 
 	public static Layout addLayout(long userId, long groupId, boolean privateLayout, long parentLayoutId, String name,
-		String title, String description, String type, boolean hidden, String friendlyURL) throws Exception {
+								   String title, String description, String type, boolean hidden, String friendlyURL) throws Exception {
 
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setScopeGroupId(groupId);

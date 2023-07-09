@@ -24,12 +24,19 @@ import java.util.List;
  */
 public class TestPages {
 
+	public static final List<PortalPage> ARCHETYPE_PAGES;
 	public static final List<PortalPage> BRIDGE_DEMO_PAGES;
 	public static final List<PortalPage> BRIDGE_ISSUE_PAGES;
 	public static final List<PortalPage> LSV_ISSUE_PAGES;
 	public static final List<PortalPage> PORTAL_DEMO_PAGES;
 	public static final List<PortalPage> PORTAL_ISSUE_PAGES;
 	public static final List<PortalPage> GUEST_PAGES;
+
+	static {
+		ARCHETYPE_PAGES = new ArrayList<PortalPage>();
+		ARCHETYPE_PAGES.add(new PortalPage("my-jsf",
+			new Portlet("commycompanymyjsfjspportlet", "com.mycompany.my.jsf.jsp.portlet", false)));
+	}
 
 	static {
 		BRIDGE_DEMO_PAGES = new ArrayList<PortalPage>();

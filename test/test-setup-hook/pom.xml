@@ -39,11 +39,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
-			<artifactId>portal-service</artifactId>
+			<artifactId>com.liferay.portal.kernel</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
-			<artifactId>util-taglib</artifactId>
+			<artifactId>com.liferay.util.taglib</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -62,6 +62,10 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
 		</dependency>
 	</dependencies>
 

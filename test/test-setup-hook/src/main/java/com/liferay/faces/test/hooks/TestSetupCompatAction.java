@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2022 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -13,27 +13,19 @@
  */
 package com.liferay.faces.test.hooks;
 
-import javax.portlet.PortletPreferences;
-
 import com.liferay.portal.kernel.events.SimpleAction;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.portlet.PortletBag;
-import com.liferay.portal.kernel.portlet.PortletBagPool;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutTypePortlet;
-import com.liferay.portal.model.Portlet;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.model.RoleConstants;
-import com.liferay.portal.model.User;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
-import com.liferay.portal.security.permission.PermissionThreadLocal;
-import com.liferay.portal.service.PortletLocalServiceUtil;
-import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
-
-import com.liferay.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutTypePortlet;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.RoleConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
 
 /**
@@ -47,8 +39,8 @@ public abstract class TestSetupCompatAction extends SimpleAction {
 	// Private Data Members
 	boolean fixedPermissionChecker = false;
 
-	protected void addPortlet(LayoutTypePortlet layoutTypePortlet, long userId, int columnNumber, String portletId)
-		throws PortalException, SystemException {
+	protected void addPortlet(Layout portalPageLayout, LayoutTypePortlet layoutTypePortlet, long userId,
+							  int columnNumber, String portletId) throws PortalException, SystemException {
 
 		String columnNumberLabel = Integer.toString(columnNumber);
 
@@ -58,6 +50,8 @@ public abstract class TestSetupCompatAction extends SimpleAction {
 
 		// NOTE: In Liferay 6.1.x the following call was to setPortletIds() but that method was removed in 6.2.x
 		layoutTypePortlet.addPortletId(userId, portletId, columnNumberLabel, 1);
+		layoutTypePortlet.resetModes();
+		layoutTypePortlet.resetStates();
 	}
 
 	/**
@@ -99,22 +93,6 @@ public abstract class TestSetupCompatAction extends SimpleAction {
 
 	protected void storePortletPreferences(Layout portalPageLayout, String portletId) throws PortalException,
 		SystemException {
-
-		// Store the preferences for the portlet, if any
-		PortletPreferences portletPreferences = PortletPreferencesFactoryUtil.getLayoutPortletSetup(portalPageLayout,
-				portletId);
-		long companyId = portalPageLayout.getCompanyId();
-		Portlet portlet = PortletLocalServiceUtil.getPortletById(companyId, portletId);
-		PortletBag portletBag = PortletBagPool.get(portlet.getRootPortletId());
-
-		if (portletBag != null) {
-
-			try {
-				portletPreferences.store();
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		// No-op for Liferay 7.0
 	}
 }

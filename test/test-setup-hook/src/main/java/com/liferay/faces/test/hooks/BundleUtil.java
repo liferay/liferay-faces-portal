@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2022 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -13,47 +13,24 @@
  */
 package com.liferay.faces.test.hooks;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.service.PortletLocalServiceUtil;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BundleUtil {
+public final class BundleUtil {
 
-	public static Bundle[] getBundles(long companyId) {
+	private BundleUtil() {
+		throw new AssertionError();
+	}
 
-		List<Bundle> bundles = new ArrayList<Bundle>();
+	public static Bundle[] getBundles() {
+		Bundle portletBundle = FrameworkUtil.getBundle(BundleUtil.class);
+		BundleContext bundleContext = portletBundle.getBundleContext();
 
-		try {
-			List<com.liferay.portal.model.Portlet> portlets = PortletLocalServiceUtil.getPortlets(companyId, false,
-					false);
-
-			int bundleId = 1;
-
-			for (com.liferay.portal.model.Portlet portlet : portlets) {
-
-				String portletId = portlet.getPortletId();
-
-				int pos = portletId.indexOf("_WAR_");
-
-				if (pos > 0) {
-
-					String symbolicName = portletId.substring(pos + 5);
-
-					Bundle bundle = new Bundle(bundleId++, symbolicName, Bundle.ACTIVE);
-					bundles.add(bundle);
-				}
-			}
-		}
-		catch (SystemException e) {
-			e.printStackTrace();
-		}
-
-		return bundles.toArray(new Bundle[bundles.size()]);
+		return bundleContext.getBundles();
 	}
 }

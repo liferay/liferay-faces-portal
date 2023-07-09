@@ -97,7 +97,7 @@
 		<liferay.auto.deploy.dir>${liferay.home}/deploy</liferay.auto.deploy.dir>
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
-		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.portal}-jsf-${faces.spec.version}</liferay.home>
+		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-portlet-${portlet.spec.version}-jsf-${faces.spec.version}-thick</liferay.home>
 		<liferay.faces.alloy.version>1.0.1</liferay.faces.alloy.version>
 		<liferay.faces.bridge.api.version>2.1.0</liferay.faces.bridge.api.version>
 		<liferay.faces.bridge.ext.version>1.0.1</liferay.faces.bridge.ext.version>
@@ -106,6 +106,7 @@
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
+		<liferay.platform>liferay-ce</liferay.platform>
 		<liferay.portal>liferay-portal-${liferay.deploy.version}</liferay.portal>
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>7.0.62</liferay.tomcat.version>
@@ -117,6 +118,8 @@
 		<mojarra.version>1.2_15</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<portal.type>liferay</portal.type>
+		<portlet.api.version>${portlet.spec.version}</portlet.api.version>
+		<portlet.spec.version>2.0</portlet.spec.version>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
 		<primefaces.version>UNSUPPORTED</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -360,9 +363,11 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>ee</id>
+			<id>dxp74</id>
 			<properties>
-				<liferay.deploy.version>6.2.10-sp11</liferay.deploy.version>
+				<liferay.deploy.version>7.4.13.u80</liferay.deploy.version>
+				<liferay.faces.bridge.ext.version>4.0.2</liferay.faces.bridge.ext.version>
+				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
 		<profile>
@@ -634,14 +639,14 @@
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.portal</groupId>
-				<artifactId>portal-service</artifactId>
-				<version>${liferay.version}</version>
+				<artifactId>com.liferay.portal.kernel</artifactId>
+				<version>115.0.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.portal</groupId>
-				<artifactId>util-taglib</artifactId>
-				<version>${liferay.version}</version>
+				<artifactId>com.liferay.util.taglib</artifactId>
+				<version>2.1.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -719,6 +724,12 @@
 				<groupId>org.apache.myfaces.core</groupId>
 				<artifactId>myfaces-impl</artifactId>
 				<version>${myfaces.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<version>6.0.0</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- Integration test dependencies. -->

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2022 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -22,25 +22,27 @@ import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.liferay.portal.NoSuchGroupException;
+import org.osgi.framework.Bundle;
+
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.events.ActionException;
+import com.liferay.portal.kernel.exception.NoSuchGroupException;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
+import com.liferay.portal.kernel.model.LayoutTypePortlet;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.xml.Attribute;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.Namespace;
 import com.liferay.portal.kernel.xml.QName;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.Group;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutConstants;
-import com.liferay.portal.model.LayoutTypePortlet;
-import com.liferay.portal.model.User;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
 
 
 /**
@@ -53,7 +55,7 @@ public class TestSetupAction extends TestSetupCompatAction {
 
 	// Private Constants
 	private static final Namespace PLUTO_PORTAL_DRIVER_CONFIG_NAMESPACE = SAXReaderUtil.createNamespace(
-			"http://portals.apache.org/pluto/xsd/pluto-portal-driver-config.xsd");
+		"http://portals.apache.org/pluto/xsd/pluto-portal-driver-config.xsd");
 
 	@Override
 	public void run(String[] companyIds) throws ActionException {
@@ -115,7 +117,7 @@ public class TestSetupAction extends TestSetupCompatAction {
 			String type = LayoutConstants.TYPE_PORTLET;
 			String friendlyURL = "/" + portalPageName.toLowerCase();
 			portalPageLayout = ServiceUtil.addLayout(userId, groupId, privateLayout, parentLayoutId, portalPageName,
-					portalPageName, portalPageName, type, false, friendlyURL);
+				portalPageName, portalPageName, type, false, friendlyURL);
 		}
 
 		return portalPageLayout;
@@ -135,6 +137,16 @@ public class TestSetupAction extends TestSetupCompatAction {
 		logger.info("Setting up site name=[" + site.getName() + "] publicLayouts=[" + site.hasPublicLayouts() + "]");
 
 		return site;
+	}
+
+	protected void setupArchetypesSite(long companyId, long userId, Bundle[] bundles) throws Exception {
+		Group site = getSiteForSetup(companyId, userId, "Archetypes");
+		long groupId = site.getGroupId();
+		addAllUsersToSite(groupId);
+
+		for (PortalPage portalPage : TestPages.ARCHETYPE_PAGES) {
+			setupPrivatePage(userId, groupId, portalPage, bundles);
+		}
 	}
 
 	protected void setupBridgeDemosSite(long companyId, long userId, Bundle[] bundles) throws Exception {
@@ -173,10 +185,12 @@ public class TestSetupAction extends TestSetupCompatAction {
 			Element pageElement = pageElementIterator.next();
 			Attribute nameAttribute = pageElement.attribute("name");
 			String pageName = nameAttribute.getValue();
-			Element portletElement = pageElement.element(getPlutoElementQName("portlet"));
 
-			if (portletElement != null) {
+			Iterator<Element> portletIterator = pageElement.elementIterator(getPlutoElementQName("portlet"));
 
+			while (portletIterator.hasNext()) {
+
+				Element portletElement = portletIterator.next();
 				Attribute contextAttribute = portletElement.attribute("context");
 				String context = contextAttribute.getValue();
 
@@ -230,13 +244,13 @@ public class TestSetupAction extends TestSetupCompatAction {
 
 		for (Portlet portlet : portlets) {
 
-			String bundleName = portlet.getBundleName().replaceAll("[-]", "").replaceAll("[.]", "");
+			String bundleName = portlet.getBundleName();
 			long bundleId = 0L;
 			int bundleState = Bundle.UNINSTALLED;
 
 			for (Bundle bundle : bundles) {
 
-				String symbolicName = bundle.getSymbolicName().replaceAll("[-]", "").replaceAll("[.]", "");
+				String symbolicName = bundle.getSymbolicName();
 
 				if (symbolicName.startsWith(bundleName)) {
 					bundleId = bundle.getBundleId();
@@ -260,7 +274,7 @@ public class TestSetupAction extends TestSetupCompatAction {
 							bundleName.replaceAll("[-]", "").replaceAll("[.]", "") + portlet.getInstanceToken();
 					}
 
-					addPortlet(layoutTypePortlet, userId, columnNumber, portletId);
+					addPortlet(portalPageLayout, layoutTypePortlet, userId, columnNumber, portletId);
 					storePortletPreferences(portalPageLayout, portletId);
 					addedPortletIds.add(portletId);
 				}
@@ -324,7 +338,8 @@ public class TestSetupAction extends TestSetupCompatAction {
 
 	protected void setupSites(long companyId, long userId) throws Exception {
 
-		Bundle[] bundles = BundleUtil.getBundles(companyId);
+		Bundle[] bundles = BundleUtil.getBundles();
+		setupArchetypesSite(companyId, userId, bundles);
 		setupBridgeDemosSite(companyId, userId, bundles);
 		setupBridgeIssuesSite(companyId, userId, bundles);
 		setupLSVIssuesSite(companyId, userId, bundles);
