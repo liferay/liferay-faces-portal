@@ -939,6 +939,13 @@
 				<version>6.0.0</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>biz.aQute.bnd.annotation</artifactId>
+				<version>6.0.0</version>
+				<scope>provided</scope>
+				<optional>true</optional>
+			</dependency>
 
 			<!-- Integration test dependencies. -->
 			<dependency>
