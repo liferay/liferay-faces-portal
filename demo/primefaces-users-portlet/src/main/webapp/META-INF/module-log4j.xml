@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration strict="true">
+	<Loggers>
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseActionImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseEventImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseHeaderRenderCommon" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseResourceImpl" level="DEBUG" />
+		<!--
+		<Logger name="log4j.logger.com.liferay.faces.bridge.context.internal.BridgeContextImpl=DEBUG
+		-->
+		<Logger name="com.liferay.faces.demos" level="DEBUG" />
+		<Logger name="com.liferay.faces.util.config" level="DEBUG" />
+		<Logger name="com.liferay.faces.util.lifecycle.DebugPhaseListener" level="DEBUG" />
+	</Loggers>
+</Configuration>
