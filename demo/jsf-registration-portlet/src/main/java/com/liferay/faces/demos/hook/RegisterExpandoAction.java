@@ -75,9 +75,14 @@ public class RegisterExpandoAction extends SimpleAction {
 			logger.debug("Added expando table for modelClassName=[{0}]", modelClassName);
 		}
 
-		ExpandoColumn expandoColumn;
+		ExpandoColumn expandoColumn = null;
 
-		expandoColumn = ExpandoColumnLocalServiceUtil.getColumn(expandoTable.getTableId(), expandoColumnName);
+		try {
+			expandoColumn = ExpandoColumnLocalServiceUtil.getColumn(expandoTable.getTableId(), expandoColumnName);
+		} catch (Exception e) {
+			logger.debug("No column found with name: " + expandoColumnName + " in ExpandoTable id: " +
+					expandoTable.getTableId());
+		}
 
 		if (expandoColumn != null) {
 			logger.debug("Expando column=[{0}] exists for modelClassName=[{1}]", expandoColumnName, modelClassName);
