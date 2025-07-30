@@ -15,7 +15,6 @@ package com.liferay.faces.demos.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,24 +27,17 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.model.Contact;
-import com.liferay.portal.kernel.model.ListType;
-import com.liferay.portal.kernel.model.Phone;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
-import com.liferay.portal.kernel.service.ListTypeServiceUtil;
 import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.service.persistence.PhoneUtil;
-import com.liferay.portal.kernel.util.Validator;
 
-import com.liferay.users.admin.kernel.util.UsersAdminUtil;
 
 
 /**
@@ -56,8 +48,6 @@ import com.liferay.users.admin.kernel.util.UsersAdminUtil;
 public final class RegistrantServiceUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(RegistrantServiceUtil.class);
-
-	public static final String PHONE_CLASS_NAME = "com.liferay.portal.kernel.model.Contact.phone";
 
 	private RegistrantServiceUtil() {
 		throw new AssertionError();
@@ -102,8 +92,8 @@ public final class RegistrantServiceUtil {
 
 		try {
 			user = UserLocalServiceUtil.addUser(creatorUserId, companyId, autoPassword, password1, password2,
-					autoScreenName, screenName, emailAddress, facebookId, openId, locale, firstName, middleName,
-					lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
+					autoScreenName, screenName, emailAddress, locale, firstName, middleName,
+					lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, UserConstants.TYPE_REGULAR, groupIds,
 					organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
 		}
 		catch (Throwable t) {
@@ -151,9 +141,6 @@ public final class RegistrantServiceUtil {
 			UserLocalServiceUtil.updateStatus(user.getUserId(), user.getStatus(), serviceContext);
 		}
 
-		// Add mobile phone.
-		updateMobilePhone(creatorUserId, companyId, registrant);
-
 		// Update Expandos
 		updateExpandos(companyId, registrant);
 
@@ -185,22 +172,6 @@ public final class RegistrantServiceUtil {
 		return administratorPermissionChecker;
 	}
 
-	private static long getMobilePhoneTypeId() throws SystemException {
-		long phoneTypeId = 0;
-		List<ListType> phoneTypes = ListTypeServiceUtil.getListTypes(PHONE_CLASS_NAME);
-
-		for (ListType phoneType : phoneTypes) {
-
-			if (phoneType.getName().equals("mobile-phone")) {
-				phoneTypeId = phoneType.getListTypeId();
-
-				break;
-			}
-		}
-
-		return phoneTypeId;
-	}
-
 	private static void updateExpandos(long companyId, Registrant registrant) throws PortalException, SystemException {
 
 		// Set the expando column (custom field) values. Note that since the registration portlet is being used
@@ -214,41 +185,5 @@ public final class RegistrantServiceUtil {
 		expandoBridge.setAttribute(UserExpando.FAVORITE_COLOR.getName(), registrant.getFavoriteColor());
 
 		PermissionThreadLocal.setPermissionChecker(permissionCheckerBackup);
-	}
-
-	private static void updateMobilePhone(long creatorUserId, long companyId, Registrant registrant)
-		throws SystemException, PortalException {
-		List<Phone> phones = new ArrayList<Phone>();
-		String mobilePhone = registrant.getMobilePhone();
-
-		if (Validator.isNotNull(mobilePhone)) {
-
-			if (Validator.isPhoneNumber(mobilePhone)) {
-				Phone phone = PhoneUtil.create(0L);
-				phone.setUserId(registrant.getUserId());
-				phone.setCompanyId(companyId);
-				phone.setNumber(mobilePhone);
-				phone.setPrimary(true);
-				phone.setTypeId(getMobilePhoneTypeId());
-				phones.add(phone);
-
-				PermissionChecker permissionCheckerBackup = PermissionThreadLocal.getPermissionChecker();
-				PermissionThreadLocal.setPermissionChecker(getAdministratorPermissionChecker(companyId));
-
-				// Note: Exception will be thrown if we don't set the PrinicpalThreadLocal name.
-				String principalNameBackup = PrincipalThreadLocal.getName();
-				PrincipalThreadLocal.setName(creatorUserId);
-				UsersAdminUtil.updatePhones(Contact.class.getName(), registrant.getContactId(), phones);
-				PrincipalThreadLocal.setName(principalNameBackup);
-				PermissionThreadLocal.setPermissionChecker(permissionCheckerBackup);
-			}
-			else {
-
-				if (!"N/A".equalsIgnoreCase(mobilePhone)) {
-					logger.error("Invalid mobilePhone=[{0}] for registrant=[{1}]", mobilePhone,
-						registrant.getFullName());
-				}
-			}
-		}
 	}
 }
