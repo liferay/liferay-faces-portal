@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import com.liferay.dynamic.data.mapping.model.DDMStructure;
+import com.liferay.dynamic.data.mapping.service.DDMStructureLocalServiceUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -27,6 +29,7 @@ import com.liferay.journal.service.JournalArticleLocalServiceUtil;
 
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.LocalizationUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 
 /**
@@ -68,8 +71,10 @@ public final class WebContentUtil {
 				serviceContext.setAddGroupPermissions(true);
 				serviceContext.setAddGuestPermissions(true);
 
-				journalArticle = JournalArticleLocalServiceUtil.addArticle(userId, groupId, folderId, titleMap,
-						descriptionMap, content, ddmStructureKey, ddmTemplateKey, serviceContext);
+				long classNameId = PortalUtil.getClassNameId(JournalArticle.class.getName());
+				DDMStructure ddmStructure = DDMStructureLocalServiceUtil.fetchStructure(groupId, classNameId, ddmStructureKey);
+				journalArticle = JournalArticleLocalServiceUtil.addArticle(null, userId, groupId, folderId, titleMap,
+						descriptionMap, content, ddmStructure.getStructureId(), ddmTemplateKey, serviceContext);
 			}
 		}
 		catch (Exception e) {
