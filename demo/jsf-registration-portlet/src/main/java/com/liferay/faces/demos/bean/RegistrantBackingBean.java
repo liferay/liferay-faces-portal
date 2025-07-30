@@ -64,12 +64,7 @@ public class RegistrantBackingBean implements Serializable {
 
 	public boolean isCaptchaRendered() {
 
-		if (captchaRendered == null) {
-			captchaRendered = Boolean.valueOf(GetterUtil.getBoolean(
-						PropsUtil.get(PropsKeys.CAPTCHA_CHECK_PORTAL_CREATE_ACCOUNT), true));
-		}
-
-		return captchaRendered.booleanValue();
+		return true;
 	}
 
 	public void setRegistrantModelBean(RegistrantModelBean registrantModelBean) {
