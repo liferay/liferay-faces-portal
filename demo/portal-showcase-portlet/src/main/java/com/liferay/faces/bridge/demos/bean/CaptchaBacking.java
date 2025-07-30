@@ -94,23 +94,6 @@ public class CaptchaBacking {
 
 					facesContextHelper.addGlobalUnexpectedErrorMessage();
 				}
-
-				// Otherwise, if the portal:captcha component indicates that the value is not required, then according
-				// to the JavaDoc for the required attribute, that means the captcha was "inactive" because an
-				// authenticated user has correctly entered the captcha the maximum number of required times. This does
-				// not indicate an error condition.
-				else {
-
-					String maxChallenges = PropsUtil.get(PropsKeys.CAPTCHA_MAX_CHALLENGES);
-
-					if (maxChallenges == null) {
-						maxChallenges = "1";
-					}
-
-					facesContextHelper.addGlobalInfoMessage(facesContext,
-						"the-captcha-is-no-longer-enabled-since-the-user-entered-a-correct-value-x-times",
-						maxChallenges);
-				}
 			}
 
 			// Otherwise, since the user did not check the "Required" checkbox, it's OK that the user entered a blank
