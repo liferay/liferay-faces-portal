@@ -110,16 +110,6 @@
 			<artifactId>validation-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-		</dependency>
-		<!-- When log4j-core is a dependency -AND- a class in src/main/java extends the Liferay API, then the -->
-		<!-- biz.aQute.bnd.annotation dependency must be in the compile-time classpath to avoid a compile failure. -->
-		<dependency>
-			<groupId>biz.aQute.bnd</groupId>
-			<artifactId>biz.aQute.bnd.annotation</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jstl-impl</artifactId>
 		</dependency>
