@@ -36,7 +36,6 @@ public class Registrant extends UserWrapper {
 	private String middleName;
 	private String password1;
 	private String password2;
-	private String mobilePhone;
 	private String screenName;
 
 	public Registrant(long companyId) {
@@ -54,7 +53,6 @@ public class Registrant extends UserWrapper {
 		middleName = null;
 		password1 = null;
 		password2 = null;
-		mobilePhone = null;
 		screenName = null;
 	}
 
@@ -84,10 +82,6 @@ public class Registrant extends UserWrapper {
 	@Override
 	public String getMiddleName() {
 		return middleName;
-	}
-
-	public String getMobilePhone() {
-		return mobilePhone;
 	}
 
 	public String getPassword1() {
@@ -129,10 +123,6 @@ public class Registrant extends UserWrapper {
 	@Override
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
-	}
-
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
 	}
 
 	public void setPassword1(String password1) {
