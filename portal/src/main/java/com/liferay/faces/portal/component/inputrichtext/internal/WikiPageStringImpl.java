@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 
@@ -65,6 +67,11 @@ public class WikiPageStringImpl implements WikiPage {
 	@Override
 	public Object clone() {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public WikiPage cloneWithOriginalValues() {
+		return null;
 	}
 
 	@Override
@@ -116,6 +123,16 @@ public class WikiPageStringImpl implements WikiPage {
 	@Override
 	public long getAttachmentsFolderId() {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Map<String, Function<WikiPage, Object>> getAttributeGetterFunctions() {
+		return WikiPage.super.getAttributeGetterFunctions();
+	}
+
+	@Override
+	public Map<String, BiConsumer<WikiPage, Object>> getAttributeSetterBiConsumers() {
+		return WikiPage.super.getAttributeSetterBiConsumers();
 	}
 
 	@Override
