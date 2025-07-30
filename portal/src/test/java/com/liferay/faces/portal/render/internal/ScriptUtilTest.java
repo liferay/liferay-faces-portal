@@ -18,7 +18,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.liferay.portal.kernel.util.HtmlUtil;
-import com.liferay.portal.util.HtmlImpl;
+
+import java.lang.reflect.Method;
 
 
 /**
@@ -29,8 +30,25 @@ public final class ScriptUtilTest {
 	@BeforeClass
 	public static void setUp() {
 
-		HtmlUtil htmlUtil = new HtmlUtil();
-		htmlUtil.setHtml(new HtmlImpl());
+		try {
+			Class<?> htmlClass = Class.forName("com.liferay.portal.kernel.util.Html");
+			Class<?> htmlImplClass = Class.forName("com.liferay.portal.util.HtmlImpl");
+
+			HtmlUtil htmlUtil = new HtmlUtil();
+
+			Method setHtmlMethod = htmlUtil.getClass().getMethod("setHtml", htmlClass);
+
+			if (setHtmlMethod != null) {
+				Object htmlImplInstance = htmlImplClass.getDeclaredConstructor().newInstance();
+				setHtmlMethod.invoke(htmlUtil, htmlImplInstance);
+			}
+		} catch (ClassNotFoundException | NoSuchMethodException exception) {
+			// Ignore, since the Html interface and HtmlImpl class have been
+			// pruned in more recent versions of the com.liferay.portal.impl
+			// dependency.
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 	@Test
