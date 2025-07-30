@@ -60,7 +60,7 @@ public final class ServiceUtil {
 		ServiceContext serviceContext = new ServiceContext();
 		serviceContext.setScopeGroupId(groupId);
 
-		return LayoutLocalServiceUtil.addLayout(userId, groupId, privateLayout, parentLayoutId, name, title,
+		return LayoutLocalServiceUtil.addLayout("", userId, groupId, privateLayout, parentLayoutId, name, title,
 				description, type, hidden, friendlyURL, serviceContext);
 	}
 

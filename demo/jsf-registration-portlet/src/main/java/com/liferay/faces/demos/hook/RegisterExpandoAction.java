@@ -13,6 +13,7 @@
  */
 package com.liferay.faces.demos.hook;
 
+import com.liferay.expando.kernel.exception.NoSuchColumnException;
 import com.liferay.expando.kernel.exception.NoSuchTableException;
 import com.liferay.expando.kernel.model.ExpandoColumn;
 import com.liferay.expando.kernel.model.ExpandoColumnConstants;
@@ -77,12 +78,11 @@ public class RegisterExpandoAction extends SimpleAction {
 
 		ExpandoColumn expandoColumn;
 
-		expandoColumn = ExpandoColumnLocalServiceUtil.getColumn(expandoTable.getTableId(), expandoColumnName);
-
-		if (expandoColumn != null) {
+		try {
+			expandoColumn = ExpandoColumnLocalServiceUtil.getColumn(expandoTable.getTableId(), expandoColumnName);
 			logger.debug("Expando column=[{0}] exists for modelClassName=[{1}]", expandoColumnName, modelClassName);
 		}
-		else {
+		catch (NoSuchColumnException e) {
 			expandoColumn = ExpandoColumnLocalServiceUtil.addColumn(expandoTable.getTableId(), expandoColumnName,
 					expandoColumnType);
 			logger.debug("Added expando column=[{0}] to modelClassName=[{1}]", expandoColumnName, modelClassName);

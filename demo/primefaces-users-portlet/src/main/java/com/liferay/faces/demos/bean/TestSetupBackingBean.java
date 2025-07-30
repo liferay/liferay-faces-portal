@@ -24,6 +24,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import com.liferay.portal.kernel.model.UserConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -115,9 +116,8 @@ public class TestSetupBackingBean {
 
 				try {
 					userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
-						autoScreenName, screenName, emailAddress, facebookId, openId, locale, firstName, middleName,
-						lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle,
-						groupIds, organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
+						autoScreenName, screenName, emailAddress, locale, firstName, middleName,
+						lastName, prefixId, suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, UserConstants.TYPE_REGULAR, groupIds, organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
 				}
 				catch (Throwable t) {
 
