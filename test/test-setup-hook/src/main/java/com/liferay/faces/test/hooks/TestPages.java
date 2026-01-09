@@ -44,8 +44,6 @@ public class TestPages {
 				new Portlet("commycompanymyprimefacesportlet", "com.mycompany.my.primefaces.portlet", false)));
 		ARCHETYPE_PAGES.add(new PortalPage("my-richfaces",
 				new Portlet("commycompanymyrichfacesportlet", "com.mycompany.my.richfaces.portlet", false)));
-		ARCHETYPE_PAGES.add(new PortalPage("my-bootsfaces",
-				new Portlet("commycompanymybootsfacesportlet", "com.mycompany.my.bootsfaces.portlet", false)));
 		ARCHETYPE_PAGES.add(new PortalPage("my-butterfaces",
 				new Portlet("commycompanymybutterfacesportlet", "com.mycompany.my.butterfaces.portlet", false)));
 	}
@@ -83,8 +81,6 @@ public class TestPages {
 				new Portlet("1", "com.liferay.faces.demo.primefaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("richfaces-applicant",
 				new Portlet("1", "com.liferay.faces.demo.richfaces.applicant.portlet")));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("bootsfaces-applicant",
-				new Portlet("1", "com.liferay.faces.demo.bootsfaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("butterfaces-applicant",
 				new Portlet("1", "com.liferay.faces.demo.butterfaces.applicant.portlet")));
 	}
