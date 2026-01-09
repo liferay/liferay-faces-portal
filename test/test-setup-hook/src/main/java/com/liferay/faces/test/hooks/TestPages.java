@@ -36,8 +36,6 @@ public class TestPages {
 		ARCHETYPE_PAGES = new ArrayList<PortalPage>();
 		ARCHETYPE_PAGES.add(new PortalPage("my-alloy",
 				new Portlet("commycompanymyalloyportlet", "com.mycompany.my.alloy.portlet", false)));
-		ARCHETYPE_PAGES.add(new PortalPage("my-icefaces",
-				new Portlet("commycompanymyicefacesportlet", "com.mycompany.my.icefaces.portlet", false)));
 		ARCHETYPE_PAGES.add(new PortalPage("my-jsf",
 				new Portlet("commycompanymyjsfportlet", "com.mycompany.my.jsf.portlet", false)));
 		ARCHETYPE_PAGES.add(new PortalPage("my-primefaces",
@@ -73,8 +71,6 @@ public class TestPages {
 		BRIDGE_DEMO_PAGES.add(new PortalPage("jsf-prp",
 				new Portlet("customersPortlet", "com.liferay.faces.demo.jsf.ipc.pub.render.params.portlet", false),
 				new Portlet("bookingsPortlet", "com.liferay.faces.demo.jsf.ipc.pub.render.params.portlet", false)));
-		BRIDGE_DEMO_PAGES.add(new PortalPage("icefaces-applicant",
-				new Portlet("1", "com.liferay.faces.demo.icefaces.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("alloy-applicant",
 				new Portlet("1", "com.liferay.faces.demo.alloy.applicant.portlet")));
 		BRIDGE_DEMO_PAGES.add(new PortalPage("primefaces-applicant",
@@ -158,8 +154,6 @@ public class TestPages {
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-169", new Portlet("1", "com.liferay.faces.lsv.169.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-alloy",
 				new Portlet("1", "com.liferay.faces.lsv.485.alloy.portlet", false)));
-		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-ice",
-				new Portlet("1", "com.liferay.faces.lsv.485.icefaces.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-bridge",
 				new Portlet("1", "com.liferay.faces.lsv.485.bridge.portlet", false)));
 		LSV_ISSUE_PAGES.add(new PortalPage("LSV-485-prime",
