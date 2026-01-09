@@ -111,7 +111,6 @@
 		<liferay.version>7.4.3.ga31</liferay.version>
 		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<mojarra.version>2.3.21</mojarra.version>
-		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<!-- Specifies the DynamicImport-Package directive for use with the "thin" Maven profile. -->
 		<osgi.dynamic.import.package />
 		<!-- Ensures that the Liferay Faces Alloy component/renderer classes can be loaded dynamically via -->
@@ -635,16 +634,6 @@
 			</activation>
 		</profile>
 		<profile>
-			<id>myfaces</id>
-			<properties>
-				<faces.api.group.id>org.apache.myfaces.core</faces.api.group.id>
-				<faces.api.artifact.id>myfaces-api</faces.api.artifact.id>
-				<faces.impl.group.id>org.apache.myfaces.core</faces.impl.group.id>
-				<faces.impl.artifact.id>myfaces-impl</faces.impl.artifact.id>
-				<faces.version>${myfaces.version}</faces.version>
-			</properties>
-		</profile>
-		<profile>
 			<id>redeploy</id>
 			<properties>
 				<portlet.war.deployment.type>redeploy</portlet.war.deployment.type>
@@ -942,18 +931,6 @@
 				<artifactId>junit</artifactId>
 				<version>4.13.2</version>
 				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.myfaces.core</groupId>
-				<artifactId>myfaces-api</artifactId>
-				<version>${myfaces.version}</version>
-				<scope>${war.dependency.scope}</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.myfaces.core</groupId>
-				<artifactId>myfaces-impl</artifactId>
-				<version>${myfaces.version}</version>
-				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.osgi</groupId>
