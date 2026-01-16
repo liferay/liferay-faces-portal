@@ -12,7 +12,7 @@
 		<xsl:variable name="tagClass" select="replace(tag-class, '.*[.]', '')" />
 		<xsl:variable name="componentClass" select="replace($tagClass, 'Tag', '')" />
 		<component xmlns="" name="{$componentClass}" generateJavaComponent="true" generateJavaRenderer="false" extendsTags="Styleable"
-			parentClass="javax.faces.component.UIComponent" parentRendererClass="com.liferay.faces.portal.render.internal.PortalTagRenderer&lt;{$componentClass}, {$tagClass}&gt;">
+			parentClass="jakarta.faces.component.UIComponent" parentRendererClass="com.liferay.faces.portal.render.internal.PortalTagRenderer&lt;{$componentClass}, {$tagClass}&gt;">
 			<description>
 				<xsl:text disable-output-escaping="yes">&lt;![CDATA[TODO.]]&gt;</xsl:text>
 			</description>
