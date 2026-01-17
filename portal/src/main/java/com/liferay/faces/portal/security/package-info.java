@@ -11,5 +11,5 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-@org.osgi.annotation.versioning.Version("6.0.0")
+@org.osgi.annotation.versioning.Version("7.0.0")
 package com.liferay.faces.portal.security;
