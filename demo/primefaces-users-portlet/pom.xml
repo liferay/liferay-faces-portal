@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.liferay.faces.demo</groupId>
 		<artifactId>com.liferay.faces.demo.portal.parent</artifactId>
-		<version>6.1.1-SNAPSHOT</version>
+		<version>7.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>com.liferay.faces.demo.primefaces.users.portlet</artifactId>
@@ -49,9 +49,9 @@
 			<artifactId>jakarta.el-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.portlet</groupId>
-			<artifactId>portlet-api</artifactId>
-		</dependency>
+            <groupId>com.liferay.jakarta.portlet</groupId>
+            <artifactId>com.liferay.jakarta.portlet-api</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>

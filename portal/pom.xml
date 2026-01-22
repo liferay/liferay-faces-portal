@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.liferay.faces</groupId>
 		<artifactId>com.liferay.faces.portal.parent</artifactId>
-		<version>6.1.1-SNAPSHOT</version>
+		<version>7.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>com.liferay.faces.portal</artifactId>
@@ -65,35 +65,35 @@
 							Import-Package: \
 								!com.liferay.faces.portal,\
 								!com.liferay.faces.portal.*,\
-								com.liferay.expando.kernel.model;version="1.0.0",\
-								com.liferay.exportimport.kernel.lar;version="1.0.0",\
-								com.liferay.portal.kernel.captcha;version="6.3.0",\
-								com.liferay.portal.kernel.exception;version="7.0.0",\
-								com.liferay.portal.kernel.model;version="1.0.0",\
-								com.liferay.portal.kernel.portlet;version="7.1.0",\
-								com.liferay.portal.kernel.repository.model;version="7.0.0",\
-								com.liferay.portal.kernel.security.permission;version="1.0.0",\
-								com.liferay.portal.kernel.service;version="1.2.0",\
-								com.liferay.portal.kernel.service.permission;version="1.0.0",\
-								com.liferay.portal.kernel.servlet;version="7.1.0",\
-								com.liferay.portal.kernel.theme;version="1.0.0",\
-								com.liferay.portal.kernel.trash;version="7.0.0",\
-								com.liferay.portal.kernel.util;version="7.2.0",\
-								com.liferay.taglib;version="7.0.0",\
-								com.liferay.taglib.aui;version="7.1.0",\
-								com.liferay.taglib.portletext;version="7.0.0",\
-								com.liferay.taglib.security;version="7.0.0",\
-								com.liferay.taglib.ui;version="7.1.0",\
-								com.liferay.trash.kernel.model;version="1.0.0",\
-								com.liferay.wiki.engine;version="1.2.0",\
-								com.liferay.wiki.model;version="1.1.0",\
-								com.liferay.captcha.taglib.servlet.taglib;version="1.0",\
-								com.liferay.captcha.util;version="1.0",\
-								com.liferay.portal.kernel.parsers.bbcode;version="7.0",\
-								com.liferay.portal.kernel.xml;version="7.0",\
-								com.liferay.wiki.exception;version="1.1",\
-								jakarta.el;version="[2.2.0,4.0.0)",\
-								jakarta.portlet;version="[3.0.0,4.0.0)",\
+								com.liferay.expando.kernel.model,\
+								com.liferay.exportimport.kernel.lar,\
+								com.liferay.portal.kernel.captcha,\
+								com.liferay.portal.kernel.exception,\
+								com.liferay.portal.kernel.model,\
+								com.liferay.portal.kernel.portlet,\
+								com.liferay.portal.kernel.repository.model,\
+								com.liferay.portal.kernel.security.permission,\
+								com.liferay.portal.kernel.service,\
+								com.liferay.portal.kernel.service.permission,\
+								com.liferay.portal.kernel.servlet,\
+								com.liferay.portal.kernel.theme,\
+								com.liferay.portal.kernel.trash,\
+								com.liferay.portal.kernel.util,\
+								com.liferay.taglib,\
+								com.liferay.taglib.aui,\
+								com.liferay.taglib.portletext,\
+								com.liferay.taglib.security,\
+								com.liferay.taglib.ui,\
+								com.liferay.trash.kernel.model,\
+								com.liferay.wiki.engine,\
+								com.liferay.wiki.model,\
+								com.liferay.captcha.taglib.servlet.taglib,\
+								com.liferay.captcha.util,\
+								com.liferay.portal.kernel.parsers.bbcode,\
+								com.liferay.portal.kernel.xml,\
+								com.liferay.wiki.exception,\
+								jakarta.el;version="[2.2.0,6.0.0)",\
+								jakarta.portlet;version="[3.0.0,5.0.0)",\
 								*
 						]]>
 					</bnd>
@@ -138,6 +138,12 @@
 	</build>
 
 	<dependencies>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>4.1.0</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>jakarta.annotation</groupId>
 			<artifactId>jakarta.annotation-api</artifactId>
@@ -150,10 +156,10 @@
 			<groupId>jakarta.faces</groupId>
 			<artifactId>jakarta.faces-api</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>jakarta.portlet</groupId>
-			<artifactId>portlet-api</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>com.liferay.jakarta.portlet</groupId>
+            <artifactId>com.liferay.jakarta.portlet-api</artifactId>
+        </dependency>
 		<!-- Note that jakarta.servlet-api is only necessary to make Eclipse happy -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
@@ -175,7 +181,7 @@
 		<dependency>
 			<groupId>com.liferay</groupId>
 			<artifactId>com.liferay.wiki.api</artifactId>
-			<version>3.0.4</version>
+			<version>20.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
