@@ -14,8 +14,8 @@
 package com.liferay.faces.portal.component.navitem;
 //J-
 
-import javax.annotation.Generated;
-import javax.faces.component.UIColumn;
+import jakarta.annotation.Generated;
+import jakarta.faces.component.UIColumn;
 
 import com.liferay.faces.util.component.Styleable;
 

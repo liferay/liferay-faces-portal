@@ -15,11 +15,11 @@ package com.liferay.faces.portal.el.internal;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.PortletRequest;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.PortletRequest;
 
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.portal.el.internal.PortraitURLMap;

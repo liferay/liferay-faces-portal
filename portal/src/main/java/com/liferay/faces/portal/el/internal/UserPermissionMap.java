@@ -15,7 +15,7 @@ package com.liferay.faces.portal.el.internal;
 
 import java.util.HashMap;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 

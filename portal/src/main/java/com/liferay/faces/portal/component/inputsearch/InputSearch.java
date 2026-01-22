@@ -15,16 +15,16 @@ package com.liferay.faces.portal.component.inputsearch;
 
 import java.util.Collection;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.ListenersFor;
-import javax.faces.event.PreRenderComponentEvent;
-import javax.faces.render.Renderer;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.html.HtmlCommandButton;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.ListenersFor;
+import jakarta.faces.event.PreRenderComponentEvent;
+import jakarta.faces.render.Renderer;
 
 import com.liferay.faces.util.event.PreRenderComponentEventListener;
 

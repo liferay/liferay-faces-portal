@@ -19,14 +19,14 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.TreeSet;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletException;
-import javax.portlet.RenderParameters;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderParameters;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.GenericFacesPortlet;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

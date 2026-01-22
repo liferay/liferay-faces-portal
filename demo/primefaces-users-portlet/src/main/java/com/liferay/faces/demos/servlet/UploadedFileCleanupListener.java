@@ -15,8 +15,8 @@ package com.liferay.faces.demos.servlet;
 
 import java.io.File;
 
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
 
 import com.liferay.faces.demos.util.UploadedFileUtil;
 import com.liferay.faces.util.logging.Logger;

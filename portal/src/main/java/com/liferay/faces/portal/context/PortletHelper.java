@@ -13,19 +13,19 @@
  */
 package com.liferay.faces.portal.context;
 
-import javax.portlet.ActionResponse;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
-import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.WindowState;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.WindowState;
 
 
 /**
@@ -46,22 +46,22 @@ public interface PortletHelper {
 	public PortletURL createRenderURL();
 
 	/**
-	 * Retrieves the <code>javax.portlet.ActionResponse</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.ActionResponse</code> object associated with the current JSF FacesContext.
 	 */
 	public ActionResponse getActionResponse();
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortalContext</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.PortalContext</code> object associated with the current JSF FacesContext.
 	 */
 	public PortalContext getPortalContext();
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletConfig</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.PortletConfig</code> object associated with the current JSF FacesContext.
 	 */
 	public PortletConfig getPortletConfig();
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletContext</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.PortletContext</code> object associated with the current JSF FacesContext.
 	 */
 	public PortletContext getPortletContext();
 
@@ -79,7 +79,7 @@ public interface PortletHelper {
 
 	/**
 	 * Returns String representation of the value of the portlet preference associated with the specified name in from
-	 * the <code>javax.portlet.PortletPreferences</code> object associated with the current JSF FacesContext.
+	 * the <code>jakarta.portlet.PortletPreferences</code> object associated with the current JSF FacesContext.
 	 */
 	public Object getPortletPreference(String preferenceName, Object defaultValue);
 
@@ -108,32 +108,32 @@ public interface PortletHelper {
 	public String getPortletPreferenceAsString(String preferenceName, String defaultValue);
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletPreferences</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.PortletPreferences</code> object associated with the current JSF FacesContext.
 	 */
 	public PortletPreferences getPortletPreferences();
 
 	/**
-	 * Retrieves the <code>javax.portlet.RenderRequest</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.RenderRequest</code> object associated with the current JSF FacesContext.
 	 */
 	public RenderRequest getPortletRenderRequest();
 
 	/**
-	 * Retrieves the <code>javax.portlet.RenderResponse</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.RenderResponse</code> object associated with the current JSF FacesContext.
 	 */
 	public RenderResponse getPortletRenderResponse();
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletRequest</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.PortletRequest</code> object associated with the current JSF FacesContext.
 	 */
 	public PortletRequest getPortletRequest();
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletResponse</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.PortletResponse</code> object associated with the current JSF FacesContext.
 	 */
 	public PortletResponse getPortletResponse();
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletSession</code> object associated with the current JSF FacesContext.
+	 * Retrieves the <code>jakarta.portlet.PortletSession</code> object associated with the current JSF FacesContext.
 	 */
 	public PortletSession getPortletSession();
 

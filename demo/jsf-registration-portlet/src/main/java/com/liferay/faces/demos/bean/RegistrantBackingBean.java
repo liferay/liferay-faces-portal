@@ -16,11 +16,11 @@ package com.liferay.faces.demos.bean;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
+import jakarta.faces.bean.ViewScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 
 import com.liferay.faces.demos.model.Registrant;
 import com.liferay.faces.demos.service.RegistrantServiceUtil;

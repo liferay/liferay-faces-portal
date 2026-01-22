@@ -14,8 +14,8 @@
 package com.liferay.faces.portal.component.inputsearch;
 //J-
 
-import javax.annotation.Generated;
-import javax.faces.component.UIInput;
+import jakarta.annotation.Generated;
+import jakarta.faces.component.UIInput;
 
 import com.liferay.faces.util.component.Styleable;
 
@@ -53,8 +53,8 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	 *
 	 * <div>A method that is executed when this component is clicked. The method must be <code>public</code>, return an <code>Object</code>, and take no arguments. The <code>toString()</code> method of the returned object is used to determine where to navigate (if at all) after the action has been performed.</div>
 	 */
-	public javax.el.MethodExpression getAction() {
-		return (javax.el.MethodExpression) getStateHelper().eval(InputSearchPropertyKeys.action, null);
+	public jakarta.el.MethodExpression getAction() {
+		return (jakarta.el.MethodExpression) getStateHelper().eval(InputSearchPropertyKeys.action, null);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	 *
 	 * <div>A method that is executed when this component is clicked. The method must be <code>public</code>, return an <code>Object</code>, and take no arguments. The <code>toString()</code> method of the returned object is used to determine where to navigate (if at all) after the action has been performed.</div>
 	 */
-	public void setAction(javax.el.MethodExpression action) {
+	public void setAction(jakarta.el.MethodExpression action) {
 		getStateHelper().put(InputSearchPropertyKeys.action, action);
 	}
 
@@ -71,8 +71,8 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	 *
 	 * <div>A method that is executed when this component is clicked. The method must be <code>public</code>, return <code>void</code>, and take either no arguments or one <code>ActionEvent</code> argument.</div>
 	 */
-	public javax.el.MethodExpression getActionListener() {
-		return (javax.el.MethodExpression) getStateHelper().eval(InputSearchPropertyKeys.actionListener, null);
+	public jakarta.el.MethodExpression getActionListener() {
+		return (jakarta.el.MethodExpression) getStateHelper().eval(InputSearchPropertyKeys.actionListener, null);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public abstract class InputSearchBase extends UIInput implements Styleable {
 	 *
 	 * <div>A method that is executed when this component is clicked. The method must be <code>public</code>, return <code>void</code>, and take either no arguments or one <code>ActionEvent</code> argument.</div>
 	 */
-	public void setActionListener(javax.el.MethodExpression actionListener) {
+	public void setActionListener(jakarta.el.MethodExpression actionListener) {
 		getStateHelper().put(InputSearchPropertyKeys.actionListener, actionListener);
 	}
 

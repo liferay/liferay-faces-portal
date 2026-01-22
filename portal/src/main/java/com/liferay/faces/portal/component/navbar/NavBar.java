@@ -13,7 +13,7 @@
  */
 package com.liferay.faces.portal.component.navbar;
 
-import javax.faces.component.FacesComponent;
+import jakarta.faces.component.FacesComponent;
 
 
 /**

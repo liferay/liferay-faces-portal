@@ -14,8 +14,8 @@
 package com.liferay.faces.portal.component.permissionsurl;
 //J-
 
-import javax.annotation.Generated;
-import javax.faces.component.UIOutput;
+import jakarta.annotation.Generated;
+import jakarta.faces.component.UIOutput;
 
 
 /**

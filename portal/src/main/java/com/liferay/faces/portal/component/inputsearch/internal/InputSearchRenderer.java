@@ -21,21 +21,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.el.MethodExpression;
-import javax.faces.application.Application;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.MethodExpressionActionListener;
-import javax.faces.event.PreRenderComponentEvent;
-import javax.faces.render.FacesRenderer;
-import javax.servlet.jsp.tagext.Tag;
+import jakarta.el.MethodExpression;
+import jakarta.faces.application.Application;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.html.HtmlCommandButton;
+import jakarta.faces.component.html.HtmlInputText;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.MethodExpressionActionListener;
+import jakarta.faces.event.PreRenderComponentEvent;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.inputsearch.InputSearch;
 import com.liferay.faces.util.event.PreRenderComponentEventListener;
@@ -58,9 +58,9 @@ import com.liferay.taglib.ui.InputSearchTag;
  * component has unique requirements in the sense that the corresponding JSP-based {@link
  * com.liferay.taglib.ui.InputSearchTag} renders an &lt;input type="text"&gt;...&lt;/input&gt; and also a
  * &lt;button&gt;&lt;/button&gt; for submission. From a JSF perspective, this creates a multiple-inheritance dilemma.
- * For example, should the component component extend {@link javax.faces.component.UIInput} or {@link
- * javax.faces.component.UICommand}? The solution is to have the component extend {@link javax.faces.component.UIInput},
- * but to dynamically create an {@link javax.faces.component.html.HtmlCommandButton} child that can participate in the
+ * For example, should the component component extend {@link jakarta.faces.component.UIInput} or {@link
+ * jakarta.faces.component.UICommand}? The solution is to have the component extend {@link jakarta.faces.component.UIInput},
+ * but to dynamically create an {@link jakarta.faces.component.html.HtmlCommandButton} child that can participate in the
  * processing of JSF events. This design is essentially a 100% Java equivalent of a JSF composite component.
  *
  * @author  Juan Gonzalez

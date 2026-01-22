@@ -15,22 +15,22 @@ package com.liferay.faces.portal.context.internal;
 
 import java.io.Serializable;
 
-import javax.faces.context.FacesContext;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletModeException;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
-import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.WindowState;
-import javax.portlet.WindowStateException;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletModeException;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.WindowStateException;
 
 import com.liferay.faces.portal.context.PortletHelper;
 import com.liferay.faces.util.helper.BooleanHelper;
@@ -46,8 +46,8 @@ public class PortletHelperImpl implements PortletHelper, Serializable {
 	// serialVersionUID
 	private static final long serialVersionUID = 1384375125589631495L;
 
-	/** JSR-168/286 request attribute that contains an instance of javax.portlet.PortletConfig */
-	private static final String REQUEST_ATTR_PORTLET_CONFIG = "javax.portlet.config";
+	/** JSR-168/286 request attribute that contains an instance of jakarta.portlet.PortletConfig */
+	private static final String REQUEST_ATTR_PORTLET_CONFIG = "jakarta.portlet.config";
 
 	public PortletURL createActionURL() {
 		return getPortletRenderResponse().createActionURL();

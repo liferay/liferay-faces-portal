@@ -13,9 +13,9 @@
  */
 package com.liferay.faces.portal.context;
 
-import javax.faces.FacesWrapper;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 

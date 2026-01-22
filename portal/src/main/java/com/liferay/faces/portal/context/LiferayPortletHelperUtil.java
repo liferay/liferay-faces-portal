@@ -15,7 +15,7 @@ package com.liferay.faces.portal.context;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.portal.security.AuthorizationException;
 

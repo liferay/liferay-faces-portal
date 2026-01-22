@@ -60,11 +60,11 @@
 			<artifactId>commons-logging</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.portlet</groupId>
+			<groupId>jakarta.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet.jsp.jstl</groupId>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jstl-api</artifactId>
 			<scope>provided</scope>
 		</dependency>

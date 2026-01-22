@@ -14,7 +14,7 @@
 package com.liferay.faces.portal.component.inputsearch.internal;
 //J-
 
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 import com.liferay.faces.portal.render.internal.PortalTagRenderer;
 

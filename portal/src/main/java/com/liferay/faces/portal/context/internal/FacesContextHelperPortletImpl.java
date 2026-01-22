@@ -16,9 +16,9 @@ package com.liferay.faces.portal.context.internal;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.PortletRequest;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.PortletRequest;
 
 import com.liferay.faces.util.context.FacesContextHelper;
 import com.liferay.faces.util.context.FacesContextHelperWrapper;
@@ -63,16 +63,16 @@ public class FacesContextHelperPortletImpl extends FacesContextHelperWrapper imp
 
 		// Some portlet bridges (like the ICEfaces bridge) wrap the portal's PortletRequest implementation instance
 		// (which prevents us from getting the query_string). As a workaround, we can still get it the original
-		// PortletRequest instance, because the Portlet spec says it must be stored in the javax.portlet.request
+		// PortletRequest instance, because the Portlet spec says it must be stored in the jakarta.portlet.request
 		// attribute.
 		String queryString = null;
 
-		// JSR-168/286 request attribute that contains an instance of javax.portlet.PortletRequest
-		Object portletRequestAsObject = getRequestAttribute(facesContext, "javax.portlet.request");
+		// JSR-168/286 request attribute that contains an instance of jakarta.portlet.PortletRequest
+		Object portletRequestAsObject = getRequestAttribute(facesContext, "jakarta.portlet.request");
 
 		if ((portletRequestAsObject != null) && (portletRequestAsObject instanceof PortletRequest)) {
 			PortletRequest portletRequest = (PortletRequest) portletRequestAsObject;
-			queryString = (String) portletRequest.getAttribute("javax.servlet.forward.query_string");
+			queryString = (String) portletRequest.getAttribute("jakarta.servlet.forward.query_string");
 		}
 
 		return queryString;

@@ -13,20 +13,20 @@
  */
 package com.liferay.faces.portal.context;
 
-import javax.faces.context.FacesContext;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
-import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.WindowState;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.WindowState;
 
 
 /**
@@ -78,14 +78,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.ActionResponse</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.ActionResponse</code> object associated with the current faces context.
 	 */
 	public static ActionResponse getActionResponse() {
 		return getActionResponse(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.ActionResponse</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.ActionResponse</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -96,14 +96,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortalContext</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.PortalContext</code> object associated with the current faces context.
 	 */
 	public static PortalContext getPortalContext() {
 		return getPortalContext(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortalContext</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.PortalContext</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -114,14 +114,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletConfig</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletConfig</code> object associated with the current faces context.
 	 */
 	public static PortletConfig getPortletConfig() {
 		return getPortletConfig(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletConfig</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletConfig</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -132,14 +132,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletContext</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletContext</code> object associated with the current faces context.
 	 */
 	public static PortletContext getPortletContext() {
 		return getPortletContext(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletContext</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletContext</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -191,7 +191,7 @@ public final class PortletHelperUtil {
 
 	/**
 	 * Returns String representation of the value of the portlet preference associated with the specified name in from
-	 * the <code>javax.portlet.PortletPreferences</code> object associated with the current faces context.
+	 * the <code>jakarta.portlet.PortletPreferences</code> object associated with the current faces context.
 	 */
 	public static Object getPortletPreference(String preferenceName, Object defaultValue) {
 		return getPortletPreference(FacesContext.getCurrentInstance(), preferenceName, defaultValue);
@@ -199,7 +199,7 @@ public final class PortletHelperUtil {
 
 	/**
 	 * Returns String representation of the value of the portlet preference associated with the specified name in from
-	 * the <code>javax.portlet.PortletPreferences</code> object associated with the specified faces context.
+	 * the <code>jakarta.portlet.PortletPreferences</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -298,14 +298,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletPreferences</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletPreferences</code> object associated with the current faces context.
 	 */
 	public static PortletPreferences getPortletPreferences() {
 		return getPortletPreferences(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletPreferences</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletPreferences</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -316,14 +316,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.RenderRequest</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.RenderRequest</code> object associated with the current faces context.
 	 */
 	public static RenderRequest getPortletRenderRequest() {
 		return getPortletRenderRequest(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.RenderRequest</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.RenderRequest</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -335,14 +335,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.RenderResponse</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.RenderResponse</code> object associated with the current faces context.
 	 */
 	public static RenderResponse getPortletRenderResponse() {
 		return getPortletRenderResponse(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.RenderResponse</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.RenderResponse</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -354,14 +354,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletRequest</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletRequest</code> object associated with the current faces context.
 	 */
 	public static PortletRequest getPortletRequest() {
 		return getPortletRequest(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletRequest</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletRequest</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -372,14 +372,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletResponse</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletResponse</code> object associated with the current faces context.
 	 */
 	public static PortletResponse getPortletResponse() {
 		return getPortletResponse(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletResponse</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletResponse</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1
@@ -390,14 +390,14 @@ public final class PortletHelperUtil {
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletSession</code> object associated with the current faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletSession</code> object associated with the current faces context.
 	 */
 	public static PortletSession getPortletSession() {
 		return getPortletSession(FacesContext.getCurrentInstance());
 	}
 
 	/**
-	 * Retrieves the <code>javax.portlet.PortletSession</code> object associated with the specified faces context.
+	 * Retrieves the <code>jakarta.portlet.PortletSession</code> object associated with the specified faces context.
 	 *
 	 * @since  3.1
 	 * @since  2.1

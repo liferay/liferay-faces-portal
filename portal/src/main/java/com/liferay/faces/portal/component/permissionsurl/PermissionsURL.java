@@ -13,8 +13,8 @@
  */
 package com.liferay.faces.portal.component.permissionsurl;
 
-import javax.faces.component.FacesComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 

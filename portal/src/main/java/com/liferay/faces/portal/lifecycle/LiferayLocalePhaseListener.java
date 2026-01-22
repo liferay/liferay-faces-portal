@@ -15,11 +15,11 @@ package com.liferay.faces.portal.lifecycle;
 
 import java.util.Locale;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PhaseListener;
 
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 import com.liferay.faces.portal.context.PortletHelperUtil;

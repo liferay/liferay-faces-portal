@@ -58,7 +58,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>facesMessageLabel styleable uiInputInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.UIInput]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIInput]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.component.captcha.internal.CaptchaRendererCompat]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -98,7 +98,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>styleableInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.html.HtmlPanelGroup]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.html.HtmlPanelGroup]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -194,7 +194,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>facesMessageLabel styleable uiInputInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.UIInput]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIInput]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -210,7 +210,7 @@
 		<attribute>
 			<description><![CDATA[A method that is executed when this component is clicked. The method must be <code>public</code>, return <code>void</code>, and take either no arguments or one <code>ActionEvent</code> argument.]]></description>
 			<name>actionListener</name>
-			<method-signature><![CDATA[void actionListener(javax.faces.event.ActionEvent)]]></method-signature>
+			<method-signature><![CDATA[void actionListener(jakarta.faces.event.ActionEvent)]]></method-signature>
 		</attribute>
 		<attribute>
 			<attribute-extension>
@@ -245,7 +245,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>styleable uiInputInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.UIInput]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIInput]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -262,7 +262,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>aria styleable uiComponentBaseInherited uiDataInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.UIData]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIData]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -271,7 +271,7 @@
 		<tag-name>navBar</tag-name>
 		<tag-extension>
 			<extends-tags>styleable uiComponentBaseInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.UIPanel]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIPanel]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -280,7 +280,7 @@
 		<tag-name>navBarSearch</tag-name>
 		<tag-extension>
 			<extends-tags>styleable uiComponentBaseInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.UIPanel]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIPanel]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -345,7 +345,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>aria styleable uiComponentBaseInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.UIColumn]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIColumn]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -399,7 +399,7 @@
 			<type><![CDATA[java.lang.String]]></type>
 		</attribute>
 		<tag-extension>
-			<parent-class><![CDATA[javax.faces.component.UIOutput]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIOutput]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 			<since>1.0.0</since>
 		</tag-extension>
@@ -434,7 +434,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>styleable uiComponentBaseInherited</extends-tags>
-			<parent-class><![CDATA[javax.faces.component.UIPanel]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.UIPanel]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portal.render.internal.PortalTagRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>

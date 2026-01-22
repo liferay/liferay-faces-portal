@@ -60,8 +60,8 @@
 								com.liferay.faces.portal.component.header.internal,\
 								com.liferay.faces.portal.resource.internal,\
 								com.liferay.faces.portal.jsp.internal
-							# javax.el is automatically imported with the following versions:
-							# javax.el;version="[2.2.0,3.0.0)", but versions 3.0.0+ are also valid.
+							# jakarta.el is automatically imported with the following versions:
+							# jakarta.el;version="[2.2.0,3.0.0)", but versions 3.0.0+ are also valid.
 							Import-Package: \
 								!com.liferay.faces.portal,\
 								!com.liferay.faces.portal.*,\
@@ -92,8 +92,8 @@
 								com.liferay.portal.kernel.parsers.bbcode;version="7.0",\
 								com.liferay.portal.kernel.xml;version="7.0",\
 								com.liferay.wiki.exception;version="1.1",\
-								javax.el;version="[2.2.0,4.0.0)",\
-								javax.portlet;version="[3.0.0,4.0.0)",\
+								jakarta.el;version="[2.2.0,4.0.0)",\
+								jakarta.portlet;version="[3.0.0,4.0.0)",\
 								*
 						]]>
 					</bnd>
@@ -139,30 +139,30 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>javax.annotation-api</artifactId>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>javax.faces-api</artifactId>
+			<groupId>jakarta.faces</groupId>
+			<artifactId>jakarta.faces-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.portlet</groupId>
+			<groupId>jakarta.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
-		<!-- Note that javax.servlet-api is only necessary to make Eclipse happy -->
+		<!-- Note that jakarta.servlet-api is only necessary to make Eclipse happy -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 		<!-- Note that jsp-api is only necessary to make Eclipse happy -->
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay</groupId>

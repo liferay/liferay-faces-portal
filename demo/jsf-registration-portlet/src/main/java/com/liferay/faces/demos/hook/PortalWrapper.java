@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.faces.FacesWrapper;
+import jakarta.faces.FacesWrapper;
 
 import com.liferay.portal.kernel.util.Portal;
 

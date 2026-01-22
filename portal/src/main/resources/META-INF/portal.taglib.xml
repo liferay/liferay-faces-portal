@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<facelet-taglib xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<facelet-taglib xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:vdldoc="http://vdldoc.omnifaces.org"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_3.xsd http://vdldoc.omnifaces.org https://raw.githubusercontent.com/omnifaces/vdldoc/master/src/main/resources/org/omnifaces/vdldoc/resources/vdldoc.taglib.xml.xsd"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_2_3.xsd http://vdldoc.omnifaces.org https://raw.githubusercontent.com/omnifaces/vdldoc/master/src/main/resources/org/omnifaces/vdldoc/resources/vdldoc.taglib.xml.xsd"
 	version="2.3">
 	<description><![CDATA[The Liferay Faces Portal facelet component tags with the <code>portal:</code> tag name prefix.]]></description>
 	<namespace>http://liferay.com/faces/portal</namespace>
@@ -28,13 +28,13 @@
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The class name of the converter instance that is to be used by this component.]]></description>
 			<name>converter</name>
 			<required>false</required>
-			<type>javax.faces.convert.Converter</type>
+			<type>jakarta.faces.convert.Converter</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[This message or the result of the specified expression, will be used as the text of the converter message instead of any message that comes from the registered converter for this component.]]></description>
@@ -100,7 +100,7 @@
 			<description><![CDATA[A method that is executed in the PROCESS_VALIDATIONS phase of the lifecycle. The method must be <code>public</code>, return <code>void</code>, and take three arguments of <code>FacesContext</code>, <code>UIComponent</code>, and <code>Object</code>.]]></description>
 			<name>validator</name>
 			<required>false</required>
-			<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+			<method-signature>void validate(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent,
 java.lang.Object)</method-signature>
 		</attribute>
 		<attribute>
@@ -119,7 +119,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[A method that is executed when the value of this component changes. The method must be <code>public</code>, return <code>void</code>, and take no arguments or one argument of <code>ValueChangeEvent</code>.]]></description>
 			<name>valueChangeListener</name>
 			<required>false</required>
-			<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+			<method-signature>void valueChange(jakarta.faces.event.ValueChangeEvent)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/portal-showcase/-/portal-tag/portal/captcha/general</vdldoc:example-url>
@@ -191,7 +191,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[Optional map of configuration parameters. For example usage, see the Wiki portlet <a href="https://github.com/liferay/liferay-portal/blob/6.2.1-ga2/portal-web/docroot/html/portlet/wiki/edit/editor_config.jspf#L28" target="_blank">editor_config.jsp</a> source code.]]></description>
@@ -209,7 +209,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The class name of the converter instance that is to be used by this component.]]></description>
 			<name>converter</name>
 			<required>false</required>
-			<type>javax.faces.convert.Converter</type>
+			<type>jakarta.faces.convert.Converter</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[This message or the result of the specified expression, will be used as the text of the converter message instead of any message that comes from the registered converter for this component.]]></description>
@@ -329,7 +329,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[A method that is executed in the PROCESS_VALIDATIONS phase of the lifecycle. The method must be <code>public</code>, return <code>void</code>, and take three arguments of <code>FacesContext</code>, <code>UIComponent</code>, and <code>Object</code>.]]></description>
 			<name>validator</name>
 			<required>false</required>
-			<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+			<method-signature>void validate(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent,
 java.lang.Object)</method-signature>
 		</attribute>
 		<attribute>
@@ -348,7 +348,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[A method that is executed when the value of this component changes. The method must be <code>public</code>, return <code>void</code>, and take no arguments or one argument of <code>ValueChangeEvent</code>.]]></description>
 			<name>valueChangeListener</name>
 			<required>false</required>
-			<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+			<method-signature>void valueChange(jakarta.faces.event.ValueChangeEvent)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/portal-showcase/-/portal-tag/portal/inputrichtext/general</vdldoc:example-url>
@@ -373,7 +373,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[A method that is executed when this component is clicked. The method must be <code>public</code>, return <code>void</code>, and take either no arguments or one <code>ActionEvent</code> argument.]]></description>
 			<name>actionListener</name>
 			<required>false</required>
-			<method-signature>void actionListener(javax.faces.event.ActionEvent)</method-signature>
+			<method-signature>void actionListener(jakarta.faces.event.ActionEvent)</method-signature>
 		</attribute>
 		<attribute>
 			<description><![CDATA[Sets whether the search field gets focus by default. The default value is <code>false</code>.]]></description>
@@ -385,7 +385,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[Sets the text value for the search button's label. The default value is <code>Search</code>.]]></description>
@@ -397,7 +397,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[The class name of the converter instance that is to be used by this component.]]></description>
 			<name>converter</name>
 			<required>false</required>
-			<type>javax.faces.convert.Converter</type>
+			<type>jakarta.faces.convert.Converter</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[This message or the result of the specified expression, will be used as the text of the converter message instead of any message that comes from the registered converter for this component.]]></description>
@@ -469,7 +469,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[A method that is executed in the PROCESS_VALIDATIONS phase of the lifecycle. The method must be <code>public</code>, return <code>void</code>, and take three arguments of <code>FacesContext</code>, <code>UIComponent</code>, and <code>Object</code>.]]></description>
 			<name>validator</name>
 			<required>false</required>
-			<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+			<method-signature>void validate(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent,
 java.lang.Object)</method-signature>
 		</attribute>
 		<attribute>
@@ -488,7 +488,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[A method that is executed when the value of this component changes. The method must be <code>public</code>, return <code>void</code>, and take no arguments or one argument of <code>ValueChangeEvent</code>.]]></description>
 			<name>valueChangeListener</name>
 			<required>false</required>
-			<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+			<method-signature>void valueChange(jakarta.faces.event.ValueChangeEvent)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/portal-showcase/-/portal-tag/portal/inputsearch/general</vdldoc:example-url>
@@ -518,7 +518,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[A unique identifier for this component.]]></description>
@@ -551,7 +551,7 @@ java.lang.Object)</method-signature>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The value of this component, which is typically bound via EL to a model bean property. The value can be any of the following types:<ul><li>Any concrete subclass of <a href="http://docs.oracle.com/javaee/7/api/javax/faces/model/DataModel.html" target="_blank"><code>DataModel</code></a></li><li>Array (automatically wrapped with <a href="http://docs.oracle.com/javaee/7/api/javax/faces/model/ArrayDataModel.html" target="_blank"><code>ArrayDataModel</code></a>)</li><li>java.util.Collection (automatically wrapped with <a href="http://docs.oracle.com/javaee/7/api/javax/faces/model/CollectionDataModel.html" target="_blank"><code>CollectionDataModel</code></a>)</li><li>java.util.List (automatically wrapped with <a href="http://docs.oracle.com/javaee/7/api/javax/faces/model/ListDataModel.html" target="_blank"><code>ListDataModel</code></a>)</li><li>java.sql.ResultSet (automatically wrapped with <a href="http://docs.oracle.com/javaee/7/api/javax/faces/model/ResultSetDataModel.html" target="_blank"><code>ResultSetDataModel</code></a>)</li></ul>]]></description>
+			<description><![CDATA[The value of this component, which is typically bound via EL to a model bean property. The value can be any of the following types:<ul><li>Any concrete subclass of <a href="http://docs.oracle.com/javaee/7/api/jakarta/faces/model/DataModel.html" target="_blank"><code>DataModel</code></a></li><li>Array (automatically wrapped with <a href="http://docs.oracle.com/javaee/7/api/jakarta/faces/model/ArrayDataModel.html" target="_blank"><code>ArrayDataModel</code></a>)</li><li>java.util.Collection (automatically wrapped with <a href="http://docs.oracle.com/javaee/7/api/jakarta/faces/model/CollectionDataModel.html" target="_blank"><code>CollectionDataModel</code></a>)</li><li>java.util.List (automatically wrapped with <a href="http://docs.oracle.com/javaee/7/api/jakarta/faces/model/ListDataModel.html" target="_blank"><code>ListDataModel</code></a>)</li><li>java.sql.ResultSet (automatically wrapped with <a href="http://docs.oracle.com/javaee/7/api/jakarta/faces/model/ResultSetDataModel.html" target="_blank"><code>ResultSetDataModel</code></a>)</li></ul>]]></description>
 			<name>value</name>
 			<required>false</required>
 			<type>java.lang.Object</type>
@@ -578,7 +578,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[A unique identifier for this component.]]></description>
@@ -620,7 +620,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[A unique identifier for this component.]]></description>
@@ -692,7 +692,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[HTML5 data- attributes for the rendered list item element.]]></description>
@@ -836,7 +836,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[XML markup in the form:<pre>&lt;preferences&gt;&lt;preference&gt;&lt;name&gt;&lt;/name&gt;&lt;value&gt;&lt;/value&gt;&lt;/preference&gt;&lt;/preferences&gt;</pre>This value is persisted in the Liferay database when the embedded portlet is rendered for the first time.]]></description>

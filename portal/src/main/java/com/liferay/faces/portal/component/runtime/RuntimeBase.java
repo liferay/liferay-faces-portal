@@ -14,8 +14,8 @@
 package com.liferay.faces.portal.component.runtime;
 //J-
 
-import javax.annotation.Generated;
-import javax.faces.component.UIPanel;
+import jakarta.annotation.Generated;
+import jakarta.faces.component.UIPanel;
 
 import com.liferay.faces.util.component.Styleable;
 

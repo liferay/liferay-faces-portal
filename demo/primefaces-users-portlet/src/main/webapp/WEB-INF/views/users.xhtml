@@ -40,7 +40,7 @@
 						<h:selectOneMenu id="status" label="#{i18n['status']}" required="true"
 							value="#{usersModelBean.selectedUser.status}">
 							<f:selectItems value="#{usersModelBean.statusSelectItems}" />
-							<f:converter converterId="javax.faces.Integer" />
+							<f:converter converterId="jakarta.faces.Integer" />
 						</h:selectOneMenu>
 						<h:message for="status" />
 					</alloy:fieldset>

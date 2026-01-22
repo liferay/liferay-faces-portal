@@ -16,10 +16,10 @@ package com.liferay.faces.bridge.demos.bean;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 

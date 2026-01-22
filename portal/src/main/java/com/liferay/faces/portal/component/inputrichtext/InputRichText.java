@@ -18,12 +18,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.LengthValidator;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.FacesComponent;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.LengthValidator;
 
 import com.liferay.faces.portal.component.inputrichtext.internal.FailedToCalculatePlainTextCharCountException;
 import com.liferay.faces.portal.component.inputrichtext.internal.PlainTextCharUtil;

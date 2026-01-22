@@ -14,8 +14,8 @@
 package com.liferay.faces.portal.component.header;
 //J-
 
-import javax.annotation.Generated;
-import javax.faces.component.html.HtmlPanelGroup;
+import jakarta.annotation.Generated;
+import jakarta.faces.component.html.HtmlPanelGroup;
 
 import com.liferay.faces.util.component.Styleable;
 

@@ -18,8 +18,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.portal.context.LiferayPortletHelperUtil;
 

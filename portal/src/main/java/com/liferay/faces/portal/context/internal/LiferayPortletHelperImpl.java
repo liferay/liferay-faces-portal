@@ -16,12 +16,12 @@ package com.liferay.faces.portal.context.internal;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.faces.application.Application;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.PortletRequest;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.PortletRequest;
 
 import com.liferay.faces.portal.context.LiferayPortletHelper;
 import com.liferay.faces.portal.el.internal.Liferay;
