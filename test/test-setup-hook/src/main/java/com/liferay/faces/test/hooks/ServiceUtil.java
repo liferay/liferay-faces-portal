@@ -49,9 +49,9 @@ public final class ServiceUtil {
 		boolean manualMembership = false;
 		int membershipRestriction = GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION;
 
-		return GroupLocalServiceUtil.addGroup(userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, (String) null, 0L,
-				GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap, type, manualMembership,
-				membershipRestriction, friendlyURL, siteFlag, active, new ServiceContext());
+		return GroupLocalServiceUtil.addGroup("", userId, GroupConstants.DEFAULT_PARENT_GROUP_ID, (String) null, 0L,
+				GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap, descriptionMap, type, null, manualMembership,
+				membershipRestriction, friendlyURL, siteFlag, false, active, new ServiceContext());
 	}
 
 	public static Layout addLayout(long userId, long groupId, boolean privateLayout, long parentLayoutId, String name,

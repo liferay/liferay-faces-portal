@@ -336,17 +336,7 @@ public class WikiPageStringImpl implements WikiPage {
 	}
 
 	@Override
-	public TrashEntry getTrashEntry() throws PortalException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public long getTrashEntryClassPK() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public TrashHandler getTrashHandler() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -447,21 +437,6 @@ public class WikiPageStringImpl implements WikiPage {
 
 	@Override
 	public boolean isInTrash() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isInTrashContainer() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isInTrashExplicitly() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isInTrashImplicitly() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -704,4 +679,45 @@ public class WikiPageStringImpl implements WikiPage {
 	public String toXmlString() {
 		throw new UnsupportedOperationException();
 	}
+
+    @Override
+	public FileEntry
+			getAttachmentsFileEntryByExternalReferenceCode(
+				long groupId, String externalReferenceCode)
+		throws PortalException {
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+	public void setExternalReferenceCode(String externalReferenceCode) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+	public String getExternalReferenceCode() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+	public void setCtCollectionId(long ctCollectionId) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+	public long getCtCollectionId() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+	public void setMvccVersion(long mvccVersion) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+	public long getMvccVersion() {
+        throw new UnsupportedOperationException();
+    }
+
+    
 }

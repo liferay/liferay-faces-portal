@@ -31,6 +31,7 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
+import jakarta.servlet.WriteListener;
 
 import com.liferay.captcha.util.CaptchaUtil;
 
@@ -157,6 +158,16 @@ public class CaptchaResource extends Resource {
 		public void write(int b) throws IOException {
 			byteArrayOutputStream.write(b);
 		}
+
+        @Override
+        public void setWriteListener(WriteListener writeListener) {
+        }
+
+        @Override
+        public boolean isReady() {
+            return true;
+        }
+
 	}
 
 }
