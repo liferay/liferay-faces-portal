@@ -798,34 +798,34 @@
 			<dependency>
 				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.captcha.api</artifactId>
-				<version>1.1.0</version>
+				<version>10.0.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.captcha.taglib</artifactId>
-				<version>1.0.0</version>
+				<version>7.0.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>com.liferay.portal.kernel</artifactId>
 				<!-- CE.GA125/DXP.2024.Q3: https://github.com/liferay/liferay-portal/blob/7.4.3.125-ga125/portal-kernel/bnd.bnd#L3 -->
-				<version>146.0.1</version>
+				<version>178.0.0-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>com.liferay.util.taglib</artifactId>
 				<!-- CE.GA125/DXP.2024.Q3: https://github.com/liferay/liferay-portal/blob/7.4.3.125-ga125/util-taglib/bnd.bnd#L3 -->
-				<version>24.0.5</version>
+				<version>28.3.0-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>com.liferay.util.java</artifactId>
 				<!-- CE.GA125/DXP.2024.Q3: https://github.com/liferay/liferay-portal/blob/7.4.3.125-ga125/util-java/bnd.bnd#L3 -->
-				<version>19.0.4</version>
+				<version>22.0.2</version>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay</groupId>
@@ -850,6 +850,12 @@
 				<groupId>jakarta.annotation</groupId>
 				<artifactId>jakarta.annotation-api</artifactId>
 				<version>2.1.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.enterprise</groupId>
+				<artifactId>jakarta.enterprise.cdi-api</artifactId>
+				<version>4.1.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -885,6 +891,12 @@
 				<groupId>jakarta.servlet</groupId>
 				<artifactId>jakarta.servlet-api</artifactId>
 				<version>6.0.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject-api</artifactId>
+				<version>2.0.1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
