@@ -25,8 +25,8 @@ import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletException;
 import jakarta.portlet.RenderParameters;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.GenericFacesPortlet;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.GenericFacesPortlet;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
