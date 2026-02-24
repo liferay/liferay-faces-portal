@@ -8,7 +8,7 @@
 		<display-name>jsf-registration</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/portletViewMode.xhtml</value>
 		</init-param>
 		<supports>
