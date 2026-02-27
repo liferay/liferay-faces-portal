@@ -814,7 +814,7 @@
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>com.liferay.portal.kernel</artifactId>
 				<!-- CE.GA125/DXP.2024.Q3: https://github.com/liferay/liferay-portal/blob/7.4.3.125-ga125/portal-kernel/bnd.bnd#L3 -->
-				<version>179.0.0-SNAPSHOT</version>
+				<version>181.1.0-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
