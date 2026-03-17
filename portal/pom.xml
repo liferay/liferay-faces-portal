@@ -104,6 +104,23 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-baseline-maven-plugin</artifactId>
+				<version>${bnd.version}</version>
+				<configuration>
+					<includeDistributionManagement>false</includeDistributionManagement>
+					<fullReport>true</fullReport>
+				</configuration>
+				<executions>
+					<execution>
+						<id>baseline</id>
+						<goals>
+							<goal>baseline</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>net.alchim31.maven</groupId>
 				<artifactId>yuicompressor-maven-plugin</artifactId>
 				<executions>
