@@ -814,33 +814,33 @@
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>com.liferay.portal.kernel</artifactId>
 				<!-- DXP.2026.Q1: https://github.com/liferay/liferay-portal-ee/blob/release-2026.q1/portal-kernel/bnd.bnd#L3 -->
-				<version>181.0.1</version>
+				<version>181.0.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>com.liferay.util.taglib</artifactId>
 				<!-- DXP.2026.Q1: https://github.com/liferay/liferay-portal-ee/blob/release-2026.q1/util-taglib/bnd.bnd#L3 -->
-				<version>28.2.1</version>
+				<version>28.2.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>com.liferay.util.java</artifactId>
 				<!-- DXP.2026.Q1: https://github.com/liferay/liferay-portal-ee/blob/release-2026.q1/util-java/bnd.bnd#L3 -->
-				<version>22.0.2</version>
+				<version>22.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.dynamic.data.mapping.api</artifactId>
 				<!-- DXP.2026.Q1: https://github.com/liferay/liferay-portal-ee/blob/release-2026.q1/modules/apps/dynamic-data-mapping/dynamic-data-mapping-api/bnd.bnd#L3 -->
-				<version>35.6.2</version>
+				<version>35.6.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.journal.api</artifactId>
 				<!-- DXP.2026.Q1: https://github.com/liferay/liferay-portal-ee/blob/release-2026.q1/modules/apps/journal/journal-api/bnd.bnd#L3 -->
-				<version>41.0.2</version>
+				<version>41.0.1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
