@@ -49,14 +49,10 @@
 								com.liferay.faces.portal.el.internal,\
 								com.liferay.faces.portal.render.internal,\
 								com.liferay.faces.portal.component.inputrichtext.internal,\
-								com.liferay.faces.portal.component.navbar.internal,\
-								com.liferay.faces.portal.component.navbarsearch.internal,\
 								com.liferay.faces.portal.component.runtime.internal,\
 								com.liferay.faces.portal.component.inputsearch.internal,\
 								com.liferay.faces.portal.component.captcha.internal,\
 								com.liferay.faces.portal.component.permissionsurl.internal,\
-								com.liferay.faces.portal.component.nav.internal,\
-								com.liferay.faces.portal.component.navitem.internal,\
 								com.liferay.faces.portal.component.header.internal,\
 								com.liferay.faces.portal.resource.internal,\
 								com.liferay.faces.portal.jsp.internal
@@ -103,23 +99,6 @@
 					<execution>
 						<goals>
 							<goal>bnd-process</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>biz.aQute.bnd</groupId>
-				<artifactId>bnd-baseline-maven-plugin</artifactId>
-				<version>${bnd.version}</version>
-				<configuration>
-					<includeDistributionManagement>false</includeDistributionManagement>
-					<fullReport>true</fullReport>
-				</configuration>
-				<executions>
-					<execution>
-						<id>baseline</id>
-						<goals>
-							<goal>baseline</goal>
 						</goals>
 					</execution>
 				</executions>
