@@ -20,9 +20,6 @@ import jakarta.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.navitem.NavItem;
 
-import com.liferay.taglib.aui.NavItemTag;
-
-
 /**
  * @author  Neil Griffin
  */

@@ -30,9 +30,6 @@ import jakarta.servlet.jsp.tagext.Tag;
 import com.liferay.faces.portal.component.nav.Nav;
 import com.liferay.faces.portal.component.navitem.NavItem;
 
-import com.liferay.taglib.aui.NavTag;
-
-
 /**
  * @author  Neil Griffin
  * @author  Juan Gonzalez

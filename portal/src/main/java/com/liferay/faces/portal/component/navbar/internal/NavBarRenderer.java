@@ -24,8 +24,6 @@ import jakarta.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.navbar.NavBar;
 
-import com.liferay.taglib.aui.NavBarTag;
-
 
 /**
  * @author  Neil Griffin

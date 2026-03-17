@@ -21,9 +21,6 @@ import jakarta.servlet.jsp.tagext.Tag;
 
 import com.liferay.faces.portal.component.navbarsearch.NavBarSearch;
 
-import com.liferay.taglib.aui.NavBarSearchTag;
-
-
 /**
  * @author  Juan Gonzalez
  */
