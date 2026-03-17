@@ -61,33 +61,33 @@
 							Import-Package: \
 								!com.liferay.faces.portal,\
 								!com.liferay.faces.portal.*,\
-								com.liferay.expando.kernel.model,\
-								com.liferay.exportimport.kernel.lar,\
-								com.liferay.portal.kernel.captcha,\
-								com.liferay.portal.kernel.exception,\
-								com.liferay.portal.kernel.model,\
-								com.liferay.portal.kernel.portlet,\
-								com.liferay.portal.kernel.repository.model,\
-								com.liferay.portal.kernel.security.permission,\
-								com.liferay.portal.kernel.service,\
-								com.liferay.portal.kernel.service.permission,\
-								com.liferay.portal.kernel.servlet,\
-								com.liferay.portal.kernel.theme,\
-								com.liferay.portal.kernel.trash,\
-								com.liferay.portal.kernel.util,\
-								com.liferay.taglib,\
-								com.liferay.taglib.aui,\
-								com.liferay.taglib.portletext,\
-								com.liferay.taglib.security,\
-								com.liferay.taglib.ui,\
-								com.liferay.trash.kernel.model,\
-								com.liferay.wiki.engine,\
-								com.liferay.wiki.model,\
-								com.liferay.captcha.taglib.servlet.taglib,\
-								com.liferay.captcha.util,\
-								com.liferay.portal.kernel.parsers.bbcode,\
-								com.liferay.portal.kernel.xml,\
-								com.liferay.wiki.exception,\
+								com.liferay.expando.kernel.model;version=6.2,\
+								com.liferay.exportimport.kernel.lar;version=11.0,\
+								com.liferay.portal.kernel.captcha;version=9.0,\
+								com.liferay.portal.kernel.exception;version=16.5,\
+								com.liferay.portal.kernel.model;version=48.0,\
+								com.liferay.portal.kernel.portlet;version=34.0,\
+								com.liferay.portal.kernel.repository.model;version=14.0,\
+								com.liferay.portal.kernel.security.permission;version=13.0,\
+								com.liferay.portal.kernel.service;version=52.0,\
+								com.liferay.portal.kernel.service.permission;version=12.1,\
+								com.liferay.portal.kernel.servlet;version=17.2,\
+								com.liferay.portal.kernel.theme;version=14.1,\
+								com.liferay.portal.kernel.trash;version=15.0,\
+								com.liferay.portal.kernel.util;version=96.4,\
+								com.liferay.taglib;version=11.0,\
+								com.liferay.taglib.aui;version=19.2,\
+								com.liferay.taglib.portletext;version=12.0,\
+								com.liferay.taglib.security;version=9.0,\
+								com.liferay.taglib.ui;version=25.0,\
+								com.liferay.trash.kernel.model;version=6.0,\
+								com.liferay.wiki.engine;version=3.0,\
+								com.liferay.wiki.model;version=5.2,\
+								com.liferay.captcha.taglib.servlet.taglib;version=3.0,\
+								com.liferay.captcha.util;version=4.0,\
+								com.liferay.portal.kernel.parsers.bbcode;version=7.0,\
+								com.liferay.portal.kernel.xml;version=7.2,\
+								com.liferay.wiki.exception;version=4.0,\
 								jakarta.el;version="[2.2.0,6.0.0)",\
 								jakarta.portlet;version="[3.0.0,5.0.0)",\
 								*
