@@ -27,6 +27,10 @@
 		<param-name>com.sun.faces.namespaceParameters</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	<context-param>
+		<param-name>com.liferay.faces.bridge.ext.application.disabledAMDLoaderResources</param-name>
+		<param-value>bootstrap:js/jquery.min.js,bootstrap:js/bootstrap.min.js</param-value>
+	</context-param>
 	<listener>
 		<listener-class>com.liferay.faces.showcase.servlet.UploadedFileCleanupListener</listener-class>
 	</listener>
