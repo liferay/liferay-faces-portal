@@ -154,8 +154,8 @@
 					the selenium-portal-showcase profile.
 				-->
 				<dependency>
-					<groupId>com.liferay.faces.demo</groupId>
-					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
 					<version>${liferay.faces.showcase.version}</version>
 					<type>test-jar</type>
 					<scope>test</scope>
@@ -222,8 +222,8 @@
 			</build>
 			<dependencies>
 				<dependency>
-					<groupId>com.liferay.faces.demo</groupId>
-					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
 					<version>${liferay.faces.showcase.version}</version>
 					<type>test-jar</type>
 					<scope>test</scope>

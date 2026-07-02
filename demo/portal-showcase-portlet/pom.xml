@@ -99,12 +99,12 @@
 			<scope>${war.dependency.scope}</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.demo</groupId>
+			<groupId>com.liferay</groupId>
 			<artifactId>com.liferay.faces.demo.showcase.common</artifactId>
 			<version>${liferay.faces.showcase.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.demo</groupId>
+			<groupId>com.liferay</groupId>
 			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
 			<version>${liferay.faces.showcase.version}</version>
 			<type>war</type>
